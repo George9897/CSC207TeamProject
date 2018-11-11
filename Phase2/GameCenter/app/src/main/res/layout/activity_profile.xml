@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="fall2018.csc2017.GameCenter.ProfileActivity">
+
+    <ImageView
+        android:id="@+id/avatarImage"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="127dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="127dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/usernameInfo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars[3]" />
+
+    <TextView
+        android:id="@+id/usernameInfo"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="131dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="131dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="Username"
+        app:layout_constraintBottom_toTopOf="@+id/passwordInfo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/avatarImage" />
+
+    <TextView
+        android:id="@+id/passwordInfo"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="131dp"
+        android:layout_marginEnd="131dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="Password"
+        app:layout_constraintBottom_toTopOf="@+id/recordInfo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usernameInfo" />
+
+    <TextView
+        android:id="@+id/recordInfo"
+        android:layout_width="300dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="57dp"
+        android:gravity="center"
+        android:text="Record"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordInfo" />
+</android.support.constraint.ConstraintLayout>

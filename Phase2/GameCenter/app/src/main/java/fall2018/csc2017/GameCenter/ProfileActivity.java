@@ -1,0 +1,121 @@
+package fall2018.csc2017.GameCenter;
+
+import android.net.Uri;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+
+/**
+ * The profile Activity.
+ */
+public class ProfileActivity extends AppCompatActivity {
+    /**
+     * username information.
+     */
+    TextView usernameInfo;
+    /**
+     * password information.
+     */
+    TextView passwordInfo;
+    /**
+     * record information.
+     */
+    TextView recordInfo;
+    /**
+     * avatar information.
+     */
+    ImageView userAvatar;
+
+    /**
+     * The AccountManager.
+     */
+    AccountManager accountManager;
+    /**
+     * The ScoreBoard.
+     */
+    ScoreBoard scoreBoard;
+    /**
+     * The Uri of avatar.
+     */
+    Uri avatar;
+    /**
+     * The string of uri.
+     */
+    String stringUri;
+
+    /**
+     * generate information when create this activity.
+     */
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_profile);
+
+        accountManager = AccountManager.getAccountManager();
+        scoreBoard = ScoreBoard.getScoreBoard(this);
+        usernameInfo = findViewById(R.id.usernameInfo);
+        passwordInfo = findViewById(R.id.passwordInfo);
+        recordInfo = findViewById(R.id.recordInfo);
+        userAvatar = findViewById(R.id.avatarImage);
+
+        loadFromFile(accountManager.userName + "Avatar.ser");
+        //avatar = Uri.parse(stringUri);
+        usernameInfo.setText("Username: " + accountManager.userName);
+        passwordInfo.setText("Password: " + accountManager.map.get(accountManager.userName));
+        recordInfo.setText(record());
+        userAvatar.setImageURI(avatar);
+    }
+
+    /**
+     * helper function for records.
+     *
+     * @return record information.
+     */
+    private String record() {
+        String record5 = scoreBoard.toString(5, accountManager.userName);
+        String record4 = scoreBoard.toString(4, accountManager.userName);
+        String record3 = scoreBoard.toString(3, accountManager.userName);
+        if (record3.equals("")) {
+            record3 = "No records.";
+        }
+        if (record4.equals("")) {
+            record4 = "No records.";
+        }
+        if (record5.equals("")) {
+            record5 = "No records.";
+        }
+        String result = "Records:\n\n5x5\n" + record5 + "\n\n" + "4x4\n" + record4
+                + "\n\n" + "3x3\n" + record3;
+        return result;
+    }
+
+    /**
+     * Load the avatar from fileName.
+     *
+     * @param fileName the name of the file
+     */
+    private void loadFromFile(String fileName) {
+
+        try {
+            InputStream inputStream = this.openFileInput(fileName);
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                stringUri = (String) input.readObject();
+                inputStream.close();
+            }
+        } catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+        }
+    }
+}
