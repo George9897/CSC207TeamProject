@@ -33,7 +33,7 @@ public class GameCenterActivity extends AppCompatActivity implements Serializabl
         setContentView(R.layout.activity_game_center);
 
         addTileGameButton();
-        addTileGameButton();
+        addMineGameButton();
     }
 
     /**
