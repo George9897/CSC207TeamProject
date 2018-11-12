@@ -32,7 +32,6 @@
             android:exported="true" />
         <activity android:name=".SudokuBoardActivity"></activity>
         <activity android:name=".MineSettingActivity" />
-        <!--<activity android:name=".MineStartingActivity" />-->
         <activity android:name=".MineGameActivity"></activity>
     </application>
 
