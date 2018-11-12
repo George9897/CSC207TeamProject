@@ -1,5 +1,6 @@
 package fall2018.csc2017.GameCenter;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,8 +9,6 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.ArrayList;
-
-import fall2018.csc2017.GameCenter.Mine;
 
 /**
  * The Mine game manager.
@@ -94,7 +93,7 @@ public class MineManager extends View {
 
         for (int i = 0; i < mine.boardRow; i++) {
             for (int j = 0; j < mine.boardCol; j++) {
-                if (!mine.mineTile[i][j].open) {
+                if (!mine.mineTile[i][j].isOpen) {
                     count++;
                 }
             }
@@ -130,21 +129,13 @@ public class MineManager extends View {
         new AlertDialog.Builder(context)
                 .setMessage("Victory!")
                 .setCancelable(false)
-                .setPositiveButton("I want play again.", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                .setPositiveButton("I want play again.", (dialog, which) -> {
 
-                        mine.init();
-                        invalidate();
-                        isFirst = true;
-                    }
+                    mine.init();
+                    invalidate();
+                    isFirst = true;
                 })
-                .setNegativeButton("Exit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        System.exit(0);
-                    }
-                })
+                .setNegativeButton("Exit", (dialog, which) -> System.exit(0))
                 .create()
                 .show();
     }
@@ -157,22 +148,14 @@ public class MineManager extends View {
         new AlertDialog.Builder(context)
                 .setCancelable(false)
                 .setMessage("You Shall Not Pass！")
-                .setPositiveButton("Heroes never die!(Undo)", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        mine.init();
-                        isFalse = true;
-                        isFirst = true;
+                .setPositiveButton("Heroes never die!(Undo)", (dialog, which) -> {
+                    mine.init();
+                    isFalse = true;
+                    isFirst = true;
 
-                        invalidate();
-                    }
+                    invalidate();
                 })
-                .setNegativeButton("Exit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        System.exit(0);
-                    }
-                })
+                .setNegativeButton("Exit", (dialog, which) -> System.exit(0))
                 .create()
                 .show();
     }
@@ -180,7 +163,7 @@ public class MineManager extends View {
     /**
      * refresh View.
      *
-     * @param canvas
+     * @param canvas The drawing tool for the board.
      */
     @Override
     protected void onDraw(Canvas canvas) {
@@ -190,9 +173,10 @@ public class MineManager extends View {
     /**
      * On touch event.
      *
-     * @param event
-     * @return True if
+     * @param event The event.
+     * @return True if the user tapped.
      */
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
