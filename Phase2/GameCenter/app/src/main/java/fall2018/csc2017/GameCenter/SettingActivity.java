@@ -65,7 +65,7 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         saveToFile(TEMP_SAVE_FILENAME);
-        setContentView(R.layout.activity_setting);
+        setContentView(R.layout.activity_slidingtile_setting);
 
         Spinner spinner = findViewById(R.id.spinner);
 

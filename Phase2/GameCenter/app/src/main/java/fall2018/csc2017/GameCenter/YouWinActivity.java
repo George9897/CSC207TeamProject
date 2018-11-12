@@ -34,7 +34,7 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
                 boardManager = BoardManager.getBoardManager(this);
                 scoreBox.setText((Integer.toString(boardManager.getScore())));
                 break;
-            case "MineBoard":
+            case "Mine":
                 mineManager = MineManager.getMineManager(this);
                 scoreBox.setText((Integer.toString(mineManager.getScore())) + "\n\r" + "Time: "
                         + (Integer.toString(mineManager.getTime())) + " Second");
@@ -82,7 +82,7 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
                     Intent SlidingTileTmp = new Intent(this, SettingActivity.class);
                     startActivity(SlidingTileTmp);
                     break;
-                case "MineBoard":
+                case "Mine":
                     Intent MineTmp = new Intent(this, MineSettingActivity.class);
                     startActivity(MineTmp);
                     break;

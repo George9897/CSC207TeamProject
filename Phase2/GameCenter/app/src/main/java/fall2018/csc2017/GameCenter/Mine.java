@@ -12,9 +12,9 @@ import java.util.Queue;
 import java.util.Random;
 
 /**
- * The MineBoard board.
+ * The Mine board.
  */
-public class MineBoard {
+public class Mine {
     /**
      * The x coordinate.
      */
@@ -96,16 +96,6 @@ public class MineBoard {
             {0, -1},//lower
             {1, -1}//lower-right
     };
-    /**
-     * The game setting.
-     */
-    private final ArrayList<Integer> gameSettings;
-
-    /**
-     * The board for revive the user.
-     */
-    MineBoard lastMineBoard;
-
 
     /**
      * Getter for number of booms.
@@ -154,29 +144,28 @@ public class MineBoard {
     private void setTilePaint() {
         tilePaint = new Paint();
         tilePaint.setAntiAlias(true);
-        tilePaint.setColor(Color.LTGRAY);
+        tilePaint.setColor(0xff1faeff);
     }
     private void setMinePaint(){
         Paint minePaint = new Paint();
         minePaint.setAntiAlias(true);
-        minePaint.setColor(Color.BLACK);
+        minePaint.setColor(0xffff981d);
     }
 
     private void setSeparationLinePaint() {
         separationLinePaint = new Paint();
         separationLinePaint.setAntiAlias(true);
-        separationLinePaint.setColor(Color.BLACK);
+        separationLinePaint.setColor(0xff000000);
         separationLinePaint.setStyle(Paint.Style.STROKE);
     }
 
 
     /**
-     * The constructor of MineBoard game.
+     * The constructor of Mine game.
      *
      * @param gameSettings The game settings for one game play.
      */
-    MineBoard(ArrayList<Integer> gameSettings) {
-        this.gameSettings = gameSettings;
+    Mine(ArrayList<Integer> gameSettings) {
         this.x = gameSettings.get(0);
         this.y = gameSettings.get(1);
         this.boardCol = gameSettings.get(2);
@@ -214,11 +203,13 @@ public class MineBoard {
      *
      * @param exception This position doesn't contain booms.
      */
-    private void createBooms(MinePoint exception) {
+    public void createBooms(MinePoint exception) {
         List<MinePoint> allMinePoint = new LinkedList<>();
 
-        for (int row = 0; row < boardRow; row++) {
-            for (int col = 0; col < boardCol; col++) {
+        for (int row = 0; row < boardRow; row++)//y
+        {
+            for (int col = 0; col < boardCol; col++)//x
+            {
                 MinePoint minePoint = new MinePoint(col, row);
                 if (!minePoint.equals(exception)) {
                     allMinePoint.add(minePoint);
@@ -240,8 +231,10 @@ public class MineBoard {
         }
 
         //Add number to some tiles.
-        for (int row = 0; row < boardRow; row++) {
-            for (int col = 0; col < boardCol; col++) {
+        for (int row = 0; row < boardRow; row++)//y
+        {
+            for (int col = 0; col < boardCol; col++)//x
+            {
                 short tile = this.mineTile[row][col].value;
                 if (tile == BOOM) {
                     for (int k = 0; k < 8; k++) {
@@ -267,7 +260,6 @@ public class MineBoard {
      * @param isFirst First touch or not.
      */
     void touchOpen(MinePoint openMinePoint, boolean isFirst) {
-        lastMineBoard = this.copy();
         if (isFirst) {
             createBooms(openMinePoint);
         }
@@ -275,7 +267,7 @@ public class MineBoard {
         mineTile[openMinePoint.y][openMinePoint.x].isOpen = true;
         if (mineTile[openMinePoint.y][openMinePoint.x].value == -1)
             return;
-            //tap the mineTile with a number.
+        //tap the mineTile with a number.
         else if (mineTile[openMinePoint.y][openMinePoint.x].value > 0)
         {
             return;
@@ -283,41 +275,46 @@ public class MineBoard {
         Queue<MinePoint> minePointQueue = new LinkedList<>();
         //add the first point.
         minePointQueue.offer(new MinePoint(openMinePoint.x, openMinePoint.y));
+
         //Search all 8 surroundings.
+        for (int i = 0; i < 8; i++) {
+            int offsetX = openMinePoint.x + getSurrounding_directions()[i][0],
+                    offsetY = openMinePoint.y + getSurrounding_directions()[i][1];
+            //Check given minePoint is offset and whether opened or not.
+            boolean isCan = offsetX >= 0 && offsetX < boardCol && offsetY >= 0 &&
+                    offsetY < boardRow;
+            if (isCan) {
+                if (mineTile[offsetY][offsetX].value == 0 && !mineTile[offsetY][offsetX].isOpen) {
+                    minePointQueue.offer(new MinePoint(offsetX, offsetY));
+                } else if (mineTile[offsetY][offsetX].value > 0) {
+                    mineTile[offsetY][offsetX].isOpen = true;
+                }
+            }
+
+        }
+
         while (minePointQueue.size() != 0) {
             MinePoint minePoint = minePointQueue.poll();
             assert minePoint != null;
             mineTile[minePoint.y][minePoint.x].isOpen = true;
             for (int i = 0; i < 8; i++) {
-                int surroundingX = minePoint.x + getSurrounding_directions()[i][0],
-                        surroundingY = minePoint.y + getSurrounding_directions()[i][1];
-                //Check given minePoint's surroundings and whether they are opened or not.
-                boolean isOpenable = surroundingX >= 0 && surroundingX < boardCol &&
-                        surroundingY >= 0 && surroundingY < boardRow;
-                if (isOpenable) {
-                    //Make all surroundings that is not boom white new tiles with nothing in it.
-                    if (mineTile[surroundingY][surroundingX].value == 0 &&
-                            !mineTile[surroundingY][surroundingX].isOpen) {
-                        minePointQueue.offer(new MinePoint(surroundingX, surroundingY));
-                        //Show the special tile.
-                    } else if (mineTile[surroundingY][surroundingX].value > 0) {
-                        mineTile[surroundingY][surroundingX].isOpen = true;
+                int offsetX = minePoint.x + getSurrounding_directions()[i][0],
+                        offsetY = minePoint.y + getSurrounding_directions()[i][1];
+                //Check given minePoint is offset.
+                boolean isCan = offsetX >= 0 && offsetX < boardCol && offsetY >= 0 &&
+                        offsetY < boardRow;
+                if (isCan) {
+                    if (mineTile[offsetY][offsetX].value == 0 &&
+                            !mineTile[offsetY][offsetX].isOpen) {
+                        minePointQueue.offer(new MinePoint(offsetX, offsetY));
+                    } else if (mineTile[offsetY][offsetX].value > 0) {
+                        mineTile[offsetY][offsetX].isOpen = true;
                     }
                 }
 
             }
         }
 
-    }
-
-    /**
-     * Copy the current MineBoard board.
-     */
-    private MineBoard copy(){
-        MineBoard newBoard = new MineBoard(this.gameSettings);
-        newBoard.mineTile = this.mineTile.clone();
-        newBoard.isDrawBooms = false;
-        return newBoard;
     }
 
     /**
@@ -363,5 +360,7 @@ public class MineBoard {
             canvas.drawLine(x + i * tileWidth, y, x + i * tileWidth,
                     y + boardHeight, getSeparationLinePaint());
         }
+
     }
+
 }

@@ -163,12 +163,12 @@ class BoardManager implements Serializable, Undoable {
 
         int k = 0;
         //int blankID = 0;
-        int bPosi = (level)^2;
+        int bPosi = (level)*(level)-1;
         // Random choose i
         Random r1 = new Random();
         int i = 50 + r1.nextInt(50);
-        // List history;
-        while (k <= i){
+        ArrayList history = new ArrayList();
+        while (k <= 10){
             ArrayList swapChoices = new ArrayList();
             int random_direction;
             int row = bPosi / level;
@@ -191,11 +191,15 @@ class BoardManager implements Serializable, Undoable {
             }
             // Random choose an element from swapChoices, then swap them.
             Random r2 = new Random();
-            int d = bPosi + (int)(swapChoices.get(r2.nextInt(swapChoices.size())));
+            int c = (int)(swapChoices.get(r2.nextInt(swapChoices.size())));
+            history.add(c);
+            int d = bPosi + c;
             this.slidingTile.swapTiles(row, col, d / level, d % level);
             bPosi = d;
             k++;
+            System.out.println(bPosi);
         }
+        System.out.println(history);
 
     }
 

@@ -41,6 +41,7 @@ public class MovementController implements Serializable {
             if (boardManager.puzzleSolved()) {
                 Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
                 Intent tmp = new Intent(context, YouWinActivity.class);
+                tmp.putExtra("gameType","SlidingTile" );
                 context.startActivity(tmp);
             }
         } else {

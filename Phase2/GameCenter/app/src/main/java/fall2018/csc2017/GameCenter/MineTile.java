@@ -1,7 +1,7 @@
 package fall2018.csc2017.GameCenter;
 
 /**
- * The Tiles for MineBoard.
+ * The Tiles for Mine.
  */
 class MineTile {
     /**
