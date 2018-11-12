@@ -3,14 +3,13 @@ package fall2018.csc2017.GameCenter;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.ArrayList;
 import java.util.Timer;
-
-import static fall2018.csc2017.GameCenter.MineScore.calculateScore;
 
 /**
  * The MineBoard game manager.
@@ -42,6 +41,8 @@ public class MineManager extends View {
      */
     private int score;
 
+    private int time;
+
     /**
      * The time.
      */
@@ -65,12 +66,16 @@ public class MineManager extends View {
      */
     private int TILE_WIDTH = 50;
 
+    private MineScorer scorer = new MineScorer();
+
     private boolean isFalse = false;
+
+    private static MineManager mineManager;
 
     /**
      * The constructor of MineManager.
      */
-    public MineManager(Context context) {
+    private MineManager(Context context) {
         super(context);
         this.context = context;
 
@@ -83,11 +88,24 @@ public class MineManager extends View {
         gameSettings.add(numBoom);
         gameSettings.add(TILE_WIDTH);
         mineBoard = new MineBoard(gameSettings);
+        timer.schedule(scorer, 0,1000);
         try {
-            mineBoard.createBoard();
+            mineBoard.init();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static MineManager getMineManager(Context context){
+        if (mineManager == null){
+            mineManager = new MineManager(context);
+        }
+        return mineManager;
+    }
+
+    public static MineManager getNewMineManager(Context context){
+        mineManager = new MineManager(context);
+        return mineManager;
     }
 
     /**
@@ -96,8 +114,14 @@ public class MineManager extends View {
     public void winning() {
         if (puzzleSolved()) {
             sentVictoryAlertDialog();
-            score = calculateScore(numBoom, secondPassed);
+            this.score = scorer.getFinalScore(numBoom);
+            this.time = scorer.getTimeScore();
+            timer.cancel();
         }
+    }
+
+    public int getTime() {
+        return time;
     }
 
     /**
@@ -124,7 +148,8 @@ public class MineManager extends View {
      * @return is the puzzle solved.
      */
     private boolean puzzleSolved() {
-        return getUnopenedTile() == numBoom;
+        int UnopenedTile = getUnopenedTile();
+        return UnopenedTile == numBoom;
     }
 
     /**
@@ -146,12 +171,24 @@ public class MineManager extends View {
                 .setMessage("Victory!")
                 .setCancelable(false)
                 .setPositiveButton("I want play again.", (dialog, which) -> {
-                mineBoard.createBoard();
-                invalidate();
-                isFirst = true; })
-                .setNegativeButton("Quit", (dialog, which) -> System.exit(0))
+
+                    resetTheGame();
+                })
+                .setNegativeButton("Exit", (dialog, which) -> finish())
                 .create()
                 .show();
+    }
+
+    private void finish(){
+        Intent tmp = new Intent(context, YouWinActivity.class);
+        tmp.putExtra("gameType","MineBoard" );
+        context.startActivity(tmp);
+    }
+
+    public void resetTheGame(){
+        mineBoard.init();
+        invalidate();
+        isFirst = true;
     }
 
     /**
@@ -164,14 +201,15 @@ public class MineManager extends View {
                 .setMessage("You Shall Not Pass！")
                 .setPositiveButton("Heroes never die!", (dialog, which) -> {
                     mineBoard = mineBoard.lastMineBoard;
-                    invalidate(); })
-                .setNegativeButton("Quit", (dialog, which) -> System.exit(0))
+                    invalidate();
+                })
+                .setNegativeButton("Exit", (dialog, which) -> finish())
                 .create()
                 .show();
     }
 
     /**
-     * Refresh View.
+     * refresh View.
      *
      * @param canvas The drawing tool for the board.
      */
@@ -201,6 +239,9 @@ public class MineManager extends View {
 
                 if (puzzleFailed(idxY, idxX)) {
                     sentDefeatedAlertDialog();
+                    score = 0;
+                    time = scorer.getTimeScore();
+                    timer.cancel();
                 }
                 if (isFalse) {
                     isFalse = false;
@@ -208,6 +249,7 @@ public class MineManager extends View {
                     return true;
                 }
                 winning();
+
                 invalidate();
             }
 
@@ -216,7 +258,7 @@ public class MineManager extends View {
     }
 
     /**
-     * Check touch event is in the range. Helper for onTouchEvent.
+     * Check touch event is in the range. Helper for
      *
      * @param x Given x coordinate.
      * @param y Given y coordinate.
@@ -227,5 +269,9 @@ public class MineManager extends View {
                 y >= mineBoard.y &&
                 x <= (mineBoard.boardWidth + mineBoard.x) &&
                 y <= (mineBoard.y + mineBoard.boardHeight);
+    }
+
+    public int getScore() {
+        return score;
     }
 }

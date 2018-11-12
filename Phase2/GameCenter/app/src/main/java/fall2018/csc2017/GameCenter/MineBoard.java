@@ -14,8 +14,7 @@ import java.util.Random;
 /**
  * The MineBoard board.
  */
-class MineBoard {
-    private final ArrayList<Integer> gameSettings;
+public class MineBoard {
     /**
      * The x coordinate.
      */
@@ -97,8 +96,16 @@ class MineBoard {
             {0, -1},//lower
             {1, -1}//lower-right
     };
-
+    /**
+     * The game setting.
+     */
+    private final ArrayList<Integer> gameSettings;
+    
+    /**
+     * The board for revive the user.
+     */
     MineBoard lastMineBoard;
+
 
     /**
      * Getter for number of booms.
@@ -188,9 +195,9 @@ class MineBoard {
     }
 
     /**
-     * Create the board.
+     * Initialize the board.
      */
-    void createBoard() {
+    void init() {
         for (int row = 0; row < boardRow; row++) {
             for (int col = 0; col < boardCol; col++) {
                 mineTile[row][col] = new MineTile();
@@ -227,10 +234,11 @@ class MineBoard {
             allMinePoint.remove(idx);
         }
 
-        //Mark the positions of booms.
+        //Mark the position of booms.
         for (MinePoint nextMinePoint : mineMinePoint) {
             mineTile[nextMinePoint.y][nextMinePoint.x].value = BOOM;
         }
+
         //Add number to some tiles.
         for (int row = 0; row < boardRow; row++) {
             for (int col = 0; col < boardCol; col++) {
@@ -267,7 +275,7 @@ class MineBoard {
         mineTile[openMinePoint.y][openMinePoint.x].isOpen = true;
         if (mineTile[openMinePoint.y][openMinePoint.x].value == -1)
             return;
-        //tap the mineTile with a number.
+            //tap the mineTile with a number.
         else if (mineTile[openMinePoint.y][openMinePoint.x].value > 0)
         {
             return;
@@ -303,9 +311,9 @@ class MineBoard {
     }
 
     /**
-     * Copy the current Mine board.
+     * Copy the current MineBoard board.
      */
-    MineBoard copy(){
+    private MineBoard copy(){
         MineBoard newBoard = new MineBoard(this.gameSettings);
         newBoard.mineTile = this.mineTile.clone();
         newBoard.isDrawBooms = false;
@@ -321,7 +329,6 @@ class MineBoard {
         for (int row = 0; row < boardRow; row++) {
             for (int col = 0; col < boardCol; col++) {
                 MineTile mineTile = this.mineTile[row][col];
-                //Draw the number for representing number of booms.
                 if (mineTile.isOpen) {
                     if (mineTile.value > 0) {
                         canvas.drawText(mineTile.value + "", x + col * tileWidth,
@@ -356,7 +363,5 @@ class MineBoard {
             canvas.drawLine(x + i * tileWidth, y, x + i * tileWidth,
                     y + boardHeight, getSeparationLinePaint());
         }
-
     }
-
 }
