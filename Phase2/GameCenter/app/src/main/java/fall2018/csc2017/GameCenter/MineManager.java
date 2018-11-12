@@ -13,14 +13,14 @@ import java.util.Timer;
 import static fall2018.csc2017.GameCenter.MineScore.calculateScore;
 
 /**
- * The Mine game manager.
+ * The MineBoard game manager.
  */
 public class MineManager extends View {
 
     /**
-     * The Mine board.
+     * The MineBoard board.
      */
-    private Mine mine;
+    private MineBoard mineBoard;
 
     /**
      * The mark of whether the user tapped for at least once.
@@ -82,18 +82,18 @@ public class MineManager extends View {
         gameSettings.add(ROW);
         gameSettings.add(numBoom);
         gameSettings.add(TILE_WIDTH);
-        mine = new Mine(gameSettings);
+        mineBoard = new MineBoard(gameSettings);
         try {
-            mine.init();
+            mineBoard.createBoard();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Game logic.
+     * Game winning.
      */
-    public void logic() {
+    public void winning() {
         if (puzzleSolved()) {
             sentVictoryAlertDialog();
             score = calculateScore(numBoom, secondPassed);
@@ -108,9 +108,9 @@ public class MineManager extends View {
     private int getUnopenedTile() {
         int count = 0;
 
-        for (int i = 0; i < mine.boardRow; i++) {
-            for (int j = 0; j < mine.boardCol; j++) {
-                if (!mine.mineTile[i][j].isOpen) {
+        for (int i = 0; i < mineBoard.boardRow; i++) {
+            for (int j = 0; j < mineBoard.boardCol; j++) {
+                if (!mineBoard.mineTile[i][j].isOpen) {
                     count++;
                 }
             }
@@ -124,8 +124,7 @@ public class MineManager extends View {
      * @return is the puzzle solved.
      */
     private boolean puzzleSolved() {
-        int UnopenedTile = getUnopenedTile();
-        return UnopenedTile == numBoom;
+        return getUnopenedTile() == numBoom;
     }
 
     /**
@@ -135,8 +134,8 @@ public class MineManager extends View {
      * @param idxX boom x coordinate.
      * @return True if boom is tapped.
      */
-    private boolean puzzleFail(int idxY, int idxX) {
-        return mine.mineTile[idxY][idxX].value == -1;
+    private boolean puzzleFailed(int idxY, int idxX) {
+        return mineBoard.mineTile[idxY][idxX].value == -1;
     }
 
     /**
@@ -147,12 +146,10 @@ public class MineManager extends View {
                 .setMessage("Victory!")
                 .setCancelable(false)
                 .setPositiveButton("I want play again.", (dialog, which) -> {
-
-                    mine.init();
-                    invalidate();
-                    isFirst = true;
-                })
-                .setNegativeButton("Exit", (dialog, which) -> System.exit(0))
+                mineBoard.createBoard();
+                invalidate();
+                isFirst = true; })
+                .setNegativeButton("Quit", (dialog, which) -> System.exit(0))
                 .create()
                 .show();
     }
@@ -161,30 +158,27 @@ public class MineManager extends View {
      * Send an failing AlertDialog and guild player to next activity.
      */
     private void sentDefeatedAlertDialog() {
-        mine.isDrawBooms = true;
+        mineBoard.isDrawBooms = true;
         new AlertDialog.Builder(context)
                 .setCancelable(false)
                 .setMessage("You Shall Not Pass！")
                 .setPositiveButton("Heroes never die!", (dialog, which) -> {
-                    mine.init();
-                    isFalse = true;
-                    isFirst = true;
+                    mineBoard = mineBoard.lastMineBoard;
 
-                    invalidate();
-                })
-                .setNegativeButton("Exit", (dialog, which) -> System.exit(0))
+                    invalidate(); })
+                .setNegativeButton("Quit", (dialog, which) -> System.exit(0))
                 .create()
                 .show();
     }
 
     /**
-     * refresh View.
+     * Refresh View.
      *
      * @param canvas The drawing tool for the board.
      */
     @Override
     protected void onDraw(Canvas canvas) {
-        mine.draw(canvas);
+        mineBoard.draw(canvas);
     }
 
     /**
@@ -201,12 +195,12 @@ public class MineManager extends View {
             int y = (int) event.getY();
 
             if (checkRange(x, y)) {
-                int idxX = (x - mine.x) / mine.tileWidth;
-                int idxY = (y - mine.y) / mine.tileWidth;
-                mine.touchOpen(new MinePoint(idxX, idxY), isFirst);
+                int idxX = (x - mineBoard.x) / mineBoard.tileWidth;
+                int idxY = (y - mineBoard.y) / mineBoard.tileWidth;
+                mineBoard.touchOpen(new MinePoint(idxX, idxY), isFirst);
                 isFirst = false;
 
-                if (puzzleFail(idxY, idxX)) {
+                if (puzzleFailed(idxY, idxX)) {
                     sentDefeatedAlertDialog();
                 }
                 if (isFalse) {
@@ -214,8 +208,7 @@ public class MineManager extends View {
                     invalidate();
                     return true;
                 }
-                logic();
-
+                winning();
                 invalidate();
             }
 
@@ -224,16 +217,16 @@ public class MineManager extends View {
     }
 
     /**
-     * Check touch event is in the range. Helper for
+     * Check touch event is in the range. Helper for onTouchEvent.
      *
      * @param x Given x coordinate.
      * @param y Given y coordinate.
      * @return True if x and y are in the range, false otherwise.
      */
     private boolean checkRange(int x, int y) {
-        return x >= mine.x &&
-                y >= mine.y &&
-                x <= (mine.boardWidth + mine.x) &&
-                y <= (mine.y + mine.boardHeight);
+        return x >= mineBoard.x &&
+                y >= mineBoard.y &&
+                x <= (mineBoard.boardWidth + mineBoard.x) &&
+                y <= (mineBoard.y + mineBoard.boardHeight);
     }
 }
