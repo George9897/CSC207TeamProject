@@ -100,7 +100,7 @@ public class MineBoard {
      * The game setting.
      */
     private final ArrayList<Integer> gameSettings;
-    
+
     /**
      * The board for revive the user.
      */
