@@ -4,7 +4,6 @@ import android.content.Context;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -60,25 +59,6 @@ public class SudokuBoardManager implements Serializable {
     private int score;
 
     /**
-     * The undo limitation.
-     */
-    private int undoLimit;
-
-    /**
-     * The undo limitation (Only 3 times allowed)
-     */
-    private int undoLimit3;
-
-    /**
-     * Getter for numMoves.
-     *
-     * @return numMoves.
-     */
-    int getNumMoves() {
-        return numMoves;
-    }
-
-    /**
      * Getter for score.
      *
      * @return score.
@@ -99,19 +79,6 @@ public class SudokuBoardManager implements Serializable {
 
     int move;
 
-    /**
-     * @return The undoLimit of this game for unlimited method.
-     */
-    int getUndoLimit() {
-        return undoLimit;
-    }
-
-    /**
-     * @return The undoLimit of this game for limited method.
-     */
-    int getUndoLimit3() {
-        return undoLimit3;
-    }
 
     /**
      * Create a initial list of Tiles for game with matching sizes.
@@ -134,12 +101,8 @@ public class SudokuBoardManager implements Serializable {
     private SudokuBoardManager(Context context) {
         this.context = context;
         if (this.listOfPosition == null) {
-            this.undoLimit = 0;
-            this.undoLimit3 = 3;
-            this.numMoves = 0;
             this.listOfPosition = new ArrayList<>();
             List tiles = CreateTiles();
-            //Collections.shuffle(tiles);
             this.sudoku = new Sudoku(tiles);
         }
     }
@@ -207,7 +170,7 @@ public class SudokuBoardManager implements Serializable {
     boolean isValidTap(int position) {
         int row = position / Sudoku.size;
         int col = position % Sudoku.size;
-        return sudoku.getTile(row, col).getId() == 0;
+        return sudoku.getTile(row, col).getId() == 0 || sudoku.getTile(row, col).getId() >100;
     }
 
     /**
@@ -221,7 +184,6 @@ public class SudokuBoardManager implements Serializable {
         int row = position / Sudoku.size;
         int col = position % Sudoku.size;
         if (isValidTap(position)) {
-            //TODO
             sudoku.writeNum(row, col, move);
         }
     }
@@ -298,7 +260,7 @@ public class SudokuBoardManager implements Serializable {
         }
     }
 
-    private static boolean randomChoose(int position) {
+    private boolean randomChoose(int position) {
         if (position == Sudoku.size*Sudoku.size) {
             return true;
         } else if (sudokuNum[position] != 0) {
@@ -328,7 +290,7 @@ public class SudokuBoardManager implements Serializable {
         return false;
     }
 
-    private static boolean isLegal(int position, int value) {
+    private boolean isLegal(int position, int value) {
         int row = position / Sudoku.size;
         int col = position % Sudoku.size;
         int xOff = row / 3 * 3;
@@ -353,6 +315,16 @@ public class SudokuBoardManager implements Serializable {
         }
 
         return true;
+    }
+
+    void clear(){
+        for (int i = 0; i < Sudoku.size; i++) {
+            for (int j = 0; j < Sudoku.size; j++) {
+                if(sudoku.tiles[i][j].getId()> 100){
+                    sudoku.writeNum(i,j,0);
+                }
+            }
+        }
     }
 
 //    private int[][] randomChoose(int[][] sudokuNum, List<Integer> list, int position){
