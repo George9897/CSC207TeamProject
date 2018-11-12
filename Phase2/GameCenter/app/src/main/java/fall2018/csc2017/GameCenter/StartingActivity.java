@@ -57,7 +57,7 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
     private void addStartButtonListener() {
         Button startButton = findViewById(R.id.StartButton);
         startButton.setOnClickListener(v -> {
-            Intent tmp = new Intent(this, SettingActivity.class);
+            Intent tmp = new Intent(this, GameCenterActivity.class);
             startActivity(tmp);
         });
     }

@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
                 } else {
                     canYouLogin.setText("Welcome back!");
                     accountManager.login(username_string);
-                    Intent tmp = new Intent(this, GameCenterActivity.class);
+                    Intent tmp = new Intent(this, StartingActivity.class);
                     startActivity(tmp);
                 }
             }
