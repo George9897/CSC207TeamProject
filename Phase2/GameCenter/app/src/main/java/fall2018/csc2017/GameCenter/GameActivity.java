@@ -200,7 +200,7 @@ public class GameActivity extends AppCompatActivity implements Observer, Seriali
      */
     @SuppressLint("SetTextI18n")
     private void addUndoButtonListener() {
-        Button undo_Button = findViewById(R.id.undo_button);
+        Button undo_Button = findViewById(R.id.eight);
         undo_Button.setOnClickListener((v) -> {
             boardManager.undo();
             display();
@@ -215,7 +215,7 @@ public class GameActivity extends AppCompatActivity implements Observer, Seriali
      */
     @SuppressLint("SetTextI18n")
     private void addUndo3ButtonListener() {
-        Button undo_Button = findViewById(R.id.undo_button);
+        Button undo_Button = findViewById(R.id.eight);
         undo_Button.setOnClickListener((v) -> {
             boardManager.undo3();
             display();
@@ -229,7 +229,7 @@ public class GameActivity extends AppCompatActivity implements Observer, Seriali
      * Activate the buttons for Quit.
      */
     private void addQuitButtonsListener() {
-        Button quitButton = findViewById(R.id.quit_button);
+        Button quitButton = findViewById(R.id.nine);
         quitButton.setOnClickListener((v) -> {
             Intent tmp = new Intent(this, StartingActivity.class);
             startActivity(tmp);

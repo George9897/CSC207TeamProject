@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import java.io.FileNotFoundException;
@@ -33,6 +34,9 @@ public class GameCenterActivity extends AppCompatActivity implements Serializabl
         setContentView(R.layout.activity_game_center);
 
         addTileGameButton();
+        addMineGameButton();
+        addSudokuGameButton();
+        addMineGameButton();
     }
 
     /**
@@ -43,6 +47,28 @@ public class GameCenterActivity extends AppCompatActivity implements Serializabl
         tileGamePicButton.setOnClickListener(view -> {
             Intent tmp = new Intent(this, StartingActivity.class);
             GameCenterActivity.this.startActivity(tmp);
+        });
+    }
+
+    /**
+     * Activate the Mine game button.
+     */
+    private void addMineGameButton() {
+        ImageButton MineGamePicButton = findViewById(R.id.mineGameButton);
+        MineGamePicButton.setOnClickListener(view -> {
+            Intent tmp = new Intent(this, MineSettingActivity.class);
+            GameCenterActivity.this.startActivity(tmp);
+        });
+    }
+
+    /**
+     * Activate the sliding tile game button.
+     */
+    private void addSudokuGameButton() {
+        Button sudokuButton = findViewById(R.id.sudokuButton);
+        sudokuButton.setOnClickListener(view -> {
+            Intent tmp = new Intent(this, SudokuBoardActivity.class);
+            startActivity(tmp);
         });
     }
 
