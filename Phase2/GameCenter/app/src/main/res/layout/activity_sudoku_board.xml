@@ -34,7 +34,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="12dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="35dp"
         android:text="9" />
 
     <Button
@@ -43,7 +43,7 @@
         android:layout_height="35dp"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="35dp"
         android:layout_toStartOf="@+id/nine"
         android:text="8" />
 
@@ -54,7 +54,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="17dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="35dp"
         android:text="1" />
 
     <Button
@@ -63,7 +63,7 @@
         android:layout_height="35dp"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="35dp"
         android:layout_toStartOf="@+id/eight"
         android:text="7" />
 
@@ -73,7 +73,7 @@
         android:layout_height="35dp"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="35dp"
         android:layout_toStartOf="@+id/seven"
         android:text="6" />
 
@@ -83,7 +83,7 @@
         android:layout_height="35dp"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="35dp"
         android:layout_toStartOf="@+id/six"
         android:text="5" />
 
@@ -93,7 +93,7 @@
         android:layout_height="35dp"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="35dp"
         android:layout_toStartOf="@+id/five"
         android:text="4" />
 
@@ -103,7 +103,7 @@
         android:layout_height="35dp"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="35dp"
         android:layout_toStartOf="@+id/four"
         android:text="3" />
 
@@ -114,9 +114,31 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginBottom="35dp"
         android:layout_toStartOf="@+id/three"
         android:layout_toEndOf="@+id/one"
         android:text="2" />
+
+    <Button
+        android:id="@+id/clearButton"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="79dp"
+        android:layout_marginBottom="4dp"
+        android:text="Clear" />
+
+    <Button
+        android:id="@+id/eraserButton"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="55dp"
+        android:layout_marginEnd="74dp"
+        android:layout_marginBottom="4dp"
+        android:layout_toEndOf="@+id/clearButton"
+        android:text="Eraser" />
 
 </RelativeLayout>
