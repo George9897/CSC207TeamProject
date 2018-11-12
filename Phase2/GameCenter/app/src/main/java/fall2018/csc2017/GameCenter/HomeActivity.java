@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class HomeActivity extends AppCompatActivity implements Serializable {
 
     /**
-     * generate buttons when create this activity.
+     * generate buttons when createBooms this activity.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

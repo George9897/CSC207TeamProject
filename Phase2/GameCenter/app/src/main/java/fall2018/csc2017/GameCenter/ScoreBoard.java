@@ -175,7 +175,7 @@ public class ScoreBoard implements Serializable {
     }
 
     /**
-     * If scoreBoard exist, return scoreBoard. Otherwise, create one.
+     * If scoreBoard exist, return scoreBoard. Otherwise, createBooms one.
      */
     static ScoreBoard getScoreBoard(Context context) {
         if (scoreBoard == null) {

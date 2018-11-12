@@ -51,7 +51,7 @@ public class ProfileActivity extends AppCompatActivity {
     String stringUri;
 
     /**
-     * generate information when create this activity.
+     * generate information when createBooms this activity.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

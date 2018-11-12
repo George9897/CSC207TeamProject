@@ -83,7 +83,7 @@ public class SignUpActivity extends AppCompatActivity implements Serializable {
     }
 
     /**
-     * Set up the create user button.
+     * Set up the createBooms user button.
      */
     private void setupCreateUserButtonListener() {
         Button createUserButton = findViewById(R.id.create_user);

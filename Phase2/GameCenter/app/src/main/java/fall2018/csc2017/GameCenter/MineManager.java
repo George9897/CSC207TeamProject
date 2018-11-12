@@ -3,12 +3,13 @@ package fall2018.csc2017.GameCenter;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.Timer;
 
 /**
  * The Mine game manager.
@@ -33,8 +34,22 @@ public class MineManager extends View {
     /**
      * The number of booms in one game play.
      */
-    private final int mineNum = 10;
+    private final int numBoom = 10;
 
+    /**
+     * The score after the user find out all the booms.
+     */
+    private int score;
+
+    /**
+     * The time.
+     */
+    int secondPassed;
+
+    /**
+     * The timer.
+     */
+    Timer timer = new Timer();
     /**
      * The board height.
      */
@@ -49,12 +64,16 @@ public class MineManager extends View {
      */
     private int TILE_WIDTH = 50;
 
+    private MineScorer scorer = new MineScorer();
+
     private boolean isFalse = false;
+
+    private static MineManager mineManager;
 
     /**
      * The constructor of MineManager.
      */
-    public MineManager(Context context) {
+    private MineManager(Context context) {
         super(context);
         this.context = context;
 
@@ -64,14 +83,27 @@ public class MineManager extends View {
         gameSettings.add((MineGameActivity.Height - ROW * TILE_WIDTH) / 2);
         gameSettings.add(COL);
         gameSettings.add(ROW);
-        gameSettings.add(mineNum);
+        gameSettings.add(numBoom);
         gameSettings.add(TILE_WIDTH);
         mine = new Mine(gameSettings);
+        timer.schedule(scorer, 0,1000);
         try {
             mine.init();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static MineManager getMineManager(Context context){
+        if (mineManager == null){
+            mineManager = new MineManager(context);
+        }
+        return mineManager;
+    }
+
+    public static MineManager getNewMineManager(Context context){
+        mineManager = new MineManager(context);
+        return mineManager;
     }
 
     /**
@@ -80,6 +112,8 @@ public class MineManager extends View {
     public void logic() {
         if (puzzleSolved()) {
             sentVictoryAlertDialog();
+            this.score = scorer.getFinalScore(numBoom);
+            timer.cancel();
         }
     }
 
@@ -108,7 +142,7 @@ public class MineManager extends View {
      */
     private boolean puzzleSolved() {
         int UnopenedTile = getUnopenedTile();
-        return UnopenedTile == mineNum;
+        return UnopenedTile == numBoom;
     }
 
     /**
@@ -131,13 +165,23 @@ public class MineManager extends View {
                 .setCancelable(false)
                 .setPositiveButton("I want play again.", (dialog, which) -> {
 
-                    mine.init();
-                    invalidate();
-                    isFirst = true;
+                    resetTheGame();
                 })
-                .setNegativeButton("Exit", (dialog, which) -> System.exit(0))
+                .setNegativeButton("Exit", (dialog, which) -> finish())
                 .create()
                 .show();
+    }
+
+    private void finish(){
+        Intent tmp = new Intent(context, YouWinActivity.class);
+        tmp.putExtra("gameType","Mine" );
+        context.startActivity(tmp);
+    }
+
+    public void resetTheGame(){
+        mine.init();
+        invalidate();
+        isFirst = true;
     }
 
     /**
@@ -148,14 +192,14 @@ public class MineManager extends View {
         new AlertDialog.Builder(context)
                 .setCancelable(false)
                 .setMessage("You Shall Not Pass！")
-                .setPositiveButton("Heroes never die!(Undo)", (dialog, which) -> {
+                .setPositiveButton("Heroes never die!", (dialog, which) -> {
                     mine.init();
                     isFalse = true;
                     isFirst = true;
 
                     invalidate();
                 })
-                .setNegativeButton("Exit", (dialog, which) -> System.exit(0))
+                .setNegativeButton("Exit", (dialog, which) -> finish())
                 .create()
                 .show();
     }
@@ -171,7 +215,7 @@ public class MineManager extends View {
     }
 
     /**
-     * On touch event.
+     * Perform a touch event on a tile.
      *
      * @param event The event.
      * @return True if the user tapped.
@@ -191,6 +235,7 @@ public class MineManager extends View {
 
                 if (puzzleFail(idxY, idxX)) {
                     sentDefeatedAlertDialog();
+                    score = 0;
                 }
                 if (isFalse) {
                     isFalse = false;
@@ -207,7 +252,7 @@ public class MineManager extends View {
     }
 
     /**
-     * Check touch event is in the range.
+     * Check touch event is in the range. Helper for
      *
      * @param x Given x coordinate.
      * @param y Given y coordinate.
@@ -218,5 +263,9 @@ public class MineManager extends View {
                 y >= mine.y &&
                 x <= (mine.boardWidth + mine.x) &&
                 y <= (mine.y + mine.boardHeight);
+    }
+
+    public int getScore() {
+        return score;
     }
 }

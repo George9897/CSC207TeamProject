@@ -33,7 +33,7 @@ public class ScoreBoardActivity extends AppCompatActivity implements Serializabl
     TextView resultBox;
 
     /**
-     * generate buttons when create this activity.
+     * generate buttons when createBooms this activity.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
