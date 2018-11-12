@@ -3,7 +3,7 @@ package fall2018.csc2017.GameCenter;
 /**
  * The Tiles.
  */
-public class MineTile {
+class MineTile {
     /**
      * The value of this mineTile.
      * Representing how many booms nearby.
@@ -12,13 +12,13 @@ public class MineTile {
     /**
      * The boolean of whether this mineTile is opened or not.
      */
-    boolean open;
+    boolean isOpen;
 
     /**
      * The constructor for tiles.
      */
-    public MineTile() {
+    MineTile() {
         this.value = 0;
-        this.open = false;
+        this.isOpen = false;
     }
 }

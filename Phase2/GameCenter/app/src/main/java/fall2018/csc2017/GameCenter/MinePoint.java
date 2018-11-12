@@ -7,11 +7,11 @@ public class MinePoint {
     /**
      * The x coordinate.
      */
-    public int x;
+    int x;
     /**
      * The y coordinate.
      */
-    public int y;
+    int y;
 
     /**
      * The constructor for point.
@@ -19,7 +19,7 @@ public class MinePoint {
      * @param x The x coordinate.
      * @param y The y coordinate.
      */
-    public MinePoint(int x, int y) {
+    MinePoint(int x, int y) {
         this.x = x;
         this.y = y;
     }
