@@ -34,12 +34,12 @@
         android:layout_marginStart="57dp"
         android:layout_marginEnd="41dp"
         android:layout_marginBottom="27dp"
-        android:layout_toStartOf="@+id/undo_button"
+        android:layout_toStartOf="@+id/eight"
         android:text="Step"
         android:textAlignment="viewStart" />
 
     <Button
-        android:id="@+id/quit_button"
+        android:id="@+id/nine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -49,13 +49,13 @@
         android:text="Quit" />
 
     <Button
-        android:id="@+id/undo_button"
+        android:id="@+id/eight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="31dp"
         android:layout_marginBottom="26dp"
-        android:layout_toStartOf="@+id/quit_button"
+        android:layout_toStartOf="@+id/nine"
         android:text="Undo" />
 
 </RelativeLayout>
