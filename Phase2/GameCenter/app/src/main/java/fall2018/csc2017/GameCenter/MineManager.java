@@ -41,6 +41,8 @@ public class MineManager extends View {
      */
     private int score;
 
+    private int time;
+
     /**
      * The time.
      */
@@ -113,8 +115,13 @@ public class MineManager extends View {
         if (puzzleSolved()) {
             sentVictoryAlertDialog();
             this.score = scorer.getFinalScore(numBoom);
+            this.time = scorer.getTimeScore();
             timer.cancel();
         }
+    }
+
+    public int getTime() {
+        return time;
     }
 
     /**
@@ -236,6 +243,8 @@ public class MineManager extends View {
                 if (puzzleFail(idxY, idxX)) {
                     sentDefeatedAlertDialog();
                     score = 0;
+                    time = scorer.getTimeScore();
+                    timer.cancel();
                 }
                 if (isFalse) {
                     isFalse = false;

@@ -36,7 +36,8 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
                 break;
             case "Mine":
                 mineManager = MineManager.getMineManager(this);
-                scoreBox.setText((Integer.toString(mineManager.getScore())));
+                scoreBox.setText((Integer.toString(mineManager.getScore())) + "\n\r" + "Time: "
+                        + (Integer.toString(mineManager.getTime())) + " Second");
                 break;
         }
 
