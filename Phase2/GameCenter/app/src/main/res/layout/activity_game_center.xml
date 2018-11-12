@@ -17,11 +17,15 @@
 
     <ImageButton
         android:id="@+id/mineGameButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="96dp"
+        android:layout_height="145dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="108dp"
         android:layout_marginEnd="60dp"
+        android:layout_marginBottom="11dp"
+        app:layout_constraintBottom_toTopOf="@+id/tilegameView2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tileGameButton"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/minegame" />
 
@@ -54,5 +58,21 @@
         android:text="SlidingTile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tileGameButton" />
+
+    <Button
+        android:id="@+id/sudokuButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="192dp"
+        android:layout_marginTop="244dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="274dp"
+        android:text="sudoku"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>
