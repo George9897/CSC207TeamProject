@@ -45,7 +45,7 @@ public class GameCenterActivity extends AppCompatActivity implements Serializabl
     private void addTileGameButton() {
         ImageButton tileGamePicButton = findViewById(R.id.tileGameButton);
         tileGamePicButton.setOnClickListener(view -> {
-            Intent tmp = new Intent(this, StartingActivity.class);
+            Intent tmp = new Intent(this, SettingActivity.class);
             GameCenterActivity.this.startActivity(tmp);
         });
     }
