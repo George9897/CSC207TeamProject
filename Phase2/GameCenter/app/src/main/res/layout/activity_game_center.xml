@@ -7,6 +7,29 @@
     tools:context="fall2018.csc2017.GameCenter.GameCenterActivity">
 
     <TextView
+        android:id="@+id/tilegameView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="100dp"
+        android:text="Mine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tileGameButton" />
+
+    <ImageButton
+        android:id="@+id/mineGameButton"
+        android:layout_width="96dp"
+        android:layout_height="145dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="108dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="11dp"
+        app:layout_constraintBottom_toTopOf="@+id/tilegameView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tileGameButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/minegame" />
+
+    <TextView
         android:id="@+id/gcView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,8 +44,8 @@
         android:id="@+id/tileGameButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="108dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/slidingtilegame" />
@@ -31,7 +54,7 @@
         android:id="@+id/tilegameView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="63dp"
+        android:layout_marginStart="85dp"
         android:text="SlidingTile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tileGameButton" />

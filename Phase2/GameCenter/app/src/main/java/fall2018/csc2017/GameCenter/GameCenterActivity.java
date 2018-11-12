@@ -34,6 +34,7 @@ public class GameCenterActivity extends AppCompatActivity implements Serializabl
         setContentView(R.layout.activity_game_center);
 
         addTileGameButton();
+        addMineGameButton();
         addSudokuGameButton();
     }
 
@@ -44,6 +45,17 @@ public class GameCenterActivity extends AppCompatActivity implements Serializabl
         ImageButton tileGamePicButton = findViewById(R.id.tileGameButton);
         tileGamePicButton.setOnClickListener(view -> {
             Intent tmp = new Intent(this, StartingActivity.class);
+            GameCenterActivity.this.startActivity(tmp);
+        });
+    }
+
+    /**
+     * Activate the Mine game button.
+     */
+    private void addMineGameButton() {
+        ImageButton MineGamePicButton = findViewById(R.id.mineGameButton);
+        MineGamePicButton.setOnClickListener(view -> {
+            Intent tmp = new Intent(this, MineSettingActivity.class);
             GameCenterActivity.this.startActivity(tmp);
         });
     }
