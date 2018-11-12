@@ -243,7 +243,9 @@ public class ScoreBoard implements Serializable {
         if (levelMap.get(level) != null) {
             if (levelMap.get(level).size() == 1 && levelMap.get(level).get(0).second.equals(" ")) {
                 levelMap.get(level).set(levelMap.get(level).size() - 1, userScore);
-            } else {
+            }else if(levelMap.get(level).size() == 0 ){
+                levelMap.get(level).add(userScore);
+            }else {
                 levelMap.get(level).add(levelMap.get(level).size() - 1, userScore);
             }
         }
