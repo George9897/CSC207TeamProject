@@ -96,6 +96,9 @@ public class Mine {
             {0, -1},//lower
             {1, -1}//lower-right
     };
+    private final ArrayList<Integer> gameSettings;
+    Mine lastMineBoard;
+
 
     /**
      * Getter for number of booms.
@@ -166,6 +169,7 @@ public class Mine {
      * @param gameSettings The game settings for one game play.
      */
     Mine(ArrayList<Integer> gameSettings) {
+        this.gameSettings = gameSettings;
         this.x = gameSettings.get(0);
         this.y = gameSettings.get(1);
         this.boardCol = gameSettings.get(2);
@@ -260,6 +264,7 @@ public class Mine {
      * @param isFirst First touch or not.
      */
     void touchOpen(MinePoint openMinePoint, boolean isFirst) {
+        lastMineBoard = this.copy();
         if (isFirst) {
             createBooms(openMinePoint);
         }
@@ -267,7 +272,7 @@ public class Mine {
         mineTile[openMinePoint.y][openMinePoint.x].isOpen = true;
         if (mineTile[openMinePoint.y][openMinePoint.x].value == -1)
             return;
-        //tap the mineTile with a number.
+            //tap the mineTile with a number.
         else if (mineTile[openMinePoint.y][openMinePoint.x].value > 0)
         {
             return;
@@ -275,40 +280,25 @@ public class Mine {
         Queue<MinePoint> minePointQueue = new LinkedList<>();
         //add the first point.
         minePointQueue.offer(new MinePoint(openMinePoint.x, openMinePoint.y));
-
         //Search all 8 surroundings.
-        for (int i = 0; i < 8; i++) {
-            int offsetX = openMinePoint.x + getSurrounding_directions()[i][0],
-                    offsetY = openMinePoint.y + getSurrounding_directions()[i][1];
-            //Check given minePoint is offset and whether opened or not.
-            boolean isCan = offsetX >= 0 && offsetX < boardCol && offsetY >= 0 &&
-                    offsetY < boardRow;
-            if (isCan) {
-                if (mineTile[offsetY][offsetX].value == 0 && !mineTile[offsetY][offsetX].isOpen) {
-                    minePointQueue.offer(new MinePoint(offsetX, offsetY));
-                } else if (mineTile[offsetY][offsetX].value > 0) {
-                    mineTile[offsetY][offsetX].isOpen = true;
-                }
-            }
-
-        }
-
         while (minePointQueue.size() != 0) {
             MinePoint minePoint = minePointQueue.poll();
             assert minePoint != null;
             mineTile[minePoint.y][minePoint.x].isOpen = true;
             for (int i = 0; i < 8; i++) {
-                int offsetX = minePoint.x + getSurrounding_directions()[i][0],
-                        offsetY = minePoint.y + getSurrounding_directions()[i][1];
-                //Check given minePoint is offset.
-                boolean isCan = offsetX >= 0 && offsetX < boardCol && offsetY >= 0 &&
-                        offsetY < boardRow;
-                if (isCan) {
-                    if (mineTile[offsetY][offsetX].value == 0 &&
-                            !mineTile[offsetY][offsetX].isOpen) {
-                        minePointQueue.offer(new MinePoint(offsetX, offsetY));
-                    } else if (mineTile[offsetY][offsetX].value > 0) {
-                        mineTile[offsetY][offsetX].isOpen = true;
+                int surroundingX = minePoint.x + getSurrounding_directions()[i][0],
+                        surroundingY = minePoint.y + getSurrounding_directions()[i][1];
+                //Check given minePoint's surroundings and whether they are opened or not.
+                boolean isOpenable = surroundingX >= 0 && surroundingX < boardCol &&
+                        surroundingY >= 0 && surroundingY < boardRow;
+                if (isOpenable) {
+                    //Make all surroundings that is not boom white new tiles with nothing in it.
+                    if (mineTile[surroundingY][surroundingX].value == 0 &&
+                            !mineTile[surroundingY][surroundingX].isOpen) {
+                        minePointQueue.offer(new MinePoint(surroundingX, surroundingY));
+                        //Show the special tile.
+                    } else if (mineTile[surroundingY][surroundingX].value > 0) {
+                        mineTile[surroundingY][surroundingX].isOpen = true;
                     }
                 }
 
@@ -316,6 +306,17 @@ public class Mine {
         }
 
     }
+
+    /**
+     * Copy the current Mine board.
+     */
+    Mine copy(){
+        Mine newBoard = new Mine(this.gameSettings);
+        newBoard.mineTile = this.mineTile.clone();
+        newBoard.isDrawBooms = false;
+        return newBoard;
+    }
+
 
     /**
      * Draw the board.

@@ -200,10 +200,7 @@ public class MineManager extends View {
                 .setCancelable(false)
                 .setMessage("You Shall Not Pass！")
                 .setPositiveButton("Heroes never die!", (dialog, which) -> {
-                    mine.init();
-                    isFalse = true;
-                    isFirst = true;
-
+                    mine = mine.lastMineBoard;
                     invalidate();
                 })
                 .setNegativeButton("Exit", (dialog, which) -> finish())
