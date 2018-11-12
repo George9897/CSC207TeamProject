@@ -49,7 +49,7 @@ public class AccountManager implements Serializable {
     }
 
     /**
-     * if AccountManager exist, get this AccountManager. Otherwise, create one.
+     * if AccountManager exist, get this AccountManager. Otherwise, createBooms one.
      *
      * @return this Account Manager
      */

@@ -203,7 +203,7 @@ public class Mine {
      *
      * @param exception This position doesn't contain booms.
      */
-    public void create(MinePoint exception) {
+    public void createBooms(MinePoint exception) {
         List<MinePoint> allMinePoint = new LinkedList<>();
 
         for (int row = 0; row < boardRow; row++)//y
@@ -238,8 +238,10 @@ public class Mine {
                 short tile = this.mineTile[row][col].value;
                 if (tile == BOOM) {
                     for (int k = 0; k < 8; k++) {
-                        int offsetX = col + getSurrounding_directions()[k][0], offsetY = row + getSurrounding_directions()[k][1];
-                        if (offsetX >= 0 && offsetX < boardCol && offsetY >= 0 && offsetY < boardRow) {
+                        int offsetX = col + getSurrounding_directions()[k][0],
+                                offsetY = row + getSurrounding_directions()[k][1];
+                        if (offsetX >= 0 && offsetX < boardCol && offsetY >= 0 &&
+                                offsetY < boardRow) {
                             if (this.mineTile[offsetY][offsetX].value != -1)
                                 this.mineTile[offsetY][offsetX].value += 1;
                         }
@@ -252,20 +254,21 @@ public class Mine {
 
 
     /**
-     * Tap to isOpen some position.
+     * Tap to open some position.
      *
      * @param openMinePoint The point being isOpen.
-     * @param isFirst       First touch or not.
+     * @param isFirst First touch or not.
      */
     void touchOpen(MinePoint openMinePoint, boolean isFirst) {
         if (isFirst) {
-            create(openMinePoint);
+            createBooms(openMinePoint);
         }
 
         mineTile[openMinePoint.y][openMinePoint.x].isOpen = true;
         if (mineTile[openMinePoint.y][openMinePoint.x].value == -1)
             return;
-        else if (mineTile[openMinePoint.y][openMinePoint.x].value > 0)//tap the mineTile with a number.
+        //tap the mineTile with a number.
+        else if (mineTile[openMinePoint.y][openMinePoint.x].value > 0)
         {
             return;
         }
@@ -275,9 +278,11 @@ public class Mine {
 
         //Search all 8 surroundings.
         for (int i = 0; i < 8; i++) {
-            int offsetX = openMinePoint.x + getSurrounding_directions()[i][0], offsetY = openMinePoint.y + getSurrounding_directions()[i][1];
+            int offsetX = openMinePoint.x + getSurrounding_directions()[i][0],
+                    offsetY = openMinePoint.y + getSurrounding_directions()[i][1];
             //Check given minePoint is offset and whether opened or not.
-            boolean isCan = offsetX >= 0 && offsetX < boardCol && offsetY >= 0 && offsetY < boardRow;
+            boolean isCan = offsetX >= 0 && offsetX < boardCol && offsetY >= 0 &&
+                    offsetY < boardRow;
             if (isCan) {
                 if (mineTile[offsetY][offsetX].value == 0 && !mineTile[offsetY][offsetX].isOpen) {
                     minePointQueue.offer(new MinePoint(offsetX, offsetY));
@@ -293,11 +298,14 @@ public class Mine {
             assert minePoint != null;
             mineTile[minePoint.y][minePoint.x].isOpen = true;
             for (int i = 0; i < 8; i++) {
-                int offsetX = minePoint.x + getSurrounding_directions()[i][0], offsetY = minePoint.y + getSurrounding_directions()[i][1];
+                int offsetX = minePoint.x + getSurrounding_directions()[i][0],
+                        offsetY = minePoint.y + getSurrounding_directions()[i][1];
                 //Check given minePoint is offset.
-                boolean isCan = offsetX >= 0 && offsetX < boardCol && offsetY >= 0 && offsetY < boardRow;
+                boolean isCan = offsetX >= 0 && offsetX < boardCol && offsetY >= 0 &&
+                        offsetY < boardRow;
                 if (isCan) {
-                    if (mineTile[offsetY][offsetX].value == 0 && !mineTile[offsetY][offsetX].isOpen) {
+                    if (mineTile[offsetY][offsetX].value == 0 &&
+                            !mineTile[offsetY][offsetX].isOpen) {
                         minePointQueue.offer(new MinePoint(offsetX, offsetY));
                     } else if (mineTile[offsetY][offsetX].value > 0) {
                         mineTile[offsetY][offsetX].isOpen = true;
@@ -320,29 +328,37 @@ public class Mine {
                 MineTile mineTile = this.mineTile[row][col];
                 if (mineTile.isOpen) {
                     if (mineTile.value > 0) {
-                        canvas.drawText(mineTile.value + "", x + col * tileWidth, y + row * tileWidth + tileWidth, getTileNumberPaint());
+                        canvas.drawText(mineTile.value + "", x + col * tileWidth,
+                                y + row * tileWidth + tileWidth, getTileNumberPaint());
                     }
 
                 } else {
                     //Draw rectangle tiles.
-                    RectF reactF = new RectF(x + col * tileWidth, y + row * tileWidth, x + col * tileWidth + tileWidth, y + row * tileWidth + tileWidth);
+                    RectF reactF = new RectF(x + col * tileWidth, y + row * tileWidth,
+                            x + col * tileWidth + tileWidth, y + row * tileWidth +
+                            tileWidth);
                     canvas.drawRoundRect(reactF, 0, 0, getTilePaint());
                 }
                 //check all booms are drawn.
                 if (isDrawBooms && this.mineTile[row][col].value == -1) {
-                    canvas.drawCircle((x + col * tileWidth) + tileWidth / 2, (y + row * tileWidth) + tileWidth / 2, tileWidth / 2, getBoomPaint());
+                    canvas.drawCircle((x + col * tileWidth) + tileWidth / 2,
+                            (y + row * tileWidth) + tileWidth / 2,
+                            tileWidth / 2, getBoomPaint());
                 }
             }
         }
         //Draw the main frame.
-        canvas.drawRect(x, y, x + boardWidth, y + boardHeight, getSeparationLinePaint());
+        canvas.drawRect(x, y, x + boardWidth, y + boardHeight,
+                getSeparationLinePaint());
         //Draw the horizontal lines.
         for (int i = 0; i < boardRow; i++) {
-            canvas.drawLine(x, y + i * tileWidth, x + boardWidth, y + i * tileWidth, getSeparationLinePaint());
+            canvas.drawLine(x, y + i * tileWidth, x + boardWidth,
+                    y + i * tileWidth, getSeparationLinePaint());
         }
         //Draw the vertical lines.
         for (int i = 0; i < boardCol; i++) {
-            canvas.drawLine(x + i * tileWidth, y, x + i * tileWidth, y + boardHeight, getSeparationLinePaint());
+            canvas.drawLine(x + i * tileWidth, y, x + i * tileWidth,
+                    y + boardHeight, getSeparationLinePaint());
         }
 
     }

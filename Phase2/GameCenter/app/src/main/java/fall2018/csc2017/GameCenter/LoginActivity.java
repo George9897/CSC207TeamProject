@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
     AccountManager accountManager = AccountManager.getAccountManager();
 
     /**
-     * generate buttons when create this activity.
+     * generate buttons when createBooms this activity.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

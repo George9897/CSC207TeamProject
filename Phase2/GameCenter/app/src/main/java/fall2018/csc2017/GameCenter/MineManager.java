@@ -3,12 +3,14 @@ package fall2018.csc2017.GameCenter;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Canvas;
 import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.Timer;
+
+import static fall2018.csc2017.GameCenter.MineScore.calculateScore;
 
 /**
  * The Mine game manager.
@@ -33,8 +35,22 @@ public class MineManager extends View {
     /**
      * The number of booms in one game play.
      */
-    private final int mineNum = 10;
+    private final int numBoom = 10;
 
+    /**
+     * The score after the user find out all the booms.
+     */
+    private int score;
+
+    /**
+     * The time.
+     */
+    int secondPassed;
+
+    /**
+     * The timer.
+     */
+    Timer timer = new Timer();
     /**
      * The board height.
      */
@@ -64,7 +80,7 @@ public class MineManager extends View {
         gameSettings.add((MineGameActivity.Height - ROW * TILE_WIDTH) / 2);
         gameSettings.add(COL);
         gameSettings.add(ROW);
-        gameSettings.add(mineNum);
+        gameSettings.add(numBoom);
         gameSettings.add(TILE_WIDTH);
         mine = new Mine(gameSettings);
         try {
@@ -80,6 +96,7 @@ public class MineManager extends View {
     public void logic() {
         if (puzzleSolved()) {
             sentVictoryAlertDialog();
+            score = calculateScore(numBoom, secondPassed);
         }
     }
 
@@ -108,7 +125,7 @@ public class MineManager extends View {
      */
     private boolean puzzleSolved() {
         int UnopenedTile = getUnopenedTile();
-        return UnopenedTile == mineNum;
+        return UnopenedTile == numBoom;
     }
 
     /**
@@ -148,7 +165,7 @@ public class MineManager extends View {
         new AlertDialog.Builder(context)
                 .setCancelable(false)
                 .setMessage("You Shall Not Pass！")
-                .setPositiveButton("Heroes never die!(Undo)", (dialog, which) -> {
+                .setPositiveButton("Heroes never die!", (dialog, which) -> {
                     mine.init();
                     isFalse = true;
                     isFirst = true;
@@ -171,7 +188,7 @@ public class MineManager extends View {
     }
 
     /**
-     * On touch event.
+     * Perform a touch event on a tile.
      *
      * @param event The event.
      * @return True if the user tapped.
@@ -207,7 +224,7 @@ public class MineManager extends View {
     }
 
     /**
-     * Check touch event is in the range.
+     * Check touch event is in the range. Helper for
      *
      * @param x Given x coordinate.
      * @param y Given y coordinate.
