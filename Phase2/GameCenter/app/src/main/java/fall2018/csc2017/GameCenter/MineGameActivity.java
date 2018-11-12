@@ -33,7 +33,7 @@ public class MineGameActivity extends Activity {
         Width = displayMetrics.widthPixels;
         Height = displayMetrics.heightPixels;
 
-        setContentView(new MineManager(this));
+        setContentView(MineManager.getNewMineManager(this));
         new AlertDialog.Builder(this)
                 .setCancelable(false)
                 .setTitle("Rules")

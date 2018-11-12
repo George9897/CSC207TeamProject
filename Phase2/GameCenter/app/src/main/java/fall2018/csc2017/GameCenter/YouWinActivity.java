@@ -17,14 +17,29 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
      */
     private BoardManager boardManager;
 
+    private MineManager mineManager;
+
+    String gameType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_you_win);
         TextView scoreBox = findViewById(R.id.scoreViewData);
-        boardManager = BoardManager.getBoardManager(this);
+        Intent intent = getIntent();
+        gameType = intent.getStringExtra("gameType");
 
-        scoreBox.setText((Integer.toString(boardManager.getScore())));
+        switch (gameType){
+            case "SlidingTile":
+                boardManager = BoardManager.getBoardManager(this);
+                scoreBox.setText((Integer.toString(boardManager.getScore())));
+                break;
+            case "Mine":
+                mineManager = MineManager.getMineManager(this);
+                scoreBox.setText((Integer.toString(mineManager.getScore())));
+                break;
+        }
+
         setUpSeeScoreButtonListener();
         setUpBackHButtonListener();
         setUpPlayAgainButtonListener();
@@ -61,8 +76,16 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
         Button backToHomeButton = findViewById(R.id.playAgainButton);
 
         backToHomeButton.setOnClickListener((v) -> {
-            Intent tmp = new Intent(this, SettingActivity.class);
-            startActivity(tmp);
+            switch (gameType){
+                case "SlidingTile":
+                    Intent SlidingTileTmp = new Intent(this, SettingActivity.class);
+                    startActivity(SlidingTileTmp);
+                    break;
+                case "Mine":
+                    Intent MineTmp = new Intent(this, MineSettingActivity.class);
+                    startActivity(MineTmp);
+                    break;
+            }
         });
     }
 }
