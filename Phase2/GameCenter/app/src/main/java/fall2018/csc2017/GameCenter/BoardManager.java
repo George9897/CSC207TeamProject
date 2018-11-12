@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import static fall2018.csc2017.GameCenter.SlidingTileScore.calculateScore;
 
@@ -69,6 +70,7 @@ class BoardManager implements Serializable {
      */
     private int undoLimit3;
 
+
     /**
      * Getter for numMoves.
      *
@@ -110,6 +112,7 @@ class BoardManager implements Serializable {
         return undoLimit3;
     }
 
+
     /**
      * Create a initial list of Tiles for game with matching sizes.
      *
@@ -141,9 +144,59 @@ class BoardManager implements Serializable {
             this.numMoves = 0;
             this.listOfPosition = new ArrayList<>();
             List tiles = CreateTiles();
-            Collections.shuffle(tiles);
+            //Collections.shuffle(tiles)
             this.slidingTile = new SlidingTile(tiles);
+            solvableShuffle();
         }
+    }
+
+    /**
+     * Shuffle tiles while gurantees a solution.
+     */
+    private void solvableShuffle(){
+        // TODO: implement this function!
+        // Constant for swaping directions.
+        int level = SlidingTile.level;
+        int left = -1;
+        int right = 1;
+        int up = -(level);
+
+        int k = 0;
+        //int blankID = 0;
+        int bPosi = (level)^2;
+        // Random choose i
+        Random r1 = new Random();
+        int i = 50 + r1.nextInt(50);
+        // List history;
+        while (k <= i){
+            ArrayList swapChoices = new ArrayList();
+            int random_direction;
+            int row = bPosi / level;
+            int col = bPosi % level;;
+            Tile above = row == 0 ? null : slidingTile.getTile(row - 1, col);
+            Tile below = row == level - 1 ? null : slidingTile.getTile(row + 1, col);
+            Tile lefT = col == 0 ? null : slidingTile.getTile(row, col - 1);
+            Tile righT = col == level - 1 ? null : slidingTile.getTile(row, col + 1);
+            if (above != null){
+                swapChoices.add(up);
+            }
+            if (below != null){
+                swapChoices.add(level);
+            }
+            if (lefT != null){
+                swapChoices.add(left);
+            }
+            if (righT != null){
+                swapChoices.add(right);
+            }
+            // Random choose an element from swapChoices, then swap them.
+            Random r2 = new Random();
+            int d = bPosi + (int)(swapChoices.get(r2.nextInt(swapChoices.size())));
+            this.slidingTile.swapTiles(row, col, d / level, d % level);
+            bPosi = d;
+            k++;
+        }
+
     }
 
     /**
