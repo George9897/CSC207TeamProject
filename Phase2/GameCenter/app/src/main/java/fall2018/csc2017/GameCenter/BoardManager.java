@@ -245,13 +245,15 @@ class BoardManager implements Serializable {
             } else {
                 countTrue += 1;
             }
-            if (next.getId() == 0 && acc == slidingTile.numTiles() && countTrue == slidingTile.numTiles() - 1) {
+            if (next.getId() == 0 && acc == slidingTile.numTiles() && countTrue ==
+                    slidingTile.numTiles() - 1) {
                 solved = true;
             }
             acc++;
         }
         if (solved) {
-            score = calculateScore(boardManager.getSlidingTile().getLevel(), boardManager.getNumMoves());
+            score = calculateScore(boardManager.getSlidingTile().getLevel(),
+                    boardManager.getNumMoves());
             undoLimit = 0;
             ScoreBoard scoreBoard = ScoreBoard.getScoreBoard(context);
             scoreBoard.update(SlidingTile.level, userName, score);
@@ -293,7 +295,8 @@ class BoardManager implements Serializable {
         if (isValidTap(position)) {
             numMoves++;
             undoLimit++;
-            if (row != SlidingTile.level - 1 && (slidingTile.getTile(row + 1, col)).getId() == blankId) {
+            if (row != SlidingTile.level - 1 && (slidingTile.getTile(row + 1, col)).getId() ==
+                    blankId) {
                 slidingTile.swapTiles(row, col, row + 1, col);
                 addPosition((row + 1) * SlidingTile.level + col);
             }
@@ -305,7 +308,8 @@ class BoardManager implements Serializable {
                 slidingTile.swapTiles(row, col, row, col - 1);
                 addPosition((row) * SlidingTile.level + col - 1);
             }
-            if (col != SlidingTile.level - 1 && (slidingTile.getTile(row, col + 1)).getId() == blankId) {
+            if (col != SlidingTile.level - 1 && (slidingTile.getTile(row, col + 1)).getId() ==
+                    blankId) {
                 slidingTile.swapTiles(row, col, row, col + 1);
                 addPosition((row) * SlidingTile.level + col + 1);
             }

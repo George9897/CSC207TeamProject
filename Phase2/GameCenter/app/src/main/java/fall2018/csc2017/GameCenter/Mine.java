@@ -203,7 +203,7 @@ public class Mine {
      *
      * @param exception This position doesn't contain booms.
      */
-    public void create(MinePoint exception) {
+    public void createBooms(MinePoint exception) {
         List<MinePoint> allMinePoint = new LinkedList<>();
 
         for (int row = 0; row < boardRow; row++)//y
@@ -254,14 +254,14 @@ public class Mine {
 
 
     /**
-     * Tap to isOpen some position.
+     * Tap to open some position.
      *
      * @param openMinePoint The point being isOpen.
-     * @param isFirst       First touch or not.
+     * @param isFirst First touch or not.
      */
     void touchOpen(MinePoint openMinePoint, boolean isFirst) {
         if (isFirst) {
-            create(openMinePoint);
+            createBooms(openMinePoint);
         }
 
         mineTile[openMinePoint.y][openMinePoint.x].isOpen = true;
