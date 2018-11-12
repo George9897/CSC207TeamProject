@@ -70,7 +70,7 @@ public class Mine {
     /**
      * The randomizer of the tiles(booms).
      */
-    private Random randomize = new Random();
+    private Random randomize;
     /**
      * The board's width.
      */
@@ -98,6 +98,69 @@ public class Mine {
     };
 
     /**
+     * Getter for number of booms.
+     * @return number of booms
+     */
+    private int getNumBoom() { return numBoom; }
+    /**
+     * Getter for colour of tile number text..
+     * @return tileNumberPaint
+     */
+    private Paint getTileNumberPaint() { return tileNumberPaint; }
+    /**
+     * Getter for the colour of boom tiles.
+     * @return boomPaint
+     */
+    private Paint getBoomPaint() { return boomPaint; }
+    /**
+     * Getter for the colour of normal tiles.
+     * @return tilePaint
+     */
+    private Paint getTilePaint() { return tilePaint; }
+    /**
+     * Getter for the colour of separation lines.
+     * @return separationLinePaint
+     */
+    private Paint getSeparationLinePaint() { return separationLinePaint; }
+    /**
+     * Getter for the surrounding directions.
+     * @return surrounding_directions
+     */
+    private int[][] getSurrounding_directions() { return surrounding_directions; }
+
+    private void setTileNumberPaint() {
+        tileNumberPaint = new Paint();
+        tileNumberPaint.setAntiAlias(true);
+        tileNumberPaint.setTextSize(MineGameActivity.Width / 10);
+        tileNumberPaint.setColor(Color.RED);
+    }
+
+    private void setBoomPaint() {
+        boomPaint = new Paint();
+        boomPaint.setAntiAlias(true);
+        boomPaint.setColor(Color.DKGRAY);
+    }
+
+    private void setTilePaint() {
+        tilePaint = new Paint();
+        tilePaint.setAntiAlias(true);
+        tilePaint.setColor(0xff1faeff);
+    }
+    private void setMinePaint(){
+        Paint minePaint = new Paint();
+        minePaint.setAntiAlias(true);
+        minePaint.setColor(0xffff981d);
+    }
+
+    private void setSeparationLinePaint() {
+        separationLinePaint = new Paint();
+        separationLinePaint.setAntiAlias(true);
+        separationLinePaint.setColor(0xff000000);
+        separationLinePaint.setStyle(Paint.Style.STROKE);
+    }
+
+
+    /**
      * The constructor of Mine game.
      *
      * @param gameSettings The game settings for one game play.
@@ -111,30 +174,13 @@ public class Mine {
         this.tileWidth = gameSettings.get(5);
         boardWidth = boardCol * tileWidth;
         boardHeight = boardRow * tileWidth;
-
-        tileNumberPaint = new Paint();
-        tileNumberPaint.setAntiAlias(true);
-        tileNumberPaint.setTextSize(MineGameActivity.Width / 10);
-        tileNumberPaint.setColor(Color.RED);
-
-        boomPaint = new Paint();
-        boomPaint.setAntiAlias(true);
-        boomPaint.setColor(Color.DKGRAY);
-
-        tilePaint = new Paint();
-        tilePaint.setAntiAlias(true);
-        tilePaint.setColor(0xff1faeff);
-
-        Paint minePaint = new Paint();
-        minePaint.setAntiAlias(true);
-        minePaint.setColor(0xffff981d);
-
-        separationLinePaint = new Paint();
-        separationLinePaint.setAntiAlias(true);
-        separationLinePaint.setColor(0xff000000);
-        separationLinePaint.setStyle(Paint.Style.STROKE);
-
+        setTileNumberPaint();
+        setBoomPaint();
+        setTilePaint();
+        setMinePaint();
+        setSeparationLinePaint();
         mineTile = new MineTile[boardRow][boardCol];
+        randomize = new Random();
     }
 
     /**
@@ -173,7 +219,7 @@ public class Mine {
 
         List<MinePoint> mineMinePoint = new LinkedList<>();
         //Randomly generate booms.
-        for (int i = 0; i < numBoom; i++) {
+        for (int i = 0; i < getNumBoom(); i++) {
             int idx = randomize.nextInt(allMinePoint.size());
             mineMinePoint.add(allMinePoint.get(idx));
             allMinePoint.remove(idx);
@@ -192,7 +238,7 @@ public class Mine {
                 short tile = this.mineTile[row][col].value;
                 if (tile == BOOM) {
                     for (int k = 0; k < 8; k++) {
-                        int offsetX = col + surrounding_directions[k][0], offsetY = row + surrounding_directions[k][1];
+                        int offsetX = col + getSurrounding_directions()[k][0], offsetY = row + getSurrounding_directions()[k][1];
                         if (offsetX >= 0 && offsetX < boardCol && offsetY >= 0 && offsetY < boardRow) {
                             if (this.mineTile[offsetY][offsetX].value != -1)
                                 this.mineTile[offsetY][offsetX].value += 1;
@@ -209,7 +255,7 @@ public class Mine {
      * Tap to isOpen some position.
      *
      * @param openMinePoint The point being isOpen.
-     * @param isFirst   First touch or not.
+     * @param isFirst       First touch or not.
      */
     void touchOpen(MinePoint openMinePoint, boolean isFirst) {
         if (isFirst) {
@@ -229,8 +275,8 @@ public class Mine {
 
         //Search all 8 surroundings.
         for (int i = 0; i < 8; i++) {
-            int offsetX = openMinePoint.x + surrounding_directions[i][0], offsetY = openMinePoint.y + surrounding_directions[i][1];
-            //判断越界和是否已访问
+            int offsetX = openMinePoint.x + getSurrounding_directions()[i][0], offsetY = openMinePoint.y + getSurrounding_directions()[i][1];
+            //Check given minePoint is offset and whether opened or not.
             boolean isCan = offsetX >= 0 && offsetX < boardCol && offsetY >= 0 && offsetY < boardRow;
             if (isCan) {
                 if (mineTile[offsetY][offsetX].value == 0 && !mineTile[offsetY][offsetX].isOpen) {
@@ -247,7 +293,7 @@ public class Mine {
             assert minePoint != null;
             mineTile[minePoint.y][minePoint.x].isOpen = true;
             for (int i = 0; i < 8; i++) {
-                int offsetX = minePoint.x + surrounding_directions[i][0], offsetY = minePoint.y + surrounding_directions[i][1];
+                int offsetX = minePoint.x + getSurrounding_directions()[i][0], offsetY = minePoint.y + getSurrounding_directions()[i][1];
                 //Check given minePoint is offset.
                 boolean isCan = offsetX >= 0 && offsetX < boardCol && offsetY >= 0 && offsetY < boardRow;
                 if (isCan) {
@@ -274,29 +320,29 @@ public class Mine {
                 MineTile mineTile = this.mineTile[row][col];
                 if (mineTile.isOpen) {
                     if (mineTile.value > 0) {
-                        canvas.drawText(mineTile.value + "", x + col * tileWidth, y + row * tileWidth + tileWidth, tileNumberPaint);
+                        canvas.drawText(mineTile.value + "", x + col * tileWidth, y + row * tileWidth + tileWidth, getTileNumberPaint());
                     }
 
                 } else {
                     //Draw rectangle tiles.
                     RectF reactF = new RectF(x + col * tileWidth, y + row * tileWidth, x + col * tileWidth + tileWidth, y + row * tileWidth + tileWidth);
-                    canvas.drawRoundRect(reactF, 0, 0, tilePaint);
+                    canvas.drawRoundRect(reactF, 0, 0, getTilePaint());
                 }
                 //check all booms are drawn.
                 if (isDrawBooms && this.mineTile[row][col].value == -1) {
-                    canvas.drawCircle((x + col * tileWidth) + tileWidth / 2, (y + row * tileWidth) + tileWidth / 2, tileWidth / 2, boomPaint);
+                    canvas.drawCircle((x + col * tileWidth) + tileWidth / 2, (y + row * tileWidth) + tileWidth / 2, tileWidth / 2, getBoomPaint());
                 }
             }
         }
         //Draw the main frame.
-        canvas.drawRect(x, y, x + boardWidth, y + boardHeight, separationLinePaint);
+        canvas.drawRect(x, y, x + boardWidth, y + boardHeight, getSeparationLinePaint());
         //Draw the horizontal lines.
         for (int i = 0; i < boardRow; i++) {
-            canvas.drawLine(x, y + i * tileWidth, x + boardWidth, y + i * tileWidth, separationLinePaint);
+            canvas.drawLine(x, y + i * tileWidth, x + boardWidth, y + i * tileWidth, getSeparationLinePaint());
         }
         //Draw the vertical lines.
         for (int i = 0; i < boardCol; i++) {
-            canvas.drawLine(x + i * tileWidth, y, x + i * tileWidth, y + boardHeight, separationLinePaint);
+            canvas.drawLine(x + i * tileWidth, y, x + i * tileWidth, y + boardHeight, getSeparationLinePaint());
         }
 
     }
