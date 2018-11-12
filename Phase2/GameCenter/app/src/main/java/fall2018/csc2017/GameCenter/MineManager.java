@@ -164,7 +164,6 @@ public class MineManager extends View {
                 .setMessage("You Shall Not Pass！")
                 .setPositiveButton("Heroes never die!", (dialog, which) -> {
                     mineBoard = mineBoard.lastMineBoard;
-
                     invalidate(); })
                 .setNegativeButton("Quit", (dialog, which) -> System.exit(0))
                 .create()
