@@ -20,22 +20,18 @@ public class MineManager extends View {
      * The Mine board.
      */
     private MineBoard mineBoard;
-
     /**
      * The mark of whether the user tapped for at least once.
      */
     private boolean tappedOnce = true;
-
     /**
      * The context.
      */
     private Context context;
-
     /**
      * The number of booms in one game play.
      */
     private final int numBoom = 10;
-
     /**
      * The score after the user find out all the booms.
      */
@@ -44,12 +40,10 @@ public class MineManager extends View {
      * The time passed as seconds.
      */
     private int time;
-
     /**
      * The timer.
      */
     Timer timer = new Timer();
-
     /**
      * The board height.
      */
@@ -63,12 +57,15 @@ public class MineManager extends View {
      * The mineTile's size.
      */
     private int TILE_WIDTH = 50;
-
+    /**
+     * The scorer for Mine game.
+     */
     private MineScorer scorer = new MineScorer();
-
-    private boolean isFalse = false;
-
+    /**
+     * The singleton mine Manager.
+     */
     private static MineManager mineManager;
+
 
     /**
      * The constructor of MineManager.
@@ -94,17 +91,38 @@ public class MineManager extends View {
         }
     }
 
+    /**
+     * Getter for singleton Mine Manager.
+     * @param context The context.
+     * @return mineManager.
+     */
     public static MineManager getMineManager(Context context){
         if (mineManager == null){
             mineManager = new MineManager(context);
         }
         return mineManager;
     }
-
+    /**
+     * Getter for new singleton Mine Manager.
+     * @param context The context.
+     * @return a new mineManager.
+     */
     public static MineManager getNewMineManager(Context context){
         mineManager = new MineManager(context);
         return mineManager;
     }
+    /**
+     * Getter for the time passed.
+     * @return The time.
+     */
+    public int getTime() {
+        return time;
+    }
+    /**
+     * Getter for the score.
+     * @return score.
+     */
+    public int getScore() { return score; }
 
     /**
      * Game winning.
@@ -118,12 +136,8 @@ public class MineManager extends View {
         }
     }
 
-    public int getTime() {
-        return time;
-    }
-
     /**
-     * get mineTile that Unopened.
+     * Get mineTile that Unopened.
      *
      * @return unopened MineTile.
      */
@@ -157,7 +171,7 @@ public class MineManager extends View {
      * @param idxX boom x coordinate.
      * @return True if boom is tapped.
      */
-    private boolean puzzleFail(int idxY, int idxX) {
+    private boolean puzzleFailed(int idxY, int idxX) {
         return mineBoard.mineTile[idxY][idxX].value == -1;
     }
 
@@ -168,10 +182,7 @@ public class MineManager extends View {
         new AlertDialog.Builder(context)
                 .setMessage("Victory!")
                 .setCancelable(false)
-                .setPositiveButton("I want play again.", (dialog, which) -> {
-
-                    resetTheGame();
-                })
+                .setPositiveButton("I want play again.", (dialog, which) -> resetTheGame())
                 .setNegativeButton("Quit", (dialog, which) -> finish())
                 .create()
                 .show();
@@ -235,22 +246,15 @@ public class MineManager extends View {
                 mineBoard.touchOpen(new MinePoint(idxX, idxY), tappedOnce);
                 tappedOnce = false;
 
-                if (puzzleFail(idxY, idxX)) {
+                if (puzzleFailed(idxY, idxX)) {
                     sentDefeatedAlertDialog();
                     score = 0;
                     time = scorer.getTimeScore();
                     timer.cancel();
                 }
-                if (isFalse) {
-                    isFalse = false;
-                    invalidate();
-                    return true;
-                }
                 wining();
-
                 invalidate();
             }
-
         }
         return true;
     }
@@ -267,9 +271,5 @@ public class MineManager extends View {
                 y >= mineBoard.y &&
                 x <= (mineBoard.boardWidth + mineBoard.x) &&
                 y <= (mineBoard.y + mineBoard.boardHeight);
-    }
-
-    public int getScore() {
-        return score;
     }
 }

@@ -94,9 +94,14 @@ class MineBoard {
             {1, 0},//right
             {-1, -1},//lower-left
             {0, -1},//lower
-            {1, -1}//lower-right
-    };
+            {1, -1}};//lower-right
+    /**
+     * The setting for this game play.
+     */
     private final ArrayList<Integer> gameSettings;
+    /**
+     * The Mine Board for revive(undo) user.
+     */
     MineBoard lastMineBoard;
 
 
@@ -131,13 +136,16 @@ class MineBoard {
      */
     private int[][] getSurrounding_directions() { return surrounding_directions; }
 
+
+    /**
+     * Setter for Tile number Paint.
+     */
     private void setTileNumberPaint() {
         tileNumberPaint = new Paint();
         tileNumberPaint.setAntiAlias(true);
         tileNumberPaint.setTextSize(MineGameActivity.Width / 10);
         tileNumberPaint.setColor(Color.RED);
     }
-
     /**
      * Setter for Boom Paint.
      */
@@ -146,7 +154,6 @@ class MineBoard {
         boomPaint.setAntiAlias(true);
         boomPaint.setColor(Color.DKGRAY);
     }
-
     /**
      * Setter for Tile Paint.
      */
@@ -155,16 +162,6 @@ class MineBoard {
         tilePaint.setAntiAlias(true);
         tilePaint.setColor(Color.LTGRAY);
     }
-
-//    /**
-//     * Setter for Mine Paint.
-//     */
-//    private void setMinePaint(){
-//        Paint minePaint = new Paint();
-//        minePaint.setAntiAlias(true);
-//        minePaint.setColor(0xffff981d);
-//    }
-
     /**
      * Setter for Separation lines in the board.
      */
@@ -174,8 +171,6 @@ class MineBoard {
         separationLinePaint.setColor(Color.BLACK);
         separationLinePaint.setStyle(Paint.Style.STROKE);
     }
-
-
     /**
      * The constructor of Mine game.
      *
@@ -194,7 +189,6 @@ class MineBoard {
         setTileNumberPaint();
         setBoomPaint();
         setTilePaint();
-//        setMinePaint();
         setSeparationLinePaint();
         mineTile = new MineTile[boardRow][boardCol];
         randomize = new Random();
@@ -211,7 +205,6 @@ class MineBoard {
                 mineTile[row][col].isOpen = false;
                 isDrawBooms = false;
             }
-
         }
     }
 
@@ -241,12 +234,10 @@ class MineBoard {
             mineMinePoint.add(allMinePoint.get(idx));
             allMinePoint.remove(idx);
         }
-
         //Mark the position of booms.
         for (MinePoint nextMinePoint : mineMinePoint) {
             mineTile[nextMinePoint.y][nextMinePoint.x].value = BOOM;
         }
-
         //Add number to some tiles.
         for (int row = 0; row < boardRow; row++)//y
         {
@@ -255,12 +246,12 @@ class MineBoard {
                 short tile = this.mineTile[row][col].value;
                 if (tile == BOOM) {
                     for (int k = 0; k < 8; k++) {
-                        int offsetX = col + getSurrounding_directions()[k][0],
-                                offsetY = row + getSurrounding_directions()[k][1];
-                        if (offsetX >= 0 && offsetX < boardCol && offsetY >= 0 &&
-                                offsetY < boardRow) {
-                            if (this.mineTile[offsetY][offsetX].value != -1)
-                                this.mineTile[offsetY][offsetX].value += 1;
+                        int surroundingX = col + getSurrounding_directions()[k][0],
+                                surroundingY = row + getSurrounding_directions()[k][1];
+                        if (surroundingX >= 0 && surroundingX < boardCol && surroundingY >= 0 &&
+                                surroundingY < boardRow) {
+                            if (this.mineTile[surroundingY][surroundingX].value != -1)
+                                this.mineTile[surroundingY][surroundingX].value += 1;
                         }
                     }
                 }
@@ -268,7 +259,6 @@ class MineBoard {
         }
 
     }
-
 
     /**
      * Tap to open some position.
@@ -281,7 +271,6 @@ class MineBoard {
         if (isFirst) {
             createBooms(openMinePoint);
         }
-
         mineTile[openMinePoint.y][openMinePoint.x].isOpen = true;
         if (mineTile[openMinePoint.y][openMinePoint.x].value == -1)
             return;
@@ -330,7 +319,6 @@ class MineBoard {
         return newBoard;
     }
 
-
     /**
      * Draw the board.
      *
@@ -346,7 +334,8 @@ class MineBoard {
                                 y + row * tileWidth + tileWidth, getTileNumberPaint());
                     }
 
-                } else {
+                }
+                else {
                     //Draw rectangle tiles.
                     RectF reactF = new RectF(x + col * tileWidth, y + row * tileWidth,
                             x + col * tileWidth + tileWidth, y + row * tileWidth +
@@ -365,16 +354,14 @@ class MineBoard {
         canvas.drawRect(x, y, x + boardWidth, y + boardHeight,
                 getSeparationLinePaint());
         //Draw the horizontal lines.
-        for (int i = 0; i < boardRow; i++) {
-            canvas.drawLine(x, y + i * tileWidth, x + boardWidth,
-                    y + i * tileWidth, getSeparationLinePaint());
+        for (int row = 0; row < boardRow; row++) {
+            canvas.drawLine(x, y + row * tileWidth, x + boardWidth,
+                    y + row * tileWidth, getSeparationLinePaint());
         }
         //Draw the vertical lines.
-        for (int i = 0; i < boardCol; i++) {
-            canvas.drawLine(x + i * tileWidth, y, x + i * tileWidth,
+        for (int col = 0; col < boardCol; col++) {
+            canvas.drawLine(x + col * tileWidth, y, x + col * tileWidth,
                     y + boardHeight, getSeparationLinePaint());
         }
-
     }
-
 }

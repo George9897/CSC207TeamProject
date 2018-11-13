@@ -26,15 +26,27 @@ public class MineScorer extends TimerTask implements Serializable {
         return (1000 * numBooms);
     }
 
+    /**
+     * Reset the timer.
+     */
     public void resetTimer(){
         this.timeScore = 0;
     }
 
-    public int getTimeScore() {
+    /**
+     * Getter for time score.
+     * @return the Time score.
+     */
+    int getTimeScore() {
         return timeScore;
     }
 
-    public int getFinalScore(int numBooms) {
+    /**
+     * Calculate for final score.
+     * @param numBooms The number of Booms in the game.
+     * @return the final score.
+     */
+    int getFinalScore(int numBooms) {
         return calculateScore(numBooms, timeScore);
     }
 
