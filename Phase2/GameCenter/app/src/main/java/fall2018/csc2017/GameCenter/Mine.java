@@ -14,7 +14,7 @@ import java.util.Random;
 /**
  * The Mine board.
  */
-public class Mine {
+class MineBoard {
     /**
      * The x coordinate.
      */
@@ -38,11 +38,11 @@ public class Mine {
     /**
      * The mineTile's status : not boom.
      */
-    public static short EMPTY = 0;
+    private static short EMPTY = 0;
     /**
      * The mineTile's status : is boom.
      */
-    public static short BOOM = -1;
+    private static short BOOM = -1;
     /**
      * The 2D array of tiles.
      */
@@ -97,7 +97,7 @@ public class Mine {
             {1, -1}//lower-right
     };
     private final ArrayList<Integer> gameSettings;
-    Mine lastMineBoard;
+    MineBoard lastMineBoard;
 
 
     /**
@@ -138,27 +138,40 @@ public class Mine {
         tileNumberPaint.setColor(Color.RED);
     }
 
+    /**
+     * Setter for Boom Paint.
+     */
     private void setBoomPaint() {
         boomPaint = new Paint();
         boomPaint.setAntiAlias(true);
         boomPaint.setColor(Color.DKGRAY);
     }
 
+    /**
+     * Setter for Tile Paint.
+     */
     private void setTilePaint() {
         tilePaint = new Paint();
         tilePaint.setAntiAlias(true);
-        tilePaint.setColor(0xff1faeff);
-    }
-    private void setMinePaint(){
-        Paint minePaint = new Paint();
-        minePaint.setAntiAlias(true);
-        minePaint.setColor(0xffff981d);
+        tilePaint.setColor(Color.LTGRAY);
     }
 
+//    /**
+//     * Setter for Mine Paint.
+//     */
+//    private void setMinePaint(){
+//        Paint minePaint = new Paint();
+//        minePaint.setAntiAlias(true);
+//        minePaint.setColor(0xffff981d);
+//    }
+
+    /**
+     * Setter for Separation lines in the board.
+     */
     private void setSeparationLinePaint() {
         separationLinePaint = new Paint();
         separationLinePaint.setAntiAlias(true);
-        separationLinePaint.setColor(0xff000000);
+        separationLinePaint.setColor(Color.BLACK);
         separationLinePaint.setStyle(Paint.Style.STROKE);
     }
 
@@ -168,7 +181,7 @@ public class Mine {
      *
      * @param gameSettings The game settings for one game play.
      */
-    Mine(ArrayList<Integer> gameSettings) {
+    MineBoard(ArrayList<Integer> gameSettings) {
         this.gameSettings = gameSettings;
         this.x = gameSettings.get(0);
         this.y = gameSettings.get(1);
@@ -181,16 +194,16 @@ public class Mine {
         setTileNumberPaint();
         setBoomPaint();
         setTilePaint();
-        setMinePaint();
+//        setMinePaint();
         setSeparationLinePaint();
         mineTile = new MineTile[boardRow][boardCol];
         randomize = new Random();
     }
 
     /**
-     * Initialize the board.
+     * Create the board.
      */
-    void init() {
+    void createBoard() {
         for (int row = 0; row < boardRow; row++) {
             for (int col = 0; col < boardCol; col++) {
                 mineTile[row][col] = new MineTile();
@@ -207,7 +220,7 @@ public class Mine {
      *
      * @param exception This position doesn't contain booms.
      */
-    public void createBooms(MinePoint exception) {
+    private void createBooms(MinePoint exception) {
         List<MinePoint> allMinePoint = new LinkedList<>();
 
         for (int row = 0; row < boardRow; row++)//y
@@ -310,8 +323,8 @@ public class Mine {
     /**
      * Copy the current Mine board.
      */
-    Mine copy(){
-        Mine newBoard = new Mine(this.gameSettings);
+    private MineBoard copy(){
+        MineBoard newBoard = new MineBoard(this.gameSettings);
         newBoard.mineTile = this.mineTile.clone();
         newBoard.isDrawBooms = false;
         return newBoard;

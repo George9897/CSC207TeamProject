@@ -19,12 +19,12 @@ public class MineManager extends View {
     /**
      * The Mine board.
      */
-    private Mine mine;
+    private MineBoard mineBoard;
 
     /**
      * The mark of whether the user tapped for at least once.
      */
-    private boolean isFirst = true;
+    private boolean tappedOnce = true;
 
     /**
      * The context.
@@ -40,18 +40,16 @@ public class MineManager extends View {
      * The score after the user find out all the booms.
      */
     private int score;
-
-    private int time;
-
     /**
-     * The time.
+     * The time passed as seconds.
      */
-    int secondPassed;
+    private int time;
 
     /**
      * The timer.
      */
     Timer timer = new Timer();
+
     /**
      * The board height.
      */
@@ -87,10 +85,10 @@ public class MineManager extends View {
         gameSettings.add(ROW);
         gameSettings.add(numBoom);
         gameSettings.add(TILE_WIDTH);
-        mine = new Mine(gameSettings);
+        mineBoard = new MineBoard(gameSettings);
         timer.schedule(scorer, 0,1000);
         try {
-            mine.init();
+            mineBoard.createBoard();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -109,9 +107,9 @@ public class MineManager extends View {
     }
 
     /**
-     * Game logic.
+     * Game winning.
      */
-    public void logic() {
+    public void wining() {
         if (puzzleSolved()) {
             sentVictoryAlertDialog();
             this.score = scorer.getFinalScore(numBoom);
@@ -132,9 +130,9 @@ public class MineManager extends View {
     private int getUnopenedTile() {
         int count = 0;
 
-        for (int i = 0; i < mine.boardRow; i++) {
-            for (int j = 0; j < mine.boardCol; j++) {
-                if (!mine.mineTile[i][j].isOpen) {
+        for (int i = 0; i < mineBoard.boardRow; i++) {
+            for (int j = 0; j < mineBoard.boardCol; j++) {
+                if (!mineBoard.mineTile[i][j].isOpen) {
                     count++;
                 }
             }
@@ -160,7 +158,7 @@ public class MineManager extends View {
      * @return True if boom is tapped.
      */
     private boolean puzzleFail(int idxY, int idxX) {
-        return mine.mineTile[idxY][idxX].value == -1;
+        return mineBoard.mineTile[idxY][idxX].value == -1;
     }
 
     /**
@@ -174,7 +172,7 @@ public class MineManager extends View {
 
                     resetTheGame();
                 })
-                .setNegativeButton("Exit", (dialog, which) -> finish())
+                .setNegativeButton("Quit", (dialog, which) -> finish())
                 .create()
                 .show();
     }
@@ -186,24 +184,24 @@ public class MineManager extends View {
     }
 
     public void resetTheGame(){
-        mine.init();
+        mineBoard.createBoard();
         invalidate();
-        isFirst = true;
+        tappedOnce = true;
     }
 
     /**
      * Send an failing AlertDialog and guild player to next activity.
      */
     private void sentDefeatedAlertDialog() {
-        mine.isDrawBooms = true;
+        mineBoard.isDrawBooms = true;
         new AlertDialog.Builder(context)
                 .setCancelable(false)
                 .setMessage("You Shall Not Pass！")
                 .setPositiveButton("Heroes never die!", (dialog, which) -> {
-                    mine = mine.lastMineBoard;
+                    mineBoard = mineBoard.lastMineBoard;
                     invalidate();
                 })
-                .setNegativeButton("Exit", (dialog, which) -> finish())
+                .setNegativeButton("Quit", (dialog, which) -> finish())
                 .create()
                 .show();
     }
@@ -215,7 +213,7 @@ public class MineManager extends View {
      */
     @Override
     protected void onDraw(Canvas canvas) {
-        mine.draw(canvas);
+        mineBoard.draw(canvas);
     }
 
     /**
@@ -232,10 +230,10 @@ public class MineManager extends View {
             int y = (int) event.getY();
 
             if (checkRange(x, y)) {
-                int idxX = (x - mine.x) / mine.tileWidth;
-                int idxY = (y - mine.y) / mine.tileWidth;
-                mine.touchOpen(new MinePoint(idxX, idxY), isFirst);
-                isFirst = false;
+                int idxX = (x - mineBoard.x) / mineBoard.tileWidth;
+                int idxY = (y - mineBoard.y) / mineBoard.tileWidth;
+                mineBoard.touchOpen(new MinePoint(idxX, idxY), tappedOnce);
+                tappedOnce = false;
 
                 if (puzzleFail(idxY, idxX)) {
                     sentDefeatedAlertDialog();
@@ -248,7 +246,7 @@ public class MineManager extends View {
                     invalidate();
                     return true;
                 }
-                logic();
+                wining();
 
                 invalidate();
             }
@@ -265,10 +263,10 @@ public class MineManager extends View {
      * @return True if x and y are in the range, false otherwise.
      */
     private boolean checkRange(int x, int y) {
-        return x >= mine.x &&
-                y >= mine.y &&
-                x <= (mine.boardWidth + mine.x) &&
-                y <= (mine.y + mine.boardHeight);
+        return x >= mineBoard.x &&
+                y >= mineBoard.y &&
+                x <= (mineBoard.boardWidth + mineBoard.x) &&
+                y <= (mineBoard.y + mineBoard.boardHeight);
     }
 
     public int getScore() {
