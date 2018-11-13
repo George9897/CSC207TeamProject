@@ -10,6 +10,9 @@ import static java.lang.Math.pow;
  */
 public class MineScorer extends TimerTask implements Serializable {
 
+    /**
+     * The time score for one game play.
+     */
     private int timeScore;
 
     /**

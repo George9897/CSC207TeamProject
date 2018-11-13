@@ -137,7 +137,7 @@ public class MineManager extends View {
     }
 
     /**
-     * Get mineTile that Unopened.
+     * Get mineTile that is Unopened.
      *
      * @return unopened MineTile.
      */
@@ -167,12 +167,12 @@ public class MineManager extends View {
     /**
      * Return true if boom is tapped, false otherwise.
      *
-     * @param idxY boom y coordinate.
-     * @param idxX boom x coordinate.
+     * @param boomY boom y coordinate.
+     * @param boomX boom x coordinate.
      * @return True if boom is tapped.
      */
-    private boolean puzzleFailed(int idxY, int idxX) {
-        return mineBoard.mineTile[idxY][idxX].value == -1;
+    private boolean puzzleFailed(int boomY, int boomX) {
+        return mineBoard.mineTile[boomY][boomX].value == -1;
     }
 
     /**
@@ -188,12 +188,18 @@ public class MineManager extends View {
                 .show();
     }
 
+    /**
+     * Finish the game with You Win Activity.
+     */
     private void finish(){
         Intent tmp = new Intent(context, YouWinActivity.class);
         tmp.putExtra("gameType","Mine" );
         context.startActivity(tmp);
     }
 
+    /**
+     * Reset the game if the user choose to do so.
+     */
     public void resetTheGame(){
         mineBoard.createBoard();
         invalidate();
@@ -218,7 +224,7 @@ public class MineManager extends View {
     }
 
     /**
-     * refresh View.
+     * Refresh View.
      *
      * @param canvas The drawing tool for the board.
      */
@@ -260,7 +266,7 @@ public class MineManager extends View {
     }
 
     /**
-     * Check touch event is in the range. Helper for
+     * Check touch event is in the range.
      *
      * @param x Given x coordinate.
      * @param y Given y coordinate.

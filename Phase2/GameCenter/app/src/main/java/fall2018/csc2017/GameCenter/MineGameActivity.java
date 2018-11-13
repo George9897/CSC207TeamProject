@@ -10,7 +10,6 @@ import android.util.DisplayMetrics;
  */
 public class MineGameActivity extends Activity {
 
-
     /**
      * The width of the Mine board.
      */

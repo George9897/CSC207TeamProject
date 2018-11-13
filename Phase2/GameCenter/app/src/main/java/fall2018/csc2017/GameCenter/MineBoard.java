@@ -216,10 +216,8 @@ class MineBoard {
     private void createBooms(MinePoint exception) {
         List<MinePoint> allMinePoint = new LinkedList<>();
 
-        for (int row = 0; row < boardRow; row++)//y
-        {
-            for (int col = 0; col < boardCol; col++)//x
-            {
+        for (int row = 0; row < boardRow; row++) {
+            for (int col = 0; col < boardCol; col++) {
                 MinePoint minePoint = new MinePoint(col, row);
                 if (!minePoint.equals(exception)) {
                     allMinePoint.add(minePoint);
@@ -239,10 +237,8 @@ class MineBoard {
             mineTile[nextMinePoint.y][nextMinePoint.x].value = BOOM;
         }
         //Add number to some tiles.
-        for (int row = 0; row < boardRow; row++)//y
-        {
-            for (int col = 0; col < boardCol; col++)//x
-            {
+        for (int row = 0; row < boardRow; row++) {
+            for (int col = 0; col < boardCol; col++) {
                 short tile = this.mineTile[row][col].value;
                 if (tile == BOOM) {
                     for (int k = 0; k < 8; k++) {
@@ -258,6 +254,16 @@ class MineBoard {
             }
         }
 
+    }
+
+    /**
+     * Copy the current Mine board.
+     */
+    private MineBoard copy(){
+        MineBoard newBoard = new MineBoard(this.gameSettings);
+        newBoard.mineTile = this.mineTile.clone();
+        newBoard.isDrawBooms = false;
+        return newBoard;
     }
 
     /**
@@ -303,20 +309,8 @@ class MineBoard {
                         mineTile[surroundingY][surroundingX].isOpen = true;
                     }
                 }
-
             }
         }
-
-    }
-
-    /**
-     * Copy the current Mine board.
-     */
-    private MineBoard copy(){
-        MineBoard newBoard = new MineBoard(this.gameSettings);
-        newBoard.mineTile = this.mineTile.clone();
-        newBoard.isDrawBooms = false;
-        return newBoard;
     }
 
     /**
@@ -333,7 +327,6 @@ class MineBoard {
                         canvas.drawText(mineTile.value + "", x + col * tileWidth,
                                 y + row * tileWidth + tileWidth, getTileNumberPaint());
                     }
-
                 }
                 else {
                     //Draw rectangle tiles.

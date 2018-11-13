@@ -1,7 +1,7 @@
 package fall2018.csc2017.GameCenter;
 
 /**
- * MinePoint to represent a mineTile's position.
+ * MinePoint to represent a Tile's position.
  */
 public class MinePoint {
     /**
