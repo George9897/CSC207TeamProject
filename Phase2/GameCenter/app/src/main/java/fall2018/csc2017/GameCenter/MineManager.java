@@ -214,7 +214,7 @@ public class MineManager extends View {
         new AlertDialog.Builder(context)
                 .setCancelable(false)
                 .setMessage("You Shall Not Pass！")
-                .setPositiveButton("Heroes never die!", (dialog, which) -> {
+                .setPositiveButton("I want to cheat anyway!", (dialog, which) -> {
                     mineBoard = mineBoard.lastMineBoard;
                     invalidate();
                 })
