@@ -6,4 +6,7 @@
     <string name="sign_up">Sign Up</string>
     <string name="difficulty">Difficulty</string>
     <string name="mine_game_setting">Mine Game Setting</string>
+    <string name="confirm_and_play">Confirm and play</string>
+    <string name="game_center">Game Center</string>
+    <string name="mine">Mine</string>
 </resources>

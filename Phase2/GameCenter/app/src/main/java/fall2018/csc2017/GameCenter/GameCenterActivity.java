@@ -36,7 +36,6 @@ public class GameCenterActivity extends AppCompatActivity implements Serializabl
         addTileGameButton();
         addMineGameButton();
         addSudokuGameButton();
-        addMineGameButton();
     }
 
     /**
