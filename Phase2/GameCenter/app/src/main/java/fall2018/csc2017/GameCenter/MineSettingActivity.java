@@ -14,7 +14,7 @@ public class MineSettingActivity extends AppCompatActivity implements Serializab
 public static final String TEMP_SAVE_FILENAME = "save_setting_file_tmp.ser";
 
     /**
-     * Track difficulty selected
+     * Track difficulty selected.
      */
     protected int difficulty;
 
@@ -67,7 +67,7 @@ public static final String TEMP_SAVE_FILENAME = "save_setting_file_tmp.ser";
     /**
      * Save the slidingTile manager to fileName.
      *
-     * @param fileName the name of the file
+     * @param fileName the name of the file.
      */
     public void saveToFile(String fileName) {
     }

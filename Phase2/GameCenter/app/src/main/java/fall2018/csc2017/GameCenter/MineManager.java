@@ -144,9 +144,9 @@ public class MineManager extends View {
     private int getUnopenedTile() {
         int count = 0;
 
-        for (int i = 0; i < mineBoard.boardRow; i++) {
-            for (int j = 0; j < mineBoard.boardCol; j++) {
-                if (!mineBoard.mineTile[i][j].isOpen) {
+        for (int row = 0; row < mineBoard.boardRow; row++) {
+            for (int col = 0; col < mineBoard.boardCol; col++) {
+                if (!mineBoard.mineTile[row][col].isOpened) {
                     count++;
                 }
             }
@@ -229,9 +229,7 @@ public class MineManager extends View {
      * @param canvas The drawing tool for the board.
      */
     @Override
-    protected void onDraw(Canvas canvas) {
-        mineBoard.draw(canvas);
-    }
+    protected void onDraw(Canvas canvas) { mineBoard.draw(canvas); }
 
     /**
      * Perform a touch event on a tile.

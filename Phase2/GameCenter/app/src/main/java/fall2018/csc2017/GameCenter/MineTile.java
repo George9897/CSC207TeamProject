@@ -12,13 +12,13 @@ class MineTile {
     /**
      * The boolean of whether this mineTile is opened or not.
      */
-    boolean isOpen;
+    boolean isOpened;
 
     /**
      * The constructor for tiles.
      */
     MineTile() {
         this.value = 0;
-        this.isOpen = false;
+        this.isOpened = false;
     }
 }
