@@ -30,13 +30,6 @@ public class MineScorer extends TimerTask implements Serializable {
     }
 
     /**
-     * Reset the timer.
-     */
-    public void resetTimer(){
-        this.timeScore = 0;
-    }
-
-    /**
      * Getter for time score.
      * @return the Time score.
      */
