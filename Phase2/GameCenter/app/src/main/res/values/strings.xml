@@ -4,4 +4,6 @@
     <string name="username">Username</string>
     <string name="login">Login</string>
     <string name="sign_up">Sign Up</string>
+    <string name="difficulty">Difficulty</string>
+    <string name="mine_game_setting">Mine Game Setting</string>
 </resources>

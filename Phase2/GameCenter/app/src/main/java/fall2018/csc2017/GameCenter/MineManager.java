@@ -31,7 +31,7 @@ public class MineManager extends View {
     /**
      * The number of booms in one game play.
      */
-    private final int numBoom = 10;
+    public static int numBoom;
     /**
      * The score after the user find out all the booms.
      */
@@ -123,6 +123,12 @@ public class MineManager extends View {
      * @return score.
      */
     public int getScore() { return score; }
+
+    /**
+     * Setter for numBoom.
+     * @param numBoom the wanted number of booms.
+     */
+    public static void setNumBoom(int numBoom) { MineManager.numBoom = numBoom; }
 
     /**
      * Game winning.

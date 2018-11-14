@@ -8,21 +8,24 @@
 
     <TextView
         android:id="@+id/tilegameView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="100dp"
+        android:layout_width="75dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="101dp"
+        android:layout_marginEnd="112dp"
         android:text="Mine"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tileGameButton" />
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toEndOf="@+id/tilegameView"
+        app:layout_constraintTop_toBottomOf="@+id/mineGameButton" />
 
     <ImageButton
         android:id="@+id/mineGameButton"
-        android:layout_width="96dp"
-        android:layout_height="145dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="108dp"
         android:layout_marginEnd="60dp"
-        android:layout_marginBottom="11dp"
         app:layout_constraintBottom_toTopOf="@+id/tilegameView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tileGameButton"
@@ -46,6 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginTop="108dp"
+        app:layout_constraintBottom_toTopOf="@+id/tilegameView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/slidingtilegame" />
@@ -63,16 +67,12 @@
         android:id="@+id/sudokuButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="192dp"
-        android:layout_marginTop="244dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginBottom="274dp"
+        android:layout_marginStart="212dp"
+        android:layout_marginEnd="84dp"
+        android:layout_marginBottom="208dp"
         android:text="sudoku"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
