@@ -35,11 +35,21 @@ public class MinePoint {
 
     }
 
-    public int getX() {
+    /**
+     * get the x coordinate.
+     *
+     * @return the x coordinate.
+     */
+    int getX() {
         return x;
     }
 
-    public int getY() {
+    /**
+     * get the y coordinate.
+     *
+     * @return get the y coordinate.
+     */
+    int getY() {
         return y;
     }
 }

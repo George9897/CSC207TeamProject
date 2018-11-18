@@ -66,7 +66,6 @@ public class MineManager extends View {
      */
     private static MineManager mineManager;
 
-
     /**
      * The constructor of MineManager.
      */

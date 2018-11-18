@@ -105,38 +105,75 @@ class MineBoard {
      */
     private MineBoard lastMineBoard;
 
+    /**
+     * Get the x coordinate.
+     *
+     * @return The x coordinate.
+     */
     int getX() {
         return x;
     }
-
+    /**
+     * Get the y coordinate.
+     *
+     * @return The y coordinate.
+     */
     int getY() {
         return y;
     }
-
+    /**
+     * Get the board's number of cols.
+     *
+     * @return The board's number of cols.
+     */
     int getBoardCol() {
         return boardCol;
     }
-
+    /**
+     * Get the board's number of rows.
+     *
+     * @return The board's number of rows.
+     */
     int getBoardRow() {
         return boardRow;
     }
-
+    /**
+     * Get the 2D array of tiles.
+     *
+     * @return The 2D array of tiles.
+     */
     MineTile[][] getMineTile() {
         return mineTile;
     }
-
+    /**
+     * Get the mineTile's width.
+     *
+     * @return The mineTile's width.
+     */
     int getTileWidth() {
         return tileWidth;
     }
-
+    /**
+     * Get the board's width.
+     *
+     * @return The board's width.
+     */
     int getBoardWidth() {
         return boardWidth;
     }
-
+    /**
+     * Get the board's hight.
+     *
+     * @return The board's hight.
+     */
     int getBoardHeight() {
         return boardHeight;
     }
-
+    /**
+     * Get the Mine Board for revive(undo) user.
+     *
+     * @return The Mine Board for revive(undo) user.
+     */
     MineBoard getLastMineBoard() {
         return lastMineBoard;
     }
