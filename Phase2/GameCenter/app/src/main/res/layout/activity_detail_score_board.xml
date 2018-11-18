@@ -25,10 +25,10 @@
         android:layout_height="55dp"
         android:layout_marginStart="37dp"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="223dp"
+        android:layout_marginBottom="478dp"
         android:text="Game: "
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,6 +36,7 @@
         android:id="@+id/GameView"
         android:layout_width="158dp"
         android:layout_height="54dp"
+        android:layout_marginStart="38dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="29dp"
         android:layout_marginBottom="479dp"
@@ -43,6 +44,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/GameDisplay"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -51,9 +53,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="65dp"
         android:layout_marginTop="100dp"
-        android:layout_marginEnd="286dp"
+        android:layout_marginBottom="446dp"
         android:text="Easy"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,24 +63,26 @@
         android:id="@+id/MediumDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="61dp"
         android:layout_marginTop="100dp"
-        android:layout_marginEnd="170dp"
+        android:layout_marginEnd="57dp"
         android:layout_marginBottom="446dp"
         android:text="Medium"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/HardDisplay"
+        app:layout_constraintStart_toEndOf="@+id/EasyDisplay"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/HardDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="281dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="70dp"
+        android:layout_marginBottom="446dp"
         android:text="Hard"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -86,24 +90,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="51dp"
+        android:layout_marginTop="135dp"
         android:layout_marginBottom="400dp"
         android:text="Top 1"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginEnd="165dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="135dp"
+        android:layout_marginEnd="55dp"
         android:layout_marginBottom="400dp"
         android:text="Top 1"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/textView10"
+        app:layout_constraintStart_toEndOf="@+id/textView8"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/easyTopOne"
@@ -121,13 +129,15 @@
         android:id="@+id/mediumTopOne"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginEnd="163dp"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="179dp"
+        android:layout_marginEnd="54dp"
         android:layout_marginBottom="350dp"
         android:text="no name \nno score"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/hardTopOne"
+        app:layout_constraintStart_toEndOf="@+id/easyTopOne"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/hardTopOne"
@@ -157,13 +167,15 @@
         android:id="@+id/mediumData"
         android:layout_width="94dp"
         android:layout_height="321dp"
-        android:layout_marginStart="147dp"
-        android:layout_marginEnd="140dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="235dp"
+        android:layout_marginEnd="15dp"
         android:layout_marginBottom="10dp"
         android:text="no data for medium mode"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/hardData"
+        app:layout_constraintStart_toEndOf="@+id/easyData"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/hardData"
