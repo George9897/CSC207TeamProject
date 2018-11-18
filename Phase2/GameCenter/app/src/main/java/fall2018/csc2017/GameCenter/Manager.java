@@ -1,29 +1,22 @@
 package fall2018.csc2017.GameCenter;
 
-import android.content.Context;
 
-public abstract class Manager {
-    public int score;
+/**
+ * The Manager interface for board games.
+ */
+public interface Manager {
+    /**
+     * @return the score of a game play through.
+     */
+    int getScore();
 
-    private int time;
+    /**
+     * @return Whether the board game is solved or not.
+     */
+    boolean puzzleSolved();
 
-    private Context context;
-
-    private AccountManager accountManager = AccountManager.getAccountManager();
-
-    String userName = accountManager.getUserName();
-
-    int getScore() { return score; }
-
-    int getTime() { return time; }
-
-    boolean puzzleSolved(){
-        return false;
-    }
-
-    abstract void makeMove();
-
-    abstract Manager getManager();
-
-    abstract void destroyManager();
+    /**
+     * The move maker for games.
+     */
+    void makeMove();
 }

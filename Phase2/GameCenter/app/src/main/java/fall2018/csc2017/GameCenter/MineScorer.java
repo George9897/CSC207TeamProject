@@ -22,6 +22,7 @@ public class MineScorer extends TimerTask implements Serializable, Calculable {
      * @param time number of move.
      * @return return the calculate result
      */
+    @Override
     public int calculateScore(int numBooms, int time) {
         if (time > 0) {
             return (int) ((1000 * numBooms * pow(0.995, time)));
