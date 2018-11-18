@@ -61,6 +61,11 @@ public class SudokuBoardManager implements Serializable {
     /**
      *
      */
+    private List<Integer> undoList = new ArrayList<>();
+
+    /**
+     *
+     */
     static String sudokuDifficulty;
 
     /**
@@ -167,6 +172,9 @@ public class SudokuBoardManager implements Serializable {
             sudokuNum[acc] = next.getId();
             acc++;
         }
+        System.out.println("row: " + checkRow(sudokuNum));
+        System.out.println("col: " + checkCol(sudokuNum));
+        System.out.println("square: " + checkSquare(sudokuNum));
         return checkCol(sudokuNum) && checkRow(sudokuNum) && checkSquare(sudokuNum);
     }
 
@@ -195,13 +203,18 @@ public class SudokuBoardManager implements Serializable {
         if (isValidTap(position)) {
             sudoku.writeNum(row, col, move);
         }
+        undoList.add(position);
     }
 
     private boolean checkCol(int[] sudokuNum) {
         for (int i = 0; i < Sudoku.size; i++) {
             List<Integer> col = new ArrayList<>();
             for (int j = 0; j < Sudoku.size; j++) {
-                col.add(sudokuNum[i * Sudoku.size + j]);
+                if (sudokuNum[i * Sudoku.size + j] > 100){
+                    col.add(sudokuNum[i * Sudoku.size + j]-100);
+                } else {
+                    col.add(sudokuNum[i * Sudoku.size + j]);
+                }
             }
             for (int check = 1; check <= Sudoku.size; check++) {
                 if (!col.contains(check)) {
@@ -216,7 +229,11 @@ public class SudokuBoardManager implements Serializable {
         for (int i = 0; i < Sudoku.size; i++) {
             List<Integer> row = new ArrayList<>();
             for (int j = 0; j < Sudoku.size; j++) {
-                row.add(sudokuNum[j * Sudoku.size + i]);
+                if (sudokuNum[j * Sudoku.size + i] > 100){
+                    row.add(sudokuNum[j * Sudoku.size + i]-100);
+                } else {
+                    row.add(sudokuNum[j * Sudoku.size + i]);
+                }
             }
             for (int check = 1; check <= Sudoku.size; check++) {
                 if (!row.contains(check)) {
@@ -237,7 +254,11 @@ public class SudokuBoardManager implements Serializable {
 
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
-                    square.add(sudokuNum[(xOff + i) * 9 + yOff + j]);
+                    if (sudokuNum[(xOff + i) * 9 + yOff + j] > 100){
+                        square.add(sudokuNum[(xOff + i) * 9 + yOff + j]-100);
+                    } else {
+                        square.add(sudokuNum[(xOff + i) * 9 + yOff + j]);
+                    }
                 }
             }
             if (position % 9 == 8) {
@@ -350,5 +371,12 @@ public class SudokuBoardManager implements Serializable {
 
     void setMove(int move){
         this.move = move;
+    }
+
+    public void undo(){
+        if (!undoList.isEmpty()) {
+            int undoPosition = undoList.remove(undoList.size() - 1);
+            sudoku.writeNum(undoPosition / Sudoku.size, undoPosition % Sudoku.size, 0);
+        }
     }
 }
