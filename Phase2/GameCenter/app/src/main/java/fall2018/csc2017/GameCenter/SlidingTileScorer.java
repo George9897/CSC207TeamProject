@@ -16,6 +16,7 @@ class SlidingTileScorer implements Serializable, Calculable {
      * @param moves number of move.
      * @return return the calculate result
      */
+    @Override
     public int calculateScore(int level, int moves) {
         int power = level - 3;
         if (moves > 0) {
