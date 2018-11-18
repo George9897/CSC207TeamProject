@@ -28,7 +28,7 @@
         android:layout_marginTop="160dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="360dp"
-        android:text="median"
+        android:text="medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/levelFiveButton"
         app:layout_constraintStart_toEndOf="@+id/levelThreeButton"
