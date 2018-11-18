@@ -83,7 +83,7 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
         scoreboardButton.setOnClickListener(view -> {
             buildScoreFile(scoreBoard.getLevelOption());
             scoreBoard.updateHighestScore();
-            Intent tmp = new Intent(this, ScoreBoardActivity.class);
+            Intent tmp = new Intent(this, ChooseGameScoreActivity.class);
             startActivity(tmp);
         });
     }

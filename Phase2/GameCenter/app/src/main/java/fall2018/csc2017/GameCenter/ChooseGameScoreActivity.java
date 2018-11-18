@@ -20,24 +20,24 @@ public class ChooseGameScoreActivity extends AppCompatActivity {
     private void addMGButtonListener() {
         Button mgButton = findViewById(R.id.minescore);
         mgButton.setOnClickListener(view -> {
-            //Intent tmp = new Intent(this, xxx.class);
-            //startActivity(tmp);
+            Intent tmp = new Intent(this, ScoreBoardActivity.class);
+            startActivity(tmp);
         });
     }
 
     private void addSDButtonListener() {
         Button sdButton = findViewById(R.id.sudoukuscore);
         sdButton.setOnClickListener(view -> {
-            //Intent tmp = new Intent(this, xxx.class);
-            //startActivity(tmp);
+            Intent tmp = new Intent(this, ScoreBoardActivity.class);
+            startActivity(tmp);
         });
     }
 
     private void addSTButtonListener() {
         Button stButton = findViewById(R.id.slidingscore);
         stButton.setOnClickListener(view -> {
-            //Intent tmp = new Intent(this, xxx.class);
-            //startActivity(tmp);
+            Intent tmp = new Intent(this, ScoreBoardActivity.class);
+            startActivity(tmp);
         });
     }
 

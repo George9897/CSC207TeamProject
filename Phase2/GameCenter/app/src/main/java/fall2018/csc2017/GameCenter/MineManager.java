@@ -250,6 +250,8 @@ public class MineManager extends View {
         mineBoard.draw(canvas);
     }
 
+    private MotionEvent event;
+
     /**
      * Perform a touch event on a tile.
      *
@@ -260,26 +262,31 @@ public class MineManager extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            int x = (int) event.getX();
-            int y = (int) event.getY();
-
-            if (checkRange(x, y)) {
-                int idxX = (x - mineBoard.getX()) / mineBoard.getTileWidth();
-                int idxY = (y - mineBoard.getY()) / mineBoard.getTileWidth();
-                mineBoard.touchOpen(new MinePoint(idxX, idxY), tappedOnce);
-                tappedOnce = false;
-
-                if (puzzleFailed(idxY, idxX)) {
-                    sentDefeatedAlertDialog();
-                    score = 0;
-                    time = scorer.getTimeScore();
-                    timer.cancel();
-                }
-                wining();
-                invalidate();
-            }
+            this.event = event;
+            makeMove();
         }
         return true;
+    }
+
+    void makeMove(){
+        int x = (int) event.getX();
+        int y = (int) event.getY();
+
+        if (checkRange(x, y)) {
+            int idxX = (x - mineBoard.getX()) / mineBoard.getTileWidth();
+            int idxY = (y - mineBoard.getY()) / mineBoard.getTileWidth();
+            mineBoard.touchOpen(new MinePoint(idxX, idxY), tappedOnce);
+            tappedOnce = false;
+
+            if (puzzleFailed(idxY, idxX)) {
+                sentDefeatedAlertDialog();
+                score = 0;
+                time = scorer.getTimeScore();
+                timer.cancel();
+            }
+            wining();
+            invalidate();
+        }
     }
 
     /**

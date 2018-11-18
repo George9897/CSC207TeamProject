@@ -35,7 +35,8 @@
         <activity android:name=".MineSettingActivity" />
         <activity android:name=".MineGameActivity" />
         <activity android:name=".ChooseGameScoreActivity" />
-        <activity android:name=".SudokuSettingActivity"></activity>
+        <activity android:name=".SudokuSettingActivity" />
+        <activity android:name=".DetailScoreBoardActivity"></activity>
     </application>
 
 </manifest>
