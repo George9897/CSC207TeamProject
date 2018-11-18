@@ -73,6 +73,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         addClearButtonListener();
         addEraserButtonListener();
         addSudokuQuitButtonsListener();
+        addSudokuUndoButtonsListener();
 
         gridView = findViewById(R.id.sudokugrid);
         gridView.setNumColumns(Sudoku.size);
@@ -309,6 +310,13 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         quitButton.setOnClickListener((v) -> {
             Intent tmp = new Intent(this, StartingActivity.class);
             startActivity(tmp);
+        });
+    }
+
+    private void addSudokuUndoButtonsListener() {
+        Button undoButton = findViewById(R.id.sudokuUndoButton);
+        undoButton.setOnClickListener((v) -> {
+            sudokuBoardManager.undo();
         });
     }
 
