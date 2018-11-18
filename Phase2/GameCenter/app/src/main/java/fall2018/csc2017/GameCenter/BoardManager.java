@@ -4,12 +4,9 @@ import android.content.Context;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-
-import static fall2018.csc2017.GameCenter.SlidingTileScore.calculateScore;
 
 /**
  * Manage a slidingTile, including swapping tiles, checking for a win, and managing taps.
@@ -59,6 +56,11 @@ class BoardManager implements Serializable, Undoable {
      * After score for one game round.
      */
     private int score;
+
+    /**
+     * The scorer for sliding tile.
+     */
+    private SlidingTileScorer scorer = new SlidingTileScorer();
 
     /**
      * The undo limitation.
@@ -256,8 +258,7 @@ class BoardManager implements Serializable, Undoable {
             acc++;
         }
         if (solved) {
-            score = calculateScore(boardManager.getSlidingTile().getLevel(),
-                    boardManager.getNumMoves());
+            score = scorer.getFinalScore(slidingTile.getLevel(), getNumMoves());
             undoLimit = 0;
             ScoreBoard scoreBoard = ScoreBoard.getScoreBoard(context);
             scoreBoard.update(SlidingTile.level, userName, score);
