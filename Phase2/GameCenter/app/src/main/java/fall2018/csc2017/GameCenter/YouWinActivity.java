@@ -45,6 +45,7 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
                 sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
                 scoreBox.setText((Integer.toString(sudokuBoardManager.getScore())) + "\n\r" + "Time: "
                         + (Integer.toString(sudokuBoardManager.getTime())) + " Second");
+                break;
         }
 
         setUpSeeScoreButtonListener();
