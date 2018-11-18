@@ -37,14 +37,6 @@ class MineBoard {
      */
     private int numBoom;
     /**
-     * The mineTile's status : not boom.
-     */
-    private static short EMPTY = 0;
-    /**
-     * The mineTile's status : is boom.
-     */
-    private static short BOOM = -1;
-    /**
      * The 2D array of tiles.
      */
     private MineTile[][] mineTile;
@@ -96,14 +88,6 @@ class MineBoard {
             {-1, -1},//lower-left
             {0, -1},//lower
             {1, -1}};//lower-right
-    /**
-     * The setting for this game play.
-     */
-    private final ArrayList<Integer> gameSettings;
-    /**
-     * The Mine Board for revive(undo) user.
-     */
-    private MineBoard lastMineBoard;
 
     /**
      * Get the x coordinate.
@@ -162,20 +146,12 @@ class MineBoard {
         return boardWidth;
     }
     /**
-     * Get the board's hight.
+     * Get the board's height.
      *
-     * @return The board's hight.
+     * @return The board's height.
      */
     int getBoardHeight() {
         return boardHeight;
-    }
-    /**
-     * Get the Mine Board for revive(undo) user.
-     *
-     * @return The Mine Board for revive(undo) user.
-     */
-    MineBoard getLastMineBoard() {
-        return lastMineBoard;
     }
 
     /**
@@ -277,7 +253,6 @@ class MineBoard {
      * @param gameSettings The game settings for one game play.
      */
     MineBoard(ArrayList<Integer> gameSettings) {
-        this.gameSettings = gameSettings;
         this.x = gameSettings.get(0);
         this.y = gameSettings.get(1);
         this.boardCol = gameSettings.get(2);
@@ -333,14 +308,15 @@ class MineBoard {
             allPoint.remove(idx);
         }
         //Mark the position of booms.
+        int boom = -1;
         for (MinePoint nextBoomPoint : boomPoint) {
-            mineTile[nextBoomPoint.getY()][nextBoomPoint.getX()].setValue(BOOM);
+            mineTile[nextBoomPoint.getY()][nextBoomPoint.getX()].setValue(boom);
         }
         //Add number to some tiles.
         for (int row = 0; row < boardRow; row++) {
             for (int col = 0; col < boardCol; col++) {
                 int tile = this.mineTile[row][col].getValue();
-                if (tile == BOOM) {
+                if (tile == boom) {
                     for (int k = 0; k < 8; k++) {
                         int surroundingX = col + getSurrounding_directions()[k][0],
                                 surroundingY = row + getSurrounding_directions()[k][1];
@@ -358,23 +334,12 @@ class MineBoard {
     }
 
     /**
-     * Copy the current Mine board.
-     */
-    private MineBoard copy() {
-        MineBoard newBoard = new MineBoard(this.gameSettings);
-        newBoard.mineTile = this.mineTile.clone();
-        newBoard.isDrawBooms = false;
-        return newBoard;
-    }
-
-    /**
      * Tap to open some position.
      *
      * @param openMinePoint The point being isOpen.
-     * @param tappedOnce    First touch or not.
+     * @param tappedOnce First touch or not.
      */
     void touchOpen(MinePoint openMinePoint, boolean tappedOnce) {
-        lastMineBoard = this.copy();
         if (tappedOnce) {
             createBooms(openMinePoint);
         }
