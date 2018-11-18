@@ -64,9 +64,9 @@ public class GameCenterActivity extends AppCompatActivity implements Serializabl
      * Activate the sliding tile game button.
      */
     private void addSudokuGameButton() {
-        Button sudokuButton = findViewById(R.id.sudokuButton);
+        ImageButton sudokuButton = findViewById(R.id.sudokuButton);
         sudokuButton.setOnClickListener(view -> {
-            Intent tmp = new Intent(this, SudokuBoardActivity.class);
+            Intent tmp = new Intent(this, SudokuSettingActivity.class);
             startActivity(tmp);
         });
     }

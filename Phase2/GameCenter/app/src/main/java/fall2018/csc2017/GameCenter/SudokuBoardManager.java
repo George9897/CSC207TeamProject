@@ -59,6 +59,11 @@ public class SudokuBoardManager implements Serializable {
     private int time;
 
     /**
+     *
+     */
+    static String sudokuDifficulty;
+
+    /**
      * Getter for time.
      *
      * @return time.
@@ -248,8 +253,21 @@ public class SudokuBoardManager implements Serializable {
 
     private void createRandomSudoku() {
         randomChoose(0);
-        // TODO: Easy, Medium, Hard
-        int difficulty = 20;
+        int difficulty;
+        switch (sudokuDifficulty) {
+            case "Easy":
+                difficulty = 30;
+                break;
+            case "Medium":
+                difficulty = 40;
+                break;
+            case "Hard":
+                difficulty = 50;
+                break;
+            default:
+                difficulty = 50;
+                break;
+        }
         int[] x = new int[Sudoku.size * Sudoku.size];
         for (int i = 0; i < Sudoku.size * Sudoku.size; i++) {
             x[i] = i;

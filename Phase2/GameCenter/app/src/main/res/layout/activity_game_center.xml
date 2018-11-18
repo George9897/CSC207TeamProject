@@ -12,7 +12,7 @@
         android:layout_height="24dp"
         android:layout_marginStart="101dp"
         android:layout_marginEnd="112dp"
-        android:text="@string/mine"
+        android:text="Mine"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.555"
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
-        android:text="@string/game_center"
+        android:text="Game Center"
         android:textAppearance="@android:style/TextAppearance.Large"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -64,16 +64,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tileGameButton" />
 
-    <Button
+    <ImageButton
         android:id="@+id/sudokuButton"
+        android:layout_width="106dp"
+        android:layout_height="146dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="214dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilegameView"
+        app:srcCompat="@drawable/sudokugame" />
+
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="212dp"
-        android:layout_marginEnd="84dp"
-        android:layout_marginBottom="208dp"
-        android:text="sudoku"
+        android:layout_marginStart="91dp"
+        android:layout_marginEnd="245dp"
+        android:layout_marginBottom="87dp"
+        android:text="Sudoku"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sudokuButton"
+        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>
