@@ -8,17 +8,33 @@ class MineTile {
      * The value of this mineTile.
      * Representing how many booms nearby.
      */
-    short value;
+    private int value;
     /**
      * The boolean of whether this mineTile is opened or not.
      */
-    boolean isOpened;
+    private boolean isOpened;
 
     /**
      * The constructor for tiles.
      */
     MineTile() {
         this.value = 0;
-        this.isOpened = false;
+        this.setOpened(false);
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    boolean isOpened() {
+        return isOpened;
+    }
+
+    void setOpened(boolean opened) {
+        isOpened = opened;
     }
 }
