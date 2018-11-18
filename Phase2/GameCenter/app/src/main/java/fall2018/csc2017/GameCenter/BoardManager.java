@@ -155,7 +155,7 @@ class BoardManager implements Serializable, Undoable {
     /**
      * Shuffle tiles while gurantees a solution.
      */
-    private void solvableShuffle(){
+     private void solvableShuffle(){
         // TODO: implement this function!
         // Constant for swaping directions.
         int level = SlidingTile.level;
@@ -170,7 +170,7 @@ class BoardManager implements Serializable, Undoable {
         Random r1 = new Random();
         int i = 50 + r1.nextInt(50);
         ArrayList history = new ArrayList();
-        while (k <= 10){
+        while (k <= i){
             ArrayList swapChoices = new ArrayList();
             int random_direction;
             int row = bPosi / level;

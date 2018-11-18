@@ -123,10 +123,11 @@
         android:id="@+id/clearButton"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/six"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="79dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginBottom="2dp"
+        android:layout_toEndOf="@+id/sudokuQuitButton"
         android:text="Clear" />
 
     <Button
@@ -135,10 +136,20 @@
         android:layout_height="35dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="55dp"
-        android:layout_marginEnd="74dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="2dp"
         android:layout_toEndOf="@+id/clearButton"
         android:text="Eraser" />
+
+    <Button
+        android:id="@+id/sudokuQuitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginBottom="2dp"
+        android:text="Quit" />
 
 </RelativeLayout>

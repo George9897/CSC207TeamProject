@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -33,11 +31,6 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
      */
     private ArrayList<Button> tileButtons;
 
-//    /**
-//     * The method state of undo button.
-//     */
-//    protected boolean undo;
-
     /**
      * The GestureDetectGridView of this game.
      */
@@ -46,7 +39,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
     /**
      * The width and height of column.
      */
-    private static int columnWidth, columnHeight;
+    private int columnWidth, columnHeight;
 
     private int move;
 
@@ -57,8 +50,6 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
     @SuppressLint("SetTextI18n")
     public void display() {
         updateTileButtons();
-//        TextView steps = findViewById(R.id.step);
-//        steps.setText("Step:" + Integer.toString(sudokuBoardManager.getNumMoves()));
         gridView.setAdapter(new SudokuCustomAdapter(tileButtons, columnWidth, columnHeight));
     }
 
@@ -67,7 +58,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
-        loadFromFile(sudokuBoardManager.userName + "Sudoku.ser");
+        loadFromFile(sudokuBoardManager.getUserName() + "Sudoku.ser");
         createTileButtons(this);
         setContentView(R.layout.activity_sudoku_board);
         addOneButtonListener();
@@ -81,20 +72,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         addNineButtonListener();
         addClearButtonListener();
         addEraserButtonListener();
-
-        //addQuitButtonsListener();
-
-//        Intent intent = getIntent();
-//        if (intent.getExtras() != null) {
-//            undo = intent.getExtras().getBoolean("undo");
-//        }
-//        System.out.println(undo);
-//
-//        if (undo) {
-//            addUndoButtonListener();
-//        } else {
-//            addUndo3ButtonListener();
-//        }
+        addSudokuQuitButtonsListener();
 
         gridView = findViewById(R.id.sudokugrid);
         gridView.setNumColumns(Sudoku.size);
@@ -129,11 +107,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         for (int row = 0; row != Sudoku.size; row++) {
             for (int col = 0; col != Sudoku.size; col++) {
                 Button tmp = new Button(context);
-//                if (slidingTile.isDrawable) {
-//                    tmp.setBackground(slidingTile.getTile(row, col).getDrawableBackground());
-//                } else {
                 tmp.setBackgroundResource(sudoku.getTile(row, col).getBackground());
-//                }
                 this.tileButtons.add(tmp);
             }
         }
@@ -149,11 +123,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         for (Button b : tileButtons) {
             int row = nextPos / Sudoku.size;
             int col = nextPos % Sudoku.size;
-//            if (slidingTile.isDrawable) {
-//                b.setBackground(slidingTile.getTile(row, col).getDrawableBackground());
-//            } else {
             b.setBackgroundResource(sudoku.getTile(row, col).getBackground());
-//            }
             nextPos++;
         }
     }
@@ -214,7 +184,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         nine.setOnClickListener(v -> {
             this.move = 109;
             sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
-            sudokuBoardManager.move = move;
+            sudokuBoardManager.setMove(move);
         });
     }
 
@@ -226,7 +196,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         eight.setOnClickListener(v -> {
             this.move = 108;
             sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
-            sudokuBoardManager.move = move;
+            sudokuBoardManager.setMove(move);
         });
     }
 
@@ -238,7 +208,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         seven.setOnClickListener(v -> {
             this.move = 107;
             sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
-            sudokuBoardManager.move = move;
+            sudokuBoardManager.setMove(move);
         });
     }
 
@@ -250,7 +220,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         six.setOnClickListener(v -> {
             this.move = 106;
             sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
-            sudokuBoardManager.move = move;
+            sudokuBoardManager.setMove(move);
         });
     }
 
@@ -262,7 +232,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         five.setOnClickListener(v -> {
             this.move = 105;
             sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
-            sudokuBoardManager.move = move;
+            sudokuBoardManager.setMove(move);
         });
     }
 
@@ -274,7 +244,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         four.setOnClickListener(v -> {
             this.move = 104;
             sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
-            sudokuBoardManager.move = move;
+            sudokuBoardManager.setMove(move);
         });
     }
 
@@ -286,7 +256,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         three.setOnClickListener(v -> {
             this.move = 103;
             sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
-            sudokuBoardManager.move = move;
+            sudokuBoardManager.setMove(move);
         });
     }
 
@@ -298,7 +268,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         two.setOnClickListener(v -> {
             this.move = 102;
             sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
-            sudokuBoardManager.move = move;
+            sudokuBoardManager.setMove(move);
         });
     }
 
@@ -310,7 +280,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         one.setOnClickListener(v -> {
             this.move = 101;
             sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
-            sudokuBoardManager.move = move;
+            sudokuBoardManager.setMove(move);
         });
     }
 
@@ -319,7 +289,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         eraser.setOnClickListener(v -> {
             this.move = 0;
             sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
-            sudokuBoardManager.move = move;
+            sudokuBoardManager.setMove(move);
         });
     }
 
@@ -332,45 +302,15 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
     }
 
     /**
-     * Activate the unlimited undo button.
-     */
-//    @SuppressLint("SetTextI18n")
-//    private void addUndoButtonListener() {
-//        Button undo_Button = findViewById(R.id.eight);
-//        undo_Button.setOnClickListener((v) -> {
-//            boardManager.undo();
-//            display();
-//            if (boardManager.getUndoLimit() == 0) {
-//                Toast.makeText(this, "NOT UNDOABLE!", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
-
-    /**
-     * Activate the limited undo3 button.
-     */
-//    @SuppressLint("SetTextI18n")
-//    private void addUndo3ButtonListener() {
-//        Button undo_Button = findViewById(R.id.eight);
-//        undo_Button.setOnClickListener((v) -> {
-//            boardManager.undo3();
-//            display();
-//            if (boardManager.getUndoLimit3() == 0) {
-//                Toast.makeText(this, "NOT UNDOABLE!", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
-
-    /**
      * Activate the buttons for Quit.
      */
-//    private void addQuitButtonsListener() {
-//        Button quitButton = findViewById(R.id.nine);
-//        quitButton.setOnClickListener((v) -> {
-//            Intent tmp = new Intent(this, StartingActivity.class);
-//            startActivity(tmp);
-//        });
-//    }
+    private void addSudokuQuitButtonsListener() {
+        Button quitButton = findViewById(R.id.sudokuQuitButton);
+        quitButton.setOnClickListener((v) -> {
+            Intent tmp = new Intent(this, StartingActivity.class);
+            startActivity(tmp);
+        });
+    }
 
     @Override
     public void update(Observable o, Object arg) {

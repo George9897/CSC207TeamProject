@@ -18,8 +18,6 @@ import java.io.Serializable;
 
 public class SudokuGestureDetectGridView extends GridView implements Serializable {
     public static final int SWIPE_MIN_DISTANCE = 100;
-    public static final int SWIPE_MAX_OFF_PATH = 100;
-    public static final int SWIPE_THRESHOLD_VELOCITY = 100;
     private GestureDetector gDetector;
     private SudokuMovementController sudokuMovementController;
     private boolean mFlingConfirmed = false;
@@ -59,7 +57,7 @@ public class SudokuGestureDetectGridView extends GridView implements Serializabl
                 int position = SudokuGestureDetectGridView.this.pointToPosition
                         (Math.round(event.getX()), Math.round(event.getY()));
 
-                sudokuMovementController.processTapMovement(context, position, true);
+                sudokuMovementController.processTapMovement(context, position);
                 return true;
             }
 
@@ -106,10 +104,6 @@ public class SudokuGestureDetectGridView extends GridView implements Serializabl
     public void setSudokuBoardManager(SudokuBoardManager sudokuBoardManager) {
         this.sudokuBoardManager = sudokuBoardManager;
         sudokuMovementController.setSudokuBoardManager(sudokuBoardManager);
-    }
-
-    public void setMove(int move) {
-        this.move = move;
     }
 }
 

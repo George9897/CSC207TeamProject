@@ -19,6 +19,8 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
 
     private MineManager mineManager;
 
+    private SudokuBoardManager sudokuBoardManager;
+
     String gameType;
 
     @Override
@@ -39,6 +41,10 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
                 scoreBox.setText((Integer.toString(mineManager.getScore())) + "\n\r" + "Time: "
                         + (Integer.toString(mineManager.getTime())) + " Second");
                 break;
+            case "Sudoku":
+                sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
+                scoreBox.setText((Integer.toString(sudokuBoardManager.getScore())) + "\n\r" + "Time: "
+                        + (Integer.toString(sudokuBoardManager.getTime())) + " Second");
         }
 
         setUpSeeScoreButtonListener();
@@ -85,6 +91,10 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
                 case "Mine":
                     Intent MineTmp = new Intent(this, MineSettingActivity.class);
                     startActivity(MineTmp);
+                    break;
+                case "Sudoku":
+                    Intent SudokuTmp = new Intent(this, SudokuBoardActivity.class);
+                    startActivity(SudokuTmp);
                     break;
             }
         });

@@ -16,7 +16,7 @@ public class SudokuMovementController implements Serializable {
     /**
      * The constructor of MovementController.
      */
-    public SudokuMovementController() {
+    SudokuMovementController() {
     }
 
     /**
@@ -24,7 +24,7 @@ public class SudokuMovementController implements Serializable {
      *
      * @param sudokuBoardManager The boardmanager that is being set.
      */
-    public void setSudokuBoardManager(SudokuBoardManager sudokuBoardManager) {
+    void setSudokuBoardManager(SudokuBoardManager sudokuBoardManager) {
         this.sudokuBoardManager = sudokuBoardManager;
     }
 
@@ -33,9 +33,8 @@ public class SudokuMovementController implements Serializable {
      *
      * @param context  The context.
      * @param position The position that is tapped.
-     * @param display  The display.
      */
-    public void processTapMovement(Context context, int position, boolean display) {
+    void processTapMovement(Context context, int position) {
         if (sudokuBoardManager.isValidTap(position)) {
             sudokuBoardManager.makeMove(position);
             if (sudokuBoardManager.puzzleSolved()) {

@@ -7,11 +7,11 @@ public class MinePoint {
     /**
      * The x coordinate.
      */
-    int x;
+    private int x;
     /**
      * The y coordinate.
      */
-    int y;
+    private int y;
 
     /**
      * The constructor for point.
@@ -33,5 +33,23 @@ public class MinePoint {
     public boolean equals(Object obj) {
         return this.hashCode() == obj.hashCode();
 
+    }
+
+    /**
+     * get the x coordinate.
+     *
+     * @return the x coordinate.
+     */
+    int getX() {
+        return x;
+    }
+
+    /**
+     * get the y coordinate.
+     *
+     * @return get the y coordinate.
+     */
+    int getY() {
+        return y;
     }
 }

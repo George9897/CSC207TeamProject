@@ -35,8 +35,8 @@ public class SudokuBoardManager implements Serializable {
      */
     private List<Integer> listOfPosition;
 
-    private static int[] sudokuNum = new int[81];
-    private static Random random = new Random();
+    private int[] sudokuNum = new int[81];
+    private Random random = new Random();
 
     /**
      * The AccountManager.
@@ -46,7 +46,7 @@ public class SudokuBoardManager implements Serializable {
     /**
      * The user's name.
      */
-    String userName = accountManager.getUserName();
+    private String userName = accountManager.getUserName();
 
     /**
      * The context used to connect to activity.
@@ -54,17 +54,17 @@ public class SudokuBoardManager implements Serializable {
     private transient Context context;
 
     /**
-     * After score for one game round.
+     * After time for one game round.
      */
-    private int score;
+    private int time;
 
     /**
-     * Getter for score.
+     * Getter for time.
      *
-     * @return score.
+     * @return time.
      */
-    public int getScore() {
-        return score;
+    public int getTime() {
+        return time;
     }
 
     /**
@@ -77,8 +77,16 @@ public class SudokuBoardManager implements Serializable {
         return this.sudoku;
     }
 
-    int move;
+    private int move;
 
+    /**
+     * Getter for time.
+     *
+     * @return time.
+     */
+    String getUserName() {
+        return userName;
+    }
 
     /**
      * Create a initial list of Tiles for game with matching sizes.
@@ -93,6 +101,10 @@ public class SudokuBoardManager implements Serializable {
             tiles.add(new Tile(sudokuNum[i], false));
         }
         return tiles;
+    }
+
+    int getScore(){
+        return 0;
     }
 
     /**
@@ -142,23 +154,15 @@ public class SudokuBoardManager implements Serializable {
      * @return whether the tiles are in row-major order
      */
     boolean puzzleSolved() {
-        int[] sudokuNum = new int[Sudoku.size*Sudoku.size];
+        int[] sudokuNum = new int[Sudoku.size * Sudoku.size];
         Iterator<Tile> iter = sudoku.iterator();
         int acc = 0;
         while (iter.hasNext()) {
             Tile next = iter.next();
             sudokuNum[acc] = next.getId();
-            acc ++;
+            acc++;
         }
         return checkCol(sudokuNum) && checkRow(sudokuNum) && checkSquare(sudokuNum);
-        //TODO: calculate score
-//        if (solved) {
-//            score = calculateScore(sudoku.getSlidingTile().getLevel(), boardManager.getNumMoves());
-//            undoLimit = 0;
-//            ScoreBoard scoreBoard = ScoreBoard.getScoreBoard(context);
-//            scoreBoard.update(SlidingTile.level, userName, score);
-//            scoreBoard.updateHighestScore();
-//        }
     }
 
     /**
@@ -170,7 +174,7 @@ public class SudokuBoardManager implements Serializable {
     boolean isValidTap(int position) {
         int row = position / Sudoku.size;
         int col = position % Sudoku.size;
-        return sudoku.getTile(row, col).getId() == 0 || sudoku.getTile(row, col).getId() >100;
+        return sudoku.getTile(row, col).getId() == 0 || sudoku.getTile(row, col).getId() > 100;
     }
 
     /**
@@ -188,14 +192,14 @@ public class SudokuBoardManager implements Serializable {
         }
     }
 
-    private boolean checkCol(int[] sudokuNum){
-        for (int i = 0; i < Sudoku.size; i++){
+    private boolean checkCol(int[] sudokuNum) {
+        for (int i = 0; i < Sudoku.size; i++) {
             List<Integer> col = new ArrayList<>();
-            for (int j = 0; j < Sudoku.size; j++){
-                col.add(sudokuNum[i*Sudoku.size+j]);
+            for (int j = 0; j < Sudoku.size; j++) {
+                col.add(sudokuNum[i * Sudoku.size + j]);
             }
-            for (int check = 1; check <= Sudoku.size; check++){
-                if (!col.contains(check)){
+            for (int check = 1; check <= Sudoku.size; check++) {
+                if (!col.contains(check)) {
                     return false;
                 }
             }
@@ -203,14 +207,14 @@ public class SudokuBoardManager implements Serializable {
         return true;
     }
 
-    private boolean checkRow(int[] sudokuNum){
-        for (int i = 0; i < Sudoku.size; i++){
+    private boolean checkRow(int[] sudokuNum) {
+        for (int i = 0; i < Sudoku.size; i++) {
             List<Integer> row = new ArrayList<>();
-            for (int j = 0; j < Sudoku.size; j++){
-                row.add(sudokuNum[j*Sudoku.size+i]);
+            for (int j = 0; j < Sudoku.size; j++) {
+                row.add(sudokuNum[j * Sudoku.size + i]);
             }
-            for (int check = 1; check <= Sudoku.size; check++){
-                if (!row.contains(check)){
+            for (int check = 1; check <= Sudoku.size; check++) {
+                if (!row.contains(check)) {
                     return false;
                 }
             }
@@ -218,8 +222,8 @@ public class SudokuBoardManager implements Serializable {
         return true;
     }
 
-    private boolean checkSquare(int[] sudokuNum){
-        for (int position = 0; position < Sudoku.size*Sudoku.size; position++) {
+    private boolean checkSquare(int[] sudokuNum) {
+        for (int position = 0; position < Sudoku.size * Sudoku.size; position++) {
             List<Integer> square = new ArrayList<>();
             int row = position / Sudoku.size;
             int col = position % Sudoku.size;
@@ -242,17 +246,16 @@ public class SudokuBoardManager implements Serializable {
         return true;
     }
 
-    private void createRandomSudoku(){
+    private void createRandomSudoku() {
         randomChoose(0);
-        int rand = random.nextInt(sudokuNum.length);
         // TODO: Easy, Medium, Hard
         int difficulty = 20;
-        int[] x = new int[Sudoku.size*Sudoku.size];
-        for (int i = 0; i < Sudoku.size*Sudoku.size; i++) {
+        int[] x = new int[Sudoku.size * Sudoku.size];
+        for (int i = 0; i < Sudoku.size * Sudoku.size; i++) {
             x[i] = i;
         }
         for (int i = 0; i < difficulty; i++) {
-            int randomNum = random.nextInt(Sudoku.size*Sudoku.size - i) + i;
+            int randomNum = random.nextInt(Sudoku.size * Sudoku.size - i) + i;
             int temp = x[i];
             x[i] = x[randomNum];
             x[randomNum] = temp;
@@ -261,14 +264,14 @@ public class SudokuBoardManager implements Serializable {
     }
 
     private boolean randomChoose(int position) {
-        if (position == Sudoku.size*Sudoku.size) {
+        if (position == Sudoku.size * Sudoku.size) {
             return true;
         } else if (sudokuNum[position] != 0) {
             return randomChoose(position + 1);
         } else {
             int[] randOrder = new int[Sudoku.size];
             for (int val = 0; val < Sudoku.size; val++) {
-                randOrder[val] = val+1;
+                randOrder[val] = val + 1;
             }
             for (int val = 0; val < Sudoku.size; val++) {
                 int rand = random.nextInt(Sudoku.size);
@@ -317,79 +320,17 @@ public class SudokuBoardManager implements Serializable {
         return true;
     }
 
-    void clear(){
+    void clear() {
         for (int i = 0; i < Sudoku.size; i++) {
             for (int j = 0; j < Sudoku.size; j++) {
-                if(sudoku.tiles[i][j].getId()> 100){
-                    sudoku.writeNum(i,j,0);
+                if (sudoku.getTile(i,j).getId() > 100) {
+                    sudoku.writeNum(i, j, 0);
                 }
             }
         }
     }
 
-//    private int[][] randomChoose(int[][] sudokuNum, List<Integer> list, int position){
-//        int row = position / Sudoku.size;
-//        int col = position % Sudoku.size;
-//        int xOff = row / 3 * 3;
-//        int yOff = col / 3 * 3;
-//        List<Integer> possibleNum = list;
-//        int[][] result = sudokuNum;
-//        for (int otherRow = 0; otherRow < Sudoku.size; otherRow++){
-//            for (int i = 0; i < possibleNum.size(); i++){
-//                if (possibleNum.get(i) == sudokuNum[otherRow][col]){
-//                    possibleNum.remove(i);
-//                }
-//            }
-//        }
-//        //check col
-//        for (int otherCol = 0; otherCol < Sudoku.size; otherCol++){
-//            for (int i = 0; i < possibleNum.size(); i++){
-//                if (possibleNum.get(i) == sudokuNum[row][otherCol]){
-//                    possibleNum.remove(i);
-//                }
-//            }
-//        }
-//        //check square
-//        for (int squareX = 0; squareX < Sudoku.size/3; squareX++){
-//            for (int squareY = 0; squareY < Sudoku.size/3; squareY++){
-//                for (int i = 0; i < possibleNum.size(); i++){
-//                    if (possibleNum.get(i) == sudokuNum[xOff+squareX][yOff+squareY]){
-//                        possibleNum.remove(i);
-//                    }
-//                }
-//            }
-//        }
-//        if(possibleNum.isEmpty()) {
-//            result = createRandomSudoku();
-//        }else {
-//            int random=(int)(possibleNum.size()*Math.random());
-//            result[row][col] = possibleNum.get(random);
-//        }
-//        return result;
-//    }
-
-    // don't need undo
-//    /**
-//     * Undo the previous moves as required properly.
-//     */
-//    void undo() {
-//        if (undoLimit > 0) {
-//            numMoves -= 2;
-//            undoLimit -= 2;
-//            touchMove(listOfPosition.remove(listOfPosition.size() - 1));
-//            listOfPosition.remove(listOfPosition.size() - 1);
-//        }
-//    }
-//
-//    /**
-//     * Undo the previous move(can only be used 3 times).
-//     */
-//    void undo3() {
-//        if (undoLimit3 > 0) {
-//            numMoves -= 2;
-//            undoLimit3 -= 1;
-//            touchMove(listOfPosition.remove(listOfPosition.size() - 1));
-//            listOfPosition.remove(listOfPosition.size() - 1);
-//        }
-//    }
+    void setMove(int move){
+        this.move = move;
+    }
 }
