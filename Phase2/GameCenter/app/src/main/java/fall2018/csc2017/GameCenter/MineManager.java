@@ -14,7 +14,7 @@ import java.util.Timer;
 /**
  * The Mine game manager.
  */
-public class MineManager extends View {
+public class MineManager extends View implements Manager {
 
     /**
      * The Mine board.
@@ -128,6 +128,7 @@ public class MineManager extends View {
      *
      * @return score.
      */
+    @Override
     public int getScore() {
         return score;
     }
@@ -176,7 +177,8 @@ public class MineManager extends View {
      *
      * @return is the puzzle solved.
      */
-    private boolean puzzleSolved() {
+    @Override
+    public boolean puzzleSolved() {
         int UnopenedTile = getUnopenedTile();
         return UnopenedTile == numBoom;
     }
@@ -268,7 +270,8 @@ public class MineManager extends View {
         return true;
     }
 
-    void makeMove(){
+    @Override
+    public void makeMove(){
         int x = (int) event.getX();
         int y = (int) event.getY();
 
