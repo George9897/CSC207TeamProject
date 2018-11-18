@@ -11,7 +11,7 @@ import java.util.Random;
 /**
  * Manage a slidingTile, including swapping tiles, checking for a win, and managing taps.
  */
-class BoardManager implements Serializable, Undoable {
+class BoardManager implements Serializable, Undoable, Manager {
     /**
      * The serialVersionUID.
      */
@@ -87,6 +87,7 @@ class BoardManager implements Serializable, Undoable {
      *
      * @return score.
      */
+    @Override
     public int getScore() {
         return score;
     }
@@ -239,7 +240,8 @@ class BoardManager implements Serializable, Undoable {
      *
      * @return whether the tiles are in row-major order
      */
-    boolean puzzleSolved() {
+    @Override
+    public boolean puzzleSolved() {
         boolean solved = true;
         Iterator<Tile> iter = slidingTile.iterator();
         int acc = 1;
@@ -287,6 +289,10 @@ class BoardManager implements Serializable, Undoable {
                 || (right != null && right.getId() == blankId);
     }
 
+    private int row;
+    private int col;
+    private int blankId;
+
     /**
      * Process a touch at position in the slidingTile, swapping tiles as appropriate.
      *
@@ -294,36 +300,42 @@ class BoardManager implements Serializable, Undoable {
      */
     void touchMove(int position) {
 
-        int row = position / SlidingTile.level;
-        int col = position % SlidingTile.level;
-        int blankId = 0;
+        row = position / SlidingTile.level;
+        col = position % SlidingTile.level;
+        blankId = 0;
         if (isValidTap(position)) {
-            numMoves++;
-            undoLimit++;
-            if (row != SlidingTile.level - 1 && (slidingTile.getTile(row + 1, col)).getId() ==
-                    blankId) {
-                slidingTile.swapTiles(row, col, row + 1, col);
-                addPosition((row + 1) * SlidingTile.level + col);
-            }
-            if (row != 0 && (slidingTile.getTile(row - 1, col)).getId() == blankId) {
-                slidingTile.swapTiles(row, col, row - 1, col);
-                addPosition((row - 1) * SlidingTile.level + col);
-            }
-            if (col != 0 && (slidingTile.getTile(row, col - 1)).getId() == blankId) {
-                slidingTile.swapTiles(row, col, row, col - 1);
-                addPosition((row) * SlidingTile.level + col - 1);
-            }
-            if (col != SlidingTile.level - 1 && (slidingTile.getTile(row, col + 1)).getId() ==
-                    blankId) {
-                slidingTile.swapTiles(row, col, row, col + 1);
-                addPosition((row) * SlidingTile.level + col + 1);
-            }
+            makeMove();
+        }
+    }
+    
+    @Override
+    public void makeMove(){
+        numMoves++;
+        undoLimit++;
+        if (row != SlidingTile.level - 1 && (slidingTile.getTile(row + 1, col)).getId() ==
+                blankId) {
+            slidingTile.swapTiles(row, col, row + 1, col);
+            addPosition((row + 1) * SlidingTile.level + col);
+        }
+        if (row != 0 && (slidingTile.getTile(row - 1, col)).getId() == blankId) {
+            slidingTile.swapTiles(row, col, row - 1, col);
+            addPosition((row - 1) * SlidingTile.level + col);
+        }
+        if (col != 0 && (slidingTile.getTile(row, col - 1)).getId() == blankId) {
+            slidingTile.swapTiles(row, col, row, col - 1);
+            addPosition((row) * SlidingTile.level + col - 1);
+        }
+        if (col != SlidingTile.level - 1 && (slidingTile.getTile(row, col + 1)).getId() ==
+                blankId) {
+            slidingTile.swapTiles(row, col, row, col + 1);
+            addPosition((row) * SlidingTile.level + col + 1);
         }
     }
 
     /**
      * Undo the previous moves as required properly.
      */
+    @Override
     public void undo() {
         if (undoLimit > 0) {
             numMoves -= 2;
