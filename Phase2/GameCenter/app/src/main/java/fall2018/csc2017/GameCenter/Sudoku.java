@@ -73,7 +73,7 @@ public class Sudoku extends Observable implements Serializable, Iterable<Tile> {
     /**
      * The tiles on the slidingTile in row-major order.
      */
-    Tile[][] tiles = new Tile[size][size];
+    private Tile[][] tiles = new Tile[size][size];
 
     /**
      * A new slidingTile of tiles in row-major order.
