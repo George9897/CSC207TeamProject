@@ -147,8 +147,8 @@ public class MineManager extends View {
     public void wining() {
         if (puzzleSolved()) {
             sentVictoryAlertDialog();
-            this.score = scorer.getFinalScore(numBoom);
             this.time = scorer.getTimeScore();
+            this.score = scorer.getFinalScore(numBoom, time);
             timer.cancel();
         }
     }
