@@ -173,6 +173,7 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
             InputStream inputStream = this.openFileInput(fileName);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
+                //TODO: 3 gmae board manager
                 boardManager = (BoardManager) input.readObject();
                 inputStream.close();
             }
@@ -194,6 +195,7 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
+            //TODO: 3 gmae board manager
             outputStream.writeObject(boardManager);
             outputStream.close();
         } catch (IOException e) {
