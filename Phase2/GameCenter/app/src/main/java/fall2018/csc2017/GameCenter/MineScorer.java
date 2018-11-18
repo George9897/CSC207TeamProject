@@ -8,7 +8,7 @@ import static java.lang.Math.pow;
 /**
  * Calculate a score that round of game when game is finished.
  */
-public class MineScorer extends TimerTask implements Serializable {
+public class MineScorer extends TimerTask implements Serializable, Calculable {
 
     /**
      * The time score for one game play.
@@ -22,7 +22,7 @@ public class MineScorer extends TimerTask implements Serializable {
      * @param time number of move.
      * @return return the calculate result
      */
-    private int calculateScore(int numBooms, int time) {
+    public int calculateScore(int numBooms, int time) {
         if (time > 0) {
             return (int) ((1000 * numBooms * pow(0.995, time)));
         }
@@ -34,13 +34,6 @@ public class MineScorer extends TimerTask implements Serializable {
      * @return the Time score.
      */
     int getTimeScore() { return timeScore; }
-
-    /**
-     * Calculate for final score.
-     * @param numBooms The number of Booms in the game.
-     * @return the final score.
-     */
-    int getFinalScore(int numBooms) { return calculateScore(numBooms, timeScore); }
 
     @Override
     public void run() { timeScore++; }

@@ -35,8 +35,8 @@ public class SudokuBoardManager implements Serializable {
      */
     private List<Integer> listOfPosition;
 
-    private static int[] sudokuNum = new int[81];
-    private static Random random = new Random();
+    private int[] sudokuNum = new int[81];
+    private Random random = new Random();
 
     /**
      * The AccountManager.
@@ -46,7 +46,7 @@ public class SudokuBoardManager implements Serializable {
     /**
      * The user's name.
      */
-    String userName = accountManager.getUserName();
+    private String userName = accountManager.getUserName();
 
     /**
      * The context used to connect to activity.
@@ -54,23 +54,9 @@ public class SudokuBoardManager implements Serializable {
     private transient Context context;
 
     /**
-     * After score for one game round.
-     */
-    private int score;
-
-    /**
      * After time for one game round.
      */
     private int time;
-
-    /**
-     * Getter for score.
-     *
-     * @return score.
-     */
-    public int getScore() {
-        return score;
-    }
 
     /**
      * Getter for time.
@@ -91,8 +77,16 @@ public class SudokuBoardManager implements Serializable {
         return this.sudoku;
     }
 
-    int move;
+    private int move;
 
+    /**
+     * Getter for time.
+     *
+     * @return time.
+     */
+    String getUserName() {
+        return userName;
+    }
 
     /**
      * Create a initial list of Tiles for game with matching sizes.
@@ -107,6 +101,10 @@ public class SudokuBoardManager implements Serializable {
             tiles.add(new Tile(sudokuNum[i], false));
         }
         return tiles;
+    }
+
+    int getScore(){
+        return 0;
     }
 
     /**
@@ -250,7 +248,6 @@ public class SudokuBoardManager implements Serializable {
 
     private void createRandomSudoku() {
         randomChoose(0);
-        int rand = random.nextInt(sudokuNum.length);
         // TODO: Easy, Medium, Hard
         int difficulty = 20;
         int[] x = new int[Sudoku.size * Sudoku.size];
@@ -326,10 +323,14 @@ public class SudokuBoardManager implements Serializable {
     void clear() {
         for (int i = 0; i < Sudoku.size; i++) {
             for (int j = 0; j < Sudoku.size; j++) {
-                if (sudoku.tiles[i][j].getId() > 100) {
+                if (sudoku.getTile(i,j).getId() > 100) {
                     sudoku.writeNum(i, j, 0);
                 }
             }
         }
+    }
+
+    void setMove(int move){
+        this.move = move;
     }
 }
