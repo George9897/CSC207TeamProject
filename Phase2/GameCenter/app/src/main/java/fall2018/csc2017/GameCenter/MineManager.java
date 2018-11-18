@@ -3,7 +3,6 @@ package fall2018.csc2017.GameCenter;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.view.MotionEvent;
@@ -143,20 +142,11 @@ public class MineManager extends View implements Manager {
         MineManager.numBoom = numBoom;
     }
 
-    public void setTime(int time) { this.time = time; }
-
     /**
-     * Game winning.
+     * The setter for time.
+     * @param time the time passed.
      */
-    public void wining() {
-        if (puzzleSolved()) {
-            invalidate();
-            sentVictoryAlertDialog();
-            this.time = scorer.getTimeScore();
-            this.score = scorer.calculateScore(numBoom, time);
-            timer.cancel();
-        }
-    }
+    public void setTime(int time) { this.time = time; }
 
     /**
      * Get mineTile that is Unopened.
@@ -284,10 +274,24 @@ public class MineManager extends View implements Manager {
             if (mineBoard.getMineTile()[idxY][idxX].getValue() == -1) {
                 sentDefeatedAlertDialog();
                 score = 0;
+                timer.cancel();
             }
             wining();
         }
         invalidate();
+    }
+
+    /**
+     * Game winning.
+     */
+    public void wining() {
+        if (puzzleSolved()) {
+            invalidate();
+            sentVictoryAlertDialog();
+            this.time = scorer.getTimeScore();
+            this.score = scorer.calculateScore(numBoom, time);
+            timer.cancel();
+        }
     }
 
     /**
