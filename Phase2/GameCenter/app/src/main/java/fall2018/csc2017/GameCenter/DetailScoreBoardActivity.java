@@ -39,42 +39,42 @@ public class DetailScoreBoardActivity extends AppCompatActivity {
     }
 
 
-    private void setTopOnes(DetailScoreBoard scoreBoard){
-        TextView easyTopOne = findViewById(R.id.easyTopOne);
-        TextView mediumTopOne = findViewById(R.id.mediumTopOne);
-        TextView hardTopOne = findViewById(R.id.hardTopOne);
-
-        easyTopOne.setText(String.format("%s\n%s", scoreBoard.getTopOneName(easy),
-                scoreBoard.getTopOneScore(easy)));
-        mediumTopOne.setText(String.format("%s\n%s", scoreBoard.getTopOneName(medium),
-                scoreBoard.getTopOneScore(easy)));
-        hardTopOne.setText(String.format("%s\n%s", scoreBoard.getTopOneName(hard),
-                scoreBoard.getTopOneScore(easy)));
-    }
-
-    private void setModeData(DetailScoreBoard scoreBoard){
-        TextView easyData = findViewById(R.id.easyData);
-        TextView mediumData = findViewById(R.id.mediumData);
-        TextView hardData = findViewById(R.id.hardData);
-
-        easyData.setText(othersToString(scoreBoard.getOthers(easy)));
-        mediumData.setText(othersToString(scoreBoard.getOthers(medium)));
-        hardData.setText(othersToString(scoreBoard.getOthers(hard)));
-
-
-    }
-
-    private String othersToString(List<Pair<Integer, String>> sortedOthers){
-        StringBuilder result = new StringBuilder();
-        if (sortedOthers.size() > 0) {
-            for (int i = 1; i <= sortedOthers.size(); i++) {
-                result.append(i + 1);
-                result.append(sortedOthers.get(i).second);
-                result.append("\n");
-                result.append(sortedOthers.get(i).first);
-            }
-        }
-        return result.toString();
-    }
+//    private void setTopOnes(DetailScoreBoard scoreBoard){
+//        TextView easyTopOne = findViewById(R.id.easyTopOne);
+//        TextView mediumTopOne = findViewById(R.id.mediumTopOne);
+//        TextView hardTopOne = findViewById(R.id.hardTopOne);
+//
+//        easyTopOne.setText(String.format("%s\n%s", scoreBoard.getTopOneName(easy),
+//                scoreBoard.getTopOneScore(easy)));
+//        mediumTopOne.setText(String.format("%s\n%s", scoreBoard.getTopOneName(medium),
+//                scoreBoard.getTopOneScore(easy)));
+//        hardTopOne.setText(String.format("%s\n%s", scoreBoard.getTopOneName(hard),
+//                scoreBoard.getTopOneScore(easy)));
+//    }
+//
+//    private void setModeData(DetailScoreBoard scoreBoard){
+//        TextView easyData = findViewById(R.id.easyData);
+//        TextView mediumData = findViewById(R.id.mediumData);
+//        TextView hardData = findViewById(R.id.hardData);
+//
+//        easyData.setText(othersToString(scoreBoard.getOthers(easy)));
+//        mediumData.setText(othersToString(scoreBoard.getOthers(medium)));
+//        hardData.setText(othersToString(scoreBoard.getOthers(hard)));
+//
+//
+//    }
+//
+//    private String othersToString(List<Pair<Integer, String>> sortedOthers){
+//        StringBuilder result = new StringBuilder();
+//        if (sortedOthers.size() > 0) {
+//            for (int i = 1; i <= sortedOthers.size(); i++) {
+//                result.append(i + 1);
+//                result.append(sortedOthers.get(i).second);
+//                result.append("\n");
+//                result.append(sortedOthers.get(i).first);
+//            }
+//        }
+//        return result.toString();
+//    }
 
 }
