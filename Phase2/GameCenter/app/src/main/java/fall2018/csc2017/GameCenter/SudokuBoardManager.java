@@ -374,7 +374,9 @@ public class SudokuBoardManager implements Serializable {
     }
 
     public void undo(){
-        int undoPosition = undoList.remove(undoList.size()-1);
-        sudoku.writeNum(undoPosition/Sudoku.size, undoPosition%Sudoku.size, 0);
+        if (!undoList.isEmpty()) {
+            int undoPosition = undoList.remove(undoList.size() - 1);
+            sudoku.writeNum(undoPosition / Sudoku.size, undoPosition % Sudoku.size, 0);
+        }
     }
 }
