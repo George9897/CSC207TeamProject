@@ -150,18 +150,14 @@ class MineBoard {
      *
      * @return The board's height.
      */
-    int getBoardHeight() {
-        return boardHeight;
-    }
+    int getBoardHeight() { return boardHeight; }
 
     /**
      * Getter for number of booms.
      *
      * @return number of booms.
      */
-    private int getNumBoom() {
-        return numBoom;
-    }
+    private int getNumBoom() { return numBoom; }
 
     /**
      * Getter for colour of tile number text.
@@ -215,8 +211,16 @@ class MineBoard {
     private void setTileNumberPaint() {
         tileNumberPaint = new Paint();
         tileNumberPaint.setAntiAlias(true);
-        tileNumberPaint.setTextSize(MineGameActivity.Width / 9);
-        tileNumberPaint.setColor(Color.RED);
+        if (MineManager.numBoom == 10) {
+            tileNumberPaint.setTextSize(MineGameActivity.Width / 10);
+        }
+        if (MineManager.numBoom == 36) {
+            tileNumberPaint.setTextSize(MineGameActivity.Width / 14);
+        }
+        if (MineManager.numBoom == 132) {
+            tileNumberPaint.setTextSize(MineGameActivity.Width / 20);
+        }
+        tileNumberPaint.setColor(Color.rgb(255, 165, 0));
     }
 
     /**
