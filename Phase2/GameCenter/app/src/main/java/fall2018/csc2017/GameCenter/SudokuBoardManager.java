@@ -277,7 +277,7 @@ public class SudokuBoardManager implements Serializable {
         int difficulty;
         switch (sudokuDifficulty) {
             case "Easy":
-                difficulty = 5;
+                difficulty = 30;
                 break;
             case "Medium":
                 difficulty = 40;
