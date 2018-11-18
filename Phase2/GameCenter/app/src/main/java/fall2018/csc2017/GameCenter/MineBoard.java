@@ -18,19 +18,20 @@ class MineBoard {
     /**
      * The x coordinate.
      */
-    int x;
+    private int x;
+
     /**
      * The y coordinate.
      */
-    int y;
+    private int y;
     /**
      * The board's number of cols.
      */
-    int boardCol;
+    private int boardCol;
     /**
      * The board's number of rows.
      */
-    int boardRow;
+    private int boardRow;
     /**
      * The board's number of booms.
      */
@@ -46,11 +47,11 @@ class MineBoard {
     /**
      * The 2D array of tiles.
      */
-    MineTile[][] mineTile;
+    private MineTile[][] mineTile;
     /**
      * The mineTile's width.
      */
-    int tileWidth;
+    private int tileWidth;
     /**
      * The colour of mineTile's number text.
      */
@@ -74,11 +75,11 @@ class MineBoard {
     /**
      * The board's width.
      */
-    int boardWidth;
+    private int boardWidth;
     /**
      * The board's height.
      */
-    int boardHeight;
+    private int boardHeight;
     /**
      * Whether booms are drawn.
      */
@@ -102,39 +103,134 @@ class MineBoard {
     /**
      * The Mine Board for revive(undo) user.
      */
-    MineBoard lastMineBoard;
+    private MineBoard lastMineBoard;
 
+    /**
+     * Get the x coordinate.
+     *
+     * @return The x coordinate.
+     */
+    int getX() {
+        return x;
+    }
+    /**
+     * Get the y coordinate.
+     *
+     * @return The y coordinate.
+     */
+    int getY() {
+        return y;
+    }
+    /**
+     * Get the board's number of cols.
+     *
+     * @return The board's number of cols.
+     */
+    int getBoardCol() {
+        return boardCol;
+    }
+    /**
+     * Get the board's number of rows.
+     *
+     * @return The board's number of rows.
+     */
+    int getBoardRow() {
+        return boardRow;
+    }
+    /**
+     * Get the 2D array of tiles.
+     *
+     * @return The 2D array of tiles.
+     */
+    MineTile[][] getMineTile() {
+        return mineTile;
+    }
+    /**
+     * Get the mineTile's width.
+     *
+     * @return The mineTile's width.
+     */
+    int getTileWidth() {
+        return tileWidth;
+    }
+    /**
+     * Get the board's width.
+     *
+     * @return The board's width.
+     */
+    int getBoardWidth() {
+        return boardWidth;
+    }
+    /**
+     * Get the board's hight.
+     *
+     * @return The board's hight.
+     */
+    int getBoardHeight() {
+        return boardHeight;
+    }
+    /**
+     * Get the Mine Board for revive(undo) user.
+     *
+     * @return The Mine Board for revive(undo) user.
+     */
+    MineBoard getLastMineBoard() {
+        return lastMineBoard;
+    }
 
     /**
      * Getter for number of booms.
+     *
      * @return number of booms.
      */
-    private int getNumBoom() { return numBoom; }
+    private int getNumBoom() {
+        return numBoom;
+    }
+
     /**
      * Getter for colour of tile number text.
+     *
      * @return tileNumberPaint
      */
-    private Paint getTileNumberPaint() { return tileNumberPaint; }
+    private Paint getTileNumberPaint() {
+        return tileNumberPaint;
+    }
+
     /**
      * Getter for the colour of boom tiles.
+     *
      * @return boomPaint
      */
-    private Paint getBoomPaint() { return boomPaint; }
+    private Paint getBoomPaint() {
+        return boomPaint;
+    }
+
     /**
      * Getter for the colour of normal tiles.
+     *
      * @return tilePaint
      */
-    private Paint getTilePaint() { return tilePaint; }
+    private Paint getTilePaint() {
+        return tilePaint;
+    }
+
     /**
      * Getter for the colour of separation lines.
+     *
      * @return separationLinePaint
      */
-    private Paint getSeparationLinePaint() { return separationLinePaint; }
+    private Paint getSeparationLinePaint() {
+        return separationLinePaint;
+    }
+
     /**
      * Getter for the surrounding directions.
+     *
      * @return surrounding_directions.
      */
-    private int[][] getSurrounding_directions() { return surrounding_directions; }
+    private int[][] getSurrounding_directions() {
+        return surrounding_directions;
+    }
 
 
     /**
@@ -146,6 +242,7 @@ class MineBoard {
         tileNumberPaint.setTextSize(MineGameActivity.Width / 9);
         tileNumberPaint.setColor(Color.RED);
     }
+
     /**
      * Setter for Boom Paint.
      */
@@ -154,6 +251,7 @@ class MineBoard {
         boomPaint.setAntiAlias(true);
         boomPaint.setColor(Color.DKGRAY);
     }
+
     /**
      * Setter for Tile Paint.
      */
@@ -162,6 +260,7 @@ class MineBoard {
         tilePaint.setAntiAlias(true);
         tilePaint.setColor(Color.LTGRAY);
     }
+
     /**
      * Setter for Separation lines in the board.
      */
@@ -171,6 +270,7 @@ class MineBoard {
         separationLinePaint.setColor(Color.BLACK);
         separationLinePaint.setStyle(Paint.Style.STROKE);
     }
+
     /**
      * The constructor of Mine game.
      *
@@ -201,8 +301,8 @@ class MineBoard {
         for (int row = 0; row < boardRow; row++) {
             for (int col = 0; col < boardCol; col++) {
                 mineTile[row][col] = new MineTile();
-                mineTile[row][col].value = EMPTY;
-                mineTile[row][col].isOpened = false;
+                mineTile[row][col].setValue(0);
+                mineTile[row][col].setOpened(false);
                 isDrawBooms = false;
             }
         }
@@ -234,20 +334,22 @@ class MineBoard {
         }
         //Mark the position of booms.
         for (MinePoint nextBoomPoint : boomPoint) {
-            mineTile[nextBoomPoint.y][nextBoomPoint.x].value = BOOM;
+            mineTile[nextBoomPoint.getY()][nextBoomPoint.getX()].setValue(BOOM);
         }
         //Add number to some tiles.
         for (int row = 0; row < boardRow; row++) {
             for (int col = 0; col < boardCol; col++) {
-                short tile = this.mineTile[row][col].value;
+                int tile = this.mineTile[row][col].getValue();
                 if (tile == BOOM) {
                     for (int k = 0; k < 8; k++) {
                         int surroundingX = col + getSurrounding_directions()[k][0],
                                 surroundingY = row + getSurrounding_directions()[k][1];
                         if (surroundingX >= 0 && surroundingX < boardCol && surroundingY >= 0 &&
                                 surroundingY < boardRow) {
-                            if (this.mineTile[surroundingY][surroundingX].value != -1)
-                                this.mineTile[surroundingY][surroundingX].value += 1;
+                            int currentValue = this.mineTile[surroundingY][surroundingX].getValue();
+                            if (currentValue != -1)
+                                currentValue += 1;
+                            this.mineTile[surroundingY][surroundingX].setValue(currentValue);
                         }
                     }
                 }
@@ -258,7 +360,7 @@ class MineBoard {
     /**
      * Copy the current Mine board.
      */
-    private MineBoard copy(){
+    private MineBoard copy() {
         MineBoard newBoard = new MineBoard(this.gameSettings);
         newBoard.mineTile = this.mineTile.clone();
         newBoard.isDrawBooms = false;
@@ -269,43 +371,42 @@ class MineBoard {
      * Tap to open some position.
      *
      * @param openMinePoint The point being isOpen.
-     * @param tappedOnce First touch or not.
+     * @param tappedOnce    First touch or not.
      */
     void touchOpen(MinePoint openMinePoint, boolean tappedOnce) {
         lastMineBoard = this.copy();
         if (tappedOnce) {
             createBooms(openMinePoint);
         }
-        mineTile[openMinePoint.y][openMinePoint.x].isOpened = true;
-        if (mineTile[openMinePoint.y][openMinePoint.x].value == -1)
+        mineTile[openMinePoint.getY()][openMinePoint.getX()].setOpened(true);
+        if (mineTile[openMinePoint.getY()][openMinePoint.getX()].getValue() == -1)
             return;
             //tap the mineTile with a number.
-        else if (mineTile[openMinePoint.y][openMinePoint.x].value > 0)
-        {
+        else if (mineTile[openMinePoint.getY()][openMinePoint.getX()].getValue() > 0) {
             return;
         }
         Queue<MinePoint> boomPointQueue = new LinkedList<>();
         //add the first point.
-        boomPointQueue.offer(new MinePoint(openMinePoint.x, openMinePoint.y));
+        boomPointQueue.offer(new MinePoint(openMinePoint.getX(), openMinePoint.getY()));
         //Search all 8 surroundings.
         while (boomPointQueue.size() != 0) {
             MinePoint minePoint = boomPointQueue.poll();
             assert minePoint != null;
-            mineTile[minePoint.y][minePoint.x].isOpened = true;
+            mineTile[minePoint.getY()][minePoint.getX()].setOpened(true);
             for (int i = 0; i < 8; i++) {
-                int surroundingX = minePoint.x + getSurrounding_directions()[i][0],
-                        surroundingY = minePoint.y + getSurrounding_directions()[i][1];
+                int surroundingX = minePoint.getX() + getSurrounding_directions()[i][0],
+                        surroundingY = minePoint.getY() + getSurrounding_directions()[i][1];
                 //Check given minePoint's surroundings and whether they are opened or not.
                 boolean isOpenable = surroundingX >= 0 && surroundingX < boardCol &&
                         surroundingY >= 0 && surroundingY < boardRow;
                 if (isOpenable) {
                     //Make all surroundings that is not boom white new tiles with nothing in it.
-                    if (mineTile[surroundingY][surroundingX].value == 0 &&
-                            !mineTile[surroundingY][surroundingX].isOpened) {
+                    if (mineTile[surroundingY][surroundingX].getValue() == 0 &&
+                            !mineTile[surroundingY][surroundingX].isOpened()) {
                         boomPointQueue.offer(new MinePoint(surroundingX, surroundingY));
                         //Show the special tile.
-                    } else if (mineTile[surroundingY][surroundingX].value > 0) {
-                        mineTile[surroundingY][surroundingX].isOpened = true;
+                    } else if (mineTile[surroundingY][surroundingX].getValue() > 0) {
+                        mineTile[surroundingY][surroundingX].setOpened(true);
                     }
                 }
             }
@@ -321,13 +422,12 @@ class MineBoard {
         for (int row = 0; row < boardRow; row++) {
             for (int col = 0; col < boardCol; col++) {
                 MineTile mineTile = this.mineTile[row][col];
-                if (mineTile.isOpened) {
-                    if (mineTile.value > 0) {
-                        canvas.drawText(mineTile.value + "", x + col * tileWidth,
+                if (mineTile.isOpened()) {
+                    if (mineTile.getValue() > 0) {
+                        canvas.drawText(mineTile.getValue() + "", x + col * tileWidth,
                                 y + row * tileWidth + tileWidth, getTileNumberPaint());
                     }
-                }
-                else {
+                } else {
                     //Draw rectangle tiles.
                     RectF reactF = new RectF(x + col * tileWidth, y + row * tileWidth,
                             x + col * tileWidth + tileWidth, y + row * tileWidth +
@@ -335,7 +435,7 @@ class MineBoard {
                     canvas.drawRoundRect(reactF, 0, 0, getTilePaint());
                 }
                 //check all booms are drawn.
-                if (isDrawBooms && this.mineTile[row][col].value == -1) {
+                if (isDrawBooms && this.mineTile[row][col].getValue() == -1) {
                     canvas.drawCircle((x + col * tileWidth) + tileWidth / 2,
                             (y + row * tileWidth) + tileWidth / 2,
                             tileWidth / 2, getBoomPaint());
