@@ -10,10 +10,10 @@ public class DetailScoreBoard {
     private List<Integer> sortedList;
 
     public Integer getTopOneScore(String mode){
-
+        return 1;
     }
 
     public Integer getTopOneName(String mode){
-
+        return 1;
     }
 }
