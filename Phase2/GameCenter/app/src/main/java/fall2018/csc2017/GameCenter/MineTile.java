@@ -55,6 +55,6 @@ class MineTile {
      * @param opened the boolean of whether this mineTile is opened or not.
      */
     void setOpened(boolean opened) {
-        isOpened = opened;
+        this.isOpened = opened;
     }
 }

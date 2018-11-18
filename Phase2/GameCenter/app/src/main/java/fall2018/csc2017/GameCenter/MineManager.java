@@ -3,6 +3,7 @@ package fall2018.csc2017.GameCenter;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.view.MotionEvent;
@@ -142,11 +143,14 @@ public class MineManager extends View implements Manager {
         MineManager.numBoom = numBoom;
     }
 
+    public void setTime(int time) { this.time = time; }
+
     /**
      * Game winning.
      */
     public void wining() {
         if (puzzleSolved()) {
+            invalidate();
             sentVictoryAlertDialog();
             this.time = scorer.getTimeScore();
             this.score = scorer.calculateScore(numBoom, time);
@@ -179,19 +183,15 @@ public class MineManager extends View implements Manager {
      */
     @Override
     public boolean puzzleSolved() {
-        int UnopenedTile = getUnopenedTile();
-        return UnopenedTile == numBoom;
-    }
-
-    /**
-     * Return true if boom is tapped, false otherwise.
-     *
-     * @param boomY boom y coordinate.
-     * @param boomX boom x coordinate.
-     * @return True if boom is tapped.
-     */
-    private boolean puzzleFailed(int boomY, int boomX) {
-        return mineBoard.getMineTile()[boomY][boomX].getValue() == -1;
+        for (int row = 0; row < mineBoard.getBoardRow(); row++) {
+            for (int col = 0; col < mineBoard.getBoardCol(); col++) {
+                if (!mineBoard.getMineTile()[row][col].isOpened() &&
+                        mineBoard.getMineTile()[row][col].getValue() != -1) {
+                    return false;
+                }
+            }
+        }
+        return getUnopenedTile() == numBoom;
     }
 
     /**
@@ -233,10 +233,7 @@ public class MineManager extends View implements Manager {
         new AlertDialog.Builder(context)
                 .setCancelable(false)
                 .setMessage("You Shall Not Pass！")
-                .setPositiveButton("I want to cheat anyway!", (dialog, which) -> {
-                    mineBoard = mineBoard.getLastMineBoard();
-                    invalidate();
-                })
+                .setPositiveButton("I want to play again.", (dialog, which) -> resetTheGame())
                 .setNegativeButton("Quit", (dialog, which) -> finish())
                 .create()
                 .show();
@@ -270,10 +267,13 @@ public class MineManager extends View implements Manager {
         return true;
     }
 
+    /**
+     * Move maker in Mine game.
+     */
     @Override
     public void makeMove(){
-        int x = (int) event.getX();
-        int y = (int) event.getY();
+        int x = (int) this.event.getX();
+        int y = (int) this.event.getY();
 
         if (checkRange(x, y)) {
             int idxX = (x - mineBoard.getX()) / mineBoard.getTileWidth();
@@ -281,15 +281,13 @@ public class MineManager extends View implements Manager {
             mineBoard.touchOpen(new MinePoint(idxX, idxY), tappedOnce);
             tappedOnce = false;
 
-            if (puzzleFailed(idxY, idxX)) {
+            if (mineBoard.getMineTile()[idxY][idxX].getValue() == -1) {
                 sentDefeatedAlertDialog();
                 score = 0;
-                time = scorer.getTimeScore();
-                timer.cancel();
             }
             wining();
-            invalidate();
         }
+        invalidate();
     }
 
     /**
