@@ -165,14 +165,6 @@ public class SudokuBoardManager implements Serializable {
             acc++;
         }
         return checkCol(sudokuNum) && checkRow(sudokuNum) && checkSquare(sudokuNum);
-        //TODO: calculate score
-//        if (solved) {
-//            score = calculateScore(sudoku.getSlidingTile().getLevel(), boardManager.getNumMoves());
-//            undoLimit = 0;
-//            ScoreBoard scoreBoard = ScoreBoard.getScoreBoard(context);
-//            scoreBoard.update(SlidingTile.level, userName, score);
-//            scoreBoard.updateHighestScore();
-//        }
     }
 
     /**
@@ -340,70 +332,4 @@ public class SudokuBoardManager implements Serializable {
             }
         }
     }
-
-//    private int[][] randomChoose(int[][] sudokuNum, List<Integer> list, int position){
-//        int row = position / Sudoku.size;
-//        int col = position % Sudoku.size;
-//        int xOff = row / 3 * 3;
-//        int yOff = col / 3 * 3;
-//        List<Integer> possibleNum = list;
-//        int[][] result = sudokuNum;
-//        for (int otherRow = 0; otherRow < Sudoku.size; otherRow++){
-//            for (int i = 0; i < possibleNum.size(); i++){
-//                if (possibleNum.get(i) == sudokuNum[otherRow][col]){
-//                    possibleNum.remove(i);
-//                }
-//            }
-//        }
-//        //check col
-//        for (int otherCol = 0; otherCol < Sudoku.size; otherCol++){
-//            for (int i = 0; i < possibleNum.size(); i++){
-//                if (possibleNum.get(i) == sudokuNum[row][otherCol]){
-//                    possibleNum.remove(i);
-//                }
-//            }
-//        }
-//        //check square
-//        for (int squareX = 0; squareX < Sudoku.size/3; squareX++){
-//            for (int squareY = 0; squareY < Sudoku.size/3; squareY++){
-//                for (int i = 0; i < possibleNum.size(); i++){
-//                    if (possibleNum.get(i) == sudokuNum[xOff+squareX][yOff+squareY]){
-//                        possibleNum.remove(i);
-//                    }
-//                }
-//            }
-//        }
-//        if(possibleNum.isEmpty()) {
-//            result = createRandomSudoku();
-//        }else {
-//            int random=(int)(possibleNum.size()*Math.random());
-//            result[row][col] = possibleNum.get(random);
-//        }
-//        return result;
-//    }
-
-    // don't need undo
-//    /**
-//     * Undo the previous moves as required properly.
-//     */
-//    void undo() {
-//        if (undoLimit > 0) {
-//            numMoves -= 2;
-//            undoLimit -= 2;
-//            touchMove(listOfPosition.remove(listOfPosition.size() - 1));
-//            listOfPosition.remove(listOfPosition.size() - 1);
-//        }
-//    }
-//
-//    /**
-//     * Undo the previous move(can only be used 3 times).
-//     */
-//    void undo3() {
-//        if (undoLimit3 > 0) {
-//            numMoves -= 2;
-//            undoLimit3 -= 1;
-//            touchMove(listOfPosition.remove(listOfPosition.size() - 1));
-//            listOfPosition.remove(listOfPosition.size() - 1);
-//        }
-//    }
 }

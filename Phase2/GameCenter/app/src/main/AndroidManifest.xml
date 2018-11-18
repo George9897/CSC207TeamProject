@@ -11,8 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".StartingActivity"
-            android:exported="true"/>
+        <activity
+            android:name=".StartingActivity"
+            android:exported="true" />
         <activity android:name=".GameActivity" />
         <activity android:name=".ScoreBoardActivity" />
         <activity android:name=".SettingActivity" />
@@ -30,9 +31,10 @@
         <activity
             android:name=".ProfileActivity"
             android:exported="true" />
-        <activity android:name=".SudokuBoardActivity"></activity>
+        <activity android:name=".SudokuBoardActivity" />
         <activity android:name=".MineSettingActivity" />
-        <activity android:name=".MineGameActivity"></activity>
+        <activity android:name=".MineGameActivity" />
+        <activity android:name=".ChooseGameScoreActivity"></activity>
     </application>
 
 </manifest>

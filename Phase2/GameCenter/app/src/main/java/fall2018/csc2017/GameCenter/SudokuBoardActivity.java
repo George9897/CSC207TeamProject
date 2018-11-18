@@ -2,14 +2,11 @@ package fall2018.csc2017.GameCenter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -33,11 +30,6 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
      */
     private ArrayList<Button> tileButtons;
 
-//    /**
-//     * The method state of undo button.
-//     */
-//    protected boolean undo;
-
     /**
      * The GestureDetectGridView of this game.
      */
@@ -57,8 +49,6 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
     @SuppressLint("SetTextI18n")
     public void display() {
         updateTileButtons();
-//        TextView steps = findViewById(R.id.step);
-//        steps.setText("Step:" + Integer.toString(sudokuBoardManager.getNumMoves()));
         gridView.setAdapter(new SudokuCustomAdapter(tileButtons, columnWidth, columnHeight));
     }
 
@@ -81,20 +71,6 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         addNineButtonListener();
         addClearButtonListener();
         addEraserButtonListener();
-
-        //addQuitButtonsListener();
-
-//        Intent intent = getIntent();
-//        if (intent.getExtras() != null) {
-//            undo = intent.getExtras().getBoolean("undo");
-//        }
-//        System.out.println(undo);
-//
-//        if (undo) {
-//            addUndoButtonListener();
-//        } else {
-//            addUndo3ButtonListener();
-//        }
 
         gridView = findViewById(R.id.sudokugrid);
         gridView.setNumColumns(Sudoku.size);
@@ -129,11 +105,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         for (int row = 0; row != Sudoku.size; row++) {
             for (int col = 0; col != Sudoku.size; col++) {
                 Button tmp = new Button(context);
-//                if (slidingTile.isDrawable) {
-//                    tmp.setBackground(slidingTile.getTile(row, col).getDrawableBackground());
-//                } else {
                 tmp.setBackgroundResource(sudoku.getTile(row, col).getBackground());
-//                }
                 this.tileButtons.add(tmp);
             }
         }
@@ -149,11 +121,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         for (Button b : tileButtons) {
             int row = nextPos / Sudoku.size;
             int col = nextPos % Sudoku.size;
-//            if (slidingTile.isDrawable) {
-//                b.setBackground(slidingTile.getTile(row, col).getDrawableBackground());
-//            } else {
             b.setBackgroundResource(sudoku.getTile(row, col).getBackground());
-//            }
             nextPos++;
         }
     }
