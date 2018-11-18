@@ -28,6 +28,11 @@ public class Tile implements Comparable<Tile>, Serializable {
     private int id;
 
     /**
+     * Indicate whether the mine tile is opened.
+     */
+    private boolean isOpened;
+
+    /**
      * Return the background id.
      *
      * @return the background id
@@ -55,19 +60,11 @@ public class Tile implements Comparable<Tile>, Serializable {
     }
 
     /**
-     * A Tile with id and background. The background may not have a corresponding image.
-     *
-     * @param id         the id
-     * @param background the background
+     * The constructor for tiles.
      */
-    public Tile(int id, int background) {
-        this.id = id;
-        this.background = background;
-    }
-
-    public Tile(int id, Drawable drawableBackground) {
-        this.id = id;
-        this.drawableBackground = drawableBackground;
+    Tile() {
+        this.id = 0;
+        this.isOpened = false;
     }
 
     /**
