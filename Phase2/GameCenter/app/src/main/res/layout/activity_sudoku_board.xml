@@ -159,4 +159,40 @@
         android:layout_toEndOf="@+id/sudokuQuitButton"
         android:text="undo" />
 
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="8dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="181dp"
+        android:background="@color/colorPrimaryDark" />
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="8dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="370dp"
+        android:background="@color/colorPrimaryDark"/>
+
+    <View
+        android:layout_width="8dp"
+        android:layout_height="560dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="0dp"
+        android:background="@color/colorPrimaryDark" />
+
+    <View
+        android:layout_width="8dp"
+        android:layout_height="560dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="270dp"
+        android:layout_marginTop="0dp"
+        android:background="@color/colorPrimaryDark" />
+
+
+
 </RelativeLayout>
