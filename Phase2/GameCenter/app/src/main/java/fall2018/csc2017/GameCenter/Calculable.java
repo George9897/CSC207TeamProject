@@ -11,12 +11,4 @@ public interface Calculable {
      * @return the score with a specific calculating algorithm of the game.
      */
     int calculateScore(int variable1, int variable2);
-
-    /**
-     * The default score getter for a game that needs score.
-     * @param variable1 the first variable needed.
-     * @param variable2 the second variable needed.
-     * @return the final score with a specific calculating algorithm of the game.
-     */
-    int getFinalScore(int variable1, int variable2);
 }

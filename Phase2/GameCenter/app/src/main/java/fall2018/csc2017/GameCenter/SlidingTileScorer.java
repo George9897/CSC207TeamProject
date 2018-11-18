@@ -23,6 +23,4 @@ class SlidingTileScorer implements Serializable, Calculable {
         }
         return (int) (10000 * pow(100, power));
     }
-
-    public int getFinalScore(int level, int moves) { return calculateScore(level, moves); }
 }

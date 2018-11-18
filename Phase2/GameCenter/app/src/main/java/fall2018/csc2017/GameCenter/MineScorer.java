@@ -35,15 +35,6 @@ public class MineScorer extends TimerTask implements Serializable, Calculable {
      */
     int getTimeScore() { return timeScore; }
 
-    /**
-     * Calculate for final score.
-     * @param numBooms The number of Booms in the game.
-     * @return the final score.
-     */
-    public int getFinalScore(int numBooms, int timeScore) {
-        return calculateScore(numBooms, timeScore);
-    }
-
     @Override
     public void run() { timeScore++; }
 }
