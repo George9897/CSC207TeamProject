@@ -3,7 +3,6 @@ package fall2018.csc2017.GameCenter;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.view.MotionEvent;
@@ -48,16 +47,15 @@ public class MineManager extends View implements Manager {
     /**
      * The board height.
      */
-    private final int ROW = 15;
+    private static int rowNum;
     /**
      * The board width.
      */
-    private final int COL = 8;
-
+    private static int colNum;
     /**
-     * The mineTile's size.
+     * The divider that state how many segment a screen is separated into.
      */
-    private int TILE_WIDTH = 50;
+    private static int divider;
     /**
      * The scorer for Mine game.
      */
@@ -66,6 +64,50 @@ public class MineManager extends View implements Manager {
      * The singleton mine Manager.
      */
     private static MineManager mineManager;
+    /**
+     * The touch event presented by the user.
+     */
+    private MotionEvent event;
+
+    /**
+     * Getter for number of rows.
+     * @return the number of rows.
+     */
+    public int getRowNum() {
+        return rowNum;
+    }
+    /**
+     * Setter for number of rows.
+     */
+    public static void setRowNum(int rowNum) {
+        MineManager.rowNum = rowNum;
+    }
+    /**
+     * Getter for number of cols.
+     * @return the number of cols.
+     */
+    public int getColNum() {
+        return colNum;
+    }
+    /**
+     * Setter for number of cols.
+     */
+    public static void setColNum(int colNum) {
+        MineManager.colNum = colNum;
+    }
+    /**
+     * Getter for the divider of the board.
+     * @return the divider of the board.
+     */
+    public int getDivider() {
+        return divider;
+    }
+    /**
+     * Setter for the divider of the board.
+     */
+    public static void setDivider(int divider) {
+        MineManager.divider = divider;
+    }
 
     /**
      * The constructor of MineManager.
@@ -73,13 +115,12 @@ public class MineManager extends View implements Manager {
     private MineManager(Context context) {
         super(context);
         this.context = context;
-
-        TILE_WIDTH = MineGameActivity.Width / 10;
+        int TILE_WIDTH = MineGameActivity.Width / getDivider();
         ArrayList<Integer> gameSettings = new ArrayList<>();
-        gameSettings.add((MineGameActivity.Width - COL * TILE_WIDTH) / 2);
-        gameSettings.add((MineGameActivity.Height - ROW * TILE_WIDTH) / 2);
-        gameSettings.add(COL);
-        gameSettings.add(ROW);
+        gameSettings.add((MineGameActivity.Width - getColNum() * TILE_WIDTH) / 2);
+        gameSettings.add((MineGameActivity.Height - getRowNum() * TILE_WIDTH) / 2);
+        gameSettings.add(getColNum());
+        gameSettings.add(getRowNum());
         gameSettings.add(numBoom);
         gameSettings.add(TILE_WIDTH);
         mineBoard = new MineBoard(gameSettings);
@@ -134,29 +175,19 @@ public class MineManager extends View implements Manager {
         return score;
     }
 
+
     /**
      * Setter for numBoom.
      *
      * @param numBoom the wanted number of booms.
      */
-    public static void setNumBoom(int numBoom) {
-        MineManager.numBoom = numBoom;
-    }
-
-    public void setTime(int time) { this.time = time; }
+    public static void setNumBoom(int numBoom) { MineManager.numBoom = numBoom; }
 
     /**
-     * Game winning.
+     * The setter for time.
+     * @param time the time passed.
      */
-    public void wining() {
-        if (puzzleSolved()) {
-            invalidate();
-            sentVictoryAlertDialog();
-            this.time = scorer.getTimeScore();
-            this.score = scorer.calculateScore(numBoom, time);
-            timer.cancel();
-        }
-    }
+    public void setTime(int time) { this.time = time; }
 
     /**
      * Get mineTile that is Unopened.
@@ -249,7 +280,6 @@ public class MineManager extends View implements Manager {
         mineBoard.draw(canvas);
     }
 
-    private MotionEvent event;
 
     /**
      * Perform a touch event on a tile.
@@ -284,6 +314,7 @@ public class MineManager extends View implements Manager {
             if (mineBoard.getMineTile()[idxY][idxX].getValue() == -1) {
                 sentDefeatedAlertDialog();
                 score = 0;
+                timer.cancel();
             }
             wining();
         }
@@ -302,5 +333,18 @@ public class MineManager extends View implements Manager {
                 y >= mineBoard.getY() &&
                 x <= (mineBoard.getBoardWidth() + mineBoard.getX()) &&
                 y <= (mineBoard.getY() + mineBoard.getBoardHeight());
+    }
+
+    /**
+     * Game winning.
+     */
+    public void wining() {
+        if (puzzleSolved()) {
+            invalidate();
+            sentVictoryAlertDialog();
+            this.time = scorer.getTimeScore();
+            this.score = scorer.calculateScore(numBoom, time);
+            timer.cancel();
+        }
     }
 }

@@ -20,7 +20,7 @@ public class ChooseGameScoreActivity extends AppCompatActivity {
     private void addMGButtonListener() {
         Button mgButton = findViewById(R.id.minescore);
         mgButton.setOnClickListener(view -> {
-            Intent tmp = new Intent(this, ScoreBoardActivity.class);
+            Intent tmp = new Intent(this, DetailScoreBoardActivity.class);
             startActivity(tmp);
         });
     }

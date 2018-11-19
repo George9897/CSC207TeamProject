@@ -11,7 +11,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import java.io.Serializable;
 import java.util.ArrayList;
-import static fall2018.csc2017.GameCenter.MineManager.setNumBoom;
 
 /**
  * The setting activity for Mine game.
@@ -23,9 +22,9 @@ public class MineSettingActivity extends AppCompatActivity implements Serializab
         setContentView(R.layout.activity_mine_setting);
         Spinner boomDifficulty = findViewById(R.id.Difficulty_numBooms);
         ArrayList<String> categories = new ArrayList<>();
-        categories.add("10");
-        categories.add("15");
-        categories.add("20");
+        categories.add("EASY");
+        categories.add("INTERMEDIATE");
+        categories.add("PROFESSIONAL");
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, categories);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -38,14 +37,23 @@ public class MineSettingActivity extends AppCompatActivity implements Serializab
               Toast.makeText(getBaseContext(),
                       "You have selected difficulty : " + item, Toast.LENGTH_SHORT).show();
               switch (item) {
-                  case "10":
-                      setNumBoom(10);
+                  case "EASY":
+                      MineManager.setNumBoom(10);
+                      MineManager.setColNum(8);
+                      MineManager.setRowNum(15);
+                      MineManager.setDivider(10);
                       break;
-                  case "15":
-                      setNumBoom(15);
+                  case "INTERMEDIATE":
+                      MineManager.setNumBoom(36);
+                      MineManager.setColNum(12);
+                      MineManager.setRowNum(20);
+                      MineManager.setDivider(13);
                       break;
-                  case "20":
-                      setNumBoom(20);
+                  case "PROFESSIONAL":
+                      MineManager.setNumBoom(132);
+                      MineManager.setColNum(20);
+                      MineManager.setRowNum(33);
+                      MineManager.setDivider(22);
                       break;
               }
           }
