@@ -8,12 +8,12 @@ import static java.lang.Math.pow;
 /**
  * Calculate a score that round of game when game is finished.
  */
-public class MineScorer extends TimerTask implements Serializable, Calculable {
+public class MineScorer extends Scorer {
 
-    /**
-     * The time score for one game play.
-     */
-    private int timeScore;
+//    /**
+//     * The time score for one game play.
+//     */
+//    private int timeScore;
 
     /**
      * calculate score with given level and moves.
@@ -29,13 +29,13 @@ public class MineScorer extends TimerTask implements Serializable, Calculable {
         }
         return (1000 * numBooms);
     }
-
-    /**
-     * Getter for time score.
-     * @return the Time score.
-     */
-    int getTimeScore() { return timeScore; }
-
-    @Override
-    public void run() { timeScore++; }
+//
+//    /**
+//     * Getter for time score.
+//     * @return the Time score.
+//     */
+//    int getTimeScore() { return timeScore; }
+//
+//    @Override
+//    public void run() { timeScore++; }
 }
