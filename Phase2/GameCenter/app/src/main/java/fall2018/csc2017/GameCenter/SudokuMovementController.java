@@ -41,6 +41,7 @@ public class SudokuMovementController implements Serializable {
                 Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
                 Intent tmp = new Intent(context, YouWinActivity.class);
                 tmp.putExtra("gameType", "Sudoku");
+                sudokuBoardManager.wining();
                 context.startActivity(tmp);
             }
         } else {
