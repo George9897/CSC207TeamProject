@@ -16,7 +16,7 @@ public class MovementController implements Serializable {
     /**
      * The constructor of MovementController.
      */
-    public MovementController() {
+    MovementController() {
     }
 
     /**
@@ -28,6 +28,7 @@ public class MovementController implements Serializable {
         this.boardManager = boardManager;
     }
 
+    //TODO
     /**
      * Process a tapping movement.
      *
@@ -35,7 +36,7 @@ public class MovementController implements Serializable {
      * @param position The position that is tapped.
      * @param display  The display.
      */
-    public void processTapMovement(Context context, int position, boolean display) {
+    void processTapMovement(Context context, int position, boolean display) {
         if (boardManager.isValidTap(position)) {
             boardManager.touchMove(position);
             if (boardManager.puzzleSolved()) {

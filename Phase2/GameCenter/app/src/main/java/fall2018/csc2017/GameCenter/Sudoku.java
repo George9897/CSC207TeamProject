@@ -106,7 +106,7 @@ public class Sudoku extends Observable implements Serializable, Iterable<Tile> {
      *
      * @return the number of tiles on the slidingTile
      */
-    int numTiles() {
+    private int numTiles() {
         return size * size;
     }
 

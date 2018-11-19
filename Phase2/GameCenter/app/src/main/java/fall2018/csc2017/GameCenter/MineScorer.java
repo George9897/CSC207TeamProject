@@ -1,25 +1,18 @@
 package fall2018.csc2017.GameCenter;
 
 import java.io.Serializable;
-import java.util.TimerTask;
 
 import static java.lang.Math.pow;
 
 /**
  * Calculate a score that round of game when game is finished.
  */
-public class MineScorer extends TimerTask implements Serializable, Calculable {
-
-    /**
-     * The time score for one game play.
-     */
-    private int timeScore;
-
+public class MineScorer extends Scorer implements Serializable {
     /**
      * calculate score with given level and moves.
      *
      * @param numBooms level of difficulty
-     * @param time number of move.
+     * @param time     number of move.
      * @return return the calculate result
      */
     @Override
@@ -29,13 +22,4 @@ public class MineScorer extends TimerTask implements Serializable, Calculable {
         }
         return (1000 * numBooms);
     }
-
-    /**
-     * Getter for time score.
-     * @return the Time score.
-     */
-    int getTimeScore() { return timeScore; }
-
-    @Override
-    public void run() { timeScore++; }
 }

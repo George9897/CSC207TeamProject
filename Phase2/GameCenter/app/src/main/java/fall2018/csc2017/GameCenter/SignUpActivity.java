@@ -24,18 +24,19 @@ public class SignUpActivity extends AppCompatActivity implements Serializable {
     /**
      * The display for check username and password.
      */
-    TextView meg_box;
+    private TextView meg_box;
 
     /**
      * for upload avatar.
      */
-    ImageView picImageView;
+    private ImageView picImageView;
 
     /**
      * avatar.
      */
     private static final int PICK_IMAGE = 100;
 
+    //TODO
     /**
      * uri of avatar.
      */
