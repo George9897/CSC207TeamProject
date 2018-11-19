@@ -53,7 +53,7 @@ public class AccountManager implements Serializable {
      *
      * @return this Account Manager
      */
-    public static AccountManager getAccountManager() {
+    static AccountManager getAccountManager() {
         if (accountManager == null) {
             accountManager = new AccountManager();
         }

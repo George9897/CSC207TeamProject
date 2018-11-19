@@ -3,13 +3,12 @@ package fall2018.csc2017.GameCenter;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
-
 import java.io.Serializable;
 
 /**
  * The movement controller of game.
  */
-public class SudokuMovementController implements Serializable {
+class SudokuMovementController implements Serializable {
 
     private SudokuBoardManager sudokuBoardManager;
 

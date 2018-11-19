@@ -1,5 +1,4 @@
 package fall2018.csc2017.GameCenter;
-
 /*
 Adapted from:
 https://github.com/DaveNOTDavid/sample-puzzle/blob/master/app/src/main/java/com/davenotdavid/samplepuzzle/GestureDetectGridView.java
@@ -17,50 +16,48 @@ import android.widget.GridView;
 
 import java.io.Serializable;
 
-//TODO
-public class GestureDetectGridView extends GridView implements Serializable {
+public class MineGestureDetectGridView extends GridView implements Serializable {
     public static final int SWIPE_MIN_DISTANCE = 100;
-    public static final int SWIPE_MAX_OFF_PATH = 100;
-    public static final int SWIPE_THRESHOLD_VELOCITY = 100;
     private GestureDetector gDetector;
-    private MovementController mController;
+    private MineMovementController mineMovementController;
     private boolean mFlingConfirmed = false;
     private float mTouchX;
     private float mTouchY;
-    private BoardManager boardManager;
+    private MineManager mineManager;
+    private int move;
 
-    public GestureDetectGridView(Context context) {
+    public MineGestureDetectGridView(Context context) {
         super(context);
         init(context);
     }
 
-    public GestureDetectGridView(Context context, AttributeSet attrs) {
+    public MineGestureDetectGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public GestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MineGestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP) // API 21
-    public GestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr,
-                                 int defStyleRes) {
+    public MineGestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr,
+                                       int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context);
     }
 
     private void init(final Context context) {
-        mController = new MovementController();
+        mineMovementController = new MineMovementController();
         gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
 
             @Override
             public boolean onSingleTapConfirmed(MotionEvent event) {
-                int position = GestureDetectGridView.this.pointToPosition
+                int position = MineGestureDetectGridView.this.pointToPosition
                         (Math.round(event.getX()), Math.round(event.getY()));
 
-                mController.processTapMovement(context, position, true);
+                mineMovementController.processTapMovement(context, position);
                 return true;
             }
 
@@ -104,8 +101,8 @@ public class GestureDetectGridView extends GridView implements Serializable {
         return gDetector.onTouchEvent(ev);
     }
 
-    public void setBoardManager(BoardManager boardManager) {
-        this.boardManager = boardManager;
-        mController.setBoardManager(boardManager);
+    public void setMineManager(MineManager MineManager) {
+        this.mineManager = MineManager;
+        mineMovementController.setMineManager(MineManager);
     }
 }

@@ -18,5 +18,5 @@ public interface Manager {
     /**
      * The move maker for games.
      */
-    void makeMove();
+    void makeMove(int position);
 }

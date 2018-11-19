@@ -1,29 +1,34 @@
 package fall2018.csc2017.GameCenter;
 
-import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Canvas;
-import android.view.MotionEvent;
-import android.view.View;
-
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 
 /**
  * The Mine game manager.
  */
-public class MineManager extends View implements Manager {
+public class MineManager implements Manager {
 
     /**
      * The Mine board.
      */
     private MineBoard mineBoard;
     /**
+     * The AccountManager.
+     */
+    private AccountManager accountManager = AccountManager.getAccountManager();
+
+    /**
+     * The user's name.
+     */
+    private String userName = accountManager.getUserName();
+    /**
      * The mark of whether the user tapped for at least once.
      */
-    private boolean tappedOnce = true;
+    private boolean tappedOnce = false;
+
     /**
      * The context.
      */
@@ -37,7 +42,7 @@ public class MineManager extends View implements Manager {
     /**
      * The number of booms in one game play.
      */
-    public static int numBoom;
+    private static int numBoom;
     /**
      * The score after the user find out all the booms.
      */
@@ -51,18 +56,6 @@ public class MineManager extends View implements Manager {
      */
     private Timer timer = new Timer();
     /**
-     * The board height.
-     */
-    private static int rowNum;
-    /**
-     * The board width.
-     */
-    private static int colNum;
-    /**
-     * The divider that state how many segment a screen is separated into.
-     */
-    private static int divider;
-    /**
      * The scorer for Mine game.
      */
     private MineScorer scorer = new MineScorer();
@@ -70,72 +63,34 @@ public class MineManager extends View implements Manager {
      * The singleton mine Manager.
      */
     private static MineManager mineManager;
-    /**
-     * The touch event presented by the user.
-     */
-    private MotionEvent event;
 
     /**
-     * Getter for number of rows.
-     * @return the number of rows.
+     * The context.
      */
-    public int getRowNum() {
-        return rowNum;
-    }
-    /**
-     * Setter for number of rows.
-     */
-    public static void setRowNum(int rowNum) {
-        MineManager.rowNum = rowNum;
-    }
-    /**
-     * Getter for number of cols.
-     * @return the number of cols.
-     */
-    public int getColNum() {
-        return colNum;
-    }
-    /**
-     * Setter for number of cols.
-     */
-    public static void setColNum(int colNum) {
-        MineManager.colNum = colNum;
-    }
-    /**
-     * Getter for the divider of the board.
-     * @return the divider of the board.
-     */
-    public int getDivider() {
-        return divider;
-    }
-    /**
-     * Setter for the divider of the board.
-     */
-    public static void setDivider(int divider) {
-        MineManager.divider = divider;
-    }
+    private Context context;
 
+
+    /**
+     * Create a initial list of Tiles for game with matching sizes.
+     *
+     * @return list of Tiles.
+     */
+    private List CreateTiles() {
+        List<MineTile> mineTiles = new ArrayList<>();
+        final int numTiles = MineBoard.getSize() * MineBoard.getSize();
+        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
+            mineTiles.add(new MineTile(1, false));
+        }
+        return mineTiles;
+    }
     /**
      * The constructor of MineManager.
      */
     private MineManager(Context context) {
-        super(context);
         this.context = context;
-        int TILE_WIDTH = MineGameActivity.Width / getDivider();
-        ArrayList<Integer> gameSettings = new ArrayList<>();
-        gameSettings.add((MineGameActivity.Width - getColNum() * TILE_WIDTH) / 2);
-        gameSettings.add((MineGameActivity.Height - getRowNum() * TILE_WIDTH) / 2);
-        gameSettings.add(getColNum());
-        gameSettings.add(getRowNum());
-        gameSettings.add(numBoom);
-        gameSettings.add(TILE_WIDTH);
-        mineBoard = new MineBoard(gameSettings);
+        List mineTiles = CreateTiles();
+        mineBoard = new MineBoard(mineTiles, numBoom, new Random());
         timer.schedule(scorer, 0, 1000);
-        try {
-            mineBoard.createBoard();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -144,7 +99,7 @@ public class MineManager extends View implements Manager {
      * @param context The context.
      * @return mineManager.
      */
-    public static MineManager getMineManager(Context context) {
+    static MineManager getMineManager(Context context) {
         if (mineManager == null) {
             mineManager = new MineManager(context);
         }
@@ -157,7 +112,7 @@ public class MineManager extends View implements Manager {
      * @param context The context.
      * @return a new mineManager.
      */
-    public static MineManager getNewMineManager(Context context) {
+    static MineManager getNewMineManager(Context context) {
         mineManager = new MineManager(context);
         return mineManager;
     }
@@ -180,39 +135,29 @@ public class MineManager extends View implements Manager {
     public int getScore() {
         return score;
     }
+    /**
+     * Getter for mine Board.
+     */
+    MineBoard getMineBoard() {return mineBoard; }
 
+    String getUserName() {
+        return userName;
+    }
+    public Context getContext() {
+        return context;
+    }
 
     /**
      * Setter for numBoom.
      *
      * @param numBoom the wanted number of booms.
      */
-    public static void setNumBoom(int numBoom) { MineManager.numBoom = numBoom; }
-
+    static void setNumBoom(int numBoom) { MineManager.numBoom = numBoom; }
     /**
-     * The setter for time.
-     * @param time the time passed.
+     * Setter for Tapped Once.
+     * @param tappedOnce the boolean indicate tapped once or not.
      */
-    public void setTime(int time) { this.time = time; }
-
-    /**
-     * Get mineTile that is Unopened.
-     *
-     * @return unopened MineTile.
-     */
-    private int getUnopenedTile() {
-        int count = 0;
-
-        for (int row = 0; row < mineBoard.getBoardRow(); row++) {
-            for (int col = 0; col < mineBoard.getBoardCol(); col++) {
-                if (!mineBoard.getMineTile()[row][col].isOpened()) {
-                    count++;
-                }
-            }
-        }
-        return count;
-    }
-
+    void setTappedOnce(boolean tappedOnce) { this.tappedOnce = tappedOnce; }
     /**
      * Return true if puzzle is solved, false otherwise.
      *
@@ -220,137 +165,67 @@ public class MineManager extends View implements Manager {
      */
     @Override
     public boolean puzzleSolved() {
-        for (int row = 0; row < mineBoard.getBoardRow(); row++) {
-            for (int col = 0; col < mineBoard.getBoardCol(); col++) {
+        int count = 0;
+        for (int row = 0; row < MineBoard.getSize(); row++) {
+            for (int col = 0; col < MineBoard.getSize(); col++) {
+                if (!mineBoard.getMineTile(row, col).isOpened()) {
+                    count++;
+                }
                 if (!mineBoard.getMineTile()[row][col].isOpened() &&
-                        mineBoard.getMineTile()[row][col].getValue() != -1) {
+                        mineBoard.getMineTile(row, col).getValue() != -1) {
                     return false;
                 }
             }
         }
-        return getUnopenedTile() == numBoom;
-    }
-
-    /**
-     * Send an winning AlertDialog and guild player to next activity.
-     */
-    private void sentVictoryAlertDialog() {
-        new AlertDialog.Builder(context)
-                .setMessage("Victory!")
-                .setCancelable(false)
-                .setPositiveButton("I want play again.", (dialog, which) -> resetTheGame())
-                .setNegativeButton("Quit", (dialog, which) -> finish())
-                .create()
-                .show();
-    }
-
-    /**
-     * Finish the game with You Win Activity.
-     */
-    private void finish() {
-        Intent tmp = new Intent(context, YouWinActivity.class);
-        tmp.putExtra("gameType", "Mine");
-        context.startActivity(tmp);
-    }
-
-    /**
-     * Reset the game if the user choose to do so.
-     */
-    public void resetTheGame() {
-        mineBoard.createBoard();
-        invalidate();
-        tappedOnce = true;
-    }
-
-    /**
-     * Send an failing AlertDialog and guild player to next activity.
-     */
-    private void sentDefeatedAlertDialog() {
-        mineBoard.isDrawBooms = true;
-        new AlertDialog.Builder(context)
-                .setCancelable(false)
-                .setMessage("You Shall Not Pass！")
-                .setPositiveButton("I want to play again.", (dialog, which) -> resetTheGame())
-                .setNegativeButton("Quit", (dialog, which) -> finish())
-                .create()
-                .show();
-    }
-
-    /**
-     * Refresh View.
-     *
-     * @param canvas The drawing tool for the board.
-     */
-    @Override
-    protected void onDraw(Canvas canvas) {
-        mineBoard.draw(canvas);
-    }
-
-
-    /**
-     * Perform a touch event on a tile.
-     *
-     * @param event The event.
-     * @return True if the user tapped.
-     */
-    @SuppressLint("ClickableViewAccessibility")
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            this.event = event;
-            makeMove();
-        }
-        return true;
+        return count == numBoom;
     }
 
     /**
      * Move maker in Mine game.
      */
-    @Override
-    public void makeMove(){
-        int x = (int) this.event.getX();
-        int y = (int) this.event.getY();
+    public void makeMove(int position){
+        if (isValidTap(position)) {
+            mineBoard.touchOpen(position, tappedOnce);
+            tappedOnce = true;
 
-        if (checkRange(x, y)) {
-            int idxX = (x - mineBoard.getX()) / mineBoard.getTileWidth();
-            int idxY = (y - mineBoard.getY()) / mineBoard.getTileWidth();
-            mineBoard.touchOpen(new MinePoint(idxX, idxY), tappedOnce);
-            tappedOnce = false;
-
-            if (mineBoard.getMineTile()[idxY][idxX].getValue() == -1) {
-                sentDefeatedAlertDialog();
-                score = 0;
-                timer.cancel();
-            }
-            wining();
+            failing(position);
+            winning();
         }
-        invalidate();
     }
 
     /**
      * Check touch event is in the range.
      *
-     * @param x Given x coordinate.
-     * @param y Given y coordinate.
      * @return True if x and y are in the range, false otherwise.
      */
-    private boolean checkRange(int x, int y) {
-        return x >= mineBoard.getX() &&
-                y >= mineBoard.getY() &&
-                x <= (mineBoard.getBoardWidth() + mineBoard.getX()) &&
-                y <= (mineBoard.getY() + mineBoard.getBoardHeight());
+    boolean isValidTap(int position) {
+        int row = position / MineBoard.getSize();
+        int col = position % MineBoard.getSize();
+        return !mineBoard.getMineTile()[row][col].isOpened();
+    }
+
+    /**
+     * Game failing.
+     */
+    private void failing(int position) {
+        int row = position / MineBoard.getSize();
+        int col = position % MineBoard.getSize();
+        if (mineBoard.getMineTile(row, col).getValue() == -1) {
+            time = scorer.getTimeScore();
+            score = 0;
+            timer.cancel();
+        }
     }
 
     /**
      * Game winning.
      */
-    public void wining() {
+    private void winning() {
         if (puzzleSolved()) {
-            invalidate();
-            sentVictoryAlertDialog();
-            this.time = scorer.getTimeScore();
-            this.score = scorer.calculateScore(numBoom, time);
+            time = scorer.getTimeScore();
+            score = scorer.calculateScore(numBoom, time);
             timer.cancel();
         }
     }
+
 }
