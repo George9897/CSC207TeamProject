@@ -46,14 +46,27 @@ public class DetailScoreBoard {
 
     List<Integer> hardScoreList = new ArrayList<>();
 
-    int easyTop1Score;
-    String easyTop1Name;
+    int easyTopOneScore;
+    String easyTopOneName;
 
-    int mediumTop1Score;
-    String mediumTop1Name;
+    int mediumTopOneScore;
+    String mediumTopOneName;
 
-    int hardTop1Score;
-    String hardTop1Name;
+    int hardTopOneScore;
+    String hardTopOneName;
+
+    int score;
+
+    String level;
+
+    /**
+     * The boardManager that is used in that round.
+     */
+    private BoardManager boardManager;
+
+    private MineManager mineManager;
+
+    private SudokuBoardManager sudokuBoardManager;
 
     Context context;
 
@@ -68,7 +81,6 @@ public class DetailScoreBoard {
     private DetailScoreBoard(String gametype, Context context) {
         this.gametype = gametype;
         this.context = context;
-
     }
 
     /**
@@ -83,11 +95,39 @@ public class DetailScoreBoard {
         return detailScoreBoard;
     }
 
-    void collectScore(){
+    void collectScoreLevel(String userName){
+
+
+        if (gametype == "SlidingTile"){
+            score = boardManager.getScore();
+            level = boardManager.slidingtileDifficulty;
+
+        }
+        if (gametype == "Mine"){
+            score = mineManager.getScore();
+            level = mineManager.mineDifficulty;
+        }
+        if (gametype == "Sudoku"){
+            score = sudokuBoardManager.getScore();
+            level = sudokuBoardManager.sudokuDifficulty;
+        }
+
         saveToFile(filename, context);
     }
 
     public ArrayList<Integer> createSortedList(){
+        if (level == "Easy"){
+            easyScoreList.add(score);
+//            easyScoreList
+        }
+        if (level == "Medium"){
+            mediumScoreList.add(score);
+        }
+        if (level == "Hard"){
+            hardScoreList.add(score);
+        }
+
+
         return null;
     }
 

@@ -63,6 +63,12 @@ class BoardManager implements Serializable, Undoable {
     private SlidingTileScorer scorer = new SlidingTileScorer();
 
     /**
+     *
+     */
+    static String slidingtileDifficulty;
+
+
+    /**
      * The undo limitation.
      */
     private int undoLimit;

@@ -21,6 +21,9 @@ class MineTile{
      * A drawable background for picture sliding tiles.
      */
     private Drawable drawableBackground;
+    /**
+     * The background id to find the tile image.
+     */
     private int background;
 
 
@@ -64,6 +67,15 @@ class MineTile{
                 break;
         }
         }
+    }
+
+    /**
+     * Return the background id.
+     *
+     * @return the background id
+     */
+    public int getBackground() {
+        return background;
     }
 
     /**

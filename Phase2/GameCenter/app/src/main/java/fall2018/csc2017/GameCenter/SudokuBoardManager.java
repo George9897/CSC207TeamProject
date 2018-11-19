@@ -163,6 +163,10 @@ public class SudokuBoardManager implements Serializable {
         return userName;
     }
 
+    public int getDifficulty(){
+        return difficulty;
+    }
+
     /**
      * Create a initial list of Tiles for game with matching sizes.
      *
