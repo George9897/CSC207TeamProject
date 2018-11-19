@@ -64,11 +64,6 @@ public class MineManager implements Manager {
      */
     private static MineManager mineManager;
 
-    /**
-     * The context.
-     */
-    private Context context;
-
 
     /**
      * Create a initial list of Tiles for game with matching sizes.

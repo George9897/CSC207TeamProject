@@ -39,23 +39,14 @@ public class MineSettingActivity extends AppCompatActivity implements Serializab
               switch (item) {
                   case "EASY":
                       MineManager.setNumBoom(10);
-                      MineManager.setColNum(8);
-                      MineManager.setRowNum(15);
-                      MineManager.setDivider(10);
                       MineManager.mineDifficulty = "Easy";
                       break;
                   case "INTERMEDIATE":
                       MineManager.setNumBoom(36);
-                      MineManager.setColNum(12);
-                      MineManager.setRowNum(20);
-                      MineManager.setDivider(13);
                       MineManager.mineDifficulty = "Medium";
                       break;
                   case "PROFESSIONAL":
                       MineManager.setNumBoom(132);
-                      MineManager.setColNum(20);
-                      MineManager.setRowNum(33);
-                      MineManager.setDivider(22);
                       MineManager.mineDifficulty = "Hard";
                       break;
               }
