@@ -31,6 +31,8 @@ class MineTile{
      * The constructor for tiles.
      */
     MineTile(int value, boolean isOpened) {
+        this.value = value;
+        this.isOpened = isOpened;
         background = value;
         if (!isOpened) {
             background = R.drawable.tile_10;

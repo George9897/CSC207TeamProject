@@ -76,10 +76,11 @@ public class MineManager implements Manager {
      */
     private List CreateTiles() {
         List<MineTile> mineTiles = new ArrayList<>();
-        final int numTiles = MineBoard.getSize() * MineBoard.getSize();
+        int numTiles = MineBoard.getSize() * MineBoard.getSize();
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            mineTiles.add(new MineTile(1, false));
+            mineTiles.add(new MineTile(0, false));
         }
+        System.out.println(mineTiles.size());
         return mineTiles;
     }
     /**
@@ -87,8 +88,8 @@ public class MineManager implements Manager {
      */
     private MineManager(Context context) {
         this.context = context;
-        mineTiles = CreateTiles();
-        mineBoard = new MineBoard(mineTiles, numBoom, new Random());
+        this.mineTiles = CreateTiles();
+        this.mineBoard = new MineBoard(mineTiles, numBoom, new Random());
         timer.schedule(scorer, 0, 1000);
     }
 

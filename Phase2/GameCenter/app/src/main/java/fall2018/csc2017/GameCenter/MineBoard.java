@@ -151,9 +151,8 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
         //Add all the positions.
         for (int row = 0; row < size; row++) {
             for (int col = 0; col < size; col++) {
-                if (!mineTile[row][col].equals(exception)) {
                     allTile.add(mineTile[row][col]);
-                }
+                    System.out.println("added");
             }
         }
         List<MineTile> boomTile = new LinkedList<>();
@@ -173,8 +172,8 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
                 int tileNum = this.mineTile[row][col].getValue();
                 if (tileNum == -1) {
                     for (int k = 0; k < 8; k++) {
-                        int surroundingX = row + surrounding_directions[k][0],
-                                surroundingY = col + surrounding_directions[k][1];
+                        int surroundingX = col + surrounding_directions[k][0],
+                                surroundingY = row + surrounding_directions[k][1];
                         if (surroundingX >= 0 && surroundingX < size && surroundingY >= 0 &&
                                 surroundingY < size) {
                             int currentValue = this.mineTile[surroundingY][surroundingX].getValue();
