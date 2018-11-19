@@ -42,7 +42,6 @@ public class SudokuSettingActivity extends AppCompatActivity implements Serializ
                         break;
                     case "Medium":
                         SudokuBoardManager.sudokuDifficulty = "Medium";
-                        setNumBoom(15);
                         break;
                     case "Hard":
                         SudokuBoardManager.sudokuDifficulty = "Hard";
