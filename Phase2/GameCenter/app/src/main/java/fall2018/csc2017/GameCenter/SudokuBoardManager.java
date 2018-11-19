@@ -66,10 +66,19 @@ public class SudokuBoardManager implements Serializable {
      */
     static String sudokuDifficulty;
 
+//    /**
+//     * The time score for one game play.
+//     */
+//    private int timeScore;
+
     /**
-     * The time score for one game play.
+     * The score after the user find out all the booms.
      */
-    private int timeScore;
+    private int score;
+    /**
+     * The time passed as seconds.
+     */
+    private int time;
 
     /**
      * The timer.
@@ -77,21 +86,59 @@ public class SudokuBoardManager implements Serializable {
     Timer timer = new Timer();
 
     /**
-     * The scorer for Sudoku game.
+     *
      */
-    private SudokuScorer timeScorer = new SudokuScorer();
+    private int difficulty;
 
     /**
-     * Getter for time score.
-     * @return the Time score.
+     * The scorer for Sudoku game.
      */
-    int getTimeScore() { return timeScore; }
+    private SudokuScorer scorer = new SudokuScorer();
+
+//    /**
+//     * Getter for time score.
+//     * @return the Time score.
+//     */
+//    int getTimeScore() { return timeScore; }
+
+    /**
+     * Getter for the time passed.
+     *
+     * @return The time.
+     */
+    public int getTime() {
+        return time;
+    }
+
+    /**
+     * Getter for the score.
+     *
+     * @return score.
+     */
+    public int getScore() {
+        return score;
+    }
+
+//
+//    /**
+//     * Setter for numBoom.
+//     *
+//     * @param level the level of difficulty of the game.
+//     */
+//    public static void setNumBoom(int level) { SudokuBoardManager.difficulty = level; }
 
     /**
      * The setter for time.
      * @param time the time passed.
      */
-    public void setTime(int time) { this.timeScore = time; }
+    public void setTime(int time) { this.time = time; }
+
+
+//    /**
+//     * The setter for time.
+//     * @param time the time passed.
+//     */
+//    public void setTime(int time) { this.timeScore = time; }
 
     /**
      * Getter for slidingTile.
@@ -142,7 +189,7 @@ public class SudokuBoardManager implements Serializable {
             this.listOfPosition = new ArrayList<>();
             List tiles = CreateTiles();
             this.sudoku = new Sudoku(tiles);
-            timer.schedule(timeScorer, 0, 1000);
+            timer.schedule(scorer, 0, 1000);
         }
     }
 
@@ -197,7 +244,8 @@ public class SudokuBoardManager implements Serializable {
 
     public void wining() {
         if (puzzleSolved()) {
-            this.timeScore = timeScorer.getTimeScore();
+            this.time = scorer.getTimeScore();
+            this.score = scorer.calculateScore(difficulty, time);
             timer.cancel();
         }
     }
@@ -299,10 +347,9 @@ public class SudokuBoardManager implements Serializable {
 
     private void createRandomSudoku() {
         randomChoose(0);
-        int difficulty;
         switch (sudokuDifficulty) {
             case "Easy":
-                difficulty = 1;
+                difficulty = 30;
                 break;
             case "Medium":
                 difficulty = 40;
@@ -326,6 +373,7 @@ public class SudokuBoardManager implements Serializable {
             sudokuNum[x[i]] = 0;
         }
     }
+
 
     private boolean randomChoose(int position) {
         if (position == Sudoku.size * Sudoku.size) {

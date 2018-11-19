@@ -3,19 +3,33 @@ package fall2018.csc2017.GameCenter;
 import java.io.Serializable;
 import java.util.TimerTask;
 
-public class SudokuScorer extends TimerTask implements Serializable {
+import static java.lang.Math.pow;
+
+public class SudokuScorer extends Scorer{
+
+//    /**
+//     * The time score for one game play.
+//     */
+//    private int timeScore;
 
     /**
-     * The time score for one game play.
+     * calculate score with given level and moves.
+     *
+     * @param level level of difficulty
+     * @param timeScore number of move.
+     * @return return the calculate result
      */
-    private int timeScore;
-
-    /**
-     * Getter for time score.
-     * @return the Time score.
-     */
-    int getTimeScore() { return timeScore; }
-
     @Override
-    public void run() { timeScore++; }
+    public int calculateScore(int level, int timeScore) {
+        return (int) ((500 * level - timeScore));
+    }
+//
+//    /**
+//     * Getter for time score.
+//     * @return the Time score.
+//     */
+//    int getTimeScore() { return timeScore; }
+//
+//    @Override
+//    public void run() { timeScore++; }
 }
