@@ -116,8 +116,8 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
         for (int row = 0; row != size; row++) {
             for (int col = 0; col != size; col++) {
                 this.mineTile[row][col] = iter.next();
-                this.mineTile[row][col].setX(row);
-                this.mineTile[row][col].setY(col);
+                this.mineTile[row][col].setX(col);
+                this.mineTile[row][col].setY(row);
             }
         }
     }
@@ -146,7 +146,7 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
      * @param exception This position doesn't contain booms.
      */
     public void createBooms(MineTile exception) {
-        List<MineTile> allTile = new LinkedList<>();
+        List<MineTile> allTile = new ArrayList<>();
 
         //Add all the positions.
         for (int row = 0; row < size; row++) {
