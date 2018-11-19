@@ -28,6 +28,12 @@ public class MineManager extends View implements Manager {
      * The context.
      */
     private Context context;
+
+    /**
+     *
+     */
+    static String mineDifficulty;
+
     /**
      * The number of booms in one game play.
      */
