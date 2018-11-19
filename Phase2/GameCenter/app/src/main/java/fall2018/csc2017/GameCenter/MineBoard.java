@@ -31,7 +31,7 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
     /**
      * The randomizer of the tiles(booms).
      */
-    private Random randomize;
+    Random randomize;
     /**
      * Whether booms are drawn.
      */
@@ -39,7 +39,7 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
     /**
      * The surrounding_directions.
      */
-    private int[][] surrounding_directions = {
+    int[][] surrounding_directions = {
             {-1, 1},//upper-left
             {0, 1},//upper
             {1, 1},//upper-right
@@ -201,9 +201,16 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
     void touchOpen(int position, boolean tappedOnce) {
         int row = position / MineBoard.getSize();
         int col = position % MineBoard.getSize();
+        for(int i = 0; i < 81; i++){
+            System.out.println(mineTile[i/9][i%9].getValue() + "22222222222222222");
+        }
         if (!tappedOnce) {
             createBooms(mineTile[row][col]);
         }
+        for(int i = 0; i < 81; i++){
+            System.out.println(mineTile[i/9][i%9].getValue() + "111111111111");
+        }
+        System.out.println("tapppppppppppppppppppppp");
         mineTile[row][col] = new MineTile(mineTile[row][col].getValue(), true);
         if (mineTile[row][col].getValue() == -1) {
             isDrawBooms = true;

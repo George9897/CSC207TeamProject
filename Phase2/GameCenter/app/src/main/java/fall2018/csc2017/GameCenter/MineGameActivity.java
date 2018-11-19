@@ -91,12 +91,11 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
      */
     private void createTileButtons(Context context) {
         mineManager = MineManager.getMineManager(this);
-        MineBoard mineBoard = mineManager.getMineBoard();
         tileButtons = new ArrayList<>();
         for (int row = 0; row != MineBoard.getSize(); row++) {
             for (int col = 0; col != MineBoard.getSize(); col++) {
                 Button tmp = new Button(context);
-                tmp.setBackgroundResource(mineBoard.getMineTile(row, col).getValue());
+                tmp.setBackgroundResource(mineManager.mineTiles.get(row*9+col).getBackground());
                 this.tileButtons.add(tmp);
             }
         }
@@ -112,7 +111,8 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
         for (Button b : tileButtons) {
             int row = nextPos / MineBoard.getSize();
             int col = nextPos % MineBoard.getSize();
-            b.setBackgroundResource(mineBoard.getMineTile(row, col).getValue());
+            System.out.println(mineBoard.getMineTile(row, col).getValue());
+            b.setBackgroundResource(mineBoard.getMineTile(row, col).getBackground());
             nextPos++;
         }
     }

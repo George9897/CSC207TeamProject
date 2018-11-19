@@ -2,6 +2,7 @@ package fall2018.csc2017.GameCenter;
 
 import android.content.Context;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
@@ -58,6 +59,8 @@ public class MineManager implements Manager {
      */
     private Context context;
 
+    List<MineTile> mineTiles = new ArrayList<>();
+
 
     /**
      * Create a initial list of Tiles for game with matching sizes.
@@ -77,7 +80,7 @@ public class MineManager implements Manager {
      */
     private MineManager(Context context) {
         this.context = context;
-        List mineTiles = CreateTiles();
+        mineTiles = CreateTiles();
         mineBoard = new MineBoard(mineTiles, numBoom, new Random());
         timer.schedule(scorer, 0, 1000);
     }
@@ -176,7 +179,7 @@ public class MineManager implements Manager {
         if (isValidTap(position)) {
             mineBoard.touchOpen(position, tappedOnce);
             tappedOnce = true;
-
+            System.out.println("moveeeeeeeeeeeeeeeeeeeeeee");
             failing(position);
             winning();
         }
