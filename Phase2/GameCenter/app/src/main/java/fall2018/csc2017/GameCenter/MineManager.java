@@ -29,6 +29,17 @@ public class MineManager implements Manager {
      * The mark of whether the user tapped for at least once.
      */
     private boolean tappedOnce = false;
+
+    /**
+     * The context.
+     */
+    private Context context;
+
+    /**
+     *
+     */
+    static String mineDifficulty;
+
     /**
      * The number of booms in one game play.
      */
@@ -54,10 +65,6 @@ public class MineManager implements Manager {
      */
     private static MineManager mineManager;
 
-    /**
-     * The context.
-     */
-    private Context context;
 
     List<MineTile> mineTiles = new ArrayList<>();
 
