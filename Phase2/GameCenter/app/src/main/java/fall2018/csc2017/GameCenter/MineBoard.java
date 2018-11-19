@@ -157,7 +157,7 @@ class MineBoard {
      *
      * @return number of booms.
      */
-    private int getNumBoom() { return numBoom; }
+    public int getNumBoom() { return numBoom; }
 
     /**
      * Getter for colour of tile number text.
