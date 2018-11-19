@@ -1,12 +1,15 @@
 package fall2018.csc2017.GameCenter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
 
 public class SudokuBoardManager implements Serializable {
     /**
@@ -54,11 +57,6 @@ public class SudokuBoardManager implements Serializable {
     private transient Context context;
 
     /**
-     * After time for one game round.
-     */
-    private int time;
-
-    /**
      *
      */
     private List<Integer> undoList = new ArrayList<>();
@@ -69,13 +67,31 @@ public class SudokuBoardManager implements Serializable {
     static String sudokuDifficulty;
 
     /**
-     * Getter for time.
-     *
-     * @return time.
+     * The time score for one game play.
      */
-    public int getTime() {
-        return time;
-    }
+    private int timeScore;
+
+    /**
+     * The timer.
+     */
+    Timer timer = new Timer();
+
+    /**
+     * The scorer for Sudoku game.
+     */
+    private SudokuScorer timeScorer = new SudokuScorer();
+
+    /**
+     * Getter for time score.
+     * @return the Time score.
+     */
+    int getTimeScore() { return timeScore; }
+
+    /**
+     * The setter for time.
+     * @param time the time passed.
+     */
+    public void setTime(int time) { this.timeScore = time; }
 
     /**
      * Getter for slidingTile.
@@ -113,9 +129,9 @@ public class SudokuBoardManager implements Serializable {
         return tiles;
     }
 
-    int getScore(){
-        return 0;
-    }
+//    int getScore(){
+//        return 0;
+//    }
 
     /**
      * Constructor for BoardManager.
@@ -126,6 +142,7 @@ public class SudokuBoardManager implements Serializable {
             this.listOfPosition = new ArrayList<>();
             List tiles = CreateTiles();
             this.sudoku = new Sudoku(tiles);
+            timer.schedule(timeScorer, 0, 1000);
         }
     }
 
@@ -172,11 +189,19 @@ public class SudokuBoardManager implements Serializable {
             sudokuNum[acc] = next.getId();
             acc++;
         }
-        System.out.println("row: " + checkRow(sudokuNum));
-        System.out.println("col: " + checkCol(sudokuNum));
-        System.out.println("square: " + checkSquare(sudokuNum));
+//        System.out.println("row: " + checkRow(sudokuNum));
+//        System.out.println("col: " + checkCol(sudokuNum));
+//        System.out.println("square: " + checkSquare(sudokuNum));
         return checkCol(sudokuNum) && checkRow(sudokuNum) && checkSquare(sudokuNum);
     }
+
+    public void wining() {
+        if (puzzleSolved()) {
+            this.timeScore = timeScorer.getTimeScore();
+            timer.cancel();
+        }
+    }
+
 
     /**
      * Return whether any of the four surrounding tiles is the blank tile.
@@ -277,7 +302,7 @@ public class SudokuBoardManager implements Serializable {
         int difficulty;
         switch (sudokuDifficulty) {
             case "Easy":
-                difficulty = 30;
+                difficulty = 1;
                 break;
             case "Medium":
                 difficulty = 40;
