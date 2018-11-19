@@ -22,7 +22,7 @@ public class ScoreBoardActivity extends AppCompatActivity implements Serializabl
     /**
      * The display of highest score.
      */
-    TextView highestScore;
+    private TextView highestScore;
     /**
      * display records for per user or per game.
      */

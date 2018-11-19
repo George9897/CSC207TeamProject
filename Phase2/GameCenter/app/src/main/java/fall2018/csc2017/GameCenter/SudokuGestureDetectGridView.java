@@ -6,6 +6,7 @@ https://github.com/DaveNOTDavid/sample-puzzle/blob/master/app/src/main/java/com/
 This extension of GridView contains built in logic for handling swipes between buttons
  */
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
@@ -40,13 +41,13 @@ public class SudokuGestureDetectGridView extends GridView implements Serializabl
         super(context, attrs, defStyleAttr);
         init(context);
     }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP) // API 21
-    public SudokuGestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr,
-                                 int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(context);
-    }
+//
+//    @TargetApi(Build.VERSION_CODES.LOLLIPOP) // API 21
+//    public SudokuGestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr,
+//                                 int defStyleRes) {
+//        super(context, attrs, defStyleAttr, defStyleRes);
+//        init(context);
+//    }
 
     private void init(final Context context) {
         sudokuMovementController = new SudokuMovementController();
@@ -96,6 +97,7 @@ public class SudokuGestureDetectGridView extends GridView implements Serializabl
         return super.onInterceptTouchEvent(ev);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         return gDetector.onTouchEvent(ev);

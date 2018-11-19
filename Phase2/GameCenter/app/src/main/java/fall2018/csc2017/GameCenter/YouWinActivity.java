@@ -21,7 +21,7 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
 
     private SudokuBoardManager sudokuBoardManager;
 
-    String gameType;
+    private String gameType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -29,6 +29,7 @@ public class SlidingTile extends Observable implements Serializable, Iterable<Ti
     /**
      * The boolean of whether this slidingTile is drawable.
      */
+    //TODO
     boolean isDrawable = false;
 
     /**
@@ -76,7 +77,7 @@ public class SlidingTile extends Observable implements Serializable, Iterable<Ti
     /**
      * The tiles on the slidingTile in row-major order.
      */
-    Tile[][] tiles = new Tile[level][level];
+    private Tile[][] tiles = new Tile[level][level];
 
     /**
      * A new slidingTile of tiles in row-major order.
@@ -110,6 +111,15 @@ public class SlidingTile extends Observable implements Serializable, Iterable<Ti
      */
     int numTiles() {
         return level * level;
+    }
+
+    /**
+     * Return the tiles
+     *
+     * @return the tiles
+     */
+    Tile[][] getTileList() {
+        return tiles;
     }
 
     /**

@@ -17,6 +17,7 @@ import android.widget.GridView;
 
 import java.io.Serializable;
 
+//TODO
 public class GestureDetectGridView extends GridView implements Serializable {
     public static final int SWIPE_MIN_DISTANCE = 100;
     public static final int SWIPE_MAX_OFF_PATH = 100;

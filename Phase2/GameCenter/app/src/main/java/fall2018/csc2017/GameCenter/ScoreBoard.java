@@ -232,12 +232,10 @@ public class ScoreBoard implements Serializable {
      * @param user  current player.
      * @param score current score.
      */
-    public void update(Integer level, String user, Integer score) {
+    void update(Integer level, String user, Integer score) {
         ArrayList list = new ArrayList();
         list.add(defaultPair);
-        if (levelMap.get(level) == null) {
-            levelMap.put(level, list);
-        }
+        levelMap.putIfAbsent(level, list);
         fall2018.csc2017.GameCenter.Pair<Integer, String> userScore =
                 new fall2018.csc2017.GameCenter.Pair<>(score, user);
         if (levelMap.get(level) != null) {

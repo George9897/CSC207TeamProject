@@ -261,7 +261,7 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
             if (!simpleSwitch.isChecked()) {
                 BoardManager.destroyBoardManager();
                 boardManager = BoardManager.getBoardManager(this);
-                System.out.println(boardManager.getSlidingTile().tiles.length);
+                System.out.println(boardManager.getSlidingTile().getTileList().length);
                 SettingActivity.this.switchToGame();
                 System.out.println("still numbers mode");
             } else if (simpleSwitch.isChecked()) {
@@ -271,7 +271,7 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
                     boardManager = BoardManager.getBoardManager(this);
                     boardManager.getSlidingTile().isDrawable = true;
 
-                    System.out.println(boardManager.getSlidingTile().tiles.length);
+                    System.out.println(boardManager.getSlidingTile().getTileList().length);
                     SettingActivity.this.switchToGame();
                     System.out.println("there is a picture already");
                 } else {

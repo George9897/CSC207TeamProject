@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * The movement controller of game.
  */
-public class SudokuMovementController implements Serializable {
+class SudokuMovementController implements Serializable {
 
     private SudokuBoardManager sudokuBoardManager;
 
