@@ -11,7 +11,7 @@ import java.util.Random;
 /**
  * Manage a slidingTile, including swapping tiles, checking for a win, and managing taps.
  */
-class BoardManager implements Serializable, Undoable, Manager {
+class BoardManager implements Serializable, Undoable {
     /**
      * The serialVersionUID.
      */
@@ -87,7 +87,6 @@ class BoardManager implements Serializable, Undoable, Manager {
      *
      * @return score.
      */
-    @Override
     public int getScore() {
         return score;
     }
@@ -240,7 +239,6 @@ class BoardManager implements Serializable, Undoable, Manager {
      *
      * @return whether the tiles are in row-major order
      */
-    @Override
     public boolean puzzleSolved() {
         boolean solved = true;
         Iterator<Tile> iter = slidingTile.iterator();
@@ -307,8 +305,7 @@ class BoardManager implements Serializable, Undoable, Manager {
             makeMove();
         }
     }
-    
-    @Override
+
     public void makeMove(){
         numMoves++;
         undoLimit++;

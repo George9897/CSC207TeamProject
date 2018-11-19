@@ -3,7 +3,6 @@ package fall2018.csc2017.GameCenter;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
-
 import java.io.Serializable;
 
 /**
