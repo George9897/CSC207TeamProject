@@ -35,10 +35,10 @@ class MineTile{
         this.isOpened = isOpened;
         background = value;
         if (!isOpened) {
-            background = R.drawable.tile_10;
+            background = R.drawable.tile_closed;
         }else {switch (value) {
             case -1:
-                background = R.drawable.tile_13;
+                background = R.drawable.tile_boom;
                 break;
             case 0:
                 background = R.drawable.tile_0;

@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Observable;
+import java.util.Queue;
 import java.util.Random;
 
 /**
@@ -151,7 +152,7 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
         //Add all the positions.
         for (int row = 0; row < size; row++) {
             for (int col = 0; col < size; col++) {
-                    allTile.add(mineTile[row][col]);
+                allTile.add(mineTile[row][col]);
             }
         }
         List<MineTile> boomTile = new LinkedList<>();
@@ -184,11 +185,13 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
                 }
             }
         }
-        for (int row = 0; row < size; row++) {
-            for (int col = 0; col < size; col++) {
-                mineTile[row][col] = new MineTile(mineTile[row][col].getValue(), false);
-            }
-        }
+//        for (int row = 0; row < size; row++) {
+//            for (int col = 0; col < size; col++) {
+//                mineTile[row][col] = new MineTile(mineTile[row][col].getValue(), false);
+//            }
+//        }
+        setChanged();
+        notifyObservers();
     }
 
     /**
@@ -201,14 +204,22 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
         int col = position % MineBoard.getSize();
         if (!tappedOnce) {
             createBooms(mineTile[row][col]);
+            mineTile[row][col] = new MineTile(mineTile[row][col].getValue(), true);
         }
         else {
             mineTile[row][col] = new MineTile(mineTile[row][col].getValue(), true);
             if (mineTile[row][col].getValue() == -1) {
                 isDrawBooms = true;
+                for (int boomRow = 0; boomRow < size; boomRow++) {
+                    for (int boomCol = 0; boomCol < size; boomCol++) {
+                        if (mineTile[boomRow][boomCol].getValue() == -1) {
+                            mineTile[boomRow][boomCol] = new MineTile(-1, true);
+                        }
+                    }
+                }
             }
-                //tap the mineTile with a number.
-            else if (mineTile[row][col].getValue() >= 0) {
+            //tap the mineTile with a number.
+            else if (mineTile[row][col].getValue() > 0) {
                 for (int i = 0; i < 8; i++) {
                     int surroundingX = col + surrounding_directions[i][0],
                             surroundingY = row + surrounding_directions[i][1];
