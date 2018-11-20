@@ -107,15 +107,6 @@ class MineTile{
         return isOpened;
     }
 
-    /**
-     * Set the boolean of whether this mineTile is opened or not.
-     *
-     * @param opened the boolean of whether this mineTile is opened or not.
-     */
-    void setOpened(boolean opened) {
-        this.isOpened = opened;
-    }
-
     public int getX() {
         return x;
     }

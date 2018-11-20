@@ -42,11 +42,11 @@ public class MineSettingActivity extends AppCompatActivity implements Serializab
                       MineManager.mineDifficulty = "Easy";
                       break;
                   case "INTERMEDIATE":
-                      MineManager.setNumBoom(36);
+                      MineManager.setNumBoom(15);
                       MineManager.mineDifficulty = "Medium";
                       break;
                   case "PROFESSIONAL":
-                      MineManager.setNumBoom(132);
+                      MineManager.setNumBoom(20);
                       MineManager.mineDifficulty = "Hard";
                       break;
               }
