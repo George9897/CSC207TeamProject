@@ -2,6 +2,7 @@ package fall2018.csc2017.GameCenter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -60,9 +61,9 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
         super.onCreate(savedInstanceState);
         // loadFromFile(mineManager.getUserName() + "Mine.ser");
         mineManager = MineManager.getMineManager(this);
-
         createTileButtons(this);
         setContentView(R.layout.activity_mine_game);
+        addQuitButtonListener();
 
         gridView = findViewById(R.id.minegrid);
         gridView.setNumColumns(MineBoard.getSize());
@@ -96,7 +97,7 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
         for (int row = 0; row < MineBoard.getSize(); row++) {
             for (int col = 0; col < MineBoard.getSize(); col++) {
                 Button tmp = new Button(context);
-                tmp.setBackgroundResource(mineManager.mineTiles.get(row*9 + col).getBackground());
+                tmp.setBackgroundResource(mineManager.mineTiles.get(row*MineBoard.getSize() + col).getBackground());
                 this.tileButtons.add(tmp);
             }
         }
@@ -117,6 +118,16 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
         }
     }
 
+    /**
+     * The listener of quit button.
+     */
+    private void addQuitButtonListener() {
+        Button mineQuitButton = findViewById(R.id.quit);
+        mineQuitButton.setOnClickListener((v) -> {
+            Intent tmp = new Intent(this, MineSettingActivity.class);
+            startActivity(tmp);
+        });
+    }
     /**
      * Dispatch onPause() to fragments.
      */

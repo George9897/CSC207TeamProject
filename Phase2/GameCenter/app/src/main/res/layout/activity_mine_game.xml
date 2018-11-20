@@ -7,7 +7,7 @@
     <fall2018.csc2017.GameCenter.MineGestureDetectGridView
         android:id="@+id/minegrid"
         android:layout_width="match_parent"
-        android:layout_height="@android:dimen/dialog_min_width_minor"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"

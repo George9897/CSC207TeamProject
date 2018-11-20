@@ -158,9 +158,6 @@ public class MineManager implements Manager {
      */
     static void setNumBoom(int numBoom) { MineManager.numBoom = numBoom; }
 
-    public void setMineBoard(MineBoard mineBoard) {
-        this.mineBoard = mineBoard;
-    }
 
     /**
      * Return true if puzzle is solved, false otherwise.
