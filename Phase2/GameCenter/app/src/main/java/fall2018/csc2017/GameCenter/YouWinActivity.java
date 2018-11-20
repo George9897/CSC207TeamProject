@@ -60,7 +60,7 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
         Button seeScoreButton = findViewById(R.id.seeScoreButton);
 
         seeScoreButton.setOnClickListener((v) -> {
-            Intent tmp = new Intent(this, DetailScoreBoardActivity.class);
+            Intent tmp = new Intent(this, ChooseGameScoreActivity.class);
             startActivity(tmp);
         });
     }

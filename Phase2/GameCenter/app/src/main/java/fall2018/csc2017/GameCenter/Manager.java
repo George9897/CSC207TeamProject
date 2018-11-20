@@ -3,19 +3,19 @@ package fall2018.csc2017.GameCenter;
 /**
  * The Manager interface for board games.
  */
-public interface Manager {
+public abstract class Manager {
     /**
      * @return the score of a game play through.
      */
-    int getScore();
+    abstract int getScore();
 
     /**
      * @return Whether the board game is solved or not.
      */
-    boolean puzzleSolved();
+    abstract boolean puzzleSolved();
 
-    /**
-     * The move maker for games.
-     */
-    void makeMove(int position);
+//    /**
+//     * The move maker for games.
+//     */
+//    abstract void makeMove(int position);
 }

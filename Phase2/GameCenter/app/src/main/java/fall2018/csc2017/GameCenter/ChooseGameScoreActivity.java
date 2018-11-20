@@ -21,6 +21,7 @@ public class ChooseGameScoreActivity extends AppCompatActivity {
         Button mgButton = findViewById(R.id.minescore);
         mgButton.setOnClickListener(view -> {
             Intent tmp = new Intent(this, DetailScoreBoardActivity.class);
+            tmp.putExtra("gameTypeWantedToSee", "Mine");
             startActivity(tmp);
         });
     }
@@ -29,6 +30,7 @@ public class ChooseGameScoreActivity extends AppCompatActivity {
         Button sdButton = findViewById(R.id.sudoukuscore);
         sdButton.setOnClickListener(view -> {
             Intent tmp = new Intent(this, DetailScoreBoardActivity.class);
+            tmp.putExtra("gameTypeWantedToSee", "Sudoku");
             startActivity(tmp);
         });
     }
@@ -37,6 +39,7 @@ public class ChooseGameScoreActivity extends AppCompatActivity {
         Button stButton = findViewById(R.id.slidingscore);
         stButton.setOnClickListener(view -> {
             Intent tmp = new Intent(this, DetailScoreBoardActivity.class);
+            tmp.putExtra("gameTypeWantedToSee", "SlidingTile");
             startActivity(tmp);
         });
     }

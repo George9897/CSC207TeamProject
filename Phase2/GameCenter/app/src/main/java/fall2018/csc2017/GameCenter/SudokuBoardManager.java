@@ -13,7 +13,7 @@ import java.util.Timer;
 
 //TODO
 
-public class SudokuBoardManager implements Serializable {
+public class SudokuBoardManager extends Manager implements Serializable {
     /**
      * The serialVersionUID.
      */
@@ -355,7 +355,7 @@ public class SudokuBoardManager implements Serializable {
         randomChoose(0);
         switch (sudokuDifficulty) {
             case "Easy":
-                difficulty = 30;
+                difficulty = 1;
                 break;
             case "Medium":
                 difficulty = 40;
