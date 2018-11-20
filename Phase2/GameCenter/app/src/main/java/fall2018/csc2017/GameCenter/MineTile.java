@@ -31,10 +31,11 @@ class MineTile{
      * The constructor for tiles.
      */
     MineTile(int value, boolean isOpened) {
-        background = value;
+        this.value = value;
+        this.isOpened = isOpened;
         if (!isOpened) {
             background = R.drawable.tile_10;
-        }else {switch (value) {
+        }else switch (value) {
             case -1:
                 background = R.drawable.tile_13;
                 break;
@@ -65,7 +66,8 @@ class MineTile{
             case 8:
                 background = R.drawable.tile_8;
                 break;
-        }
+            default:
+                background = R.drawable.tile_0;
         }
     }
 

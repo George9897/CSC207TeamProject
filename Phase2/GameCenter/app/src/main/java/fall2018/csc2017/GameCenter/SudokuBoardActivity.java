@@ -58,6 +58,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
+
         loadFromFile(sudokuBoardManager.getUserName() + "Sudoku.ser");
         createTileButtons(this);
         setContentView(R.layout.activity_sudoku_board);

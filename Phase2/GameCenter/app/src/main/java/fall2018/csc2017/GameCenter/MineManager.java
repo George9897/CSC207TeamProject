@@ -66,7 +66,7 @@ public class MineManager implements Manager {
     private static MineManager mineManager;
 
 
-    List<MineTile> mineTiles = new ArrayList<>();
+    List<MineTile> mineTiles;
 
 
     /**
@@ -77,8 +77,11 @@ public class MineManager implements Manager {
     private List CreateTiles() {
         List<MineTile> mineTiles = new ArrayList<>();
         final int numTiles = MineBoard.getSize() * MineBoard.getSize();
+        System.out.println("Manager============================");
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             mineTiles.add(new MineTile(1, false));
+            System.out.print( tileNum + " ,"+ mineTiles.get(tileNum).getValue());
+            System.out.println(" ");
         }
         return mineTiles;
     }

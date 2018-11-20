@@ -58,15 +58,15 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        loadFromFile(mineManager.getUserName() + "Mine.ser");
         mineManager = MineManager.getMineManager(this);
+        loadFromFile(mineManager.getUserName() + "Mine.ser");
         createTileButtons(this);
         setContentView(R.layout.activity_mine_game);
 
         gridView = findViewById(R.id.minegrid);
         gridView.setNumColumns(MineBoard.getSize());
         gridView.setMineManager(mineManager);
-        mineManager.getMineBoard().addObserver(MineGameActivity.this);
+        mineManager.getMineBoard().addObserver(this);
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
@@ -105,6 +105,7 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateTileButtons() {
+        System.out.println("updateTileButtons");
         mineManager = MineManager.getMineManager(this);
         MineBoard mineBoard = mineManager.getMineBoard();
         int nextPos = 0;

@@ -16,6 +16,48 @@ import java.util.Random;
  */
 class MineBoard extends Observable implements Serializable, Iterable<Tile> {
 
+    @NonNull
+    @Override
+    public Iterator iterator() {
+        return new MineBoard.MineTileIterator();
+    }
+    /**
+     * Iterate over tiles on the slidingTile
+     */
+    private class MineTileIterator implements Iterator<MineTile> {
+
+        /**
+         * The next tile.
+         */
+        private int next;
+
+        /**
+         * Check whether there is a next tile.
+         *
+         * @return a boolean that represent whether there is a next tile.
+         */
+        @Override
+        public boolean hasNext() {
+            return numTiles() > next;
+        }
+
+        /**
+         * Return the next tile.
+         *
+         * @return the next tile
+         */
+        @Override
+        public MineTile next() {
+            if (hasNext()) {
+                int row = next / size;
+                int col = next % size;
+                next++;
+                return mineTile[row][col];
+            }
+            throw new NoSuchElementException();
+        }
+    }
+
     /**
      * The board's number of booms.
      */
@@ -60,48 +102,6 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
         return mineTile;
     }
 
-    @NonNull
-    @Override
-    public Iterator iterator() {
-        return new MineBoard.MineTileIterator();
-    }
-    /**
-     * Iterate over tiles on the slidingTile
-     */
-    private class MineTileIterator implements Iterator<MineTile> {
-
-        /**
-         * The next tile.
-         */
-        private int next;
-
-        /**
-         * Check whether there is a next tile.
-         *
-         * @return a boolean that represent whether there is a next tile.
-         */
-        @Override
-        public boolean hasNext() {
-            return numTiles() > next;
-        }
-
-        /**
-         * Return the next tile.
-         *
-         * @return the next tile
-         */
-        @Override
-        public MineTile next() {
-            if (hasNext()) {
-                int row = next / size;
-                int col = next % size;
-                next++;
-                return mineTile[row][col];
-            }
-            throw new NoSuchElementException();
-        }
-    }
-
     /**
      * A new Mine game board.
      * Precondition: len(mineTiles) == level * level
@@ -118,6 +118,9 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
                 this.mineTile[row][col] = iter.next();
                 this.mineTile[row][col].setX(row);
                 this.mineTile[row][col].setY(col);
+                System.out.print(row);
+                System.out.print(" ," + col + " ,"+ this.mineTile[row][col].getValue());
+                System.out.println(" ");
             }
         }
     }
@@ -145,13 +148,13 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
      *
      * @param exception This position doesn't contain booms.
      */
-    public void createBooms(MineTile exception) {
+    public void createBooms(int exception) {
         List<MineTile> allTile = new LinkedList<>();
 
-        //Add all the positions.
+        //Add all tiles.
         for (int row = 0; row < size; row++) {
             for (int col = 0; col < size; col++) {
-                if (!mineTile[row][col].equals(exception)) {
+                if (row*9+col!=exception) {
                     allTile.add(mineTile[row][col]);
                 }
             }
@@ -201,14 +204,9 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
     void touchOpen(int position, boolean tappedOnce) {
         int row = position / MineBoard.getSize();
         int col = position % MineBoard.getSize();
-        for(int i = 0; i < 81; i++){
-            System.out.println(mineTile[i/9][i%9].getValue() + "22222222222222222");
-        }
         if (!tappedOnce) {
-            createBooms(mineTile[row][col]);
-        }
-        for(int i = 0; i < 81; i++){
-            System.out.println(mineTile[i/9][i%9].getValue() + "111111111111");
+            createBooms(position);
+            System.out.println("create!!!!!!!!!!!!");
         }
         System.out.println("tapppppppppppppppppppppp");
         mineTile[row][col] = new MineTile(mineTile[row][col].getValue(), true);
