@@ -9,10 +9,10 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -40,11 +40,11 @@ public class DetailScoreBoard {
 
     Map<Integer, List<String>> hardMap = new HashMap<>();
 
-    List<Integer> easyScoreList = new ArrayList<>();
+    List<Integer> easyScoreList = new ArrayList();
 
-    List<Integer> mediumScoreList = new ArrayList<>();
+    List<Integer> mediumScoreList = new ArrayList();
 
-    List<Integer> hardScoreList = new ArrayList<>();
+    List<Integer> hardScoreList = new ArrayList();
 
     int easyTopOneScore;
     String easyTopOneName;
@@ -96,39 +96,74 @@ public class DetailScoreBoard {
     }
 
     void collectScoreLevel(String userName){
-
-
-        if (gametype == "SlidingTile"){
-            score = boardManager.getScore();
-            level = boardManager.slidingtileDifficulty;
-
+        switch (gametype) {
+            case "SlidingTile":
+                score = boardManager.getScore();
+                level = boardManager.slidingtileDifficulty;
+                if (!easyMap.containsKey(score)){
+                    List l = new ArrayList();
+                    l.add(userName);
+                    easyMap.put(score,l);
+                }else{
+                    easyMap.get(score).add(userName);
+                }
+                break;
+            case "Mine":
+                score = mineManager.getScore();
+                level = mineManager.mineDifficulty;
+                break;
+            case "Sudoku":
+                score = sudokuBoardManager.getScore();
+                level = sudokuBoardManager.sudokuDifficulty;
+                break;
         }
-        if (gametype == "Mine"){
-            score = mineManager.getScore();
-            level = mineManager.mineDifficulty;
-        }
-        if (gametype == "Sudoku"){
-            score = sudokuBoardManager.getScore();
-            level = sudokuBoardManager.sudokuDifficulty;
-        }
-
+        helper(userName);
         saveToFile(filename, context);
     }
 
-    public ArrayList<Integer> createSortedList(){
-        if (level == "Easy"){
-            easyScoreList.add(score);
-//            easyScoreList
+    void helper(String userName){
+        if(level.equals("Easy")){
+                if (!easyMap.containsKey(score)){
+                    List l = new ArrayList();
+                    l.add(userName);
+                    easyMap.put(score,l);
+                }else{
+                    easyMap.get(score).add(userName);
+                }
+        }else if(level.equals("Medium")){
+            if (!mediumMap.containsKey(score)){
+                List l = new ArrayList();
+                l.add(userName);
+                mediumMap.put(score,l);
+            }else{
+                mediumMap.get(score).add(userName);
+            }
+        }else if(level.equals("Hard")){
+            if (!hardMap.containsKey(score)){
+                List l = new ArrayList();
+                l.add(userName);
+                hardMap.put(score,l);
+            }else{
+                hardMap.get(score).add(userName);
+            }
         }
-        if (level == "Medium"){
-            mediumScoreList.add(score);
-        }
-        if (level == "Hard"){
-            hardScoreList.add(score);
-        }
+    }
 
-
-        return null;
+    public void createSortedList() {
+        switch (level) {
+            case "Easy":
+                easyScoreList.add(score);
+                Collections.sort(easyScoreList);
+                break;
+            case "Medium":
+                mediumScoreList.add(score);
+                Collections.sort(mediumScoreList);
+                break;
+            case "Hard":
+                hardScoreList.add(score);
+                Collections.sort(hardScoreList);
+                break;
+        }
     }
 
 
