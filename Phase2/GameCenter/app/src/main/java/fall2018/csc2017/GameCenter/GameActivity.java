@@ -145,7 +145,7 @@ public class GameActivity extends AppCompatActivity implements Observer, Seriali
     @Override
     protected void onPause() {
         super.onPause();
-        saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
+        saveToFile(StartingActivity.slidingFile);
     }
 
     /**

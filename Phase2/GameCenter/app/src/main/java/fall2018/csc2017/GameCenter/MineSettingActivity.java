@@ -16,6 +16,8 @@ import java.util.ArrayList;
  * The setting activity for Mine game.
  */
 public class MineSettingActivity extends AppCompatActivity implements Serializable {
+
+    private MineManager mineManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +31,10 @@ public class MineSettingActivity extends AppCompatActivity implements Serializab
                 android.R.layout.simple_spinner_item, categories);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         boomDifficulty.setAdapter(dataAdapter);
+
+        MineManager.destroyMineManager();
+        mineManager = MineManager.getMineManager(this);
+
         boomDifficulty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
           @Override
           public void onItemSelected(AdapterView<?> arg0, View arg1,
@@ -39,15 +45,15 @@ public class MineSettingActivity extends AppCompatActivity implements Serializab
               switch (item) {
                   case "EASY":
                       MineManager.setNumBoom(10);
-                      MineManager.mineDifficulty = "Easy";
+                      mineManager.setMineDifficulty("Easy");
                       break;
                   case "INTERMEDIATE":
                       MineManager.setNumBoom(15);
-                      MineManager.mineDifficulty = "Medium";
+                      mineManager.setMineDifficulty("Medium");
                       break;
                   case "PROFESSIONAL":
                       MineManager.setNumBoom(20);
-                      MineManager.mineDifficulty = "Hard";
+                      mineManager.setMineDifficulty("Hard");
                       break;
               }
           }

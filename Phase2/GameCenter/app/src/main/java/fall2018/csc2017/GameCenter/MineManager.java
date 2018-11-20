@@ -37,7 +37,15 @@ public class MineManager implements Manager {
     /**
      *
      */
-    static String mineDifficulty;
+    private String mineDifficulty;
+
+    public String getMineDifficulty() {
+        return mineDifficulty;
+    }
+
+    public void setMineDifficulty(String mineDifficulty) {
+        this.mineDifficulty = mineDifficulty;
+    }
 
     /**
      * The number of booms in one game play.
@@ -105,14 +113,12 @@ public class MineManager implements Manager {
     }
 
     /**
-     * Getter for new singleton Mine Manager.
+     * Destroy for new singleton Mine Manager.
      *
-     * @param context The context.
      * @return a new mineManager.
      */
-    static MineManager getNewMineManager(Context context) {
-        mineManager = new MineManager(context);
-        return mineManager;
+    static void destroyMineManager() {
+        mineManager = null;
     }
 
     /**
