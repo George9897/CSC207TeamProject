@@ -30,7 +30,7 @@ class MineMovementController implements Serializable {
      * Reset the game if the user choose to do so.
      */
     private void resetTheGame() {
-        mineManager = MineManager.getMineManager(mineManager.getContext());
+        mineManager = MineManager.getNewMineManager(mineManager.getContext());
     }
 
     /**
