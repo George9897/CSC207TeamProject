@@ -41,6 +41,7 @@
         android:layout_marginTop="40dp"
         android:text="Game Center"
         android:textAppearance="@android:style/TextAppearance.Large"
+        android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
