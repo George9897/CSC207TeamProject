@@ -2,7 +2,6 @@ package fall2018.csc2017.GameCenter;
 
 import android.content.Context;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
@@ -28,7 +27,7 @@ public class MineManager implements Manager {
     /**
      * The mark of whether the user tapped for at least once.
      */
-    private boolean tappedOnce = false;
+    private boolean firstTap = true;
 
     /**
      * The context.
@@ -153,11 +152,7 @@ public class MineManager implements Manager {
      * @param numBoom the wanted number of booms.
      */
     static void setNumBoom(int numBoom) { MineManager.numBoom = numBoom; }
-    /**
-     * Setter for Tapped Once.
-     * @param tappedOnce the boolean indicate tapped once or not.
-     */
-    void setTappedOnce(boolean tappedOnce) { this.tappedOnce = tappedOnce; }
+
     /**
      * Return true if puzzle is solved, false otherwise.
      *
@@ -185,8 +180,8 @@ public class MineManager implements Manager {
      */
     public void makeMove(int position){
         if (isValidTap(position)) {
-            mineBoard.touchOpen(position, tappedOnce);
-            tappedOnce = true;
+            mineBoard.touchOpen(position, firstTap);
+            firstTap = false;
             failing(position);
             winning();
         }
