@@ -63,7 +63,7 @@ public class ProfileActivity extends AppCompatActivity {
         usernameInfo = findViewById(R.id.usernameInfo);
         passwordInfo = findViewById(R.id.passwordInfo);
         recordInfo = findViewById(R.id.recordInfo);
-        userAvatar = findViewById(R.id.avatarImage);
+//        userAvatar = findViewById(R.id.avatarImage);
 
         loadFromFile(accountManager.userName + "Avatar.ser");
         //avatar = Uri.parse(stringUri);
