@@ -110,9 +110,8 @@ public class MineManager implements Manager {
      * @param context The context.
      * @return a new mineManager.
      */
-    static MineManager getNewMineManager(Context context) {
-        mineManager = new MineManager(context);
-        return mineManager;
+    static void destroyMineManager() {
+        mineManager = null;
     }
 
     /**

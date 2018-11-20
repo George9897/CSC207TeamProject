@@ -22,7 +22,9 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
     /**
      * A temporary save file.
      */
-    public static final String TEMP_SAVE_FILENAME = "save_starting_file_tmp.ser";
+    public static final String slidingFile = "sliding_tmp.ser";
+    public static final String mineFile = "mine_tmp.ser";
+    public static final String sudokuFile = "sudoku_tmp.ser";
 
     /**
      * The slidingTile manager.
@@ -30,6 +32,8 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
     private AccountManager accountManager = AccountManager.getAccountManager();
 
     private BoardManager boardManager;
+
+    private MineManager mineManager;
 
     /**
      * The singleton scoreBoard.
@@ -41,7 +45,7 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
         super.onCreate(savedInstanceState);
         scoreBoard = ScoreBoard.getScoreBoard(this);
         scoreBoard.buildLevelMap();
-        saveToFile(TEMP_SAVE_FILENAME);
+        saveToFile(slidingFile);
 
         setContentView(R.layout.activity_starting_);
         addStartButtonListener();
@@ -68,11 +72,20 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
     private void addLoadButtonListener() {
         Button loadButton = findViewById(R.id.LoadButton);
         loadButton.setOnClickListener(v -> {
-            loadFromFile(accountManager.userName + ".ser");
-            saveToFile(TEMP_SAVE_FILENAME);
+            //loadFromFile(accountManager.userName + ".ser");
+            //saveToFile(slidingFile);
+            //switchToGame();
+            loadFromFile(mineFile);
+            saveToFile(mineFile);
             makeToastLoadedText();
-            switchToGame();
+            switchToMine();
         });
+    }
+
+    private void switchToMine(){
+        Intent tmp = new Intent(this, MineGameActivity.class);
+        saveToFile(StartingActivity.mineFile);
+        startActivity(tmp);
     }
 
     /**
@@ -150,7 +163,7 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
     @Override
     protected void onResume() {
         super.onResume();
-        loadFromFile(TEMP_SAVE_FILENAME);
+        loadFromFile(slidingFile);
     }
 
     /**
@@ -158,7 +171,7 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
      */
     private void switchToGame() {
         Intent tmp = new Intent(this, GameActivity.class);
-        saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
+        saveToFile(StartingActivity.slidingFile);
         startActivity(tmp);
     }
 
@@ -174,7 +187,8 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 //TODO: 3 gmae board manager
-                boardManager = (BoardManager) input.readObject();
+                //boardManager = (BoardManager) input.readObject();
+                mineManager = (MineManager) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {

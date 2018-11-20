@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="fall2018.csc2017.GameCenter.MineGameActivity">
+    android:layout_height="match_parent">
+
+    <fall2018.csc2017.GameCenter.MineGestureDetectGridView
+        android:id="@+id/minegrid"
+        android:layout_width="match_parent"
+        android:layout_height="@android:dimen/dialog_min_width_minor"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="44dp" />
 
     <Button
         android:id="@+id/quit"
@@ -12,20 +19,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="@string/quit"
-        android:textAlignment="center" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <fall2018.csc2017.GameCenter.MineGestureDetectGridView
-            android:id="@+id/minegrid"
-            android:layout_width="match_parent"
-            android:layout_height="523dp"
-            tools:layout_width="384dp" >
-
-        </fall2018.csc2017.GameCenter.MineGestureDetectGridView>
-    </LinearLayout>
+        android:layout_marginBottom="0dp"
+        android:text="@string/quit" />
 </RelativeLayout>

@@ -135,7 +135,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
     @Override
     protected void onPause() {
         super.onPause();
-        saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
+        saveToFile(StartingActivity.slidingFile);
     }
 
     /**

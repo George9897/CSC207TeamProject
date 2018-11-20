@@ -43,7 +43,7 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
      */
     private int columnWidth, columnHeight;
 
-
+    private String mineFile = "mine_tmp.ser";
     /**
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
@@ -58,8 +58,9 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFromFile(mineManager.getUserName() + "Mine.ser");
-        mineManager = MineManager.getNewMineManager(this);
+        // loadFromFile(mineManager.getUserName() + "Mine.ser");
+        mineManager = MineManager.getMineManager(this);
+
         createTileButtons(this);
         setContentView(R.layout.activity_mine_game);
 
@@ -122,7 +123,7 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
     @Override
     protected void onPause() {
         super.onPause();
-        saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
+        saveToFile(StartingActivity.mineFile);
     }
 
     /**

@@ -2,17 +2,12 @@ package fall2018.csc2017.GameCenter;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -133,7 +128,7 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
     @Override
     protected void onResume() {
         super.onResume();
-//        loadFromFile(TEMP_SAVE_FILENAME);
+//        loadFromFile(slidingFile);
     }
 
     /**
@@ -142,7 +137,7 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
     @Override
     protected void onPause() {
         super.onPause();
-        saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
+        saveToFile(StartingActivity.slidingFile);
     }
 
     /**
