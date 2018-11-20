@@ -9,7 +9,7 @@ import java.util.Timer;
 /**
  * The Mine game manager.
  */
-public class MineManager implements Manager {
+public class MineManager extends Manager {
 
     /**
      * The Mine board.
@@ -63,11 +63,6 @@ public class MineManager implements Manager {
      * The singleton mine Manager.
      */
     private static MineManager mineManager;
-
-    /**
-     * The context.
-     */
-    private Context context;
 
 
     /**

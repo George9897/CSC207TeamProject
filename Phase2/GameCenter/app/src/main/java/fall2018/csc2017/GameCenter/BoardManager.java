@@ -11,7 +11,7 @@ import java.util.Random;
 /**
  * Manage a slidingTile, including swapping tiles, checking for a win, and managing taps.
  */
-class BoardManager implements Serializable, Undoable {
+class BoardManager extends Manager implements Serializable, Undoable {
     /**
      * The serialVersionUID.
      */

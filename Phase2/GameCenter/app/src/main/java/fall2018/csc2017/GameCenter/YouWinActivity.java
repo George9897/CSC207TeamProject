@@ -30,7 +30,6 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
         TextView scoreBox = findViewById(R.id.scoreViewData);
         Intent intent = getIntent();
         gameType = intent.getStringExtra("gameType");
-
         switch (gameType){
             case "SlidingTile":
                 boardManager = BoardManager.getBoardManager(this);
@@ -60,7 +59,7 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
         Button seeScoreButton = findViewById(R.id.seeScoreButton);
 
         seeScoreButton.setOnClickListener((v) -> {
-            Intent tmp = new Intent(this, ScoreBoardActivity.class);
+            Intent tmp = new Intent(this, ChooseGameScoreActivity.class);
             startActivity(tmp);
         });
     }
