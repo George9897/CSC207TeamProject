@@ -21,6 +21,9 @@ class MineTile{
      * A drawable background for picture sliding tiles.
      */
     private Drawable drawableBackground;
+    /**
+     * The background id to find the tile image.
+     */
     private int background;
 
 
@@ -28,12 +31,14 @@ class MineTile{
      * The constructor for tiles.
      */
     MineTile(int value, boolean isOpened) {
+        this.value = value;
+        this.isOpened = isOpened;
         background = value;
         if (!isOpened) {
-            background = R.drawable.tile_10;
+            background = R.drawable.tile_closed;
         }else {switch (value) {
             case -1:
-                background = R.drawable.tile_13;
+                background = R.drawable.tile_boom;
                 break;
             case 0:
                 background = R.drawable.tile_0;
@@ -67,6 +72,15 @@ class MineTile{
     }
 
     /**
+     * Return the background id.
+     *
+     * @return the background id
+     */
+    public int getBackground() {
+        return background;
+    }
+
+    /**
      * Get the value of this mineTile.
      *
      * @return the value of this mineTile.
@@ -91,15 +105,6 @@ class MineTile{
      */
     boolean isOpened() {
         return isOpened;
-    }
-
-    /**
-     * Set the boolean of whether this mineTile is opened or not.
-     *
-     * @param opened the boolean of whether this mineTile is opened or not.
-     */
-    void setOpened(boolean opened) {
-        this.isOpened = opened;
     }
 
     public int getX() {

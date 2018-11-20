@@ -2,6 +2,8 @@ package fall2018.csc2017.GameCenter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.widget.Toast;
+
 import java.io.Serializable;
 
 /**
@@ -10,11 +12,13 @@ import java.io.Serializable;
 class MineMovementController implements Serializable {
 
     private static MineManager mineManager;
+    private Context context;
 
     /**
      * The constructor of MovementController.
      */
-    MineMovementController() {
+    MineMovementController(Context context) {
+        this.context = context;
     }
 
     /**
@@ -30,8 +34,10 @@ class MineMovementController implements Serializable {
      * Reset the game if the user choose to do so.
      */
     private void resetTheGame() {
-        mineManager = MineManager.getNewMineManager(mineManager.getContext());
-        mineManager.setTappedOnce(true);
+        MineManager.destroyMineManager();
+        mineManager = MineManager.getMineManager(context);
+        Intent tmp = new Intent(context, MineSettingActivity.class);
+        context.startActivity(tmp);
     }
 
     /**
@@ -74,6 +80,8 @@ class MineMovementController implements Serializable {
                         .show();
             }
         }
-
+        else {
+            Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
+        }
     }
 }

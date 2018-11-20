@@ -131,7 +131,7 @@ public class Sudoku extends Observable implements Serializable, Iterable<Tile> {
 //     */
     // change from swapTile
     void writeNum(int row, int col, int move) {
-        tiles[row][col] = new Tile(move, false);
+        tiles[row][col] = new Tile(move);
         setChanged();
         notifyObservers();
     }

@@ -133,9 +133,9 @@ class BoardManager extends Manager implements Serializable, Undoable {
             //TODO
             // tiles.add(new Tile(tileNum, false));
             if (tileNum == numTiles - 1) {
-                tiles.add(new Tile(0, false));
+                tiles.add(new Tile(0));
             } else {
-                tiles.add(new Tile(tileNum + 1, false));
+                tiles.add(new Tile(tileNum + 1));
             }
         }
         return tiles;

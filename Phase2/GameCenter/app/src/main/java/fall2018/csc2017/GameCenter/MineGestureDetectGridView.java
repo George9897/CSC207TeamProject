@@ -49,7 +49,7 @@ public class MineGestureDetectGridView extends GridView implements Serializable 
     }
 
     private void init(final Context context) {
-        mineMovementController = new MineMovementController();
+        mineMovementController = new MineMovementController(context);
         gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
 
             @Override

@@ -177,7 +177,7 @@ public class SudokuBoardManager extends Manager implements Serializable {
         List<Tile> tiles = new ArrayList<>();
         final int numTiles = Sudoku.size * Sudoku.size;
         for (int i = 0; i != numTiles; i++) {
-            tiles.add(new Tile(sudokuNum[i], false));
+            tiles.add(new Tile(sudokuNum[i]));
         }
         return tiles;
     }

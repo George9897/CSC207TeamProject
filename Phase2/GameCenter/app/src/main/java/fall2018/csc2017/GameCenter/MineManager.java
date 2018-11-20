@@ -27,7 +27,7 @@ public class MineManager extends Manager {
     /**
      * The mark of whether the user tapped for at least once.
      */
-    private boolean tappedOnce = false;
+    private boolean firstTap = true;
 
     /**
      * The context.
@@ -37,7 +37,15 @@ public class MineManager extends Manager {
     /**
      *
      */
-    static String mineDifficulty;
+    private String mineDifficulty;
+
+    public String getMineDifficulty() {
+        return mineDifficulty;
+    }
+
+    public void setMineDifficulty(String mineDifficulty) {
+        this.mineDifficulty = mineDifficulty;
+    }
 
     /**
      * The number of booms in one game play.
@@ -65,26 +73,29 @@ public class MineManager extends Manager {
     private static MineManager mineManager;
 
 
+    public List<MineTile> mineTiles = new ArrayList<>();
+
+
     /**
      * Create a initial list of Tiles for game with matching sizes.
      *
      * @return list of Tiles.
      */
-    private List CreateTiles() {
+    public List createTiles() {
         List<MineTile> mineTiles = new ArrayList<>();
-        final int numTiles = MineBoard.getSize() * MineBoard.getSize();
+        int numTiles = MineBoard.getSize() * MineBoard.getSize();
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            mineTiles.add(new MineTile(1, false));
+            mineTiles.add(new MineTile(0, false));
         }
         return mineTiles;
     }
     /**
      * The constructor of MineManager.
      */
-    private MineManager(Context context) {
+    MineManager(Context context) {
         this.context = context;
-        List mineTiles = CreateTiles();
-        mineBoard = new MineBoard(mineTiles, numBoom, new Random());
+        this.mineTiles = createTiles();
+        this.mineBoard = new MineBoard(mineTiles, numBoom, new Random());
         timer.schedule(scorer, 0, 1000);
     }
 
@@ -102,14 +113,12 @@ public class MineManager extends Manager {
     }
 
     /**
-     * Getter for new singleton Mine Manager.
+     * Destroy for new singleton Mine Manager.
      *
-     * @param context The context.
      * @return a new mineManager.
      */
-    static MineManager getNewMineManager(Context context) {
-        mineManager = new MineManager(context);
-        return mineManager;
+    static void destroyMineManager() {
+        mineManager = null;
     }
 
     /**
@@ -148,11 +157,7 @@ public class MineManager extends Manager {
      * @param numBoom the wanted number of booms.
      */
     static void setNumBoom(int numBoom) { MineManager.numBoom = numBoom; }
-    /**
-     * Setter for Tapped Once.
-     * @param tappedOnce the boolean indicate tapped once or not.
-     */
-    void setTappedOnce(boolean tappedOnce) { this.tappedOnce = tappedOnce; }
+
     /**
      * Return true if puzzle is solved, false otherwise.
      *
@@ -180,9 +185,8 @@ public class MineManager extends Manager {
      */
     public void makeMove(int position){
         if (isValidTap(position)) {
-            mineBoard.touchOpen(position, tappedOnce);
-            tappedOnce = true;
-
+            mineBoard.touchOpen(position, firstTap);
+            firstTap = false;
             failing(position);
             winning();
         }

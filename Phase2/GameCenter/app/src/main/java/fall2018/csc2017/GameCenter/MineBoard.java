@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Observable;
+import java.util.Queue;
 import java.util.Random;
 
 /**
@@ -31,7 +32,7 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
     /**
      * The randomizer of the tiles(booms).
      */
-    private Random randomize;
+    Random randomize;
     /**
      * Whether booms are drawn.
      */
@@ -39,7 +40,7 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
     /**
      * The surrounding_directions.
      */
-    private int[][] surrounding_directions = {
+    int[][] surrounding_directions = {
             {-1, 1},//upper-left
             {0, 1},//upper
             {1, 1},//upper-right
@@ -49,7 +50,9 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
             {0, -1},//lower
             {1, -1}};//lower-right
 
-    public static int getSize() { return size; }
+    public static int getSize() {
+        return size;
+    }
 
     /**
      * Get the 2D array of tiles.
@@ -65,6 +68,7 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
     public Iterator iterator() {
         return new MineBoard.MineTileIterator();
     }
+
     /**
      * Iterate over tiles on the slidingTile
      */
@@ -113,8 +117,8 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
         this.randomize = randomize;
         Iterator<MineTile> iter = tiles.iterator();
 
-        for (int row = 0; row != size; row++) {
-            for (int col = 0; col != size; col++) {
+        for (int col = 0; col != size; col++) {
+            for (int row = 0; row != size; row++) {
                 this.mineTile[row][col] = iter.next();
                 this.mineTile[row][col].setX(row);
                 this.mineTile[row][col].setY(col);
@@ -146,14 +150,12 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
      * @param exception This position doesn't contain booms.
      */
     public void createBooms(MineTile exception) {
-        List<MineTile> allTile = new LinkedList<>();
+        List<MineTile> allTile = new ArrayList<>();
 
         //Add all the positions.
         for (int row = 0; row < size; row++) {
             for (int col = 0; col < size; col++) {
-                if (!mineTile[row][col].equals(exception)) {
-                    allTile.add(mineTile[row][col]);
-                }
+                allTile.add(mineTile[row][col]);
             }
         }
         List<MineTile> boomTile = new LinkedList<>();
@@ -162,6 +164,10 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
             int idx = randomize.nextInt(allTile.size());
             boomTile.add(allTile.get(idx));
             allTile.remove(idx);
+        }
+        if (!allTile.contains(exception)) {
+            allTile.add(exception);
+            boomTile.remove(exception);
         }
         //Mark the position of booms.
         for (MineTile nextBoomTile : boomTile) {
@@ -177,56 +183,92 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
                                 surroundingY = col + surrounding_directions[k][1];
                         if (surroundingX >= 0 && surroundingX < size && surroundingY >= 0 &&
                                 surroundingY < size) {
-                            int currentValue = this.mineTile[surroundingY][surroundingX].getValue();
+                            int currentValue = this.mineTile[surroundingX][surroundingY].getValue();
                             if (currentValue != -1)
                                 currentValue += 1;
-                            this.mineTile[surroundingY][surroundingX].setValue(currentValue);
+                            this.mineTile[surroundingX][surroundingY].setValue(currentValue);
                         }
                     }
                 }
             }
         }
-        for (int row = 0; row < size; row++) {
-            for (int col = 0; col < size; col++) {
-                mineTile[row][col] = new MineTile(mineTile[row][col].getValue(), false);
-            }
-        }
+        setChanged();
+        notifyObservers();
     }
 
     /**
      * Tap to open some position.
      *
-     * @param tappedOnce First touch or not.
+     * @param firstTap First touch or not.
      */
-    void touchOpen(int position, boolean tappedOnce) {
+    void touchOpen(int position, boolean firstTap) {
         int row = position / MineBoard.getSize();
         int col = position % MineBoard.getSize();
-        if (!tappedOnce) {
+        if (firstTap) {
             createBooms(mineTile[row][col]);
         }
-        mineTile[row][col] = new MineTile(mineTile[row][col].getValue(), true);
+        replaceToTrue(row, col);
         if (mineTile[row][col].getValue() == -1) {
-            isDrawBooms = true;
+            displayAllBoom();
         }
-            //tap the mineTile with a number.
-        else if (mineTile[row][col].getValue() > 0) {
-            for (int i = 0; i < 8; i++) {
-                int surroundingX = col + surrounding_directions[i][0],
-                        surroundingY = row + surrounding_directions[i][1];
-                //Check given minePoint's surroundings and whether they are opened or not.
-                boolean isOpenable = surroundingX >= 0 && surroundingX < size &&
-                        surroundingY >= 0 && surroundingY < size;
-                if (isOpenable) {
-                    //Make all surroundings that is not boom white new tiles with nothing in it.
-                    if (mineTile[surroundingY][surroundingX].getValue() == 0 &&
-                            !mineTile[surroundingY][surroundingX].isOpened()) {
-                        mineTile[surroundingY][surroundingX] = new MineTile(mineTile[surroundingY][surroundingX].getValue(), true);
-                        //Show the special tile.
-                    } else if (mineTile[surroundingY][surroundingX].getValue() > 0) {
-                        mineTile[surroundingY][surroundingX] = new MineTile(mineTile[surroundingY][surroundingX].getValue(), true);
-                    }
+        //tap the mineTile with a number.
+        else if (mineTile[row][col].getValue() == 0) {
+            Queue<Pair<Integer, Integer>> queue = new LinkedList<>();
+            queue = putSurroundingOnQueue(row, col, queue);
+            recursiveSurroundingOnQueue(queue);
+        }
+        setChanged();
+        notifyObservers();
+    }
+
+    private void replaceToTrue(int row, int col){
+        mineTile[row][col] = new MineTile(mineTile[row][col].getValue(), true);
+    }
+
+    private void displayAllBoom() {
+        isDrawBooms = true;
+        for (int boomRow = 0; boomRow < size; boomRow++) {
+            for (int boomCol = 0; boomCol < size; boomCol++) {
+                if (mineTile[boomRow][boomCol].getValue() == -1) {
+                    replaceToTrue(boomRow, boomCol);
                 }
             }
         }
+    }
+
+    private void recursiveSurroundingOnQueue
+            (Queue<Pair<Integer, Integer>> queue){
+        if (queue.size() != 0){
+            Pair<Integer, Integer> pointPair = queue.poll();
+            int row = pointPair.first;
+            int col = pointPair.second;
+            replaceToTrue(row, col);
+            putSurroundingOnQueue(row, col, queue);
+            recursiveSurroundingOnQueue(queue);
+        }
+    }
+
+    private Queue<Pair<Integer, Integer>> putSurroundingOnQueue
+            (int row, int col, Queue<Pair<Integer, Integer>> queue) {
+        System.out.println("== Processing putSurroundingOnQueue ==");
+        for (int i = 0; i < 8; i++) {
+            Integer surroundingX = row + surrounding_directions[i][0],
+                    surroundingY = col + surrounding_directions[i][1];
+            //Check given minePoint's surroundings and whether they are opened or not.
+            boolean isOpenable = surroundingX >= 0 && surroundingX < size &&
+                    surroundingY >= 0 && surroundingY < size;
+            if (isOpenable) {
+                //Make all surroundings that is not boom white new tiles with nothing in it.
+                if (mineTile[surroundingX][surroundingY].getValue() == 0 &&
+                        !mineTile[surroundingX][surroundingY].isOpened()) {
+                    replaceToTrue(surroundingX, surroundingY);
+                    queue.offer(new Pair<>(surroundingX, surroundingY));
+                    //Show the special tile.
+                } else if (mineTile[surroundingX][surroundingY].getValue() > 0) {
+                    replaceToTrue(surroundingX, surroundingY);
+                }
+            }
+        }
+        return queue;
     }
 }

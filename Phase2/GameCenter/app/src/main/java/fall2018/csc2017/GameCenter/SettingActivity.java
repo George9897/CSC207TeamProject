@@ -2,17 +2,12 @@ package fall2018.csc2017.GameCenter;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -44,12 +39,6 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
      * Track difficulty selected
      */
     protected int difficulty;
-
-    ImageView picImageView;
-
-    private static final int PICK_IMAGE = 100;
-
-    Uri imageUri;
 
     /**
      * Switch for undo method.
@@ -112,32 +101,6 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
             }
         });
         addConfirmButtonListener();
-        Button uploadButton = findViewById(R.id.uploadButton);
-        uploadButton.setBackgroundColor(Color.DKGRAY);
-        picImageView = findViewById(R.id.upimageView);
-
-        Switch simpleSwitch = (Switch) findViewById(R.id.switchMode);
-        simpleSwitch.setChecked(false);
-        simpleSwitch.setTextOn("On");
-        simpleSwitch.setTextOff("Off");
-        simpleSwitch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String statusSwitch;
-                if (simpleSwitch.isChecked()) {
-                    statusSwitch = simpleSwitch.getTextOn().toString();
-                    uploadButton.setEnabled(true);
-                    uploadButton.setBackgroundColor(Color.LTGRAY);
-                } else {
-                    statusSwitch = simpleSwitch.getTextOff().toString();
-                    uploadButton.setBackgroundColor(Color.DKGRAY);
-                    uploadButton.setEnabled(false);
-                }
-                Toast.makeText(getApplicationContext(), "Picture Mode :" +
-                        statusSwitch, Toast.LENGTH_LONG).show();
-            }
-        });
-
         undoSwitch = findViewById(R.id.undoSwitch);
         undoSwitch.setChecked(false);
         undoSwitch.setTextOn("Unlimited");
@@ -156,56 +119,8 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
                         statusSwitch, Toast.LENGTH_LONG).show();
             }
         });
-        uploadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openGallery();
-            }
-        });
     }
 
-    /**
-     * Split image.
-     *
-     * @param image: the picture upload
-     * @param level: the difficulty
-     */
-    private void splitImage(ImageView image, int level) {
-        int chunkHeight, chunkWidth;
-
-        chunkedImages = new ArrayList<Bitmap>(level * level);
-
-        BitmapDrawable drawable = (BitmapDrawable) image.getDrawable();
-        Bitmap bitmap = drawable.getBitmap();
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), true);
-
-        chunkHeight = bitmap.getHeight() / level;
-        chunkWidth = bitmap.getWidth() / level;
-
-        int yCoord = 0;
-        for (int x = 0; x < level; x++) {
-            int xCoord = 0;
-            for (int y = 0; y < level; y++) {
-                chunkedImages.add(Bitmap.createBitmap(scaledBitmap, xCoord, yCoord, chunkWidth, chunkHeight));
-                xCoord += chunkWidth;
-            }
-            yCoord += chunkHeight;
-        }
-    }
-
-    private void openGallery() {
-        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        startActivityForResult(gallery, PICK_IMAGE);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
-            imageUri = data.getData();
-            picImageView.setImageURI(imageUri);
-        }
-    }
 
     /**
      * Read the temporary slidingTile from disk.
@@ -213,7 +128,7 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
     @Override
     protected void onResume() {
         super.onResume();
-//        loadFromFile(TEMP_SAVE_FILENAME);
+//        loadFromFile(slidingFile);
     }
 
     /**
@@ -222,7 +137,7 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
     @Override
     protected void onPause() {
         super.onPause();
-        saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
+        saveToFile(StartingActivity.slidingFile);
     }
 
     /**
@@ -258,30 +173,13 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
      * Activate the confirm button.
      */
     private void addConfirmButtonListener() {
-        Switch simpleSwitch = findViewById(R.id.switchMode);
         Button confirmButton = findViewById(R.id.ConfirmButton);
         confirmButton.setOnClickListener(view -> {
-            if (!simpleSwitch.isChecked()) {
-                BoardManager.destroyBoardManager();
-                boardManager = BoardManager.getBoardManager(this);
-                System.out.println(boardManager.getSlidingTile().getTileList().length);
-                SettingActivity.this.switchToGame();
-                System.out.println("still numbers mode");
-            } else if (simpleSwitch.isChecked()) {
-                if (picImageView != null) {
-                    splitImage(picImageView, difficulty);
-                    BoardManager.destroyBoardManager();
-                    boardManager = BoardManager.getBoardManager(this);
-                    boardManager.getSlidingTile().isDrawable = true;
-
-                    System.out.println(boardManager.getSlidingTile().getTileList().length);
-                    SettingActivity.this.switchToGame();
-                    System.out.println("there is a picture already");
-                } else {
-                    Toast.makeText(getApplicationContext(), "Please choose a photo!", Toast.LENGTH_LONG).show();
-                    System.out.println("please choose a photo");
-                }
-            }
+            BoardManager.destroyBoardManager();
+            boardManager = BoardManager.getBoardManager(this);
+            System.out.println(boardManager.getSlidingTile().getTileList().length);
+            SettingActivity.this.switchToGame();
+            System.out.println("still numbers mode");
         });
     }
 }

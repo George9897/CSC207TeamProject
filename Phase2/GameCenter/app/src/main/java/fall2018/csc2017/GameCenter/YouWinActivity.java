@@ -30,20 +30,21 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
         TextView scoreBox = findViewById(R.id.scoreViewData);
         Intent intent = getIntent();
         gameType = intent.getStringExtra("gameType");
+
         switch (gameType){
             case "SlidingTile":
                 boardManager = BoardManager.getBoardManager(this);
-                scoreBox.setText((Integer.toString(boardManager.getScore())));
+                scoreBox.setText("Your Score: " + (Integer.toString(boardManager.getScore())));
                 break;
             case "Mine":
                 mineManager = MineManager.getMineManager(this);
-                scoreBox.setText((Integer.toString(mineManager.getScore())) + "\n\r" + "Time: "
-                        + (Integer.toString(mineManager.getTime())) + " Second");
+                scoreBox.setText("Your Score: " + (Integer.toString(mineManager.getScore())) + "\n\r" + "Time: "
+                        + (Integer.toString(mineManager.getTime())) + " Seconds");
                 break;
             case "Sudoku":
                 sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
-                scoreBox.setText((Integer.toString(sudokuBoardManager.getScore())) + "\n\r" + "Time: "
-                        + (Integer.toString(sudokuBoardManager.getTime())) + " Second");
+                scoreBox.setText("Your Score: " + (Integer.toString(sudokuBoardManager.getScore())) + "\n\r" + "Time: "
+                        + (Integer.toString(sudokuBoardManager.getTime())) + " Seconds");
                 break;
         }
 
