@@ -220,6 +220,8 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
             }
             //tap the mineTile with a number.
             else if (mineTile[row][col].getValue() > 0) {
+                Queue<Pair<Integer, Integer>> queue = new LinkedList<>();
+
                 for (int i = 0; i < 8; i++) {
                     int surroundingX = col + surrounding_directions[i][0],
                             surroundingY = row + surrounding_directions[i][1];
@@ -230,10 +232,37 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
                         //Make all surroundings that is not boom white new tiles with nothing in it.
                         if (mineTile[surroundingY][surroundingX].getValue() == 0 &&
                                 !mineTile[surroundingY][surroundingX].isOpened()) {
-                            mineTile[surroundingY][surroundingX] = new MineTile(mineTile[surroundingY][surroundingX].getValue(), true);
+                                queue.offer(new Pair<>(surroundingY, surroundingX));
+                                mineTile[surroundingY][surroundingX] = new MineTile(mineTile[surroundingY][surroundingX].getValue(), true);
                             //Show the special tile.
                         } else if (mineTile[surroundingY][surroundingX].getValue() > 0) {
                             mineTile[surroundingY][surroundingX] = new MineTile(mineTile[surroundingY][surroundingX].getValue(), true);
+                        }
+                    }
+                }
+                while (queue.size() != 0) {
+                    Pair<Integer, Integer> pointPair = queue.poll();
+                    mineTile[pointPair.first][pointPair.second].setOpened(true);
+                    for (int i = 0; i < 8; i++) {
+                        Integer surroundingX = col + surrounding_directions[i][0],
+                                surroundingY = row + surrounding_directions[i][1];
+                        //Check given minePoint's surroundings and whether they are opened or not.
+                        boolean isOpenable = surroundingX >= 0 && surroundingX < size &&
+                                surroundingY >= 0 && surroundingY < size;
+                        if (isOpenable) {
+                            //Make all surroundings that is not boom white new tiles with nothing in it.
+                            if (mineTile[surroundingY][surroundingX].getValue() == 0 &&
+                                    !mineTile[surroundingY][surroundingX].isOpened()) {
+                                mineTile[surroundingY][surroundingX]
+                                        = new MineTile(mineTile[surroundingY][surroundingX].getValue(),
+                                        true);
+                                queue.offer(new Pair<>(surroundingY, surroundingX));
+                                //Show the special tile.
+                            } else if (mineTile[surroundingY][surroundingX].getValue() > 0) {
+                                mineTile[surroundingY][surroundingX]
+                                        = new MineTile(mineTile[surroundingY][surroundingX].getValue(),
+                                        true);
+                            }
                         }
                     }
                 }
