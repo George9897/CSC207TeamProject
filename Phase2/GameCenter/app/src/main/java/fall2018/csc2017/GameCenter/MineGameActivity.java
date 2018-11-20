@@ -58,7 +58,7 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        loadFromFile(mineManager.getUserName() + "Mine.ser");
+        loadFromFile(mineManager.getUserName() + "Mine.ser");
         mineManager = MineManager.getNewMineManager(this);
         createTileButtons(this);
         setContentView(R.layout.activity_mine_game);

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Random;
 
 /**
  * The movement controller of game.
@@ -32,10 +34,10 @@ class MineMovementController implements Serializable {
      * Reset the game if the user choose to do so.
      */
     private void resetTheGame() {
-//        mineManager = MineManager.getNewMineManager(mineManager.getContext());
-        mineManager = new MineManager(mineManager.getContext());
-        mineManager.mineTiles = mineManager.createTiles();
-        mineManager.getMineBoard().isDrawBooms = false;
+        mineManager = MineManager.getNewMineManager(mineManager.getContext());
+        List newMineTile = mineManager.createTiles();
+        MineBoard newMineBoard = new MineBoard(newMineTile, mineManager.getMineBoard().getNumBoom(), new Random());
+        mineManager.setMineBoard(newMineBoard);
     }
 
     /**

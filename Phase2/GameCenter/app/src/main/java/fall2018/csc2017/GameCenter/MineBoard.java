@@ -63,6 +63,10 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
         return mineTile;
     }
 
+    public int getNumBoom() {
+        return numBoom;
+    }
+
     @NonNull
     @Override
     public Iterator iterator() {
