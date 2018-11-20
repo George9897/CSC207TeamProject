@@ -63,17 +63,21 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
     }
 
     /**
-     * Return the tile at (row, col)
+     * Return the tile at (row, col).
      *
-     * @param row the tile row
-     * @param col the tile column
-     * @return the tile at (row, col)
+     * @param row the tile row.
+     * @param col the tile column.
+     * @return the tile at (row, col).
      */
     MineTile getMineTiles(int row, int col) {
         return mineTile[row][col];
     }
 
-
+    /**
+     * Get the iterator for tiles.
+     *
+     * @return the iterator for tiles.
+     */
     @NonNull
     @Override
     public Iterator<MineTile> iterator() {
@@ -81,7 +85,7 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
     }
 
     /**
-     * Iterate over tiles on the slidingTile
+     * Iterate over tiles on the slidingTile.
      */
     private class MineTileIterator implements Iterator<MineTile> {
 
@@ -282,7 +286,7 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
             if (isOpenable) {
                 //Make all surroundings empty tiles appear inside a number tile border.
                 if (mineTile[surroundingX][surroundingY].getValue() == 0 &&
-                        mineTile[surroundingX][surroundingY].getIsOpened()) {
+                        !mineTile[surroundingX][surroundingY].getIsOpened()) {
                     replaceToTrue(surroundingX, surroundingY);
                     queue.offer(new Pair<>(surroundingX, surroundingY));
                     //Show the number tile.

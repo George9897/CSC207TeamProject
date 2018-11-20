@@ -1,7 +1,7 @@
 package fall2018.csc2017.GameCenter;
 
 /**
- * The Tiles for Mine.
+ * The Tile for Mine.
  */
 class MineTile{
     /**
@@ -41,7 +41,7 @@ class MineTile{
      * @return the boolean of whether this mineTile is opened or not.
      */
     boolean getIsOpened() {
-        return !isOpened;
+        return isOpened;
     }
 
     /**

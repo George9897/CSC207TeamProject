@@ -234,11 +234,11 @@ public class MineManager extends Manager {
     boolean isValidTap(int position) {
         int row = position / MineBoard.getSize();
         int col = position % MineBoard.getSize();
-        return mineBoard.getMineTiles()[row][col].getIsOpened();
+        return !mineBoard.getMineTiles()[row][col].getIsOpened();
     }
 
     /**
-     * Game failing. logic.
+     * Game failing logic.
      */
     private void failing(int position) {
         int row = position / MineBoard.getSize();

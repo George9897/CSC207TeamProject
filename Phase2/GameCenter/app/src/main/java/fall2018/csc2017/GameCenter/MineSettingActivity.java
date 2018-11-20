@@ -37,6 +37,14 @@ public class MineSettingActivity extends AppCompatActivity implements Serializab
         mineManager = MineManager.getMineManager(this);
 
         boomDifficulty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            /**
+             * Perform actions when an item is selected.
+             *
+             * @param arg0 the first argument.
+             * @param arg1 the second argument.
+             * @param arg2 the third argument.
+             * @param arg3 the forth argument.
+             */
           @Override
           public void onItemSelected(AdapterView<?> arg0, View arg1,
                                      int arg2, long arg3) {
@@ -58,6 +66,12 @@ public class MineSettingActivity extends AppCompatActivity implements Serializab
                       break;
               }
           }
+
+            /**
+             * default method when nothing selected.
+             *
+             * @param arg0 the argument view.
+             */
           @Override
           public void onNothingSelected(AdapterView<?> arg0) {}
         });
