@@ -117,11 +117,11 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
         this.randomize = randomize;
         Iterator<MineTile> iter = tiles.iterator();
 
-        for (int row = 0; row != size; row++) {
-            for (int col = 0; col != size; col++) {
+        for (int col = 0; col != size; col++) {
+            for (int row = 0; row != size; row++) {
                 this.mineTile[row][col] = iter.next();
-                this.mineTile[row][col].setX(col);
-                this.mineTile[row][col].setY(row);
+                this.mineTile[row][col].setX(row);
+                this.mineTile[row][col].setY(col);
             }
         }
     }
@@ -142,9 +142,7 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
      *
      * @return the number of tiles on the mine game.
      */
-    private int numTiles() {
-        return size * size;
-    }
+    private int numTiles() { return size * size; }
 
     /**
      * Generate booms.
@@ -167,9 +165,13 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
             boomTile.add(allTile.get(idx));
             allTile.remove(idx);
         }
+        if (!allTile.contains(exception)) {
+            allTile.add(exception);
+            boomTile.remove(exception);
+        }
         //Mark the position of booms.
         for (MineTile nextBoomTile : boomTile) {
-            mineTile[nextBoomTile.getY()][nextBoomTile.getX()].setValue(-1);
+            mineTile[nextBoomTile.getX()][nextBoomTile.getY()].setValue(-1);
         }
         //Add number to some tiles.
         for (int row = 0; row < size; row++) {
@@ -177,24 +179,19 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
                 int tileNum = this.mineTile[row][col].getValue();
                 if (tileNum == -1) {
                     for (int k = 0; k < 8; k++) {
-                        int surroundingX = col + surrounding_directions[k][0],
-                                surroundingY = row + surrounding_directions[k][1];
+                        int surroundingX = row + surrounding_directions[k][0],
+                                surroundingY = col + surrounding_directions[k][1];
                         if (surroundingX >= 0 && surroundingX < size && surroundingY >= 0 &&
                                 surroundingY < size) {
-                            int currentValue = this.mineTile[surroundingY][surroundingX].getValue();
+                            int currentValue = this.mineTile[surroundingX][surroundingY].getValue();
                             if (currentValue != -1)
                                 currentValue += 1;
-                            this.mineTile[surroundingY][surroundingX].setValue(currentValue);
+                            this.mineTile[surroundingX][surroundingY].setValue(currentValue);
                         }
                     }
                 }
             }
         }
-//        for (int row = 0; row < size; row++) {
-//            for (int col = 0; col < size; col++) {
-//                mineTile[row][col] = new MineTile(mineTile[row][col].getValue(), false);
-//            }
-//        }
         setChanged();
         notifyObservers();
     }
@@ -210,14 +207,14 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
         if (firstTap) {
             createBooms(mineTile[row][col]);
         }
-        replaceToTrue(row,col);
+        replaceToTrue(row, col);
         if (mineTile[row][col].getValue() == -1) {
             displayAllBoom();
         }
         //tap the mineTile with a number.
         else if (mineTile[row][col].getValue() == 0) {
             Queue<Pair<Integer, Integer>> queue = new LinkedList<>();
-            queue = putSurroundingOnQueue(col, row, queue);
+            queue = putSurroundingOnQueue(row, col, queue);
             recursiveSurroundingOnQueue(queue);
         }
         setChanged();
@@ -245,30 +242,30 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
             Pair<Integer, Integer> pointPair = queue.poll();
             int row = pointPair.first;
             int col = pointPair.second;
-            replaceToTrue(col, row);
-            putSurroundingOnQueue(col, row, queue);
+            replaceToTrue(row, col);
+            putSurroundingOnQueue(row, col, queue);
             recursiveSurroundingOnQueue(queue);
         }
     }
 
     private Queue<Pair<Integer, Integer>> putSurroundingOnQueue
-            (int col, int row, Queue<Pair<Integer, Integer>> queue) {
+            (int row, int col, Queue<Pair<Integer, Integer>> queue) {
         System.out.println("== Processing putSurroundingOnQueue ==");
         for (int i = 0; i < 8; i++) {
-            Integer surroundingX = col + surrounding_directions[i][0],
-                    surroundingY = row + surrounding_directions[i][1];
+            Integer surroundingX = row + surrounding_directions[i][0],
+                    surroundingY = col + surrounding_directions[i][1];
             //Check given minePoint's surroundings and whether they are opened or not.
             boolean isOpenable = surroundingX >= 0 && surroundingX < size &&
                     surroundingY >= 0 && surroundingY < size;
             if (isOpenable) {
                 //Make all surroundings that is not boom white new tiles with nothing in it.
-                if (mineTile[surroundingY][surroundingX].getValue() == 0 &&
-                        !mineTile[surroundingY][surroundingX].isOpened()) {
-                    replaceToTrue(surroundingY, surroundingX);
-                    queue.offer(new Pair<>(surroundingY, surroundingX));
+                if (mineTile[surroundingX][surroundingY].getValue() == 0 &&
+                        !mineTile[surroundingX][surroundingY].isOpened()) {
+                    replaceToTrue(surroundingX, surroundingY);
+                    queue.offer(new Pair<>(surroundingX, surroundingY));
                     //Show the special tile.
-                } else if (mineTile[surroundingY][surroundingX].getValue() > 0) {
-                    replaceToTrue(surroundingY, surroundingX);
+                } else if (mineTile[surroundingX][surroundingY].getValue() > 0) {
+                    replaceToTrue(surroundingX, surroundingY);
                 }
             }
         }
