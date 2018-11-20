@@ -119,8 +119,8 @@ public class DetailScoreBoard implements Serializable {
             case "Mine":
                 mineManager = MineManager.getMineManager(context);
                 score = mineManager.getScore();
-                if (mineManager.mineDifficulty!=null) {
-                    level = mineManager.mineDifficulty;
+                if (mineManager.getMineDifficulty()!=null) {
+                    level = mineManager.getMineDifficulty();
                 }
                 username = mineManager.getUserName();
                 break;
