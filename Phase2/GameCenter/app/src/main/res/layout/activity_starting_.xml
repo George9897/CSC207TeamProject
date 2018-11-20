@@ -48,13 +48,11 @@
     <Button
         android:id="@+id/scoreButton"
         android:layout_width="120dp"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="460dp"
-        android:layout_marginEnd="17dp"
-        android:layout_marginBottom="47dp"
+        android:layout_marginTop="458dp"
+        android:layout_marginEnd="43dp"
         android:text="Scoreboard" />
 
     <Button
