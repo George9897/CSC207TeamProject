@@ -9,4 +9,5 @@
     <string name="confirm_and_play">Confirm and play</string>
     <string name="game_center">Game Center</string>
     <string name="mine">Mine</string>
+    <string name="quit">Quit</string>
 </resources>

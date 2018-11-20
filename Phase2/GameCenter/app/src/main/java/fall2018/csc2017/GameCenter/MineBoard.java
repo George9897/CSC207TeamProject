@@ -24,7 +24,7 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
     /**
      * The board's size.
      */
-    private final static int size = 9;
+    private final static int size = 16;
     /**
      * The 2D array of tiles.
      */
