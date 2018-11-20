@@ -105,7 +105,7 @@ public class DetailScoreBoard {
         }
         if (gametype == "Mine"){
             score = mineManager.getScore();
-            level = mineManager.mineDifficulty;
+            level = mineManager.getMineDifficulty();
         }
         if (gametype == "Sudoku"){
             score = sudokuBoardManager.getScore();
