@@ -1,6 +1,7 @@
 package fall2018.csc2017.GameCenter;
 
 import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -10,16 +11,22 @@ import java.util.Timer;
  * The Mine game manager.
  */
 public class MineManager implements Manager {
-
     /**
      * The Mine board.
      */
     private MineBoard mineBoard;
     /**
+     * The mine tiles.
+     */
+    private List<MineTile> mineTiles;
+    /**
+     * The singleton mine Manager.
+     */
+    private static MineManager mineManager;
+    /**
      * The AccountManager.
      */
     private AccountManager accountManager = AccountManager.getAccountManager();
-
     /**
      * The user's name.
      */
@@ -28,25 +35,14 @@ public class MineManager implements Manager {
      * The mark of whether the user tapped for at least once.
      */
     private boolean firstTap = true;
-
     /**
      * The context.
      */
     private Context context;
-
     /**
-     *
+     * The mine game's difficulty.
      */
     private String mineDifficulty;
-
-    public String getMineDifficulty() {
-        return mineDifficulty;
-    }
-
-    public void setMineDifficulty(String mineDifficulty) {
-        this.mineDifficulty = mineDifficulty;
-    }
-
     /**
      * The number of booms in one game play.
      */
@@ -67,13 +63,89 @@ public class MineManager implements Manager {
      * The scorer for Mine game.
      */
     private MineScorer scorer = new MineScorer();
+
+
     /**
-     * The singleton mine Manager.
+     * Getter for the time passed.
+     *
+     * @return The time.
      */
-    private static MineManager mineManager;
+    public int getTime() {
+        return time;
+    }
+
+    /**
+     * Getter for the score.
+     *
+     * @return score.
+     */
+    @Override
+    public int getScore() {
+        return score;
+    }
+
+    /**
+     * Getter for mine board.
+     *
+     * @return the mine board.
+     */
+    MineBoard getMineBoard() {
+        return mineBoard;
+    }
+
+    /**
+     * Getter for the user name.
+     *
+     * @return the user name of who logged in.
+     */
+    String getUserName() {
+        return userName;
+    }
+    /**
+     * Getter for the context.
+     *
+     * @return the context.
+     */
+    public Context getContext() {
+        return context;
+    }
+
+    /**
+     * Getter for the mine game's difficulty.
+     *
+     * @return the mine game's difficulty.
+     */
+    String getMineDifficulty() {
+        return mineDifficulty;
+    }
+
+    /**
+     * Getter for mine tiles.
+     *
+     * @return the list of mine tiles.
+     */
+    List<MineTile> getMineTiles() {
+        return mineTiles;
+    }
 
 
-    public List<MineTile> mineTiles = new ArrayList<>();
+    /**
+     * Setter for mine game's difficulty.
+     *
+     * @param mineDifficulty the mine game's difficulty.
+     */
+    void setMineDifficulty(String mineDifficulty) {
+        this.mineDifficulty = mineDifficulty;
+    }
+
+    /**
+     * Setter for number of booms.
+     *
+     * @param numBoom the wanted number of booms.
+     */
+    static void setNumBoom(int numBoom) {
+        MineManager.numBoom = numBoom;
+    }
 
 
     /**
@@ -81,7 +153,7 @@ public class MineManager implements Manager {
      *
      * @return list of Tiles.
      */
-    public List createTiles() {
+    private List<MineTile> createTiles() {
         List<MineTile> mineTiles = new ArrayList<>();
         int numTiles = MineBoard.getSize() * MineBoard.getSize();
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
@@ -89,6 +161,7 @@ public class MineManager implements Manager {
         }
         return mineTiles;
     }
+
     /**
      * The constructor of MineManager.
      */
@@ -114,50 +187,10 @@ public class MineManager implements Manager {
 
     /**
      * Destroy for new singleton Mine Manager.
-     *
-     * @return a new mineManager.
      */
     static void destroyMineManager() {
         mineManager = null;
     }
-
-    /**
-     * Getter for the time passed.
-     *
-     * @return The time.
-     */
-    public int getTime() {
-        return time;
-    }
-
-    /**
-     * Getter for the score.
-     *
-     * @return score.
-     */
-    @Override
-    public int getScore() {
-        return score;
-    }
-    /**
-     * Getter for mine Board.
-     */
-    MineBoard getMineBoard() {return mineBoard; }
-
-    String getUserName() {
-        return userName;
-    }
-    public Context getContext() {
-        return context;
-    }
-
-    /**
-     * Setter for numBoom.
-     *
-     * @param numBoom the wanted number of booms.
-     */
-    static void setNumBoom(int numBoom) { MineManager.numBoom = numBoom; }
-
 
     /**
      * Return true if puzzle is solved, false otherwise.
@@ -169,11 +202,11 @@ public class MineManager implements Manager {
         int count = 0;
         for (int row = 0; row < MineBoard.getSize(); row++) {
             for (int col = 0; col < MineBoard.getSize(); col++) {
-                if (!mineBoard.getMineTile(row, col).isOpened()) {
+                if (mineBoard.getMineTiles(row, col).getIsOpened()) {
                     count++;
                 }
-                if (!mineBoard.getMineTile()[row][col].isOpened() &&
-                        mineBoard.getMineTile(row, col).getValue() != -1) {
+                if (mineBoard.getMineTiles()[row][col].getIsOpened() &&
+                        mineBoard.getMineTiles(row, col).getValue() != -1) {
                     return false;
                 }
             }
@@ -194,23 +227,23 @@ public class MineManager implements Manager {
     }
 
     /**
-     * Check touch event is in the range.
+     * Check touch event is in the board range.
      *
      * @return True if x and y are in the range, false otherwise.
      */
     boolean isValidTap(int position) {
         int row = position / MineBoard.getSize();
         int col = position % MineBoard.getSize();
-        return !mineBoard.getMineTile()[row][col].isOpened();
+        return mineBoard.getMineTiles()[row][col].getIsOpened();
     }
 
     /**
-     * Game failing.
+     * Game failing. logic.
      */
     private void failing(int position) {
         int row = position / MineBoard.getSize();
         int col = position % MineBoard.getSize();
-        if (mineBoard.getMineTile(row, col).getValue() == -1) {
+        if (mineBoard.getMineTiles(row, col).getValue() == -1) {
             time = scorer.getTimeScore();
             score = 0;
             timer.cancel();
@@ -218,7 +251,7 @@ public class MineManager implements Manager {
     }
 
     /**
-     * Game winning.
+     * Game winning logic.
      */
     private void winning() {
         if (puzzleSolved()) {

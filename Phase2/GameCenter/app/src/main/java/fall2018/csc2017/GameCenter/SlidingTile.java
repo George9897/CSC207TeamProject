@@ -1,10 +1,8 @@
 package fall2018.csc2017.GameCenter;
 
 import android.support.annotation.NonNull;
-
 import java.util.NoSuchElementException;
 import java.util.Observable;
-
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -14,18 +12,15 @@ import java.util.List;
  * The sliding tiles slidingTile.
  */
 public class SlidingTile extends Observable implements Serializable, Iterable<Tile> {
-
     @NonNull
     @Override
     public Iterator<Tile> iterator() {
         return new BoardIterator();
     }
-
     /**
      * The serialVersionUID.
      */
     public static final long serialVersionUID = 806771937776446582L;
-
     /**
      * The boolean of whether this slidingTile is drawable.
      */

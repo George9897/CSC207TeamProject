@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,8 +16,7 @@ import java.util.Random;
 /**
  * The Mine board.
  */
-class MineBoard extends Observable implements Serializable, Iterable<Tile> {
-
+class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
     /**
      * The board's number of booms.
      */
@@ -28,19 +28,15 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
     /**
      * The 2D array of tiles.
      */
-    MineTile[][] mineTile = new MineTile[size][size];
+    private MineTile[][] mineTile = new MineTile[size][size];
     /**
      * The randomizer of the tiles(booms).
      */
-    Random randomize;
-    /**
-     * Whether booms are drawn.
-     */
-    boolean isDrawBooms = false;
+    private Random randomize;
     /**
      * The surrounding_directions.
      */
-    int[][] surrounding_directions = {
+    private int[][] surrounding_directions = {
             {-1, 1},//upper-left
             {0, 1},//upper
             {1, 1},//upper-right
@@ -50,6 +46,9 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
             {0, -1},//lower
             {1, -1}};//lower-right
 
+    /**
+     * @return the size of the board.
+     */
     public static int getSize() {
         return size;
     }
@@ -59,17 +58,25 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
      *
      * @return The 2D array of tiles.
      */
-    MineTile[][] getMineTile() {
+    MineTile[][] getMineTiles() {
         return mineTile;
     }
 
-    public int getNumBoom() {
-        return numBoom;
+    /**
+     * Return the tile at (row, col)
+     *
+     * @param row the tile row
+     * @param col the tile column
+     * @return the tile at (row, col)
+     */
+    MineTile getMineTiles(int row, int col) {
+        return mineTile[row][col];
     }
+
 
     @NonNull
     @Override
-    public Iterator iterator() {
+    public Iterator<MineTile> iterator() {
         return new MineBoard.MineTileIterator();
     }
 
@@ -131,36 +138,25 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
     }
 
     /**
-     * Return the tile at (row, col)
-     *
-     * @param row the tile row
-     * @param col the tile column
-     * @return the tile at (row, col)
-     */
-    MineTile getMineTile(int row, int col) {
-        return mineTile[row][col];
-    }
-
-    /**
      * Return the number of tiles on the mine game.
      *
      * @return the number of tiles on the mine game.
      */
-    private int numTiles() { return size * size; }
+    private int numTiles() {
+        return size * size;
+    }
 
     /**
      * Generate booms.
      *
      * @param exception This position doesn't contain booms.
      */
-    public void createBooms(MineTile exception) {
+    private void createBooms(MineTile exception) {
         List<MineTile> allTile = new ArrayList<>();
 
         //Add all the positions.
         for (int row = 0; row < size; row++) {
-            for (int col = 0; col < size; col++) {
-                allTile.add(mineTile[row][col]);
-            }
+            allTile.addAll(Arrays.asList(mineTile[row]).subList(0, size));
         }
         List<MineTile> boomTile = new LinkedList<>();
         //Randomly generate booms.
@@ -169,6 +165,7 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
             boomTile.add(allTile.get(idx));
             allTile.remove(idx);
         }
+        //In order to make sure that the first tap is not a boom.
         if (!allTile.contains(exception)) {
             allTile.add(exception);
             boomTile.remove(exception);
@@ -225,12 +222,18 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
         notifyObservers();
     }
 
-    private void replaceToTrue(int row, int col){
+    /**
+     * @param row The row of the mine tile that needs to be replaced.
+     * @param col The col of the mine tile that needs to be replaced.
+     */
+    private void replaceToTrue(int row, int col) {
         mineTile[row][col] = new MineTile(mineTile[row][col].getValue(), true);
     }
 
+    /**
+     * Display all boom when the user failed.
+     */
     private void displayAllBoom() {
-        isDrawBooms = true;
         for (int boomRow = 0; boomRow < size; boomRow++) {
             for (int boomCol = 0; boomCol < size; boomCol++) {
                 if (mineTile[boomRow][boomCol].getValue() == -1) {
@@ -240,9 +243,16 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
         }
     }
 
+    /**
+     * Recursively put surrounding empty mine tiles into the queue.
+     *
+     * @param queue the queue that stores all the surrounding empty mine tiles.
+     *              Note: the "surrounding" might recursively gets bigger until there is a number
+     *              tile border.
+     */
     private void recursiveSurroundingOnQueue
-            (Queue<Pair<Integer, Integer>> queue){
-        if (queue.size() != 0){
+    (Queue<Pair<Integer, Integer>> queue) {
+        if (queue.size() != 0) {
             Pair<Integer, Integer> pointPair = queue.poll();
             int row = pointPair.first;
             int col = pointPair.second;
@@ -252,9 +262,17 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
         }
     }
 
+    /**
+     * Put the surrounding empty mine tiles in the queue.
+     * Helper for recursiveSurroundingOnQueue.
+     *
+     * @param row   The row of the mine tile.
+     * @param col   The col of the mine tile.
+     * @param queue The queue of empty mine tiles.
+     * @return The modified queue.
+     */
     private Queue<Pair<Integer, Integer>> putSurroundingOnQueue
-            (int row, int col, Queue<Pair<Integer, Integer>> queue) {
-        System.out.println("== Processing putSurroundingOnQueue ==");
+    (int row, int col, Queue<Pair<Integer, Integer>> queue) {
         for (int i = 0; i < 8; i++) {
             Integer surroundingX = row + surrounding_directions[i][0],
                     surroundingY = col + surrounding_directions[i][1];
@@ -262,12 +280,12 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
             boolean isOpenable = surroundingX >= 0 && surroundingX < size &&
                     surroundingY >= 0 && surroundingY < size;
             if (isOpenable) {
-                //Make all surroundings that is not boom white new tiles with nothing in it.
+                //Make all surroundings empty tiles appear inside a number tile border.
                 if (mineTile[surroundingX][surroundingY].getValue() == 0 &&
-                        !mineTile[surroundingX][surroundingY].isOpened()) {
+                        mineTile[surroundingX][surroundingY].getIsOpened()) {
                     replaceToTrue(surroundingX, surroundingY);
                     queue.offer(new Pair<>(surroundingX, surroundingY));
-                    //Show the special tile.
+                    //Show the number tile.
                 } else if (mineTile[surroundingX][surroundingY].getValue() > 0) {
                     replaceToTrue(surroundingX, surroundingY);
                 }

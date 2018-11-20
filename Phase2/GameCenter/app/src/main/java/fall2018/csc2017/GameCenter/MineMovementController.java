@@ -1,4 +1,5 @@
 package fall2018.csc2017.GameCenter;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -10,8 +11,13 @@ import java.io.Serializable;
  * The movement controller of game.
  */
 class MineMovementController implements Serializable {
-
+    /**
+     * The singleton mine manager.
+     */
     private static MineManager mineManager;
+    /**
+     * The context.
+     */
     private Context context;
 
     /**
@@ -69,7 +75,7 @@ class MineMovementController implements Serializable {
             }
             int row = position / MineBoard.getSize();
             int col = position % MineBoard.getSize();
-            if (mineManager.getMineBoard().getMineTile()[row][col].getValue() == -1) {
+            if (mineManager.getMineBoard().getMineTiles()[row][col].getValue() == -1) {
                 new AlertDialog.Builder(context)
                         .setCancelable(false)
                         .setMessage("You Shall Not Pass！")

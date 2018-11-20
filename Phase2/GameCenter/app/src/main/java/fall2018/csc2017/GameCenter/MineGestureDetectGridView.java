@@ -6,9 +6,8 @@ https://github.com/DaveNOTDavid/sample-puzzle/blob/master/app/src/main/java/com/
 This extension of GridView contains built in logic for handling swipes between buttons
  */
 
-import android.annotation.TargetApi;
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -16,42 +15,84 @@ import android.widget.GridView;
 
 import java.io.Serializable;
 
+/**
+ * The mine game's gesture detect grid view.
+ */
 public class MineGestureDetectGridView extends GridView implements Serializable {
+    /**
+     * The minimum swipe distance.
+     */
     public static final int SWIPE_MIN_DISTANCE = 100;
+    /**
+     * The gesture detector.
+     */
     private GestureDetector gDetector;
+    /**
+     * The movement controller of mine game.
+     */
     private MineMovementController mineMovementController;
+    /**
+     * The mark of whether the matrix's fling is confirmed.
+     */
     private boolean mFlingConfirmed = false;
+    /**
+     * The touched x coordinate.
+     */
     private float mTouchX;
+    /**
+     * The touched y coordinate.
+     */
     private float mTouchY;
-    private MineManager mineManager;
-    private int move;
 
+
+    /**
+     * The first constructor of Mine Gesture Detect Grid View.
+     *
+     * @param context the context.
+     */
     public MineGestureDetectGridView(Context context) {
         super(context);
         init(context);
     }
 
+    /**
+     * The second constructor of Mine Gesture Detect Grid View.
+     *
+     * @param context the context.
+     * @param attrs   the attributes set.
+     */
     public MineGestureDetectGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
+    /**
+     * The third constructor of Mine Gesture Detect Grid View.
+     *
+     * @param context      the context.
+     * @param attrs        the attributes set.
+     * @param defStyleAttr the style attribute set.
+     */
     public MineGestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP) // API 21
-    public MineGestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr,
-                                       int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(context);
-    }
-
+    /**
+     * The initialization of mine movement controller.
+     *
+     * @param context the context.
+     */
     private void init(final Context context) {
         mineMovementController = new MineMovementController(context);
         gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
 
+            /**
+             * The confirm of whether tapped or not.
+             *
+             * @param event the tap event.
+             * @return whether the user tapped or not.
+             */
             @Override
             public boolean onSingleTapConfirmed(MotionEvent event) {
                 int position = MineGestureDetectGridView.this.pointToPosition
@@ -61,6 +102,12 @@ public class MineGestureDetectGridView extends GridView implements Serializable 
                 return true;
             }
 
+            /**
+             * Whether there is a down event.
+             *
+             * @param event the event.
+             * @return whether the event is a down event.
+             */
             @Override
             public boolean onDown(MotionEvent event) {
                 return true;
@@ -69,6 +116,12 @@ public class MineGestureDetectGridView extends GridView implements Serializable 
         });
     }
 
+    /**
+     * Whether the event is a intercept touch event.
+     *
+     * @param ev the event.
+     * @return whether the event is a intercept touch event.
+     */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         int action = ev.getActionMasked();
@@ -96,13 +149,24 @@ public class MineGestureDetectGridView extends GridView implements Serializable 
         return super.onInterceptTouchEvent(ev);
     }
 
+    /**
+     * Whether the user touched or not.
+     *
+     * @param ev the event.
+     * @return whether the event is a touch event.
+     */
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         return gDetector.onTouchEvent(ev);
     }
 
+    /**
+     * Set the mine manager for the controller.
+     *
+     * @param MineManager the mine manager.
+     */
     public void setMineManager(MineManager MineManager) {
-        this.mineManager = MineManager;
         mineMovementController.setMineManager(MineManager);
     }
 }

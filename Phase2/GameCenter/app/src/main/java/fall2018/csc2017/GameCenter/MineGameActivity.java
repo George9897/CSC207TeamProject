@@ -23,28 +23,27 @@ import java.util.Observer;
  * The GameActivity for Mine.
  */
 public class MineGameActivity extends AppCompatActivity implements Observer, Serializable {
-
     /**
      * The mine game manager.
      */
     MineManager mineManager;
-
     /**
      * The buttons to display.
      */
     private ArrayList<Button> tileButtons;
-
     /**
      * The GestureDetectGridView of this game.
      */
     private MineGestureDetectGridView gridView;
-
     /**
      * The width and height of column.
      */
     private int columnWidth, columnHeight;
-
+    /**
+     * The file name for saving mine game.
+     */
     private String mineFile = "mine_tmp.ser";
+
     /**
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
@@ -55,6 +54,11 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
         gridView.setAdapter(new MineCustomAdapter(tileButtons, columnWidth, columnHeight));
     }
 
+    /**
+     * The default creater of mine game activity.
+     *
+     * @param savedInstanceState the saved instance state of game activity.
+     */
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +101,8 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
         for (int row = 0; row < MineBoard.getSize(); row++) {
             for (int col = 0; col < MineBoard.getSize(); col++) {
                 Button tmp = new Button(context);
-                tmp.setBackgroundResource(mineManager.mineTiles.get(row*MineBoard.getSize() + col).getBackground());
+                tmp.setBackgroundResource(mineManager.getMineTiles().get(row * MineBoard.getSize() +
+                        col).getBackground());
                 this.tileButtons.add(tmp);
             }
         }
@@ -113,7 +118,7 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
         for (Button b : tileButtons) {
             int row = nextPos / MineBoard.getSize();
             int col = nextPos % MineBoard.getSize();
-            b.setBackgroundResource(mineBoard.getMineTile(row, col).getBackground());
+            b.setBackgroundResource(mineBoard.getMineTiles(row, col).getBackground());
             nextPos++;
         }
     }
@@ -128,6 +133,7 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
             startActivity(tmp);
         });
     }
+
     /**
      * Dispatch onPause() to fragments.
      */
@@ -156,7 +162,8 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
         } catch (IOException e) {
             Log.e("login activity", "Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+            Log.e("login activity", "File contained unexpected data type: " +
+                    e.toString());
         }
     }
 
@@ -176,7 +183,11 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
         }
     }
 
-
+    /**
+     * Update the screen view.
+     * @param o the observable object that need to be updated.
+     * @param arg the object that is required for the updating.
+     */
     @Override
     public void update(Observable o, Object arg) {
         display();

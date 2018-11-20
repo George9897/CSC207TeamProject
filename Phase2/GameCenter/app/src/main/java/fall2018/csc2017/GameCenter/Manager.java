@@ -1,6 +1,5 @@
 package fall2018.csc2017.GameCenter;
 
-
 /**
  * The Manager interface for board games.
  */

@@ -1,7 +1,5 @@
 package fall2018.csc2017.GameCenter;
 
-import android.graphics.drawable.Drawable;
-
 /**
  * The Tiles for Mine.
  */
@@ -15,16 +13,90 @@ class MineTile{
      * The boolean of whether this mineTile is opened or not.
      */
     private boolean isOpened;
-    private int x;
-    private int y;
     /**
-     * A drawable background for picture sliding tiles.
+     * The x coordinate.
      */
-    private Drawable drawableBackground;
+    private int x;
+    /**
+     * The y coordinate.
+     */
+    private int y;
     /**
      * The background id to find the tile image.
      */
     private int background;
+
+    /**
+     * Get the value of this mineTile.
+     *
+     * @return the value of this mineTile.
+     */
+    public int getValue() {
+        return value;
+    }
+
+    /**
+     * Get the boolean of whether this mineTile is opened or not.
+     *
+     * @return the boolean of whether this mineTile is opened or not.
+     */
+    boolean getIsOpened() {
+        return !isOpened;
+    }
+
+    /**
+     * Getter for the x coordinate.
+     *
+     * @return the x coordinate.
+     */
+    int getX() {
+        return x;
+    }
+
+    /**
+     * Getter for the y coordinate.
+     *
+     * @return the y coordinate.
+     */
+    int getY() {
+        return y;
+    }
+
+    /**
+     * Return the background id.
+     *
+     * @return the background id
+     */
+    public int getBackground() {
+        return background;
+    }
+
+    /**
+     * Set the value of this mineTile.
+     *
+     * @param value the value of this mineTile.
+     */
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    /**
+     * Setter for the x coordinate.
+     *
+     * @param x the x coordinate.
+     */
+    void setX(int x) {
+        this.x = x;
+    }
+
+    /**
+     * Setter for the y coordinate.
+     *
+     * @param y the y coordinate.
+     */
+    void setY(int y) {
+        this.y = y;
+    }
 
 
     /**
@@ -36,7 +108,8 @@ class MineTile{
         background = value;
         if (!isOpened) {
             background = R.drawable.tile_closed;
-        }else {switch (value) {
+        } else {
+            switch (value) {
             case -1:
                 background = R.drawable.tile_boom;
                 break;
@@ -67,59 +140,7 @@ class MineTile{
             case 8:
                 background = R.drawable.tile_8;
                 break;
+            }
         }
-        }
-    }
-
-    /**
-     * Return the background id.
-     *
-     * @return the background id
-     */
-    public int getBackground() {
-        return background;
-    }
-
-    /**
-     * Get the value of this mineTile.
-     *
-     * @return the value of this mineTile.
-     */
-    public int getValue() {
-        return value;
-    }
-
-    /**
-     * Set the value of this mineTile.
-     *
-     * @param value the value of this mineTile.
-     */
-    public void setValue(int value) {
-        this.value = value;
-    }
-
-    /**
-     * Get the boolean of whether this mineTile is opened or not.
-     *
-     * @return the boolean of whether this mineTile is opened or not.
-     */
-    boolean isOpened() {
-        return isOpened;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 }

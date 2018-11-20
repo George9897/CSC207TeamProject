@@ -10,4 +10,8 @@
     <string name="game_center">Game Center</string>
     <string name="mine">Mine</string>
     <string name="quit">Quit</string>
+    <string name="victoury">VICTOURY !</string>
+    <string name="no_data">no data</string>
+    <string name="back_to_home">Back to home</string>
+    <string name="see_scoreboard">See Scoreboard</string>
 </resources>

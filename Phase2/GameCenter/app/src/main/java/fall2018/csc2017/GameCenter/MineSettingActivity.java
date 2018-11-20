@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -62,7 +63,6 @@ public class MineSettingActivity extends AppCompatActivity implements Serializab
         });
         addMineConfirmButtonListener();
     }
-
 
     /**
      * Dispatch onResume() to fragments.
