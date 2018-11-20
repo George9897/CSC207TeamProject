@@ -118,11 +118,7 @@ public class GameActivity extends AppCompatActivity implements Observer, Seriali
         for (int row = 0; row != SlidingTile.level; row++) {
             for (int col = 0; col != SlidingTile.level; col++) {
                 Button tmp = new Button(context);
-                if (slidingTile.isDrawable) {
-                    tmp.setBackground(slidingTile.getTile(row, col).getDrawableBackground());
-                } else {
-                    tmp.setBackgroundResource(slidingTile.getTile(row, col).getBackground());
-                }
+                tmp.setBackgroundResource(slidingTile.getTile(row, col).getBackground());
                 this.tileButtons.add(tmp);
             }
         }
@@ -138,11 +134,7 @@ public class GameActivity extends AppCompatActivity implements Observer, Seriali
         for (Button b : tileButtons) {
             int row = nextPos / SlidingTile.level;
             int col = nextPos % SlidingTile.level;
-            if (slidingTile.isDrawable) {
-                b.setBackground(slidingTile.getTile(row, col).getDrawableBackground());
-            } else {
-                b.setBackgroundResource(slidingTile.getTile(row, col).getBackground());
-            }
+            b.setBackgroundResource(slidingTile.getTile(row, col).getBackground());
             nextPos++;
         }
     }
