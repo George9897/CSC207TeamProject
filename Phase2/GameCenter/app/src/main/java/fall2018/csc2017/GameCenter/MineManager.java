@@ -200,7 +200,8 @@ public class MineManager extends Manager {
         int count = 0;
         for (int row = 0; row < MineBoard.getSize(); row++) {
             for (int col = 0; col < MineBoard.getSize(); col++) {
-                if (!mineBoard.getMineTile(row, col).getIsOpened()) {
+                if (!mineBoard.getMineTile(row, col).getIsOpened() &&
+                        mineBoard.getMineTile(row, col).getValue() == -2) {
                     count++;
                 }
                 if (!mineBoard.getMineTile(row, col).getIsOpened() &&
