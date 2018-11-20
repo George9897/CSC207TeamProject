@@ -111,7 +111,8 @@ public class MineManager implements Manager {
      * @return a new mineManager.
      */
     static MineManager getNewMineManager(Context context) {
-        return new MineManager(context);
+        mineManager = new MineManager(context);
+        return mineManager;
     }
 
     /**

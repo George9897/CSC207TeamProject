@@ -12,11 +12,13 @@ import java.io.Serializable;
 class MineMovementController implements Serializable {
 
     private static MineManager mineManager;
+    private Context context;
 
     /**
      * The constructor of MovementController.
      */
-    MineMovementController() {
+    MineMovementController(Context context) {
+        this.context = context;
     }
 
     /**
@@ -32,10 +34,9 @@ class MineMovementController implements Serializable {
      * Reset the game if the user choose to do so.
      */
     private void resetTheGame() {
-//        mineManager = MineManager.getNewMineManager(mineManager.getContext());
-        mineManager = new MineManager(mineManager.getContext());
-        mineManager.mineTiles = mineManager.createTiles();
-        mineManager.getMineBoard().isDrawBooms = false;
+        mineManager = MineManager.getNewMineManager(context);
+        Intent tmp = new Intent(context, MineSettingActivity.class);
+        context.startActivity(tmp);
     }
 
     /**
