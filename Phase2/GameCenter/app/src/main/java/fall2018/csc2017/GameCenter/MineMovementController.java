@@ -75,7 +75,7 @@ class MineMovementController implements Serializable {
             }
             int row = position / MineBoard.getSize();
             int col = position % MineBoard.getSize();
-            if (mineManager.getMineBoard().getMineTiles()[row][col].getValue() == -1) {
+            if (mineManager.getMineBoard().getMineTile(row, col).getValue() == -1) {
                 new AlertDialog.Builder(context)
                         .setCancelable(false)
                         .setMessage("You Shall Not Pass！")
@@ -88,6 +88,13 @@ class MineMovementController implements Serializable {
         }
         else {
             Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
+        }
+    }
+    void processDoubleTapMovement(int position) {
+        if (mineManager.isValidTap(position)) {
+            int row = position / MineBoard.getSize();
+            int col = position % MineBoard.getSize();
+            mineManager.getMineBoard().replaceToFlag(row, col);
         }
     }
 }

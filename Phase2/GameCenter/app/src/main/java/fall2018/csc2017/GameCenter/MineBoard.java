@@ -54,22 +54,13 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
     }
 
     /**
-     * Get the 2D array of tiles.
-     *
-     * @return The 2D array of tiles.
-     */
-    MineTile[][] getMineTiles() {
-        return mineTile;
-    }
-
-    /**
      * Return the tile at (row, col).
      *
      * @param row the tile row.
      * @param col the tile column.
      * @return the tile at (row, col).
      */
-    MineTile getMineTiles(int row, int col) {
+    MineTile getMineTile(int row, int col) {
         return mineTile[row][col];
     }
 
@@ -227,11 +218,25 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
     }
 
     /**
+     * Open a tile with a replacement that contains all the information of the tile.
+     *
      * @param row The row of the mine tile that needs to be replaced.
      * @param col The col of the mine tile that needs to be replaced.
      */
     private void replaceToTrue(int row, int col) {
         mineTile[row][col] = new MineTile(mineTile[row][col].getValue(), true);
+    }
+
+    /**
+     * Replace a closed tile to flag tile to mark booms.
+     *
+     * @param row the row of the tile.
+     * @param col the col of the tile.
+     */
+    void replaceToFlag(int row, int col) {
+        mineTile[row][col] = new MineTile(-2, false);
+        setChanged();
+        notifyObservers();
     }
 
     /**

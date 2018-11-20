@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ViewTreeObserver;
@@ -88,6 +89,14 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
                         display();
                     }
                 });
+        new AlertDialog.Builder(this)
+                .setCancelable(false)
+                .setTitle("Rules:")
+                .setMessage("Leave those tiles that you think are booms alone! " +
+                        "Tap only when you consider that tile is not a boom. \n\n--Have fun!")
+                .setPositiveButton("Let the show start",null)
+                .create()
+                .show();
     }
 
     /**
@@ -101,7 +110,7 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
         for (int row = 0; row < MineBoard.getSize(); row++) {
             for (int col = 0; col < MineBoard.getSize(); col++) {
                 Button tmp = new Button(context);
-                tmp.setBackgroundResource(mineManager.getMineTiles().get(row * MineBoard.getSize() +
+                tmp.setBackgroundResource(mineManager.getMineTiles().get(row * 16 +
                         col).getBackground());
                 this.tileButtons.add(tmp);
             }
@@ -118,7 +127,7 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
         for (Button b : tileButtons) {
             int row = nextPos / MineBoard.getSize();
             int col = nextPos % MineBoard.getSize();
-            b.setBackgroundResource(mineBoard.getMineTiles(row, col).getBackground());
+            b.setBackgroundResource(mineBoard.getMineTile(row, col).getBackground());
             nextPos++;
         }
     }

@@ -46,7 +46,7 @@ public class MineManager extends Manager {
     /**
      * The number of booms in one game play.
      */
-    private static int numBoom;
+    private int numBoom;
     /**
      * The score after the user find out all the booms.
      */
@@ -143,9 +143,7 @@ public class MineManager extends Manager {
      *
      * @param numBoom the wanted number of booms.
      */
-    static void setNumBoom(int numBoom) {
-        MineManager.numBoom = numBoom;
-    }
+    void setNumBoom(int numBoom) { this.numBoom = numBoom; }
 
 
     /**
@@ -202,11 +200,11 @@ public class MineManager extends Manager {
         int count = 0;
         for (int row = 0; row < MineBoard.getSize(); row++) {
             for (int col = 0; col < MineBoard.getSize(); col++) {
-                if (!mineBoard.getMineTiles(row, col).getIsOpened()) {
+                if (!mineBoard.getMineTile(row, col).getIsOpened()) {
                     count++;
                 }
-                if (!mineBoard.getMineTiles()[row][col].getIsOpened() &&
-                        mineBoard.getMineTiles(row, col).getValue() != -1) {
+                if (!mineBoard.getMineTile(row, col).getIsOpened() &&
+                        mineBoard.getMineTile(row, col).getValue() != -1) {
                     return false;
                 }
             }
@@ -218,12 +216,10 @@ public class MineManager extends Manager {
      * Move maker in Mine game.
      */
     void makeMove(int position){
-        if (isValidTap(position)) {
-            mineBoard.touchOpen(position, firstTap);
-            firstTap = false;
-            failing(position);
-            winning();
-        }
+        mineBoard.touchOpen(position, firstTap);
+        firstTap = false;
+        failing(position);
+        winning();
     }
 
     /**
@@ -234,7 +230,7 @@ public class MineManager extends Manager {
     boolean isValidTap(int position) {
         int row = position / MineBoard.getSize();
         int col = position % MineBoard.getSize();
-        return !mineBoard.getMineTiles()[row][col].getIsOpened();
+        return !mineBoard.getMineTile(row, col).getIsOpened();
     }
 
     /**
@@ -243,7 +239,7 @@ public class MineManager extends Manager {
     private void failing(int position) {
         int row = position / MineBoard.getSize();
         int col = position % MineBoard.getSize();
-        if (mineBoard.getMineTiles(row, col).getValue() == -1) {
+        if (mineBoard.getMineTile(row, col).getValue() == -1) {
             time = scorer.getTimeScore();
             score = 0;
             timer.cancel();
