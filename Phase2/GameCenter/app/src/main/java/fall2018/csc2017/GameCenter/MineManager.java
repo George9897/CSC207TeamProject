@@ -187,7 +187,6 @@ public class MineManager implements Manager {
         if (isValidTap(position)) {
             mineBoard.touchOpen(position, tappedOnce);
             tappedOnce = true;
-            System.out.println("moveeeeeeeeeeeeeeeeeeeeeee");
             failing(position);
             winning();
         }

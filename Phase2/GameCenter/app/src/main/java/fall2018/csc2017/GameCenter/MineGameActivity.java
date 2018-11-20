@@ -111,7 +111,6 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
         for (Button b : tileButtons) {
             int row = nextPos / MineBoard.getSize();
             int col = nextPos % MineBoard.getSize();
-            System.out.println(mineBoard.getMineTile(row, col).getValue());
             b.setBackgroundResource(mineBoard.getMineTile(row, col).getBackground());
             nextPos++;
         }
