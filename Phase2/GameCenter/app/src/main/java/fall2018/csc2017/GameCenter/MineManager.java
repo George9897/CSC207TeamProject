@@ -10,7 +10,7 @@ import java.util.Timer;
 /**
  * The Mine game manager.
  */
-public class MineManager implements Manager {
+public class MineManager extends Manager {
     /**
      * The Mine board.
      */
@@ -202,10 +202,10 @@ public class MineManager implements Manager {
         int count = 0;
         for (int row = 0; row < MineBoard.getSize(); row++) {
             for (int col = 0; col < MineBoard.getSize(); col++) {
-                if (mineBoard.getMineTiles(row, col).getIsOpened()) {
+                if (!mineBoard.getMineTiles(row, col).getIsOpened()) {
                     count++;
                 }
-                if (mineBoard.getMineTiles()[row][col].getIsOpened() &&
+                if (!mineBoard.getMineTiles()[row][col].getIsOpened() &&
                         mineBoard.getMineTiles(row, col).getValue() != -1) {
                     return false;
                 }
@@ -217,7 +217,7 @@ public class MineManager implements Manager {
     /**
      * Move maker in Mine game.
      */
-    public void makeMove(int position){
+    void makeMove(int position){
         if (isValidTap(position)) {
             mineBoard.touchOpen(position, firstTap);
             firstTap = false;
