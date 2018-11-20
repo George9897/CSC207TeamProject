@@ -26,26 +26,26 @@ public class SignUpActivity extends AppCompatActivity implements Serializable {
      */
     private TextView meg_box;
 
-    /**
-     * for upload avatar.
-     */
-    private ImageView picImageView;
-
-    /**
-     * avatar.
-     */
-    private static final int PICK_IMAGE = 100;
-
-    //TODO
-    /**
-     * uri of avatar.
-     */
-    Uri imageUri;
-
-    /**
-     * the string of uri.
-     */
-    String stringUri;
+//    /**
+//     * for upload avatar.
+//     */
+//    private ImageView picImageView;
+//
+//    /**
+//     * avatar.
+//     */
+//    private static final int PICK_IMAGE = 100;
+//
+//    //TODO
+//    /**
+//     * uri of avatar.
+//     */
+//    Uri imageUri;
+//
+//    /**
+//     * the string of uri.
+//     */
+//    String stringUri;
 
     /**
      * The accountManager.
@@ -56,32 +56,32 @@ public class SignUpActivity extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        Button choosePictureButton = findViewById(R.id.choose_picture_button);
-        picImageView = findViewById(R.id.imageButton);
-
-        choosePictureButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openGallery();
-            }
-        });
+//        Button choosePictureButton = findViewById(R.id.choose_picture_button);
+//        picImageView = findViewById(R.id.imageButton);
+//
+//        choosePictureButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                openGallery();
+//            }
+//        });
         setupCreateUserButtonListener();
     }
 
 
-    private void openGallery() {
-        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        startActivityForResult(gallery, PICK_IMAGE);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
-            imageUri = data.getData();
-            picImageView.setImageURI(imageUri);
-        }
-    }
+//    private void openGallery() {
+//        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+//        startActivityForResult(gallery, PICK_IMAGE);
+//    }
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
+//            imageUri = data.getData();
+//            picImageView.setImageURI(imageUri);
+//        }
+//    }
 
     /**
      * Set up the createBooms user button.
@@ -173,7 +173,7 @@ public class SignUpActivity extends AppCompatActivity implements Serializable {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(stringUri);
+//            outputStream.writeObject(stringUri);
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
