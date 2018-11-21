@@ -91,7 +91,7 @@ public class MineGestureDetectGridView extends GridView implements Serializable 
              * The confirm of whether tapped or not.
              *
              * @param event the tap event.
-             * @return whether the user tapped or not.
+             * @return whether the user tapped or not.(execute other motions or not)
              */
             @Override
             public boolean onSingleTapConfirmed(MotionEvent event) {
@@ -102,10 +102,15 @@ public class MineGestureDetectGridView extends GridView implements Serializable 
                 return false;
             }
 
+            /**
+             * The double tap event.
+             * @param event the double tap event.
+             * @return whether the user double tapped.(execute other motions or not)
+             */
             @Override
-            public boolean onDoubleTap(MotionEvent e) {
+            public boolean onDoubleTap(MotionEvent event) {
                 int position = MineGestureDetectGridView.this.pointToPosition
-                        (Math.round(e.getX()), Math.round(e.getY()));
+                        (Math.round(event.getX()), Math.round(event.getY()));
 
                 mineMovementController.processDoubleTapMovement(position);
                 return false;
@@ -115,7 +120,7 @@ public class MineGestureDetectGridView extends GridView implements Serializable 
              * Whether there is a down event.
              *
              * @param event the event.
-             * @return whether the event is a down event.
+             * @return whether the event is a down event.(execute other motions or not)
              */
             @Override
             public boolean onDown(MotionEvent event) {

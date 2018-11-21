@@ -17,8 +17,16 @@ import java.util.ArrayList;
  * The setting activity for Mine game.
  */
 public class MineSettingActivity extends AppCompatActivity implements Serializable {
-
+    /**
+     * The mine manager.
+     */
     private MineManager mineManager;
+
+    /**
+     * The default creator for Mine Setting Activity.
+     *
+     * @param savedInstanceState the saved instance state.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,35 +53,36 @@ public class MineSettingActivity extends AppCompatActivity implements Serializab
              * @param arg2 the third argument.
              * @param arg3 the forth argument.
              */
-          @Override
-          public void onItemSelected(AdapterView<?> arg0, View arg1,
-                                     int arg2, long arg3) {
-              String item = (String) arg0.getSelectedItem();
-              Toast.makeText(getBaseContext(),
-                      "You have selected difficulty : " + item, Toast.LENGTH_SHORT).show();
-              switch (item) {
-                  case "EASY":
-                      mineManager.getMineBoard().setNumBoom(26);
-                      mineManager.setMineDifficulty("Easy");
-                      break;
-                  case "INTERMEDIATE":
-                      mineManager.getMineBoard().setNumBoom(40);
-                      mineManager.setMineDifficulty("Medium");
-                      break;
-                  case "PROFESSIONAL":
-                      mineManager.getMineBoard().setNumBoom(52);
-                      mineManager.setMineDifficulty("Hard");
-                      break;
-              }
-          }
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int arg2, long arg3) {
+                String item = (String) arg0.getSelectedItem();
+                Toast.makeText(getBaseContext(),
+                        "You have selected difficulty : " + item, Toast.LENGTH_SHORT).show();
+                switch (item) {
+                    case "EASY":
+                        mineManager.getMineBoard().setNumBoom(26);
+                        mineManager.setMineDifficulty("Easy");
+                        break;
+                    case "INTERMEDIATE":
+                        mineManager.getMineBoard().setNumBoom(40);
+                        mineManager.setMineDifficulty("Medium");
+                        break;
+                    case "PROFESSIONAL":
+                        mineManager.getMineBoard().setNumBoom(52);
+                        mineManager.setMineDifficulty("Hard");
+                        break;
+                }
+            }
 
             /**
              * default method when nothing selected.
              *
              * @param arg0 the argument view.
              */
-          @Override
-          public void onNothingSelected(AdapterView<?> arg0) {}
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
         });
         addMineConfirmButtonListener();
     }

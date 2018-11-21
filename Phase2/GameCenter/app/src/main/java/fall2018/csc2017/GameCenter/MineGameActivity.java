@@ -10,10 +10,7 @@ import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -40,10 +37,6 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
      * The width and height of column.
      */
     private int columnWidth, columnHeight;
-    /**
-     * The file name for saving mine game.
-     */
-    private String mineFile = "mine_tmp.ser";
 
     /**
      * Set up the background image for each button based on the master list
@@ -56,7 +49,7 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
     }
 
     /**
-     * The default creater of mine game activity.
+     * The default creator of mine game activity.
      *
      * @param savedInstanceState the saved instance state of game activity.
      */
@@ -64,7 +57,6 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // loadFromFile(mineManager.getUserName() + "Mine.ser");
         mineManager = MineManager.getMineManager(this);
         createTileButtons(this);
         setContentView(R.layout.activity_mine_game);
@@ -150,30 +142,6 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
     protected void onPause() {
         super.onPause();
         saveToFile(StartingActivity.mineFile);
-    }
-
-    /**
-     * Load the mine manager from fileName.
-     *
-     * @param fileName the name of the file
-     */
-    private void loadFromFile(String fileName) {
-
-        try {
-            InputStream inputStream = this.openFileInput(fileName);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                mineManager = (MineManager) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " +
-                    e.toString());
-        }
     }
 
     /**

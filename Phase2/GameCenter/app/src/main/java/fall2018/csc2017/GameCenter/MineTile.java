@@ -98,6 +98,7 @@ class MineTile{
 
     /**
      * Setter for the background of a tile.
+     *
      * @param background the background.
      */
     public void setBackground(int background) { this.background = background; }
