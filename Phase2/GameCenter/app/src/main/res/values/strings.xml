@@ -14,4 +14,5 @@
     <string name="no_data">no data</string>
     <string name="back_to_home">Back to home</string>
     <string name="see_scoreboard">See Scoreboard</string>
+    <string name="play_again">Play Again!</string>
 </resources>
