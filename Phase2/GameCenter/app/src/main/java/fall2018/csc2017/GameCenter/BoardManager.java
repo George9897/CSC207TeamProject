@@ -341,9 +341,9 @@ class BoardManager extends Manager implements Serializable, Undoable {
     @Override
     public void undo() {
         if (undoLimit > 0) {
+            touchMove(listOfPosition.remove(listOfPosition.size() - 1));
             numMoves -= 2;
             undoLimit -= 2;
-            touchMove(listOfPosition.remove(listOfPosition.size() - 1));
             listOfPosition.remove(listOfPosition.size() - 1);
         }
     }
