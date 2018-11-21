@@ -40,9 +40,7 @@ class MineTile{
      *
      * @return the boolean of whether this mineTile is opened or not.
      */
-    boolean getIsOpened() {
-        return isOpened;
-    }
+    boolean getIsOpened() { return isOpened; }
 
     /**
      * Getter for the x coordinate.
@@ -98,6 +96,11 @@ class MineTile{
         this.y = y;
     }
 
+    /**
+     * Setter for the background of a tile.
+     * @param background the background.
+     */
+    public void setBackground(int background) { this.background = background; }
 
     /**
      * The constructor for tiles.
@@ -105,7 +108,6 @@ class MineTile{
     MineTile(int value, boolean isOpened) {
         this.value = value;
         this.isOpened = isOpened;
-        background = value;
         if (!isOpened) {
             background = R.drawable.tile_closed;
         } else {

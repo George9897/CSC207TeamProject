@@ -99,17 +99,16 @@ public class MineGestureDetectGridView extends GridView implements Serializable 
                         (Math.round(event.getX()), Math.round(event.getY()));
 
                 mineMovementController.processTapMovement(context, position);
-                return true;
+                return false;
             }
 
             @Override
-            public boolean onDoubleTap(MotionEvent event) {
-
+            public boolean onDoubleTap(MotionEvent e) {
                 int position = MineGestureDetectGridView.this.pointToPosition
-                        (Math.round(event.getX()), Math.round(event.getY()));
+                        (Math.round(e.getX()), Math.round(e.getY()));
 
                 mineMovementController.processDoubleTapMovement(position);
-                return true;
+                return false;
             }
 
             /**
@@ -120,7 +119,7 @@ public class MineGestureDetectGridView extends GridView implements Serializable 
              */
             @Override
             public boolean onDown(MotionEvent event) {
-                return true;
+                return false;
             }
 
         });

@@ -53,15 +53,15 @@ public class MineSettingActivity extends AppCompatActivity implements Serializab
                       "You have selected difficulty : " + item, Toast.LENGTH_SHORT).show();
               switch (item) {
                   case "EASY":
-                      mineManager.setNumBoom(26);
+                      MineManager.setNumBoom(26);
                       mineManager.setMineDifficulty("Easy");
                       break;
                   case "INTERMEDIATE":
-                      mineManager.setNumBoom(40);
+                      MineManager.setNumBoom(40);
                       mineManager.setMineDifficulty("Medium");
                       break;
                   case "PROFESSIONAL":
-                      mineManager.setNumBoom(52);
+                      MineManager.setNumBoom(52);
                       mineManager.setMineDifficulty("Hard");
                       break;
               }

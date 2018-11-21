@@ -46,7 +46,7 @@ public class MineManager extends Manager {
     /**
      * The number of booms in one game play.
      */
-    private int numBoom;
+    private static int numBoom;
     /**
      * The score after the user find out all the booms.
      */
@@ -143,7 +143,9 @@ public class MineManager extends Manager {
      *
      * @param numBoom the wanted number of booms.
      */
-    void setNumBoom(int numBoom) { this.numBoom = numBoom; }
+    static void setNumBoom(int numBoom) {
+        MineManager.numBoom = numBoom;
+    }
 
 
     /**
@@ -201,7 +203,8 @@ public class MineManager extends Manager {
         for (int row = 0; row < MineBoard.getSize(); row++) {
             for (int col = 0; col < MineBoard.getSize(); col++) {
                 if (!mineBoard.getMineTile(row, col).getIsOpened() &&
-                        mineBoard.getMineTile(row, col).getValue() == -2) {
+                        mineBoard.getMineTile(row, col).getBackground() ==
+                                R.drawable.tile_flagged) {
                     count++;
                 }
                 if (!mineBoard.getMineTile(row, col).getIsOpened() &&
@@ -240,7 +243,8 @@ public class MineManager extends Manager {
     private void failing(int position) {
         int row = position / MineBoard.getSize();
         int col = position % MineBoard.getSize();
-        if (mineBoard.getMineTile(row, col).getValue() == -1) {
+        if (mineBoard.getMineTile(row, col).getValue() == -1 &&
+                mineBoard.getMineTile(row, col).getIsOpened()) {
             time = scorer.getTimeScore();
             score = 0;
             timer.cancel();

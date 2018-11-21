@@ -234,7 +234,11 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
      * @param col the col of the tile.
      */
     void replaceToFlag(int row, int col) {
-        mineTile[row][col] = new MineTile(-2, false);
+        if (mineTile[row][col].getBackground() == R.drawable.tile_flagged) {
+            mineTile[row][col].setBackground(R.drawable.tile_closed);
+        }
+        else {
+            mineTile[row][col].setBackground(R.drawable.tile_flagged);}
         setChanged();
         notifyObservers();
     }
