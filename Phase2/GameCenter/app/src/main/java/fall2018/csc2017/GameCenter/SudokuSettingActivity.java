@@ -13,8 +13,6 @@ import android.widget.Toast;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import static fall2018.csc2017.GameCenter.MineManager.setNumBoom;
-
 public class SudokuSettingActivity extends AppCompatActivity implements Serializable {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

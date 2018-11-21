@@ -46,7 +46,7 @@ public class MineManager extends Manager {
     /**
      * The number of booms in one game play.
      */
-    private static int numBoom;
+    private int numBoom;
     /**
      * The score after the user find out all the booms.
      */
@@ -139,16 +139,6 @@ public class MineManager extends Manager {
     }
 
     /**
-     * Setter for number of booms.
-     *
-     * @param numBoom the wanted number of booms.
-     */
-    static void setNumBoom(int numBoom) {
-        MineManager.numBoom = numBoom;
-    }
-
-
-    /**
      * Create a initial list of Tiles for game with matching sizes.
      *
      * @return list of Tiles.
@@ -165,10 +155,11 @@ public class MineManager extends Manager {
     /**
      * The constructor of MineManager.
      */
-    MineManager(Context context) {
+    private MineManager(Context context) {
         this.context = context;
         this.mineTiles = createTiles();
         this.mineBoard = new MineBoard(mineTiles, numBoom, new Random());
+        this.numBoom = this.mineBoard.getNumBoom();
         timer.schedule(scorer, 0, 1000);
     }
 

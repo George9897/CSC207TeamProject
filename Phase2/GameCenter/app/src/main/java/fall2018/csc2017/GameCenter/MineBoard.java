@@ -47,10 +47,21 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
             {1, -1}};//lower-right
 
     /**
+     * Getter for the size of the board.
+     *
      * @return the size of the board.
      */
     public static int getSize() {
         return size;
+    }
+
+    /**
+     * Getter for the number of booms.
+     *
+     * @return the number of booms.
+     */
+    int getNumBoom() {
+        return numBoom;
     }
 
     /**
@@ -62,6 +73,15 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
      */
     MineTile getMineTile(int row, int col) {
         return mineTile[row][col];
+    }
+
+    /**
+     * Setter for the number of booms.
+     *
+     * @param numBoom the number of booms.
+     */
+    void setNumBoom(int numBoom) {
+        this.numBoom = numBoom;
     }
 
     /**
