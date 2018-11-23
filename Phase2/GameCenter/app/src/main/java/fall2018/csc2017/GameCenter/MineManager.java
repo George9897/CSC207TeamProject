@@ -160,7 +160,7 @@ public class MineManager extends Manager implements Serializable {
      *
      * @return list of Tiles.
      */
-    private List<MineTile> createTiles() {
+    List<MineTile> createTiles() {
         List<MineTile> mineTiles = new ArrayList<>();
         int numTiles = MineBoard.getSize() * MineBoard.getSize();
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {

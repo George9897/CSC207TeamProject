@@ -65,7 +65,7 @@ class BoardManager extends Manager implements Serializable, Undoable {
     /**
      *
      */
-    static String slidingtileDifficulty;
+    static String slidingTileDifficulty;
 
 
     /**
@@ -126,7 +126,7 @@ class BoardManager extends Manager implements Serializable, Undoable {
      *
      * @return list of Tiles.
      */
-    private List CreateTiles() {
+    List createTiles() {
         List<Tile> tiles = new ArrayList<>();
         final int numTiles = SlidingTile.level * SlidingTile.level;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
@@ -151,7 +151,7 @@ class BoardManager extends Manager implements Serializable, Undoable {
             this.undoLimit3 = 3;
             this.numMoves = 0;
             this.listOfPosition = new ArrayList<>();
-            List tiles = CreateTiles();
+            List tiles = createTiles();
             //Collections.shuffle(tiles)
             this.slidingTile = new SlidingTile(tiles);
             solvableShuffle();
@@ -312,7 +312,10 @@ class BoardManager extends Manager implements Serializable, Undoable {
         }
     }
 
-    public void makeMove(){
+    /**
+     * Move maker of sliding tile game.
+     */
+    private void makeMove(){
         numMoves++;
         undoLimit++;
         if (row != SlidingTile.level - 1 && (slidingTile.getTile(row + 1, col)).getId() ==

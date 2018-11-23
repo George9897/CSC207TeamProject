@@ -58,12 +58,12 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
 
         Spinner spinner = findViewById(R.id.spinner);
 
-        ArrayList<String> categories = new ArrayList<String>();
+        ArrayList<String> categories = new ArrayList<>();
         categories.add("4x4");
         categories.add("3x3");
         categories.add("5x5");
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, categories);
 
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -81,17 +81,17 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
                     case "3x3":
                         difficulty = 3;
                         SlidingTile.level = 3;
-                        BoardManager.slidingtileDifficulty = "Easy";
+                        BoardManager.slidingTileDifficulty = "Easy";
                         break;
                     case "4x4":
                         difficulty = 4;
                         SlidingTile.level = 4;
-                        BoardManager.slidingtileDifficulty = "Medium";
+                        BoardManager.slidingTileDifficulty = "Medium";
                         break;
                     default:
                         difficulty = 5;
                         SlidingTile.level = 5;
-                        BoardManager.slidingtileDifficulty = "Hard";
+                        BoardManager.slidingTileDifficulty = "Hard";
                         break;
                 }
             }
@@ -105,19 +105,16 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
         undoSwitch.setChecked(false);
         undoSwitch.setTextOn("Unlimited");
         undoSwitch.setTextOff("limited");
-        undoSwitch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                undoLimited = undoSwitch.isChecked();
-                String statusSwitch;
-                if (undoSwitch.isChecked()) {
-                    statusSwitch = undoSwitch.getTextOn().toString();
-                } else {
-                    statusSwitch = undoSwitch.getTextOff().toString();
-                }
-                Toast.makeText(getApplicationContext(), "Undo Mode :" +
-                        statusSwitch, Toast.LENGTH_LONG).show();
+        undoSwitch.setOnClickListener(view -> {
+            undoLimited = undoSwitch.isChecked();
+            String statusSwitch;
+            if (undoSwitch.isChecked()) {
+                statusSwitch = undoSwitch.getTextOn().toString();
+            } else {
+                statusSwitch = undoSwitch.getTextOff().toString();
             }
+            Toast.makeText(getApplicationContext(), "Undo Mode :" +
+                    statusSwitch, Toast.LENGTH_LONG).show();
         });
     }
 

@@ -1,7 +1,6 @@
 package fall2018.csc2017.GameCenter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 
 import java.io.FileNotFoundException;
@@ -111,8 +110,8 @@ public class DetailScoreBoard implements Serializable {
             case "SlidingTile":
                 boardManager = BoardManager.getBoardManager(context);
                 score = boardManager.getScore();
-                if (boardManager.slidingtileDifficulty!=null) {
-                    level = boardManager.slidingtileDifficulty;
+                if (boardManager.slidingTileDifficulty !=null) {
+                    level = boardManager.slidingTileDifficulty;
                 }
                 username = boardManager.userName;
                 break;
