@@ -2,6 +2,7 @@ package fall2018.csc2017.GameCenter;
 
 import android.content.Context;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -10,7 +11,7 @@ import java.util.Timer;
 /**
  * The Mine game manager.
  */
-public class MineManager extends Manager {
+public class MineManager extends Manager implements Serializable {
     /**
      * The Mine board.
      */
