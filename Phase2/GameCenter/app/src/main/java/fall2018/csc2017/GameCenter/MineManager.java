@@ -120,6 +120,15 @@ public class MineManager extends Manager {
     }
 
     /**
+     * Getter for firstTap.
+     *
+     * @return whether tapped once or not.
+     */
+    boolean isFirstTap() {
+        return firstTap;
+    }
+
+    /**
      * Getter for mine tiles.
      *
      * @return the list of mine tiles.
@@ -136,6 +145,13 @@ public class MineManager extends Manager {
      */
     void setMineDifficulty(String mineDifficulty) {
         this.mineDifficulty = mineDifficulty;
+    }
+
+    /**
+     * Set the firstTap to false.
+     */
+    void setFirstTapToFalse() {
+        this.firstTap = false;
     }
 
     /**
@@ -194,7 +210,7 @@ public class MineManager extends Manager {
         for (int row = 0; row < MineBoard.getSize(); row++) {
             for (int col = 0; col < MineBoard.getSize(); col++) {
                 if (!mineBoard.getMineTile(row, col).getIsOpened() &&
-                        mineBoard.getMineTile(row, col).getBackground() ==
+                        mineBoard.getMineTile(row, col).getBackground() !=
                                 R.drawable.tile_flagged) {
                     count++;
                 }
@@ -208,17 +224,8 @@ public class MineManager extends Manager {
     }
 
     /**
-     * Move maker in Mine game.
-     */
-    void makeMove(int position){
-        mineBoard.touchOpen(position, firstTap);
-        firstTap = false;
-        failing(position);
-        winning();
-    }
-
-    /**
      * Check touch event is in the board range.
+     * Set firstTap to false if this is the first tap.
      *
      * @return True if x and y are in the range, false otherwise.
      */
@@ -231,25 +238,18 @@ public class MineManager extends Manager {
     /**
      * Game failing logic.
      */
-    private void failing(int position) {
-        int row = position / MineBoard.getSize();
-        int col = position % MineBoard.getSize();
-        if (mineBoard.getMineTile(row, col).getValue() == -1 &&
-                mineBoard.getMineTile(row, col).getIsOpened()) {
-            time = scorer.getTimeScore();
-            score = 0;
-            timer.cancel();
-        }
+    void failing() {
+        time = scorer.getTimeScore();
+        score = 0;
+        timer.cancel();
     }
 
     /**
      * Game winning logic.
      */
-    private void winning() {
-        if (puzzleSolved()) {
-            time = scorer.getTimeScore();
-            score = scorer.calculateScore(numBoom, time);
-            timer.cancel();
-        }
+    void winning() {
+        time = scorer.getTimeScore();
+        score = scorer.calculateScore(mineBoard.getNumBoom(), time);
+        timer.cancel();
     }
 }

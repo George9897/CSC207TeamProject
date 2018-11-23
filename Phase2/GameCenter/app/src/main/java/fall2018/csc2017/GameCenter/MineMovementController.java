@@ -62,10 +62,12 @@ class MineMovementController implements Serializable {
      */
     void processTapMovement(Context context, int position) {
         if(mineManager.isValidTap(position)) {
-            mineManager.makeMove(position);
+            mineManager.getMineBoard().touchOpen(position, mineManager.isFirstTap());
+            mineManager.setFirstTapToFalse();
             int row = position / MineBoard.getSize();
             int col = position % MineBoard.getSize();
             if (mineManager.getMineBoard().getMineTile(row, col).getValue() == -1) {
+                mineManager.failing();
                 new AlertDialog.Builder(context)
                         .setCancelable(false)
                         .setMessage("You Shall Not Pass！")
@@ -92,6 +94,7 @@ class MineMovementController implements Serializable {
             int col = position % MineBoard.getSize();
             mineManager.getMineBoard().replaceToFlag(row, col);
             if (mineManager.puzzleSolved()) {
+                mineManager.winning();
                 new AlertDialog.Builder(context)
                         .setCancelable(false)
                         .setMessage("Victory!")
