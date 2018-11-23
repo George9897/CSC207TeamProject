@@ -15,4 +15,5 @@
     <string name="back_to_home">Back to home</string>
     <string name="see_scoreboard">See Scoreboard</string>
     <string name="play_again">Play Again!</string>
+    <string name="finish">FINISH</string>
 </resources>

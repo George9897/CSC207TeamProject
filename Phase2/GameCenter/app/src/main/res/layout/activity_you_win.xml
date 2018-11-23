@@ -7,17 +7,17 @@
     tools:context="fall2018.csc2017.GameCenter.YouWinActivity">
 
     <TextView
-        android:id="@+id/youwinView"
-        android:layout_width="146dp"
-        android:layout_height="36dp"
+        android:id="@+id/finishView"
+        android:layout_width="302dp"
+        android:layout_height="85dp"
         android:layout_marginStart="124dp"
         android:layout_marginTop="92dp"
         android:layout_marginEnd="124dp"
         android:layout_marginBottom="94dp"
-        android:text="@string/victoury"
+        android:text="@string/finish"
         android:textAlignment="center"
         android:textAppearance="@android:style/TextAppearance.Large"
-        android:textSize="30sp"
+        android:textSize="58sp"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/scoreViewData"
         app:layout_constraintEnd_toEndOf="parent"
