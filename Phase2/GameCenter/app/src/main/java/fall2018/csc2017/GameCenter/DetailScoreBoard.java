@@ -1,13 +1,7 @@
 package fall2018.csc2017.GameCenter;
 
 import android.content.Context;
-import android.util.Log;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,23 +9,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static android.content.Context.MODE_PRIVATE;
-
 public class DetailScoreBoard implements Serializable {
 
-//    private TreeMap<Integer, String> scoreNameMap;
-//
-//    private List<Integer> sortedList;
-//
-//    public Integer getTopOneScore(String mode){
-//        return 1;
-//    }
-//
-//    public Integer getTopOneName(String mode){
-//        return 1;
-//    }
-
-    private String gametype;
+    private String gameType;
 
     String filename;
 
@@ -77,10 +57,10 @@ public class DetailScoreBoard implements Serializable {
     /**
      * Init AccountManager.
      */
-    private DetailScoreBoard(String gametype, Context context) {
-        this.gametype = gametype;
+    private DetailScoreBoard(String gameType, Context context) {
+        this.gameType = gameType;
         this.context = context;
-        filename = gametype + "DetailScoreBoard.ser";
+        filename = gameType + "DetailScoreBoard.ser";
     }
 
     /**
@@ -102,12 +82,12 @@ public class DetailScoreBoard implements Serializable {
     }
 
     private void collectScoreLevel(){
-        switch (gametype) {
+        switch (gameType) {
             case "SlidingTile":
                 BoardManager boardManager = BoardManager.getBoardManager(context);
                 score = boardManager.getScore();
-                if (boardManager.slidingTileDifficulty !=null) {
-                    level = boardManager.slidingTileDifficulty;
+                if (boardManager.getSlidingTileDifficulty() !=null) {
+                    level = boardManager.getSlidingTileDifficulty();
                 }
                 username = boardManager.userName;
                 break;
@@ -122,8 +102,8 @@ public class DetailScoreBoard implements Serializable {
             case "Sudoku":
                 SudokuBoardManager sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(context);
                 score = sudokuBoardManager.getScore();
-                if (sudokuBoardManager.sudokuDifficulty!=null) {
-                    level = sudokuBoardManager.sudokuDifficulty;
+                if (sudokuBoardManager.getSudokuDifficulty()!=null) {
+                    level = sudokuBoardManager.getSudokuDifficulty();
                 }
                 username = sudokuBoardManager.getUserName();
                 break;

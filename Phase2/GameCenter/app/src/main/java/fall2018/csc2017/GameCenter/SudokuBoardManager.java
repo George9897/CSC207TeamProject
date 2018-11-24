@@ -65,7 +65,7 @@ public class SudokuBoardManager extends Manager implements Serializable {
     /**
      *
      */
-    static String sudokuDifficulty;
+    private String sudokuDifficulty;
 
 //    /**
 //     * The time score for one game play.
@@ -120,7 +120,15 @@ public class SudokuBoardManager extends Manager implements Serializable {
         return score;
     }
 
-//
+    public String getSudokuDifficulty() {
+        return sudokuDifficulty;
+    }
+
+    public void setSudokuDifficulty(String sudokuDifficulty) {
+        this.sudokuDifficulty = sudokuDifficulty;
+    }
+
+    //
 //    /**
 //     * Setter for numBoom.
 //     *

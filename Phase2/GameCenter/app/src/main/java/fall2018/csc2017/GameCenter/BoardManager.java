@@ -65,8 +65,7 @@ class BoardManager extends Manager implements Serializable, Undoable {
     /**
      * The sliding tile Difficulty
      */
-    static String slidingTileDifficulty;
-
+    private String slidingTileDifficulty;
 
     /**
      * The undo limitation.
@@ -77,24 +76,6 @@ class BoardManager extends Manager implements Serializable, Undoable {
      * The undo limitation (Only 3 times allowed)
      */
     private int undoLimit3;
-
-    /**
-     * Getter for numMoves.
-     *
-     * @return numMoves.
-     */
-    int getNumMoves() {
-        return numMoves;
-    }
-
-    /**
-     * Getter for score.
-     *
-     * @return score.
-     */
-    public int getScore() {
-        return score;
-    }
 
     /**
      * Getter for slidingTile.
@@ -154,6 +135,32 @@ class BoardManager extends Manager implements Serializable, Undoable {
             this.slidingTile = new SlidingTile(tiles);
             solvableShuffle();
         }
+    }
+
+    /**
+     * Getter for numMoves.
+     *
+     * @return numMoves.
+     */
+    int getNumMoves() {
+        return numMoves;
+    }
+
+    /**
+     * Getter for score.
+     *
+     * @return score.
+     */
+    public int getScore() {
+        return score;
+    }
+
+    public String getSlidingTileDifficulty() {
+        return slidingTileDifficulty;
+    }
+
+    public void setSlidingTileDifficulty(String slidingTileDifficulty) {
+        this.slidingTileDifficulty = slidingTileDifficulty;
     }
 
     /**
