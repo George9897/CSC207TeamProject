@@ -19,31 +19,87 @@ import java.io.Serializable;
 
 //TODO
 public class GestureDetectGridView extends GridView implements Serializable {
+    /**
+     * The swipe_min_distance
+     */
     public static final int SWIPE_MIN_DISTANCE = 100;
+
+    /**
+     *
+     */
     public static final int SWIPE_MAX_OFF_PATH = 100;
+
+    /**
+     *
+     */
     public static final int SWIPE_THRESHOLD_VELOCITY = 100;
+
+    /**
+     * The gesture detector
+     */
     private GestureDetector gDetector;
+
+    /**
+     * The movement controller
+     */
     private MovementController mController;
+    /**
+     * Whether fling is confirmed or not
+     */
     private boolean mFlingConfirmed = false;
+    /**
+     * TouchX
+     */
     private float mTouchX;
+    /**
+     * TouchY
+     */
     private float mTouchY;
+    /**
+     * The board manager
+     */
     private BoardManager boardManager;
 
+    /**
+     * The first constructor of SlidingTile Gesture Detect Grid View.
+     *
+     * @param context Context
+     */
     public GestureDetectGridView(Context context) {
         super(context);
         init(context);
     }
 
+    /**
+     * The second constructor of SlidingTile Gesture Detect Grid View.
+     *
+     * @param context Context
+     * @param attrs AttributeSet
+     */
     public GestureDetectGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
+    /**
+     * The third constructor of SlidingTile Gesture Detect Grid View.
+     * @param context Context
+     * @param attrs AttributeSet
+     * @param defStyleAttr DefStyleAttr
+     */
     public GestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
 
+    /**
+     * The fourth constructor of SlidingTile Gesture Detect Grid View.
+     *
+     * @param context Context
+     * @param attrs AttributeSet
+     * @param defStyleAttr DefStyleAttr
+     * @param defStyleRes DefStyleRes
+     */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP) // API 21
     public GestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr,
                                  int defStyleRes) {
@@ -51,6 +107,10 @@ public class GestureDetectGridView extends GridView implements Serializable {
         init(context);
     }
 
+    /**
+     * Initialize a new grid view
+     * @param context Context
+     */
     private void init(final Context context) {
         mController = new MovementController();
         gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
@@ -72,6 +132,11 @@ public class GestureDetectGridView extends GridView implements Serializable {
         });
     }
 
+    /**
+     * Whether the event is a intercept touch event.
+     * @param ev MotionEvent
+     * @return Whether the event is a intercept touch event.
+     */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         int action = ev.getActionMasked();
@@ -99,6 +164,11 @@ public class GestureDetectGridView extends GridView implements Serializable {
         return super.onInterceptTouchEvent(ev);
     }
 
+    /**
+     * Whether the user touched or not.
+     * @param ev MotionEvent
+     * @return whether the event is a touch event.
+     */
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         return gDetector.onTouchEvent(ev);

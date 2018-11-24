@@ -1,8 +1,9 @@
 package fall2018.csc2017.GameCenter;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -28,6 +29,7 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
      *
      * @param savedInstanceState the saved instance state.
      */
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,9 +1,11 @@
 package fall2018.csc2017.GameCenter;
 
+import java.io.Serializable;
+
 /**
  * The Tile for Mine.
  */
-class MineTile{
+class MineTile implements Serializable {
     /**
      * The value of this mineTile.
      * Representing how many booms nearby.

@@ -1,5 +1,6 @@
 package fall2018.csc2017.GameCenter;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -41,6 +42,7 @@ public class SignUpActivity extends AppCompatActivity implements Serializable {
     /**
      * Set up the createBooms user button.
      */
+    @SuppressLint("SetTextI18n")
     private void setupCreateUserButtonListener() {
         Button createUserButton = findViewById(R.id.create_user);
         createUserButton.setOnClickListener((v) -> {
@@ -99,6 +101,7 @@ public class SignUpActivity extends AppCompatActivity implements Serializable {
      * @param password2 re-enter password
      * @param username  the username
      */
+    @SuppressLint("SetTextI18n")
     private void helper_check_password_and_sign_up(String username, String password,
                                                    String password2) {
         if (!password.equals(password2)) {

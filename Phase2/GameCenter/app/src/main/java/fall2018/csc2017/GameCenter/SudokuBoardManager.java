@@ -84,7 +84,7 @@ public class SudokuBoardManager extends Manager implements Serializable {
     /**
      * The timer.
      */
-    private Timer timer = new Timer();
+    private transient Timer timer = new Timer();
 
     /**
      *

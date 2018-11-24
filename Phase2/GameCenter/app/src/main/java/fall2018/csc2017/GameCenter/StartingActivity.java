@@ -32,17 +32,18 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
      */
     public static final String sudokuFile = "sudoku_tmp.ser";
 
-    /**
-     * The slidingTile manager.
-     */
-    private AccountManager accountManager = AccountManager.getAccountManager();
-
     private BoardManager boardManager;
+
+    private MineManager mineManager;
+
+    private SudokuBoardManager sudokuBoardManager;
 
     /**
      * The singleton scoreBoard.
      */
     private ScoreBoard scoreBoard;
+
+    private String gameType;
 
     /**
      * Creator of of starting activity.
@@ -53,7 +54,21 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
         super.onCreate(savedInstanceState);
         scoreBoard = ScoreBoard.getScoreBoard(this);
         scoreBoard.buildLevelMap();
-        saveToFile(slidingFile);
+
+        Intent intent = getIntent();
+        gameType = intent.getStringExtra("gameType");
+
+        switch (gameType){
+            case "SlidingTile":
+                saveToFile(slidingFile);
+                break;
+            case "Mine":
+                saveToFile(mineFile);
+                break;
+            case "Sudoku":
+                saveToFile(sudokuFile);
+                break;
+        }
 
         setContentView(R.layout.activity_starting_);
         addStartButtonListener();
@@ -69,8 +84,20 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
     private void addStartButtonListener() {
         Button startButton = findViewById(R.id.StartButton);
         startButton.setOnClickListener(v -> {
-            Intent tmp = new Intent(this, GameCenterActivity.class);
-            startActivity(tmp);
+            switch (gameType){
+                case "SlidingTile":
+                    Intent slidingTile = new Intent(this, GameActivity.class);
+                    startActivity(slidingTile);
+                    break;
+                case "Mine":
+                    Intent mine = new Intent(this, MineGameActivity.class);
+                    startActivity(mine);
+                    break;
+                case "Sudoku":
+                    Intent sudoku = new Intent(this, SudokuBoardActivity.class);
+                    startActivity(sudoku);
+                    break;
+            }
         });
     }
 
@@ -80,13 +107,26 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
     private void addLoadButtonListener() {
         Button loadButton = findViewById(R.id.LoadButton);
         loadButton.setOnClickListener(v -> {
-            //loadFromFile(accountManager.userName + ".ser");
-            //saveToFile(slidingFile);
-            //switchToGame();
-            loadFromFile(mineFile);
-            saveToFile(mineFile);
-            makeToastLoadedText();
-            switchToMine();
+            switch (gameType){
+                case "SlidingTile":
+                    loadFromFile(slidingFile);
+                    saveToFile(slidingFile);
+                    makeToastLoadedText();
+                    switchToGame();
+                    break;
+                case "Mine":
+                    loadFromFile(mineFile);
+                    saveToFile(mineFile);
+                    makeToastLoadedText();
+                    switchToMine();
+                    break;
+                case "Sudoku":
+                    loadFromFile(sudokuFile);
+                    saveToFile(sudokuFile);
+                    makeToastLoadedText();
+                    switchToMine();
+                    break;
+            }
         });
     }
 
@@ -174,16 +214,40 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
     @Override
     protected void onResume() {
         super.onResume();
-        loadFromFile(slidingFile);
+        switch (gameType){
+            case "SlidingTile":
+                loadFromFile(slidingFile);
+                break;
+            case "Mine":
+                loadFromFile(mineFile);
+                break;
+            case "Sudoku":
+                loadFromFile(sudokuFile);
+                break;
+        }
     }
 
     /**
      * Switch to the GameActivity view to play the game.
      */
     private void switchToGame() {
-        Intent tmp = new Intent(this, GameActivity.class);
-        saveToFile(StartingActivity.slidingFile);
-        startActivity(tmp);
+        switch (gameType){
+            case "SlidingTile":
+                Intent slidingTile = new Intent(this, GameActivity.class);
+                saveToFile(slidingFile);
+                startActivity(slidingTile);
+                break;
+            case "Mine":
+                Intent mine = new Intent(this, MineGameActivity.class);
+                saveToFile(mineFile);
+                startActivity(mine);
+                break;
+            case "Sudoku":
+                Intent sudoku = new Intent(this, SudokuBoardActivity.class);
+                saveToFile(sudokuFile);
+                startActivity(sudoku);
+                break;
+        }
     }
 
     /**
@@ -197,9 +261,17 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
             InputStream inputStream = this.openFileInput(fileName);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                //TODO: 3 gmae board manager
-                //boardManager = (BoardManager) input.readObject();
-                MineManager mineManager = (MineManager) input.readObject();
+                switch (gameType){
+                    case "SlidingTile":
+                        boardManager = (BoardManager) input.readObject();
+                        break;
+                    case "Mine":
+                        mineManager = (MineManager) input.readObject();
+                        break;
+                    case "Sudoku":
+                        sudokuBoardManager = (SudokuBoardManager) input.readObject();
+                        break;
+                }
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
@@ -220,8 +292,17 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
-            //TODO: 3 gmae board manager
-            outputStream.writeObject(boardManager);
+            switch (gameType){
+                case "SlidingTile":
+                    outputStream.writeObject(boardManager);
+                    break;
+                case "Mine":
+                    outputStream.writeObject(mineManager);
+                    break;
+                case "Sudoku":
+                    outputStream.writeObject(sudokuBoardManager);
+                    break;
+            }
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());

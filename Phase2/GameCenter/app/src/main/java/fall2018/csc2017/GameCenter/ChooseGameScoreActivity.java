@@ -16,7 +16,9 @@ public class ChooseGameScoreActivity extends AppCompatActivity {
         addSDButtonListener();
         addMGButtonListener();
     }
-// TODO: Remember to update intent activity name.
+    /*
+     * Add MG button for mine game scoreboard
+     */
     private void addMGButtonListener() {
         Button mgButton = findViewById(R.id.minescore);
         mgButton.setOnClickListener(view -> {
@@ -26,6 +28,9 @@ public class ChooseGameScoreActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Add Sudouku scoreboard button
+     */
     private void addSDButtonListener() {
         Button sdButton = findViewById(R.id.sudoukuscore);
         sdButton.setOnClickListener(view -> {
@@ -35,6 +40,9 @@ public class ChooseGameScoreActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Add Slidingtile scoreboard button
+     */
     private void addSTButtonListener() {
         Button stButton = findViewById(R.id.slidingscore);
         stButton.setOnClickListener(view -> {
@@ -44,11 +52,17 @@ public class ChooseGameScoreActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Resume this activity
+     */
     @Override
     protected void onResume() {
         super.onResume();
     }
 
+    /**
+     * Pause this activity
+     */
     @Override
     protected void onPause() {
         super.onPause();
