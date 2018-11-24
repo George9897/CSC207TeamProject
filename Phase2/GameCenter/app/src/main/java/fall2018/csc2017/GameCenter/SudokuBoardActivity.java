@@ -3,8 +3,8 @@ package fall2018.csc2017.GameCenter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -315,9 +315,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
 
     private void addSudokuUndoButtonsListener() {
         Button undoButton = findViewById(R.id.sudokuUndoButton);
-        undoButton.setOnClickListener((v) -> {
-            sudokuBoardManager.undo();
-        });
+        undoButton.setOnClickListener((v) -> sudokuBoardManager.undo());
     }
 
     @Override

@@ -59,7 +59,7 @@ public class MineManager extends Manager implements Serializable {
     /**
      * The timer.
      */
-    private Timer timer = new Timer();
+    private transient Timer timer = new Timer();
     /**
      * The scorer for Mine game.
      */

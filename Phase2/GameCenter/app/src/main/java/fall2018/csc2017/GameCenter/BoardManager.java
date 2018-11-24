@@ -160,8 +160,7 @@ class BoardManager extends Manager implements Serializable, Undoable {
      * Shuffle tiles while gurantees a solution.
      */
     private void solvableShuffle() {
-        // TODO: implement this function!
-        // Constant for swaping directions.
+        // Constant for swapping directions.
         int level = SlidingTile.level;
         int left = -1;
         int right = 1;
@@ -177,7 +176,6 @@ class BoardManager extends Manager implements Serializable, Undoable {
             ArrayList swapChoices = new ArrayList();
             int row = bPosition / level;
             int col = bPosition % level;
-            ;
             Tile above = row == 0 ? null : slidingTile.getTile(row - 1, col);
             Tile below = row == level - 1 ? null : slidingTile.getTile(row + 1, col);
             Tile lefT = col == 0 ? null : slidingTile.getTile(row, col - 1);
@@ -202,10 +200,7 @@ class BoardManager extends Manager implements Serializable, Undoable {
             this.slidingTile.swapTiles(row, col, d / level, d % level);
             bPosition = d;
             k++;
-            //System.out.println(bPosition);
         }
-        //System.out.println(history);
-
     }
 
     /**
