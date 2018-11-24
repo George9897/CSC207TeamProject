@@ -2,6 +2,9 @@ package fall2018.csc2017.GameCenter;
 
 import java.io.Serializable;
 
+/**
+ * The Sudoku scorer for sudoku game.
+ */
 public class SudokuScorer extends Scorer implements Serializable{
 
     /**

@@ -8,7 +8,6 @@ This Class is an overwrite of the Base Adapter class
 It is designed to aid setting the button sizes and positions in the GridView
  */
 
-
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -21,12 +20,11 @@ import java.util.ArrayList;
  * The custom adapter.
  */
 public class SudokuCustomAdapter extends BaseAdapter implements Serializable {
-    private ArrayList<Button> mButtons = null;
+    private ArrayList<Button> mButtons;
     private int mColumnWidth, mColumnHeight;
-    private int move;
 
     /**
-     * The constructor for the cutom adapter.
+     * The constructor for the custom adapter.
      *
      * @param buttons      the buttons.
      * @param columnWidth  the width of column.

@@ -21,11 +21,11 @@ import java.util.ArrayList;
  * The custom adapter.
  */
 public class CustomAdapter extends BaseAdapter implements Serializable {
-    private ArrayList<Button> mButtons = null;
+    private ArrayList<Button> mButtons;
     private int mColumnWidth, mColumnHeight;
 
     /**
-     * The constructor for the cutom adapter.
+     * The constructor for the custom adapter.
      *
      * @param buttons      the buttons.
      * @param columnWidth  the width of column.

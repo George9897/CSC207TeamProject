@@ -7,9 +7,8 @@ https://github.com/DaveNOTDavid/sample-puzzle/blob/master/app/src/main/java/com/
 This extension of GridView contains built in logic for handling swipes between buttons
  */
 
-import android.annotation.TargetApi;
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -17,22 +16,14 @@ import android.widget.GridView;
 
 import java.io.Serializable;
 
-//TODO
+/**
+ * The gesture detect grid view of sliding tile game.
+ */
 public class GestureDetectGridView extends GridView implements Serializable {
     /**
      * The swipe_min_distance
      */
     public static final int SWIPE_MIN_DISTANCE = 100;
-
-    /**
-     *
-     */
-    public static final int SWIPE_MAX_OFF_PATH = 100;
-
-    /**
-     *
-     */
-    public static final int SWIPE_THRESHOLD_VELOCITY = 100;
 
     /**
      * The gesture detector
@@ -91,21 +82,21 @@ public class GestureDetectGridView extends GridView implements Serializable {
         super(context, attrs, defStyleAttr);
         init(context);
     }
-
-    /**
-     * The fourth constructor of SlidingTile Gesture Detect Grid View.
-     *
-     * @param context Context
-     * @param attrs AttributeSet
-     * @param defStyleAttr DefStyleAttr
-     * @param defStyleRes DefStyleRes
-     */
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP) // API 21
-    public GestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr,
-                                 int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(context);
-    }
+//
+//    /**
+//     * The fourth constructor of SlidingTile Gesture Detect Grid View.
+//     *
+//     * @param context Context
+//     * @param attrs AttributeSet
+//     * @param defStyleAttr DefStyleAttr
+//     * @param defStyleRes DefStyleRes
+//     */
+//    @TargetApi(Build.VERSION_CODES.LOLLIPOP) // API 21
+//    public GestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr,
+//                                 int defStyleRes) {
+//        super(context, attrs, defStyleAttr, defStyleRes);
+//        init(context);
+//    }
 
     /**
      * Initialize a new grid view
@@ -169,6 +160,7 @@ public class GestureDetectGridView extends GridView implements Serializable {
      * @param ev MotionEvent
      * @return whether the event is a touch event.
      */
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         return gDetector.onTouchEvent(ev);
