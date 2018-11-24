@@ -161,8 +161,9 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
         return size * size;
     }
 
+
     /**
-     * Generate booms.
+     * Randomly Generate booms.
      *
      * @param exception This position doesn't contain booms.
      */
@@ -173,13 +174,8 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
         for (int row = 0; row < size; row++) {
             allTile.addAll(Arrays.asList(mineTile[row]).subList(0, size));
         }
-        List<MineTile> boomTile = new LinkedList<>();
-        //Randomly generate booms.
-        for (int i = 0; i < numBoom; i++) {
-            int idx = randomize.nextInt(allTile.size());
-            boomTile.add(allTile.get(idx));
-            allTile.remove(idx);
-        }
+        List<MineTile> boomTile = randomGenerateBoomsList(allTile);
+
         //In order to make sure that the first tap is not a boom.
         if (!allTile.contains(exception)) {
             allTile.add(exception);
@@ -190,26 +186,56 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
             mineTile[nextBoomTile.getX()][nextBoomTile.getY()].setValue(-1);
         }
         //Add number to some tiles.
+        updateTiles();
+        setChanged();
+        notifyObservers();
+    }
+
+    /**
+     * randomly Generate BoomsList.
+     *
+     * @param givenTile a not random BoomsList.
+     * @return a random BoomsList.
+     */
+    private List<MineTile> randomGenerateBoomsList(List<MineTile> givenTile){
+        List<MineTile> boomTile = new LinkedList<>();
+        for (int i = 0; i < numBoom; i++) {
+            int idx = randomize.nextInt(givenTile.size());
+            boomTile.add(givenTile.get(idx));
+            givenTile.remove(idx);
+        }
+        return boomTile;
+    }
+
+    /**
+     * Update all tiles and build boom on tile with value -1.
+     */
+    private void updateTiles(){
         for (int row = 0; row < size; row++) {
             for (int col = 0; col < size; col++) {
                 int tileNum = this.mineTile[row][col].getValue();
                 if (tileNum == -1) {
-                    for (int k = 0; k < 8; k++) {
-                        int surroundingX = row + surrounding_directions[k][0],
-                                surroundingY = col + surrounding_directions[k][1];
-                        if (surroundingX >= 0 && surroundingX < size && surroundingY >= 0 &&
-                                surroundingY < size) {
-                            int currentValue = this.mineTile[surroundingX][surroundingY].getValue();
-                            if (currentValue != -1)
-                                currentValue += 1;
-                            this.mineTile[surroundingX][surroundingY].setValue(currentValue);
-                        }
-                    }
+                    buildBoom(row, col);
                 }
             }
         }
-        setChanged();
-        notifyObservers();
+    }
+
+    /**
+     * Build boom on given row and col.
+     */
+    private void buildBoom(int row, int col){
+        for (int k = 0; k < 8; k++) {
+            int surroundingX = row + surrounding_directions[k][0],
+                    surroundingY = col + surrounding_directions[k][1];
+            if (surroundingX >= 0 && surroundingX < size && surroundingY >= 0 &&
+                    surroundingY < size) {
+                int currentValue = this.mineTile[surroundingX][surroundingY].getValue();
+                if (currentValue != -1)
+                    currentValue += 1;
+                this.mineTile[surroundingX][surroundingY].setValue(currentValue);
+            }
+        }
     }
 
     /**
