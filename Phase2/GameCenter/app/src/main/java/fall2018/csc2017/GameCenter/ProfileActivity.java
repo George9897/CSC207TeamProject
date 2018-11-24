@@ -1,5 +1,6 @@
 package fall2018.csc2017.GameCenter;
 
+import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -52,6 +53,7 @@ public class ProfileActivity extends AppCompatActivity {
     /**
      * generate information when createBooms this activity.
      */
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
