@@ -110,8 +110,6 @@ class BoardManager extends Manager implements Serializable, Undoable {
         List<Tile> tiles = new ArrayList<>();
         final int numTiles = SlidingTile.level * SlidingTile.level;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            //TODO
-            // tiles.add(new Tile(tileNum, false));
             if (tileNum == numTiles - 1) {
                 tiles.add(new Tile(0));
             } else {
