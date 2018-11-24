@@ -11,6 +11,9 @@ import java.io.Serializable;
  */
 public class MovementController implements Serializable {
 
+    /**
+     * The board manager.
+     */
     private BoardManager boardManager;
 
     /**
@@ -22,21 +25,18 @@ public class MovementController implements Serializable {
     /**
      * Set a MovementController.
      *
-     * @param boardManager The boardmanager that is being set.
+     * @param boardManager The board manager that is being set.
      */
     public void setBoardManager(BoardManager boardManager) {
         this.boardManager = boardManager;
     }
 
-    //TODO
     /**
      * Process a tapping movement.
-     *
-     * @param context  The context.
+     *  @param context  The context.
      * @param position The position that is tapped.
-     * @param display  The display.
      */
-    void processTapMovement(Context context, int position, boolean display) {
+    void processTapMovement(Context context, int position) {
         if (boardManager.isValidTap(position)) {
             boardManager.touchMove(position);
             if (boardManager.puzzleSolved()) {

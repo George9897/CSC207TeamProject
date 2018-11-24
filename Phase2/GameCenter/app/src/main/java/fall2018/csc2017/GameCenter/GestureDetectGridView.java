@@ -60,7 +60,7 @@ public class GestureDetectGridView extends GridView implements Serializable {
                 int position = GestureDetectGridView.this.pointToPosition
                         (Math.round(event.getX()), Math.round(event.getY()));
 
-                mController.processTapMovement(context, position, true);
+                mController.processTapMovement(context, position);
                 return true;
             }
 

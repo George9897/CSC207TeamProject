@@ -1,8 +1,8 @@
 package fall2018.csc2017.GameCenter;
 
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,7 +32,6 @@ public class ProfileActivity extends AppCompatActivity {
      * avatar information.
      */
     ImageView userAvatar;
-
     /**
      * The AccountManager.
      */
@@ -63,10 +62,8 @@ public class ProfileActivity extends AppCompatActivity {
         usernameInfo = findViewById(R.id.usernameInfo);
         passwordInfo = findViewById(R.id.passwordInfo);
         recordInfo = findViewById(R.id.recordInfo);
-//        userAvatar = findViewById(R.id.avatarImage);
 
         loadFromFile(accountManager.userName + "Avatar.ser");
-        //avatar = Uri.parse(stringUri);
         usernameInfo.setText("Username: " + accountManager.userName);
         passwordInfo.setText("Password: " + accountManager.map.get(accountManager.userName));
         recordInfo.setText(record());
@@ -91,9 +88,8 @@ public class ProfileActivity extends AppCompatActivity {
         if (record5.equals("")) {
             record5 = "No records.";
         }
-        String result = "Records:\n\n5x5\n" + record5 + "\n\n" + "4x4\n" + record4
+        return "Records:\n\n5x5\n" + record5 + "\n\n" + "4x4\n" + record4
                 + "\n\n" + "3x3\n" + record3;
-        return result;
     }
 
     /**

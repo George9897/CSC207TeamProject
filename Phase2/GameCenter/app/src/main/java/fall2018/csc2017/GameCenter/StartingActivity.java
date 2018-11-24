@@ -20,10 +20,16 @@ import java.util.ArrayList;
  */
 public class StartingActivity extends AppCompatActivity implements Serializable {
     /**
-     * A temporary save file.
+     * A temporary save file for sliding tile.
      */
     public static final String slidingFile = "sliding_tmp.ser";
+    /**
+     * A temporary save file for mine.
+     */
     public static final String mineFile = "mine_tmp.ser";
+    /**
+     * A temporary save file for sudoku.
+     */
     public static final String sudokuFile = "sudoku_tmp.ser";
 
     /**
@@ -33,13 +39,15 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
 
     private BoardManager boardManager;
 
-    private MineManager mineManager;
-
     /**
      * The singleton scoreBoard.
      */
     private ScoreBoard scoreBoard;
 
+    /**
+     * Creator of of starting activity.
+     * @param savedInstanceState the saved instance state.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +90,9 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
         });
     }
 
+    /**
+     * Switch to mine game.
+     */
     private void switchToMine(){
         Intent tmp = new Intent(this, MineGameActivity.class);
         saveToFile(StartingActivity.mineFile);
@@ -188,7 +199,7 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 //TODO: 3 gmae board manager
                 //boardManager = (BoardManager) input.readObject();
-                mineManager = (MineManager) input.readObject();
+                MineManager mineManager = (MineManager) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
