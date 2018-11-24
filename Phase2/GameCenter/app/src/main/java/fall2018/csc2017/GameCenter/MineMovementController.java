@@ -1,20 +1,30 @@
 package fall2018.csc2017.GameCenter;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.widget.Toast;
+
 import java.io.Serializable;
 
 /**
  * The movement controller of game.
  */
 class MineMovementController implements Serializable {
-
+    /**
+     * The singleton mine manager.
+     */
     private static MineManager mineManager;
+    /**
+     * The context.
+     */
+    private Context context;
 
     /**
      * The constructor of MovementController.
      */
-    MineMovementController() {
+    MineMovementController(Context context) {
+        this.context = context;
     }
 
     /**
@@ -30,8 +40,10 @@ class MineMovementController implements Serializable {
      * Reset the game if the user choose to do so.
      */
     private void resetTheGame() {
-        mineManager = MineManager.getNewMineManager(mineManager.getContext());
-        mineManager.setTappedOnce(true);
+        MineManager.destroyMineManager();
+        mineManager = MineManager.getMineManager(context);
+        Intent tmp = new Intent(context, MineSettingActivity.class);
+        context.startActivity(tmp);
     }
 
     /**
@@ -50,20 +62,12 @@ class MineMovementController implements Serializable {
      */
     void processTapMovement(Context context, int position) {
         if(mineManager.isValidTap(position)) {
-            mineManager.makeMove(position);
-            if (mineManager.puzzleSolved()) {
-                new AlertDialog.Builder(context)
-                        .setCancelable(false)
-                        .setMessage("Victory!")
-                        .setPositiveButton("I want to play again.", (dialog, which) ->
-                                resetTheGame())
-                        .setNegativeButton("Quit", (dialog, which) -> finish())
-                        .create()
-                        .show();
-            }
+            mineManager.getMineBoard().touchOpen(position, mineManager.isFirstTap());
+            mineManager.setFirstTapToFalse();
             int row = position / MineBoard.getSize();
             int col = position % MineBoard.getSize();
-            if (mineManager.getMineBoard().getMineTile()[row][col].getValue() == -1) {
+            if (mineManager.getMineBoard().getMineTile(row, col).getValue() == -1) {
+                mineManager.failing();
                 new AlertDialog.Builder(context)
                         .setCancelable(false)
                         .setMessage("You Shall Not Pass！")
@@ -74,6 +78,35 @@ class MineMovementController implements Serializable {
                         .show();
             }
         }
+        else {
+            Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
+        }
+    }
 
+    /**
+     * Process a double tap movement.
+     *
+     * @param position the position that is been double tapped.
+     */
+    void processDoubleTapMovement(int position) {
+        if (mineManager.isValidTap(position)) {
+            int row = position / MineBoard.getSize();
+            int col = position % MineBoard.getSize();
+            mineManager.getMineBoard().replaceToFlag(row, col);
+            if (mineManager.puzzleSolved()) {
+                mineManager.winning();
+                new AlertDialog.Builder(context)
+                        .setCancelable(false)
+                        .setMessage("Victory!")
+                        .setPositiveButton("I want to play again.", (dialog, which) ->
+                                resetTheGame())
+                        .setNegativeButton("Quit", (dialog, which) -> finish())
+                        .create()
+                        .show();
+            }
+        }
+        else {
+            Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -13,7 +13,7 @@ import java.util.Timer;
 
 //TODO
 
-public class SudokuBoardManager implements Serializable {
+public class SudokuBoardManager extends Manager implements Serializable {
     /**
      * The serialVersionUID.
      */
@@ -85,7 +85,7 @@ public class SudokuBoardManager implements Serializable {
     /**
      * The timer.
      */
-    Timer timer = new Timer();
+    private Timer timer = new Timer();
 
     /**
      *
@@ -172,12 +172,12 @@ public class SudokuBoardManager implements Serializable {
      *
      * @return list of Tiles.
      */
-    private List CreateTiles() {
+    List createTiles() {
         createRandomSudoku();
         List<Tile> tiles = new ArrayList<>();
         final int numTiles = Sudoku.size * Sudoku.size;
         for (int i = 0; i != numTiles; i++) {
-            tiles.add(new Tile(sudokuNum[i], false));
+            tiles.add(new Tile(sudokuNum[i]));
         }
         return tiles;
     }
@@ -193,7 +193,7 @@ public class SudokuBoardManager implements Serializable {
         this.context = context;
         if (this.listOfPosition == null) {
             this.listOfPosition = new ArrayList<>();
-            List tiles = CreateTiles();
+            List tiles = createTiles();
             this.sudoku = new Sudoku(tiles);
             timer.schedule(scorer, 0, 1000);
         }
@@ -248,7 +248,7 @@ public class SudokuBoardManager implements Serializable {
         return checkCol(sudokuNum) && checkRow(sudokuNum) && checkSquare(sudokuNum);
     }
 
-    public void wining() {
+    void wining() {
         if (puzzleSolved()) {
             this.time = scorer.getTimeScore();
             this.score = scorer.calculateScore(difficulty, time);
@@ -355,7 +355,7 @@ public class SudokuBoardManager implements Serializable {
         randomChoose(0);
         switch (sudokuDifficulty) {
             case "Easy":
-                difficulty = 30;
+                difficulty = 1;
                 break;
             case "Medium":
                 difficulty = 40;
@@ -452,7 +452,7 @@ public class SudokuBoardManager implements Serializable {
         this.move = move;
     }
 
-    public void undo(){
+    void undo(){
         if (!undoList.isEmpty()) {
             int undoPosition = undoList.remove(undoList.size() - 1);
             sudoku.writeNum(undoPosition / Sudoku.size, undoPosition % Sudoku.size, 0);

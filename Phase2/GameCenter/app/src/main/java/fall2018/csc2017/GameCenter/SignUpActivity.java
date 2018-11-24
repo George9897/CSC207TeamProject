@@ -1,16 +1,11 @@
 package fall2018.csc2017.GameCenter;
 
 import android.content.Intent;
-import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -27,27 +22,6 @@ public class SignUpActivity extends AppCompatActivity implements Serializable {
     private TextView meg_box;
 
     /**
-     * for upload avatar.
-     */
-    private ImageView picImageView;
-
-    /**
-     * avatar.
-     */
-    private static final int PICK_IMAGE = 100;
-
-    //TODO
-    /**
-     * uri of avatar.
-     */
-    Uri imageUri;
-
-    /**
-     * the string of uri.
-     */
-    String stringUri;
-
-    /**
      * The accountManager.
      */
     AccountManager accountManager = AccountManager.getAccountManager();
@@ -56,31 +30,7 @@ public class SignUpActivity extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        Button choosePictureButton = findViewById(R.id.choose_picture_button);
-        picImageView = findViewById(R.id.imageButton);
-
-        choosePictureButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openGallery();
-            }
-        });
         setupCreateUserButtonListener();
-    }
-
-
-    private void openGallery() {
-        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        startActivityForResult(gallery, PICK_IMAGE);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
-            imageUri = data.getData();
-            picImageView.setImageURI(imageUri);
-        }
     }
 
     /**
@@ -156,8 +106,6 @@ public class SignUpActivity extends AppCompatActivity implements Serializable {
             } else {
                 meg_box.setText("Sign up successfully! Welcome!");
                 accountManager.setUp(username, password, this);
-                // stringUri = imageUri.toString();
-                saveToFile(username + "Avatar.ser");
                 Intent tmp = new Intent(this, GameCenterActivity.class);
                 startActivity(tmp);
             }
@@ -173,7 +121,6 @@ public class SignUpActivity extends AppCompatActivity implements Serializable {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(stringUri);
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());

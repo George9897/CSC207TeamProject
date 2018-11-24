@@ -144,6 +144,10 @@ public class AccountManager implements Serializable {
         }
     }
 
+    /**
+     * Getter for user name.
+     * @return the user name.
+     */
     String getUserName() {
         return userName;
     }

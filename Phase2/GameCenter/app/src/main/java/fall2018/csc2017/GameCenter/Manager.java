@@ -1,22 +1,38 @@
 package fall2018.csc2017.GameCenter;
 
+import java.util.List;
 
 /**
  * The Manager interface for board games.
  */
-public interface Manager {
+public abstract class Manager {
     /**
      * @return the score of a game play through.
      */
-    int getScore();
+    abstract int getScore();
 
     /**
      * @return Whether the board game is solved or not.
      */
-    boolean puzzleSolved();
+    abstract boolean puzzleSolved();
 
     /**
-     * The move maker for games.
+     * Creator of list of tiles for manager.
+     *
+     * @return the list.
      */
-    void makeMove(int position);
+    abstract List createTiles();
+
+    /**
+     * Whether the tap is in valid range.
+     *
+     * @param position tap position.
+     * @return whether the tap is valid or not.
+     */
+    abstract boolean isValidTap(int position);
+
+//    /**
+//     * The move maker for games.
+//     */
+//    abstract void makeMove(int position);
 }

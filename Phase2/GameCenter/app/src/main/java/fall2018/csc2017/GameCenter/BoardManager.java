@@ -11,7 +11,7 @@ import java.util.Random;
 /**
  * Manage a slidingTile, including swapping tiles, checking for a win, and managing taps.
  */
-class BoardManager implements Serializable, Undoable {
+class BoardManager extends Manager implements Serializable, Undoable {
     /**
      * The serialVersionUID.
      */
@@ -65,7 +65,7 @@ class BoardManager implements Serializable, Undoable {
     /**
      *
      */
-    static String slidingtileDifficulty;
+    static String slidingTileDifficulty;
 
 
     /**
@@ -126,16 +126,16 @@ class BoardManager implements Serializable, Undoable {
      *
      * @return list of Tiles.
      */
-    private List CreateTiles() {
+    List createTiles() {
         List<Tile> tiles = new ArrayList<>();
         final int numTiles = SlidingTile.level * SlidingTile.level;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             //TODO
             // tiles.add(new Tile(tileNum, false));
             if (tileNum == numTiles - 1) {
-                tiles.add(new Tile(0, false));
+                tiles.add(new Tile(0));
             } else {
-                tiles.add(new Tile(tileNum + 1, false));
+                tiles.add(new Tile(tileNum + 1));
             }
         }
         return tiles;
@@ -151,7 +151,7 @@ class BoardManager implements Serializable, Undoable {
             this.undoLimit3 = 3;
             this.numMoves = 0;
             this.listOfPosition = new ArrayList<>();
-            List tiles = CreateTiles();
+            List tiles = createTiles();
             //Collections.shuffle(tiles)
             this.slidingTile = new SlidingTile(tiles);
             solvableShuffle();
@@ -312,7 +312,10 @@ class BoardManager implements Serializable, Undoable {
         }
     }
 
-    public void makeMove(){
+    /**
+     * Move maker of sliding tile game.
+     */
+    private void makeMove(){
         numMoves++;
         undoLimit++;
         if (row != SlidingTile.level - 1 && (slidingTile.getTile(row + 1, col)).getId() ==
@@ -341,9 +344,9 @@ class BoardManager implements Serializable, Undoable {
     @Override
     public void undo() {
         if (undoLimit > 0) {
+            touchMove(listOfPosition.remove(listOfPosition.size() - 1));
             numMoves -= 2;
             undoLimit -= 2;
-            touchMove(listOfPosition.remove(listOfPosition.size() - 1));
             listOfPosition.remove(listOfPosition.size() - 1);
         }
     }

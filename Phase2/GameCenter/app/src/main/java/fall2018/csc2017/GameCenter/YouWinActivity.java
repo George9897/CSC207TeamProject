@@ -1,10 +1,13 @@
 package fall2018.csc2017.GameCenter;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.io.Serializable;
 
@@ -23,6 +26,7 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
 
     private String gameType;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,17 +38,24 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
         switch (gameType){
             case "SlidingTile":
                 boardManager = BoardManager.getBoardManager(this);
-                scoreBox.setText((Integer.toString(boardManager.getScore())));
+                scoreBox.setText("Your Score: " + (Integer.toString(boardManager.getScore())));
                 break;
             case "Mine":
                 mineManager = MineManager.getMineManager(this);
-                scoreBox.setText((Integer.toString(mineManager.getScore())) + "\n\r" + "Time: "
-                        + (Integer.toString(mineManager.getTime())) + " Second");
+                TextView youWinView = findViewById(R.id.finishView);
+                if (mineManager.puzzleSolved()) {
+                    youWinView.setText("Victory!");
+                }
+                else {
+                    youWinView.setText("Failed");
+                }
+                scoreBox.setText("Your Score: " + (Integer.toString(mineManager.getScore())) + "\n\r" + "Time: "
+                        + (Integer.toString(mineManager.getTime())) + " Seconds");
                 break;
             case "Sudoku":
                 sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
-                scoreBox.setText((Integer.toString(sudokuBoardManager.getScore())) + "\n\r" + "Time: "
-                        + (Integer.toString(sudokuBoardManager.getTime())) + " Second");
+                scoreBox.setText("Your Score: " + (Integer.toString(sudokuBoardManager.getScore())) + "\n\r" + "Time: "
+                        + (Integer.toString(sudokuBoardManager.getTime())) + " Seconds");
                 break;
         }
 
@@ -60,7 +71,7 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
         Button seeScoreButton = findViewById(R.id.seeScoreButton);
 
         seeScoreButton.setOnClickListener((v) -> {
-            Intent tmp = new Intent(this, DetailScoreBoardActivity.class);
+            Intent tmp = new Intent(this, ChooseGameScoreActivity.class);
             startActivity(tmp);
         });
     }

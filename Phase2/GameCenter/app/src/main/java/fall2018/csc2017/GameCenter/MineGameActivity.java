@@ -2,16 +2,15 @@ package fall2018.csc2017.GameCenter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,27 +21,22 @@ import java.util.Observer;
  * The GameActivity for Mine.
  */
 public class MineGameActivity extends AppCompatActivity implements Observer, Serializable {
-
     /**
      * The mine game manager.
      */
     MineManager mineManager;
-
     /**
      * The buttons to display.
      */
     private ArrayList<Button> tileButtons;
-
     /**
      * The GestureDetectGridView of this game.
      */
     private MineGestureDetectGridView gridView;
-
     /**
      * The width and height of column.
      */
     private int columnWidth, columnHeight;
-
 
     /**
      * Set up the background image for each button based on the master list
@@ -54,14 +48,19 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
         gridView.setAdapter(new MineCustomAdapter(tileButtons, columnWidth, columnHeight));
     }
 
+    /**
+     * The default creator of mine game activity.
+     *
+     * @param savedInstanceState the saved instance state of game activity.
+     */
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        loadFromFile(mineManager.getUserName() + "Mine.ser");
-        mineManager = MineManager.getNewMineManager(this);
+        mineManager = MineManager.getMineManager(this);
         createTileButtons(this);
         setContentView(R.layout.activity_mine_game);
+        addQuitButtonListener();
 
         gridView = findViewById(R.id.minegrid);
         gridView.setNumColumns(MineBoard.getSize());
@@ -82,6 +81,14 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
                         display();
                     }
                 });
+        new AlertDialog.Builder(this)
+                .setCancelable(false)
+                .setTitle("Rules:")
+                .setMessage("Leave those tiles that you think are booms alone! " +
+                        "Tap only when you consider that tile is not a boom. \n\n--Have fun!")
+                .setPositiveButton("Let the show start",null)
+                .create()
+                .show();
     }
 
     /**
@@ -92,10 +99,11 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
     private void createTileButtons(Context context) {
         mineManager = MineManager.getMineManager(this);
         tileButtons = new ArrayList<>();
-        for (int row = 0; row != MineBoard.getSize(); row++) {
-            for (int col = 0; col != MineBoard.getSize(); col++) {
+        for (int row = 0; row < MineBoard.getSize(); row++) {
+            for (int col = 0; col < MineBoard.getSize(); col++) {
                 Button tmp = new Button(context);
-                tmp.setBackgroundResource(mineManager.mineTiles.get(row*9+col).getBackground());
+                tmp.setBackgroundResource(mineManager.getMineTiles().get(row * MineBoard.getSize() +
+                        col).getBackground());
                 this.tileButtons.add(tmp);
             }
         }
@@ -117,35 +125,23 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
     }
 
     /**
+     * The listener of quit button.
+     */
+    private void addQuitButtonListener() {
+        Button mineQuitButton = findViewById(R.id.quit);
+        mineQuitButton.setOnClickListener((v) -> {
+            Intent tmp = new Intent(this, MineSettingActivity.class);
+            startActivity(tmp);
+        });
+    }
+
+    /**
      * Dispatch onPause() to fragments.
      */
     @Override
     protected void onPause() {
         super.onPause();
-        saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
-    }
-
-    /**
-     * Load the mine manager from fileName.
-     *
-     * @param fileName the name of the file
-     */
-    private void loadFromFile(String fileName) {
-
-        try {
-            InputStream inputStream = this.openFileInput(fileName);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                mineManager = (MineManager) input.readObject();
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-        }
+        saveToFile(StartingActivity.mineFile);
     }
 
     /**
@@ -164,7 +160,11 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
         }
     }
 
-
+    /**
+     * Update the screen view.
+     * @param o the observable object that need to be updated.
+     * @param arg the object that is required for the updating.
+     */
     @Override
     public void update(Observable o, Object arg) {
         display();
