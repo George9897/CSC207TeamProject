@@ -13,7 +13,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp">
 
-        <fall2018.csc2017.GameCenter.GestureDetectGridView xmlns:android="http://schemas.android.com/apk/res/android"
+        <fall2018.csc2017.GameCenter.SlidingTileGestureDetectGridView xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/grid"

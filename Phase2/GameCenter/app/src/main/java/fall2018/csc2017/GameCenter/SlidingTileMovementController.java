@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * The movement controller of game.
  */
-public class MovementController implements Serializable {
+public class SlidingTileMovementController implements Serializable {
 
     /**
      * The board manager.
@@ -17,13 +17,13 @@ public class MovementController implements Serializable {
     private BoardManager boardManager;
 
     /**
-     * The constructor of MovementController.
+     * The constructor of SlidingTileMovementController.
      */
-    MovementController() {
+    SlidingTileMovementController() {
     }
 
     /**
-     * Set a MovementController.
+     * Set a SlidingTileMovementController.
      *
      * @param boardManager The board manager that is being set.
      */

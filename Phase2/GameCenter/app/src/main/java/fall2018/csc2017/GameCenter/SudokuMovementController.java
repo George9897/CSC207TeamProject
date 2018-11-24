@@ -14,13 +14,13 @@ class SudokuMovementController implements Serializable {
     private SudokuBoardManager sudokuBoardManager;
 
     /**
-     * The constructor of MovementController.
+     * The constructor of SudokuMovementController.
      */
     SudokuMovementController() {
     }
 
     /**
-     * Set a MovementController.
+     * Set a SudokuMovementController.
      *
      * @param sudokuBoardManager The board manager that is being set.
      */

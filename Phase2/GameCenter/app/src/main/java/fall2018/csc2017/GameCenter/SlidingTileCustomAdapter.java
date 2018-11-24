@@ -20,7 +20,7 @@ import java.util.ArrayList;
 /**
  * The custom adapter.
  */
-public class CustomAdapter extends BaseAdapter implements Serializable {
+public class SlidingTileCustomAdapter extends BaseAdapter implements Serializable {
     private ArrayList<Button> mButtons;
     private int mColumnWidth, mColumnHeight;
 
@@ -31,7 +31,7 @@ public class CustomAdapter extends BaseAdapter implements Serializable {
      * @param columnWidth  the width of column.
      * @param columnHeight the height of column.
      */
-    CustomAdapter(ArrayList<Button> buttons, int columnWidth, int columnHeight) {
+    SlidingTileCustomAdapter(ArrayList<Button> buttons, int columnWidth, int columnHeight) {
         mButtons = buttons;
         mColumnWidth = columnWidth;
         mColumnHeight = columnHeight;

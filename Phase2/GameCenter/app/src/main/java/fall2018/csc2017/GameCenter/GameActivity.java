@@ -44,7 +44,7 @@ public class GameActivity extends AppCompatActivity implements Observer, Seriali
     /**
      * The GestureDetectGridView of this game.
      */
-    private GestureDetectGridView gridView;
+    private SlidingTileGestureDetectGridView gridView;
 
     /**
      * The width and height of column.
@@ -60,7 +60,7 @@ public class GameActivity extends AppCompatActivity implements Observer, Seriali
         updateTileButtons();
         TextView steps = findViewById(R.id.step);
         steps.setText("Step:" + Integer.toString(boardManager.getNumMoves()));
-        gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
+        gridView.setAdapter(new SlidingTileCustomAdapter(tileButtons, columnWidth, columnHeight));
     }
 
     /**
