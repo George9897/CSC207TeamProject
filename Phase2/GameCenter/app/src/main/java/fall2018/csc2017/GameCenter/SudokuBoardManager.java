@@ -1,8 +1,6 @@
 package fall2018.csc2017.GameCenter;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,6 +12,7 @@ import java.util.Timer;
 //TODO
 
 public class SudokuBoardManager extends Manager implements Serializable {
+
     /**
      * The serialVersionUID.
      */
@@ -220,15 +219,6 @@ public class SudokuBoardManager extends Manager implements Serializable {
     }
 
     /**
-     * Add a modified SlidingTile in the list of boards.
-     *
-     * @param position The position that was a blank tile.
-     */
-    private void addPosition(int position) {
-        listOfPosition.add(position);
-    }
-
-    /**
      * Return whether the tiles are in row-major order.
      *
      * @return whether the tiles are in row-major order
@@ -353,19 +343,21 @@ public class SudokuBoardManager extends Manager implements Serializable {
 
     private void createRandomSudoku() {
         randomChoose(0);
-        switch (sudokuDifficulty) {
-            case "Easy":
-                difficulty = 1;
-                break;
-            case "Medium":
-                difficulty = 40;
-                break;
-            case "Hard":
-                difficulty = 50;
-                break;
-            default:
-                difficulty = 50;
-                break;
+        if (sudokuDifficulty != null) {
+            switch (sudokuDifficulty) {
+                case "Easy":
+                    difficulty = 1;
+                    break;
+                case "Medium":
+                    difficulty = 40;
+                    break;
+                case "Hard":
+                    difficulty = 50;
+                    break;
+                default:
+                    difficulty = 50;
+                    break;
+            }
         }
         int[] x = new int[Sudoku.size * Sudoku.size];
         for (int i = 0; i < Sudoku.size * Sudoku.size; i++) {

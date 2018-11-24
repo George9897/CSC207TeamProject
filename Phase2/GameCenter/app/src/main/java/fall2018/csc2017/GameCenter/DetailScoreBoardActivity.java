@@ -3,9 +3,15 @@ package fall2018.csc2017.GameCenter;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.List;
 
@@ -14,8 +20,6 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
     /**
      * The boardManager that is used in that round.
      */
-    private Manager manager;
-
     private DetailScoreBoard detailScoreBoard;
 
     private String gameType;
@@ -28,7 +32,11 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
         gameType = intent.getStringExtra("gameTypeWantedToSee");
 
         getGameType();
-        detailScoreBoard = DetailScoreBoard.getDetailScoreBoard(gameType, this);
+        String filename = gameType + "ScoreBoard.ser";
+        loadFromFile(filename);
+        if (detailScoreBoard == null){
+            detailScoreBoard = DetailScoreBoard.getDetailScoreBoard(gameType, this);
+        }
         detailScoreBoard.display();
         TextView gameView = findViewById(R.id.GameView);
         gameView.setText(gameType);
@@ -36,26 +44,61 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
         setModeData(detailScoreBoard);
 
         addScoreQuitButtonsListener();
+        detailScoreBoard.destroyDetailScoreBoard();
+        saveToFile(filename);
+    }
+
+    /**
+     * Load the user account from fileName.
+     *
+     * @param fileName the save file which contains the dictionary of username and password
+     */
+    void loadFromFile(String fileName) {
+        try {
+            InputStream inputStream = this.openFileInput(fileName);
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                detailScoreBoard = (DetailScoreBoard) input.readObject();
+                inputStream.close();
+            }
+        } catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("login activity", "File contained unexpected data type: "
+                    + e.toString());
+        }
+    }
+
+
+    /**
+     * Save the user account to fileName.
+     *
+     * @param fileName the save file which contains the dictionary of username and password
+     */
+    private void saveToFile(String fileName) {
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(
+                    this.openFileOutput(fileName, MODE_PRIVATE));
+            outputStream.writeObject(detailScoreBoard);
+            outputStream.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!gameType.equals("")) {
+            detailScoreBoard.destroyDetailScoreBoard();
+        }
+        super.onBackPressed();
     }
 
     private void getGameType(){
 
     }
-
-    private void makeChanges(){
-        switch (gameType){
-            case "SlidingTile":
-                manager = BoardManager.getBoardManager(this);
-                break;
-            case "Mine":
-                manager = MineManager.getMineManager(this);
-                break;
-            case "Sudoku":
-                manager = SudokuBoardManager.getSudokuBoardManager(this);
-                break;
-        }
-    }
-
 
     private void setTopOnes(DetailScoreBoard scoreBoard){
         TextView easyTopOne = findViewById(R.id.easyTopOne);
@@ -108,6 +151,14 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
             Intent tmp = new Intent(this, StartingActivity.class);
             startActivity(tmp);
         });
+    }
+
+    /**
+     * Dispatch onStop() to fragments.
+     */
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
 }
