@@ -38,11 +38,6 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
 
     private SudokuBoardManager sudokuBoardManager;
 
-    /**
-     * The singleton scoreBoard.
-     */
-    private ScoreBoard scoreBoard;
-
     private String gameType;
 
     /**
@@ -52,8 +47,6 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        scoreBoard = ScoreBoard.getScoreBoard(this);
-        scoreBoard.buildLevelMap();
 
         Intent intent = getIntent();
         gameType = intent.getStringExtra("gameType");
@@ -145,8 +138,6 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
     private void addScoreboardButtonListener() {
         Button scoreboardButton = findViewById(R.id.scoreButton);
         scoreboardButton.setOnClickListener(view -> {
-            buildScoreFile(scoreBoard.getLevelOption());
-            scoreBoard.updateHighestScore();
             Intent tmp = new Intent(this, ChooseGameScoreActivity.class);
             startActivity(tmp);
         });
@@ -161,32 +152,6 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
             Intent tmp = new Intent(this, ProfileActivity.class);
             startActivity(tmp);
         });
-    }
-
-    /**
-     * Build level file based on levelOption.
-     *
-     * @param levelOption level of size of SlidingTile.
-     */
-    private void buildScoreFile(Integer[] levelOption) {
-        int index = 0;
-        while (index < levelOption.length) {
-            Integer level = levelOption[index];
-            String fileName = "level_" + Integer.toString(level) + "_File.ser";
-            ArrayList userScore = new ArrayList();
-            if (!scoreBoard.getLevelMap().containsKey(level)) {
-                scoreBoard.getLevelMap().put(level, userScore);
-                try {
-                    ObjectOutputStream outputStream = new ObjectOutputStream(
-                            this.openFileOutput(fileName, MODE_PRIVATE));
-                    outputStream.writeObject(scoreBoard.getLevelMap().get(level));
-                    outputStream.close();
-                } catch (IOException e) {
-                    Log.e("Exception", "File write failed: " + e.toString());
-                }
-            }
-            index++;
-        }
     }
 
     /**

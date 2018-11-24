@@ -19,7 +19,7 @@ import java.io.Serializable;
 /**
  * The gesture detect grid view of sliding tile game.
  */
-public class GestureDetectGridView extends GridView implements Serializable {
+public class SlidingTileGestureDetectGridView extends GridView implements Serializable {
     /**
      * The swipe_min_distance
      */
@@ -33,7 +33,7 @@ public class GestureDetectGridView extends GridView implements Serializable {
     /**
      * The movement controller
      */
-    private MovementController mController;
+    private SlidingTileMovementController mController;
     /**
      * Whether fling is confirmed or not
      */
@@ -56,7 +56,7 @@ public class GestureDetectGridView extends GridView implements Serializable {
      *
      * @param context Context
      */
-    public GestureDetectGridView(Context context) {
+    public SlidingTileGestureDetectGridView(Context context) {
         super(context);
         init(context);
     }
@@ -67,7 +67,7 @@ public class GestureDetectGridView extends GridView implements Serializable {
      * @param context Context
      * @param attrs AttributeSet
      */
-    public GestureDetectGridView(Context context, AttributeSet attrs) {
+    public SlidingTileGestureDetectGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
@@ -78,7 +78,7 @@ public class GestureDetectGridView extends GridView implements Serializable {
      * @param attrs AttributeSet
      * @param defStyleAttr DefStyleAttr
      */
-    public GestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SlidingTileGestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
@@ -103,12 +103,12 @@ public class GestureDetectGridView extends GridView implements Serializable {
      * @param context Context
      */
     private void init(final Context context) {
-        mController = new MovementController();
+        mController = new SlidingTileMovementController();
         gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
 
             @Override
             public boolean onSingleTapConfirmed(MotionEvent event) {
-                int position = GestureDetectGridView.this.pointToPosition
+                int position = SlidingTileGestureDetectGridView.this.pointToPosition
                         (Math.round(event.getX()), Math.round(event.getY()));
 
                 mController.processTapMovement(context, position);
