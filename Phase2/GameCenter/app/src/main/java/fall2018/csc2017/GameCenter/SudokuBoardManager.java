@@ -9,13 +9,14 @@ import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 
-//TODO
-
+/**
+ * The sudoku board manager.
+ */
 public class SudokuBoardManager extends Manager implements Serializable {
 
-    /**
-     * The serialVersionUID.
-     */
+//    /**
+//     * The serialVersionUID.
+//     */
     //TODO: don't know for now
     //public static final long serialVersionUID = 7738996747003692034L;
 

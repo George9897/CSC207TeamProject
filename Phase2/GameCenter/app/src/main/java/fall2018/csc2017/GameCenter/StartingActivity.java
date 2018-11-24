@@ -13,8 +13,6 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
-
 /**
  * The initial activity for the sliding puzzle tile game.
  */
