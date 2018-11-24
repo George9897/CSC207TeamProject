@@ -250,7 +250,7 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
             createBooms(mineTile[row][col]);
         }
         replaceToTrue(row, col);
-        if (mineTile[row][col].getValue() == -1) {
+        if (mineTile[row][col].getValue() == -1 && mineTile[row][col].getIsOpened()) {
             displayAllBoom();
         }
         //tap the mineTile with a number.
