@@ -63,7 +63,7 @@ class BoardManager extends Manager implements Serializable, Undoable {
     private SlidingTileScorer scorer = new SlidingTileScorer();
 
     /**
-     *
+     * The sliding tile Difficulty
      */
     static String slidingTileDifficulty;
 
@@ -77,7 +77,6 @@ class BoardManager extends Manager implements Serializable, Undoable {
      * The undo limitation (Only 3 times allowed)
      */
     private int undoLimit3;
-
 
     /**
      * Getter for numMoves.
@@ -152,7 +151,6 @@ class BoardManager extends Manager implements Serializable, Undoable {
             this.numMoves = 0;
             this.listOfPosition = new ArrayList<>();
             List tiles = createTiles();
-            //Collections.shuffle(tiles)
             this.slidingTile = new SlidingTile(tiles);
             solvableShuffle();
         }
@@ -161,7 +159,7 @@ class BoardManager extends Manager implements Serializable, Undoable {
     /**
      * Shuffle tiles while gurantees a solution.
      */
-     private void solvableShuffle(){
+    private void solvableShuffle() {
         // TODO: implement this function!
         // Constant for swaping directions.
         int level = SlidingTile.level;
@@ -170,44 +168,43 @@ class BoardManager extends Manager implements Serializable, Undoable {
         int up = -(level);
 
         int k = 0;
-        //int blankID = 0;
-        int bPosi = (level)*(level)-1;
+        int bPosition = (level) * (level) - 1;
         // Random choose i
         Random r1 = new Random();
         int i = 50 + r1.nextInt(50);
         ArrayList history = new ArrayList();
-        while (k <= i){
+        while (k <= i) {
             ArrayList swapChoices = new ArrayList();
-            int random_direction;
-            int row = bPosi / level;
-            int col = bPosi % level;;
+            int row = bPosition / level;
+            int col = bPosition % level;
+            ;
             Tile above = row == 0 ? null : slidingTile.getTile(row - 1, col);
             Tile below = row == level - 1 ? null : slidingTile.getTile(row + 1, col);
             Tile lefT = col == 0 ? null : slidingTile.getTile(row, col - 1);
             Tile righT = col == level - 1 ? null : slidingTile.getTile(row, col + 1);
-            if (above != null){
+            if (above != null) {
                 swapChoices.add(up);
             }
-            if (below != null){
+            if (below != null) {
                 swapChoices.add(level);
             }
-            if (lefT != null){
+            if (lefT != null) {
                 swapChoices.add(left);
             }
-            if (righT != null){
+            if (righT != null) {
                 swapChoices.add(right);
             }
             // Random choose an element from swapChoices, then swap them.
             Random r2 = new Random();
-            int c = (int)(swapChoices.get(r2.nextInt(swapChoices.size())));
+            int c = (int) (swapChoices.get(r2.nextInt(swapChoices.size())));
             history.add(c);
-            int d = bPosi + c;
+            int d = bPosition + c;
             this.slidingTile.swapTiles(row, col, d / level, d % level);
-            bPosi = d;
+            bPosition = d;
             k++;
-            System.out.println(bPosi);
+            //System.out.println(bPosition);
         }
-        System.out.println(history);
+        //System.out.println(history);
 
     }
 
@@ -315,7 +312,7 @@ class BoardManager extends Manager implements Serializable, Undoable {
     /**
      * Move maker of sliding tile game.
      */
-    private void makeMove(){
+    private void makeMove() {
         numMoves++;
         undoLimit++;
         if (row != SlidingTile.level - 1 && (slidingTile.getTile(row + 1, col)).getId() ==

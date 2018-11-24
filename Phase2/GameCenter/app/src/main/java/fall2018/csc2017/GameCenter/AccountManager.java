@@ -69,7 +69,7 @@ public class AccountManager implements Serializable {
     public void setUp(String userName, String password, Context context) {
         this.userName = userName;
         map.put(userName, password);
-        saveToFile(SAVE_FILENAME, context);
+        saveToFile(context);
     }
 
     /**
@@ -88,7 +88,7 @@ public class AccountManager implements Serializable {
      * @return True iff username is in the file
      */
     boolean checkUsername(String userName, Context context) {
-        loadFromFile(SAVE_FILENAME, context);
+        loadFromFile(context);
         return map.containsKey(userName);
     }
 
@@ -100,7 +100,7 @@ public class AccountManager implements Serializable {
      * @return True iff the password is correct
      */
     boolean checkPassword(String userName, String password, Context context) {
-        loadFromFile(SAVE_FILENAME, context);
+        loadFromFile(context);
         String result = map.get(userName);
         return result.equals(password);
     }
@@ -108,11 +108,10 @@ public class AccountManager implements Serializable {
     /**
      * Load the user account from fileName.
      *
-     * @param fileName the save file which contains the dictionary of username and password
      */
-    private void loadFromFile(String fileName, Context context) {
+    private void loadFromFile(Context context) {
         try {
-            InputStream inputStream = context.openFileInput(fileName);
+            InputStream inputStream = context.openFileInput(AccountManager.SAVE_FILENAME);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 map = (Map<String, String>) input.readObject();
@@ -131,12 +130,11 @@ public class AccountManager implements Serializable {
     /**
      * Save the user account to fileName.
      *
-     * @param fileName the save file which contains the dictionary of username and password
      */
-    private void saveToFile(String fileName, Context context) {
+    private void saveToFile(Context context) {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
-                    context.openFileOutput(fileName, MODE_PRIVATE));
+                    context.openFileOutput(AccountManager.SAVE_FILENAME, MODE_PRIVATE));
             outputStream.writeObject(map);
             outputStream.close();
         } catch (IOException e) {
@@ -146,6 +144,7 @@ public class AccountManager implements Serializable {
 
     /**
      * Getter for user name.
+     *
      * @return the user name.
      */
     String getUserName() {

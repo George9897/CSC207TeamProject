@@ -37,21 +37,42 @@ public class CustomAdapter extends BaseAdapter implements Serializable {
         mColumnHeight = columnHeight;
     }
 
+    /**
+     * Get count of buttons
+     * @return how much buttons are there
+     */
     @Override
     public int getCount() {
         return mButtons.size();
     }
 
+    /**
+     * Get a button given a position
+     * @param position The position to find a button
+     * @return the button at given position
+     */
     @Override
     public Object getItem(int position) {
         return mButtons.get(position);
     }
 
+    /**
+     * Get id given a position
+     * @param position The position to find an id
+     * @return the id of the button
+     */
     @Override
     public long getItemId(int position) {
         return position;
     }
 
+    /**
+     * Fet view given position, convertView
+     * @param position The position to find
+     * @param convertView ConvertView
+     * @param parent Parent
+     * @return a button
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Button button;
