@@ -258,9 +258,6 @@ class BoardManager extends Manager implements Serializable, Undoable {
         if (solved) {
             score = scorer.calculateScore(slidingTile.getLevel(), getNumMoves());
             undoLimit = 0;
-            ScoreBoard scoreBoard = ScoreBoard.getScoreBoard(context);
-            scoreBoard.update(SlidingTile.level, userName, score);
-            scoreBoard.updateHighestScore();
         }
         return solved;
     }

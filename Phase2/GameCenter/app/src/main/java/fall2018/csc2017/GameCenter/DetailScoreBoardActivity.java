@@ -32,7 +32,7 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
         gameType = intent.getStringExtra("gameTypeWantedToSee");
 
         getGameType();
-        String filename = gameType + "ScoreBoard.ser";
+        String filename = gameType + "DetailScoreBoard.ser";
         loadFromFile(filename);
         if (detailScoreBoard == null){
             detailScoreBoard = DetailScoreBoard.getDetailScoreBoard(gameType, this);

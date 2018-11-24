@@ -80,13 +80,13 @@ public class DetailScoreBoard implements Serializable {
     private DetailScoreBoard(String gametype, Context context) {
         this.gametype = gametype;
         this.context = context;
-        filename = gametype + "ScoreBoard.ser";
+        filename = gametype + "DetailScoreBoard.ser";
     }
 
     /**
      * if DetailScoreBoard exist, get this DetailScoreBoard. Otherwise, createBooms one.
      *
-     * @return this Detail ScoreBoard
+     * @return this DetailScoreBoard
      */
     static DetailScoreBoard getDetailScoreBoard(String gametype, Context context) {
         if (detailScoreBoard == null) {
