@@ -58,15 +58,15 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mineManager = MineManager.getMineManager(this);
-        loadFromFile(mineManager.getUserName() + "Mine.ser");
+//        loadFromFile(mineManager.getUserName() + "Mine.ser");
+        mineManager = MineManager.getNewMineManager(this);
         createTileButtons(this);
         setContentView(R.layout.activity_mine_game);
 
         gridView = findViewById(R.id.minegrid);
         gridView.setNumColumns(MineBoard.getSize());
         gridView.setMineManager(mineManager);
-        mineManager.getMineBoard().addObserver(this);
+        mineManager.getMineBoard().addObserver(MineGameActivity.this);
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
                     @Override
@@ -105,14 +105,12 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateTileButtons() {
-        System.out.println("updateTileButtons");
         mineManager = MineManager.getMineManager(this);
         MineBoard mineBoard = mineManager.getMineBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
             int row = nextPos / MineBoard.getSize();
             int col = nextPos % MineBoard.getSize();
-            System.out.println(mineBoard.getMineTile(row, col).getValue());
             b.setBackgroundResource(mineBoard.getMineTile(row, col).getBackground());
             nextPos++;
         }

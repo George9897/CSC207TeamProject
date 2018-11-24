@@ -16,48 +16,6 @@ import java.util.Random;
  */
 class MineBoard extends Observable implements Serializable, Iterable<Tile> {
 
-    @NonNull
-    @Override
-    public Iterator iterator() {
-        return new MineBoard.MineTileIterator();
-    }
-    /**
-     * Iterate over tiles on the slidingTile
-     */
-    private class MineTileIterator implements Iterator<MineTile> {
-
-        /**
-         * The next tile.
-         */
-        private int next;
-
-        /**
-         * Check whether there is a next tile.
-         *
-         * @return a boolean that represent whether there is a next tile.
-         */
-        @Override
-        public boolean hasNext() {
-            return numTiles() > next;
-        }
-
-        /**
-         * Return the next tile.
-         *
-         * @return the next tile
-         */
-        @Override
-        public MineTile next() {
-            if (hasNext()) {
-                int row = next / size;
-                int col = next % size;
-                next++;
-                return mineTile[row][col];
-            }
-            throw new NoSuchElementException();
-        }
-    }
-
     /**
      * The board's number of booms.
      */
@@ -102,6 +60,48 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
         return mineTile;
     }
 
+    @NonNull
+    @Override
+    public Iterator iterator() {
+        return new MineBoard.MineTileIterator();
+    }
+    /**
+     * Iterate over tiles on the slidingTile
+     */
+    private class MineTileIterator implements Iterator<MineTile> {
+
+        /**
+         * The next tile.
+         */
+        private int next;
+
+        /**
+         * Check whether there is a next tile.
+         *
+         * @return a boolean that represent whether there is a next tile.
+         */
+        @Override
+        public boolean hasNext() {
+            return numTiles() > next;
+        }
+
+        /**
+         * Return the next tile.
+         *
+         * @return the next tile
+         */
+        @Override
+        public MineTile next() {
+            if (hasNext()) {
+                int row = next / size;
+                int col = next % size;
+                next++;
+                return mineTile[row][col];
+            }
+            throw new NoSuchElementException();
+        }
+    }
+
     /**
      * A new Mine game board.
      * Precondition: len(mineTiles) == level * level
@@ -116,11 +116,8 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
         for (int row = 0; row != size; row++) {
             for (int col = 0; col != size; col++) {
                 this.mineTile[row][col] = iter.next();
-                this.mineTile[row][col].setX(row);
-                this.mineTile[row][col].setY(col);
-                System.out.print(row);
-                System.out.print(" ," + col + " ,"+ this.mineTile[row][col].getValue());
-                System.out.println(" ");
+                this.mineTile[row][col].setX(col);
+                this.mineTile[row][col].setY(row);
             }
         }
     }
@@ -148,15 +145,13 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
      *
      * @param exception This position doesn't contain booms.
      */
-    public void createBooms(int exception) {
-        List<MineTile> allTile = new LinkedList<>();
+    public void createBooms(MineTile exception) {
+        List<MineTile> allTile = new ArrayList<>();
 
-        //Add all tiles.
+        //Add all the positions.
         for (int row = 0; row < size; row++) {
             for (int col = 0; col < size; col++) {
-                if (row*9+col!=exception) {
                     allTile.add(mineTile[row][col]);
-                }
             }
         }
         List<MineTile> boomTile = new LinkedList<>();
@@ -168,7 +163,7 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
         }
         //Mark the position of booms.
         for (MineTile nextBoomTile : boomTile) {
-            mineTile[nextBoomTile.getX()][nextBoomTile.getY()].setValue(-1);
+            mineTile[nextBoomTile.getY()][nextBoomTile.getX()].setValue(-1);
         }
         //Add number to some tiles.
         for (int row = 0; row < size; row++) {
@@ -176,8 +171,8 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
                 int tileNum = this.mineTile[row][col].getValue();
                 if (tileNum == -1) {
                     for (int k = 0; k < 8; k++) {
-                        int surroundingX = row + surrounding_directions[k][0],
-                                surroundingY = col + surrounding_directions[k][1];
+                        int surroundingX = col + surrounding_directions[k][0],
+                                surroundingY = row + surrounding_directions[k][1];
                         if (surroundingX >= 0 && surroundingX < size && surroundingY >= 0 &&
                                 surroundingY < size) {
                             int currentValue = this.mineTile[surroundingY][surroundingX].getValue();
@@ -205,33 +200,35 @@ class MineBoard extends Observable implements Serializable, Iterable<Tile> {
         int row = position / MineBoard.getSize();
         int col = position % MineBoard.getSize();
         if (!tappedOnce) {
-            createBooms(position);
-            System.out.println("create!!!!!!!!!!!!");
+            createBooms(mineTile[row][col]);
         }
-        System.out.println("tapppppppppppppppppppppp");
-        mineTile[row][col] = new MineTile(mineTile[row][col].getValue(), true);
-        if (mineTile[row][col].getValue() == -1) {
-            isDrawBooms = true;
-        }
-            //tap the mineTile with a number.
-        else if (mineTile[row][col].getValue() > 0) {
-            for (int i = 0; i < 8; i++) {
-                int surroundingX = col + surrounding_directions[i][0],
-                        surroundingY = row + surrounding_directions[i][1];
-                //Check given minePoint's surroundings and whether they are opened or not.
-                boolean isOpenable = surroundingX >= 0 && surroundingX < size &&
-                        surroundingY >= 0 && surroundingY < size;
-                if (isOpenable) {
-                    //Make all surroundings that is not boom white new tiles with nothing in it.
-                    if (mineTile[surroundingY][surroundingX].getValue() == 0 &&
-                            !mineTile[surroundingY][surroundingX].isOpened()) {
-                        mineTile[surroundingY][surroundingX] = new MineTile(mineTile[surroundingY][surroundingX].getValue(), true);
-                        //Show the special tile.
-                    } else if (mineTile[surroundingY][surroundingX].getValue() > 0) {
-                        mineTile[surroundingY][surroundingX] = new MineTile(mineTile[surroundingY][surroundingX].getValue(), true);
+        else {
+            mineTile[row][col] = new MineTile(mineTile[row][col].getValue(), true);
+            if (mineTile[row][col].getValue() == -1) {
+                isDrawBooms = true;
+            }
+                //tap the mineTile with a number.
+            else if (mineTile[row][col].getValue() >= 0) {
+                for (int i = 0; i < 8; i++) {
+                    int surroundingX = col + surrounding_directions[i][0],
+                            surroundingY = row + surrounding_directions[i][1];
+                    //Check given minePoint's surroundings and whether they are opened or not.
+                    boolean isOpenable = surroundingX >= 0 && surroundingX < size &&
+                            surroundingY >= 0 && surroundingY < size;
+                    if (isOpenable) {
+                        //Make all surroundings that is not boom white new tiles with nothing in it.
+                        if (mineTile[surroundingY][surroundingX].getValue() == 0 &&
+                                !mineTile[surroundingY][surroundingX].isOpened()) {
+                            mineTile[surroundingY][surroundingX] = new MineTile(mineTile[surroundingY][surroundingX].getValue(), true);
+                            //Show the special tile.
+                        } else if (mineTile[surroundingY][surroundingX].getValue() > 0) {
+                            mineTile[surroundingY][surroundingX] = new MineTile(mineTile[surroundingY][surroundingX].getValue(), true);
+                        }
                     }
                 }
             }
         }
+        setChanged();
+        notifyObservers();
     }
 }

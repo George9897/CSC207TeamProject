@@ -33,9 +33,10 @@ class MineTile{
     MineTile(int value, boolean isOpened) {
         this.value = value;
         this.isOpened = isOpened;
+        background = value;
         if (!isOpened) {
             background = R.drawable.tile_10;
-        }else switch (value) {
+        }else {switch (value) {
             case -1:
                 background = R.drawable.tile_13;
                 break;
@@ -66,8 +67,7 @@ class MineTile{
             case 8:
                 background = R.drawable.tile_8;
                 break;
-            default:
-                background = R.drawable.tile_0;
+        }
         }
     }
 

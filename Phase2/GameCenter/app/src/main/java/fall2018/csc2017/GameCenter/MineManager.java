@@ -66,7 +66,7 @@ public class MineManager implements Manager {
     private static MineManager mineManager;
 
 
-    List<MineTile> mineTiles;
+    List<MineTile> mineTiles = new ArrayList<>();
 
 
     /**
@@ -76,13 +76,11 @@ public class MineManager implements Manager {
      */
     private List CreateTiles() {
         List<MineTile> mineTiles = new ArrayList<>();
-        final int numTiles = MineBoard.getSize() * MineBoard.getSize();
-        System.out.println("Manager============================");
+        int numTiles = MineBoard.getSize() * MineBoard.getSize();
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            mineTiles.add(new MineTile(1, false));
-            System.out.print( tileNum + " ,"+ mineTiles.get(tileNum).getValue());
-            System.out.println(" ");
+            mineTiles.add(new MineTile(0, false));
         }
+        System.out.println(mineTiles.size());
         return mineTiles;
     }
     /**
@@ -90,8 +88,8 @@ public class MineManager implements Manager {
      */
     private MineManager(Context context) {
         this.context = context;
-        mineTiles = CreateTiles();
-        mineBoard = new MineBoard(mineTiles, numBoom, new Random());
+        this.mineTiles = CreateTiles();
+        this.mineBoard = new MineBoard(mineTiles, numBoom, new Random());
         timer.schedule(scorer, 0, 1000);
     }
 
@@ -189,7 +187,6 @@ public class MineManager implements Manager {
         if (isValidTap(position)) {
             mineBoard.touchOpen(position, tappedOnce);
             tappedOnce = true;
-            System.out.println("moveeeeeeeeeeeeeeeeeeeeeee");
             failing(position);
             winning();
         }
