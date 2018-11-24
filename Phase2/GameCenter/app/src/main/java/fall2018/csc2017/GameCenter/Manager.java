@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * The Manager interface for board games.
  */
-public abstract class Manager {
+abstract class Manager {
     /**
      * @return the score of a game play through.
      */
