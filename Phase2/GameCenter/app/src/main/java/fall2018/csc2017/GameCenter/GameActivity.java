@@ -63,6 +63,10 @@ public class GameActivity extends AppCompatActivity implements Observer, Seriali
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
     }
 
+    /**
+     * Create this activity
+     * @param savedInstanceState SavedInstanceState
+     */
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -228,6 +232,11 @@ public class GameActivity extends AppCompatActivity implements Observer, Seriali
         });
     }
 
+    /**
+     * Update the page
+     * @param o Observable
+     * @param arg An object
+     */
     @Override
     public void update(Observable o, Object arg) {
         display();
