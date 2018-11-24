@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 
-
 /**
  * A Tile in a sliding tiles puzzle.
  */
@@ -154,6 +153,11 @@ public class Tile implements Comparable<Tile>, Serializable {
             }
         }
 
+    /**
+     * Default compareTo method.
+     * @param o the object need to be compared to.
+     * @return the id difference between two objects.
+     */
     @Override
     public int compareTo(@NonNull Tile o) {
         return o.id - this.id;

@@ -1,13 +1,10 @@
 package fall2018.csc2017.GameCenter;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.io.Serializable;
 
@@ -26,7 +23,11 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
 
     private String gameType;
 
-    @SuppressLint("SetTextI18n")
+    /**
+     * The Creator for you win activity.
+     *
+     * @param savedInstanceState the saved instance state.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +59,6 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
                         + (Integer.toString(sudokuBoardManager.getTime())) + " Seconds");
                 break;
         }
-
         setUpSeeScoreButtonListener();
         setUpBackHButtonListener();
         setUpPlayAgainButtonListener();

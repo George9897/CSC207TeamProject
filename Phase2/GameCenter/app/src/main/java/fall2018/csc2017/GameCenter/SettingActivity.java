@@ -15,6 +15,9 @@ import android.widget.Toast;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * The setting activity.
+ */
 public class SettingActivity extends AppCompatActivity implements Serializable {
     /**
      * A temporary save file.
@@ -50,6 +53,11 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
      */
     boolean undoLimited;
 
+    /**
+     * The creator of setting activity.
+     *
+     * @param savedInstanceState the saved instance state.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
