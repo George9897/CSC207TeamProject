@@ -1,7 +1,6 @@
 package fall2018.csc2017.GameCenter;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -24,30 +23,21 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
      */
     public static final String TEMP_SAVE_FILENAME = "save_setting_file_tmp.ser";
     /**
-     * Chunked Images
-     */
-    public static ArrayList<Bitmap> chunkedImages;
-
-    /**
      * The slidingTile.
      */
     protected SlidingTile slidingTile;
-
     /**
      * The boardManager.
      */
     private BoardManager boardManager;
-
     /**
      * Track difficulty selected
      */
     protected int difficulty;
-
     /**
      * Switch for undo method.
      */
     Switch undoSwitch;
-
     /**
      * Limited undo or not.
      */

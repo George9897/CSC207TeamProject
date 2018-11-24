@@ -1,5 +1,6 @@
 package fall2018.csc2017.GameCenter;
 
+import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
@@ -19,10 +20,6 @@ public class ScoreBoardActivity extends AppCompatActivity implements Serializabl
      * The ScoreBoard.
      */
     private ScoreBoard scoreBoard;
-    /**
-     * The display of highest score.
-     */
-    private TextView highestScore;
     /**
      * display records for per user or per game.
      */
@@ -55,6 +52,7 @@ public class ScoreBoardActivity extends AppCompatActivity implements Serializabl
     /**
      * Create Button for per user.
      */
+    @SuppressLint("SetTextI18n")
     private void setupUserScoreButtonListener() {
         Button userScoreButton = findViewById(R.id.userScoreButton);
         userScoreButton.setOnClickListener((v) -> {
@@ -70,9 +68,7 @@ public class ScoreBoardActivity extends AppCompatActivity implements Serializabl
      */
     private void setupAllPlayerScoreButtonListener() {
         Button gameScoreButton = findViewById(R.id.gameScoreButton);
-        gameScoreButton.setOnClickListener((v) -> {
-            userScore = false;
-        });
+        gameScoreButton.setOnClickListener((v) -> userScore = false);
     }
 
     /**
@@ -80,7 +76,7 @@ public class ScoreBoardActivity extends AppCompatActivity implements Serializabl
      */
     private void setText() {
         scoreBoard = ScoreBoard.getScoreBoard(this);
-        highestScore = findViewById(R.id.highestScoreDisplayer);
+        TextView highestScore = findViewById(R.id.highestScoreDisplayer);
         highestScore.setText((Integer.toString(scoreBoard.getHighestScore())));
     }
 
