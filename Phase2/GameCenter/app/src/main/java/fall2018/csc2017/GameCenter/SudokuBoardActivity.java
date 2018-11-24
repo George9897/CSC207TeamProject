@@ -308,7 +308,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
     private void addSudokuQuitButtonsListener() {
         Button quitButton = findViewById(R.id.sudokuQuitButton);
         quitButton.setOnClickListener((v) -> {
-            Intent tmp = new Intent(this, StartingActivity.class);
+            Intent tmp = new Intent(this, SudokuSettingActivity.class);
             startActivity(tmp);
         });
     }

@@ -227,7 +227,7 @@ public class GameActivity extends AppCompatActivity implements Observer, Seriali
     private void addQuitButtonsListener() {
         Button quitButton = findViewById(R.id.nine);
         quitButton.setOnClickListener((v) -> {
-            Intent tmp = new Intent(this, StartingActivity.class);
+            Intent tmp = new Intent(this, SettingActivity.class);
             startActivity(tmp);
         });
     }
