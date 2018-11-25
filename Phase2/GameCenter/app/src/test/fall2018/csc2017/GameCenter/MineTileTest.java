@@ -23,62 +23,62 @@ public class MineTileTest {
      * Test whether the getValue works.
      */
     @Test
-    public void getValue() {
+    public void testGetValue() {
     }
 
     /**
      * Test whether the getIsOpened works.
      */
     @Test
-    public void getIsOpened() {
+    public void testGetIsOpened() {
     }
 
     /**
      * Test whether the getX works.
      */
     @Test
-    public void getX() {
+    public void testGetX() {
     }
 
     /**
      * Test whether the getY works.
      */
     @Test
-    public void getY() {
+    public void testGetY() {
     }
 
     /**
      * Test whether the getBackground works.
      */
     @Test
-    public void getBackground() {
+    public void testGetBackground() {
     }
 
     /**
      * Test whether the setValue works.
      */
     @Test
-    public void setValue() {
+    public void testSetValue() {
     }
 
     /**
      * Test whether the setX works.
      */
     @Test
-    public void setX() {
+    public void testSetX() {
     }
 
     /**
      * Test whether the setY works.
      */
     @Test
-    public void setY() {
+    public void testSetY() {
     }
 
     /**
      * Test whether the setBackground works.
      */
     @Test
-    public void setBackground() {
+    public void testSetBackground() {
     }
 }

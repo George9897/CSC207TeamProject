@@ -8,7 +8,10 @@ import java.util.Observable;
 
 import static org.junit.Assert.*;
 
-public class MineBoardTest extends Observable {
+/**
+ * Test for Mine board class.
+ */
+public class MineBoardTest {
 
     @Before
     public void setUp() throws Exception {
@@ -18,31 +21,52 @@ public class MineBoardTest extends Observable {
     public void tearDown() throws Exception {
     }
 
+    /**
+     * Test whether getSize works.
+     */
     @Test
-    public void getSize() {
+    public void testGetSize() {
     }
 
+    /**
+     * Test whether getNumber works.
+     */
     @Test
-    public void getNumBoom() {
+    public void testGetNumBoom() {
     }
 
+    /**
+     * Test whether getMineTile works.
+     */
     @Test
-    public void getMineTile() {
+    public void testGetMineTile() {
     }
 
+    /**
+     * Test whether setNumBoom works.
+     */
     @Test
-    public void setNumBoom() {
+    public void testSetNumBoom() {
     }
 
+//    /**
+//     * Test whether iterator works.
+//     */
+//    @Test
+//    public void iterator() {
+//    }
+
+    /**
+     * Test whether touchOpen works.
+     */
     @Test
-    public void iterator() {
+    public void testTouchOpen() {
     }
 
+    /**
+     * Test whether replaceToFlag works.
+     */
     @Test
-    public void touchOpen() {
-    }
-
-    @Test
-    public void replaceToFlag() {
+    public void testReplaceToFlag() {
     }
 }

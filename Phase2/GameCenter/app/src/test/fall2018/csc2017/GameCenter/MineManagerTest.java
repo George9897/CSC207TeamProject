@@ -7,7 +7,10 @@ import org.junit.Test;
 import java.io.Serializable;
 import java.util.List;
 
-public class MineManagerTest extends Manager implements Serializable {
+/**
+ * Test for mine manager class.
+ */
+public class MineManagerTest {
 
     @Before
     public void setUp() throws Exception {
@@ -17,75 +20,121 @@ public class MineManagerTest extends Manager implements Serializable {
     public void tearDown() throws Exception {
     }
 
+    /**
+     * Test whether getTime works.
+     */
     @Test
-    public void getTime() {
+    public void testGetTime() {
     }
 
+    /**
+     * Test whether getTime works.
+     */
     @Test
-    public int getScore() {
-        return 0;
+    public void testGetScore() {}
+
+    /**
+     * Test whether getTime works.
+     */
+    @Test
+    public void testGetMineBoard() {
     }
 
+    /**
+     * Test whether getTime works.
+     */
     @Test
-    public void getMineBoard() {
+    public void testGetUserName() {
     }
 
+    /**
+     * Test whether getTime works.
+     */
     @Test
-    public void getUserName() {
+    public void testGetContext() {
     }
 
+    /**
+     * Test whether getTime works.
+     */
     @Test
-    public void getContext() {
+    public void testGetMineDifficulty() {
     }
 
+    /**
+     * Test whether getTime works.
+     */
     @Test
-    public void getMineDifficulty() {
+    public void testIsFirstTap() {
     }
 
+    /**
+     * Test whether getTime works.
+     */
     @Test
-    public void isFirstTap() {
+    public void testGetMineTiles() {
     }
 
+    /**
+     * Test whether getTime works.
+     */
     @Test
-    public void getMineTiles() {
+    public void testSetMineDifficulty() {
     }
 
+    /**
+     * Test whether getTime works.
+     */
     @Test
-    public void setMineDifficulty() {
+    public void testsSetFirstTapToFalse() {
     }
 
+    /**
+     * Test whether getTime works.
+     */
     @Test
-    public void setFirstTapToFalse() {
+    public void testCreateTiles() {
     }
 
+    /**
+     * Test whether getTime works.
+     */
     @Test
-    public List createTiles() {
-        return null;
+    public void testGetMineManager() {
     }
 
+    /**
+     * Test whether getTime works.
+     */
     @Test
-    public void getMineManager() {
+    public void testDestroyMineManager() {
     }
 
+    /**
+     * Test whether getTime works.
+     */
     @Test
-    public void destroyMineManager() {
+    public void testPuzzleSolved() {
     }
 
+    /**
+     * Test whether getTime works.
+     */
     @Test
-    public boolean puzzleSolved() {
-        return false;
+    public void testIsValidTap() {
     }
 
+    /**
+     * Test whether getTime works.
+     */
     @Test
-    public boolean isValidTap(int position) {
-        return false;
+    public void testFailing() {
     }
 
+    /**
+     * Test whether getTime works.
+     */
     @Test
-    public void failing() {
-    }
-
-    @Test
-    public void winning() {
+    public void testWinning() {
     }
 }
