@@ -25,10 +25,6 @@ public class MineManager extends Manager implements Serializable {
      */
     private String userName;
     /**
-     * The mark of whether the user tapped for at least once.
-     */
-    private boolean firstTap = true;
-    /**
      * The context.
      */
     private Context context;
@@ -67,12 +63,12 @@ public class MineManager extends Manager implements Serializable {
      *
      * @return the status of losing.
      */
-    public boolean getLose(){return lose;}
+    boolean getLose(){return lose;}
 
     /**
      * Setter for status of losing.
      */
-    public void setLose(){lose = true;}
+    void setLose(){lose = true;}
 
     /**
      * Getter for the time passed.
@@ -143,15 +139,6 @@ public class MineManager extends Manager implements Serializable {
     }
 
     /**
-     * Getter for firstTap.
-     *
-     * @return whether tapped once or not.
-     */
-    boolean isFirstTap() {
-        return firstTap;
-    }
-
-    /**
      * Getter for mine tiles.
      *
      * @return the list of mine tiles.
@@ -170,12 +157,6 @@ public class MineManager extends Manager implements Serializable {
         this.mineDifficulty = mineDifficulty;
     }
 
-    /**
-     * Set the firstTap to false.
-     */
-    void setFirstTapToFalse() {
-        this.firstTap = false;
-    }
 
     /**
      * Create a initial list of Tiles for game with matching sizes.
@@ -194,7 +175,7 @@ public class MineManager extends Manager implements Serializable {
     /**
      * The constructor of MineManager.
      */
-    public MineManager(Context context) {
+    MineManager(Context context) {
         this.context = context;
         this.mineTiles = createTiles();
         this.mineBoard = new MineBoard(mineTiles, numBoom, new Random());

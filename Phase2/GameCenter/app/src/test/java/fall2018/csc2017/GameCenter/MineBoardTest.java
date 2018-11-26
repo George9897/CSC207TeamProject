@@ -114,6 +114,17 @@ public class MineBoardTest {
     }
 
     /**
+     * Test whether SetIsFirstTapToFalse works.
+     */
+    @Test
+    public void testSetIsFirstTapToFalse() {
+        setUp();
+        assertTrue(mineBoard.isFirstTap());
+        mineBoard.setFirstTapToFalse();
+        assertFalse(mineBoard.isFirstTap());
+    }
+
+    /**
      * Test whether touchOpen works.
      */
     @Test
@@ -126,7 +137,7 @@ public class MineBoardTest {
         assertEquals(0, testCreateBooms());
         assertFalse(mineBoard.getMineTile(0, 0).getIsOpened());
 
-        mineBoard.touchOpen(position, true);
+        mineBoard.touchOpen(position);
 
         assertEquals(2, testCreateBooms());
         assertTrue(mineBoard.getMineTile(0, 0).getIsOpened());
@@ -139,7 +150,7 @@ public class MineBoardTest {
         // test createBooms without first tap.
         mineBoard = new MineBoard(createTiles(), 1, new Random());
         assertEquals(0, testCreateBooms());
-        mineBoard.touchOpen(position, false);
+        mineBoard.touchOpen(position);
         assertEquals(0, testCreateBooms());
     }
 
