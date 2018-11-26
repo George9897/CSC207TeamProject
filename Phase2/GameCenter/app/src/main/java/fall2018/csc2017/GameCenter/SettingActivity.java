@@ -79,17 +79,17 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
                     case "3x3":
                         difficulty = 3;
                         SlidingTile.level = 3;
-                        BoardManager.slidingTileDifficulty = "Easy";
+                        boardManager.setSlidingTileDifficulty( "Easy");
                         break;
                     case "4x4":
                         difficulty = 4;
                         SlidingTile.level = 4;
-                        BoardManager.slidingTileDifficulty = "Medium";
+                        boardManager.setSlidingTileDifficulty( "Medium");
                         break;
                     default:
                         difficulty = 5;
                         SlidingTile.level = 5;
-                        BoardManager.slidingTileDifficulty = "Hard";
+                        boardManager.setSlidingTileDifficulty( "Hard");
                         break;
                 }
             }

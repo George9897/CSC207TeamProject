@@ -66,7 +66,7 @@ public class SudokuBoardManager extends Manager implements Serializable {
     /**
      *
      */
-    private String sudokuDifficulty;
+    static String sudokuDifficulty;
 
 //    /**
 //     * The time score for one game play.

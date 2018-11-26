@@ -68,6 +68,7 @@ class MineMovementController implements Serializable {
             int col = position % MineBoard.getSize();
             if (mineManager.getMineBoard().getMineTile(row, col).getValue() == -1) {
                 mineManager.failing();
+                mineManager.setLose();
                 new AlertDialog.Builder(context)
                         .setCancelable(false)
                         .setMessage("You Shall Not Pass！")

@@ -65,6 +65,12 @@ public class MineManager extends Manager implements Serializable {
      */
     private MineScorer scorer = new MineScorer();
 
+    private boolean lose = false;
+
+    boolean getLose(){return lose;}
+
+    void setLose(){lose = true;}
+
 
     /**
      * Getter for the time passed.
