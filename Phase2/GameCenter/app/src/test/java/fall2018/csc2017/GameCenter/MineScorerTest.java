@@ -37,6 +37,8 @@ public class MineScorerTest {
     @Test
     public void testCalculateScore() {
         assertEquals(26000, mineScorer.calculateScore(26,0));
+        assertEquals(0, mineScorer.getTimeScore());
         assertEquals(24728, mineScorer.calculateScore(26, 10));
+        assertEquals(10, mineScorer.getTimeScore());
     }
 }
