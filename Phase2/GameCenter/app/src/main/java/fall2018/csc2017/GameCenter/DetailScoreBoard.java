@@ -109,7 +109,7 @@ public class DetailScoreBoard implements Serializable {
             case "Mine":
                 loadFromFile(StartingActivity.mineFile);
                 if (mineManager == null){
-                    mineManager = new MineManager(this.context);
+                    mineManager = new MineManager(this.context, username, "EASY");
                 }
                 score = mineManager.getScore();
                 if (mineManager.getMineDifficulty()!=null) {

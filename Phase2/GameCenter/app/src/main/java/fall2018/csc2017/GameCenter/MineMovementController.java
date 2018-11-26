@@ -45,7 +45,6 @@ class MineMovementController implements Serializable {
      * Reset the game if the user choose to do so.
      */
     private void resetTheGame() {
-        mineManager = new MineManager(context);
         Intent tmp = new Intent(context, MineSettingActivity.class);
         context.startActivity(tmp);
     }
@@ -56,6 +55,7 @@ class MineMovementController implements Serializable {
     private void finish() {
         Intent tmp = new Intent(mineManager.getContext(), YouWinActivity.class);
         tmp.putExtra("gameType", "Mine");
+        tmp.putExtra("mineManager", mineManager);
         mineManager.getContext().startActivity(tmp);
     }
 
@@ -66,8 +66,7 @@ class MineMovementController implements Serializable {
      */
     void processTapMovement(Context context, int position) {
         if(mineManager.isValidTap(position)) {
-            mineManager.getMineBoard().touchOpen(position, mineManager.isFirstTap());
-            mineManager.setFirstTapToFalse();
+            mineManager.getMineBoard().touchOpen(position);
             int row = position / MineBoard.getSize();
             int col = position % MineBoard.getSize();
             if (mineManager.getMineBoard().getMineTile(row, col).getValue() == -1) {
