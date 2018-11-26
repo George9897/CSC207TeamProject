@@ -147,17 +147,6 @@ public class MineManager extends Manager implements Serializable {
         return mineTiles;
     }
 
-
-    /**
-     * Setter for mine game's difficulty.
-     *
-     * @param mineDifficulty the mine game's difficulty.
-     */
-    void setMineDifficulty(String mineDifficulty) {
-        this.mineDifficulty = mineDifficulty;
-    }
-
-
     /**
      * Create a initial list of Tiles for game with matching sizes.
      *
@@ -172,6 +161,13 @@ public class MineManager extends Manager implements Serializable {
         return mineTiles;
     }
 
+    /**
+     * The constructor for mine manager.
+     *
+     * @param context  the context.
+     * @param userName the user Name.
+     * @param level    the level.
+     */
     MineManager(Context context, String userName, String level){
         this.context = context;
         this.userName = userName;
@@ -182,16 +178,22 @@ public class MineManager extends Manager implements Serializable {
         timer.schedule(scorer, 0, 1000);
     }
 
+    /**
+     * Generate mine board by level input.
+     *
+     * @param level the level.
+     * @return the generated mine board.
+     */
     private MineBoard generateMineBoardByLevel(String level){
         switch (level) {
-                    case "EASY":
-                        return new MineBoard(mineTiles, 1, new Random());
-                    case "INTERMEDIATE":
-                        return new MineBoard(mineTiles, 40, new Random());
-                    case "PROFESSIONAL":
-                        return new MineBoard(mineTiles, 52, new Random());
-                }
-                return new MineBoard(mineTiles, numBoom, new Random());
+            case "EASY":
+                return new MineBoard(mineTiles, 1, new Random());
+            case "INTERMEDIATE":
+                return new MineBoard(mineTiles, 40, new Random());
+            case "PROFESSIONAL":
+                return new MineBoard(mineTiles, 52, new Random());
+        }
+        return new MineBoard(mineTiles, numBoom, new Random());
     }
 
     /**

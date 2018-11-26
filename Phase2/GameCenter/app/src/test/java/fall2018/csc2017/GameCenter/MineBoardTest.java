@@ -38,8 +38,14 @@ public class MineBoardTest {
             {0, -1},//lower
             {1, -1}};//lower-right
 
+    /**
+     * Number of booms for test.
+     */
     private int testBoomNumber = 40;
 
+    /**
+     * Test position.
+     */
     private int testPosition = 0;
     /**
      * The expected opened tiles used in test touchOpen.
@@ -225,7 +231,7 @@ public class MineBoardTest {
      */
     private int getExpectedOpenedTile(int position) {
         setUp();
-        int expectedOpenedTiles = 0;
+        expectedOpenedTiles = 0;
         int row = position / MineBoard.getSize();
         int col = position % MineBoard.getSize();
         Queue<Pair<Integer, Integer>> queue = new LinkedList<>();

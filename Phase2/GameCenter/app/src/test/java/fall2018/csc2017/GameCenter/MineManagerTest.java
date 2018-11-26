@@ -149,17 +149,6 @@ public class MineManagerTest {
     }
 
     /**
-     * Test whether SetMineDifficulty works.
-     */
-    @Test
-    public void testSetMineDifficulty() {
-        setUp();
-        assertNull(mineManager.getMineDifficulty());
-        mineManager.setMineDifficulty("Hard");
-        assertEquals("Hard", mineManager.getMineDifficulty());
-    }
-
-    /**
      * Test whether CreateTiles works.
      */
     @Test
