@@ -113,7 +113,7 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
          */
         @Override
         public boolean hasNext() {
-            return numTiles() > next;
+            return MineBoard.getSize() * MineBoard.getSize() > next;
         }
 
         /**
@@ -154,16 +154,6 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
     }
 
     /**
-     * Return the number of tiles on the mine game.
-     *
-     * @return the number of tiles on the mine game.
-     */
-    private int numTiles() {
-        return size * size;
-    }
-
-
-    /**
      * Randomly Generate booms.
      *
      * @param exception This position doesn't contain booms.
@@ -171,17 +161,15 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
     private void createBooms(MineTile exception) {
         List<MineTile> allTile = new ArrayList<>();
 
-        //Add all the positions.
+        //Add all the positions, except the first tapping one.
         for (int row = 0; row < size; row++) {
-            allTile.addAll(Arrays.asList(mineTile[row]).subList(0, size));
+            for (int col = 0; col < size; col++) {
+                if (mineTile[row][col] != exception) {
+                    allTile.add(mineTile[row][col]);
+                }
+            }
         }
         List<MineTile> boomTile = randomGenerateBoomsList(allTile);
-
-        //In order to make sure that the first tap is not a boom.
-        if (!allTile.contains(exception)) {
-            allTile.add(exception);
-            boomTile.remove(exception);
-        }
         //Mark the position of booms.
         for (MineTile nextBoomTile : boomTile) {
             mineTile[nextBoomTile.getX()][nextBoomTile.getY()].setValue(-1);
@@ -200,7 +188,7 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
      */
     private List<MineTile> randomGenerateBoomsList(List<MineTile> givenTile){
         List<MineTile> boomTile = new LinkedList<>();
-        for (int i = 0; i < numBoom; i++) {
+        for (int i = 0; i <= numBoom; i++) {
             int idx = randomize.nextInt(givenTile.size());
             boomTile.add(givenTile.get(idx));
             givenTile.remove(idx);

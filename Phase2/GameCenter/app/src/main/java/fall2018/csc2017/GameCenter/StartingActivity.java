@@ -51,7 +51,7 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
 
         switch (gameType){
             case "SlidingTile":
-                loadFromFile(slidingFile);
+//                loadFromFile(slidingFile);
                 break;
             case "Mine":
                 loadFromFile(mineFile);
@@ -102,19 +102,16 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
             switch (gameType){
                 case "SlidingTile":
                     loadFromFile(slidingFile);
-                    saveToFile(slidingFile);
                     makeToastLoadedText();
                     switchToGame();
                     break;
                 case "Mine":
                     loadFromFile(mineFile);
-                    saveToFile(mineFile);
                     makeToastLoadedText();
                     switchToGame();
                     break;
                 case "Sudoku":
                     loadFromFile(sudokuFile);
-                    saveToFile(sudokuFile);
                     makeToastLoadedText();
                     switchToGame();
                     break;
@@ -181,17 +178,6 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
     @Override
     protected void onResume() {
         super.onResume();
-        switch (gameType){
-            case "SlidingTile":
-                loadFromFile(slidingFile);
-                break;
-            case "Mine":
-                loadFromFile(mineFile);
-                break;
-            case "Sudoku":
-                loadFromFile(sudokuFile);
-                break;
-        }
     }
 
     /**
@@ -202,7 +188,6 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
             case "SlidingTile":
                 Intent slidingTile = new Intent(this, GameActivity.class);
                 loadFromFile(slidingFile);
-                saveToFile(slidingFile);
                 if(boardManager!=null) {
                     System.out.println(boardManager.userName + "============================");
                     slidingTile.putExtra("slidingTileBoardManager", boardManager);
