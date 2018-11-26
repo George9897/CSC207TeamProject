@@ -108,9 +108,6 @@ public class GameActivity extends AppCompatActivity implements Observer, Seriali
                         display();
                     }
                 });
-
-        Intent tmp = new Intent(this, YouWinActivity.class);
-        tmp.putExtra("slidingTileBoardManager", boardManager);
     }
 
     /**
