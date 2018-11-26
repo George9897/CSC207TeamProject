@@ -55,7 +55,7 @@ public class MineManager extends Manager implements Serializable {
     /**
      * The scorer for Mine game.
      */
-    private MineScorer scorer = new MineScorer();
+    MineScorer scorer = new MineScorer();
 
     /**
      * Status of losing.
