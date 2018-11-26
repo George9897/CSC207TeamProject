@@ -10,7 +10,10 @@ import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -57,7 +60,11 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
         mineManager = new MineManager(this);
+        if (intent.getExtras().getBoolean("load")){
+            loadFromFile(StartingActivity.mineFile);
+        }
         createTileButtons(this);
         setContentView(R.layout.activity_mine_game);
         addQuitButtonListener();
@@ -166,5 +173,28 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
     @Override
     public void update(Observable o, Object arg) {
         display();
+    }
+
+    /**
+     * Load the slidingTile manager from fileName.
+     *
+     * @param fileName the name of the file
+     */
+    private void loadFromFile(String fileName) {
+
+        try {
+            InputStream inputStream = this.openFileInput(fileName);
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                mineManager = (MineManager) input.readObject();
+                inputStream.close();
+            }
+        } catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+        }
     }
 }

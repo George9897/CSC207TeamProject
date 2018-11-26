@@ -155,7 +155,7 @@ class BoardManager extends Manager implements Serializable, Undoable {
             this.listOfPosition = new ArrayList<>();
             List tiles = createTiles();
             this.slidingTile = new SlidingTile(tiles, level);
-            solvableShuffle();
+            //solvableShuffle();
         }
     }
 

@@ -334,10 +334,10 @@ public class SudokuBoardManager extends Manager implements Serializable {
         if (sudokuDifficulty != null) {
             switch (sudokuDifficulty) {
                 case "Easy":
-                    difficulty = 30;
+                    difficulty = 2;
                     break;
                 case "Medium":
-                    difficulty = 40;
+                    difficulty = 2;
                     break;
                 case "Hard":
                     difficulty = 50;
