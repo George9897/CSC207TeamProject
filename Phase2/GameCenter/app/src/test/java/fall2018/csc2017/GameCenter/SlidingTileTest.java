@@ -14,65 +14,45 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class SlidingTileTest {
-    /*
-    The board manager for testing.
-    */
-    private BoardManager boardManager;
     /**
-     * Context for test.
+     * Sliding tile for test.
      */
-    private Context context;
-
-
+    private SlidingTile slidingTile;
     /**
-     * Create a initial list of Tiles for game with matching sizes.
-     *
-     * @return list of Tiles.
+     * The tiles on the slidingTile in row-major order.
      */
-    private List createTiles() {
-        List<Tile> tiles = new ArrayList<>();
-        final int numTiles = boardManager.getLevel() * boardManager.getLevel();
-        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            if (tileNum == numTiles - 1) {
-                tiles.add(new Tile(0));
-            } else {
-                tiles.add(new Tile(tileNum + 1));
-            }
-        }
-        return tiles;
-    }
+    private List<Tile> tiles;
 
     @Before
     public void setUp() throws Exception {
+        slidingTile = new SlidingTile(this.tiles, 3);
 
     }
 
     @After
     public void tearDown() throws Exception {
+        slidingTile = null;
+        tiles = null;
     }
-
-//    @Test    /**
-//     * Make a set of tiles that are in order.
-//     * @return a set of tiles that are in order
-//     */
-//    private List<Tile> makeTiles() {
-//        List<Tile> tiles = new ArrayList<>();
-//        final int numTiles = Board.NUM_ROWS * Board.NUM_COLS;
-//        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-//            tiles.add(new Tile(tileNum + 1, tileNum));
-//        }
-//
-//        return tiles;
-//    }
-//    public void iterator() {
-//    }
 
     @Test
     public void getLevel() {
+        assertEquals(3, slidingTile.getLevel());
+        slidingTile = new SlidingTile(tiles, 4);
+        assertEquals(4, slidingTile.getLevel());
+        slidingTile = new SlidingTile(tiles, 5);
+        assertEquals(5, slidingTile.getLevel());
+        slidingTile = new SlidingTile(tiles, 3);
     }
 
     @Test
     public void numTiles() {
+        assertEquals(9, slidingTile.numTiles());
+        slidingTile = new SlidingTile(tiles, 4);
+        assertEquals(16, slidingTile.numTiles());
+        slidingTile = new SlidingTile(tiles, 5);
+        assertEquals(25, slidingTile.numTiles());
+        slidingTile = new SlidingTile(tiles, 3);
     }
 
     @Test
@@ -92,11 +72,10 @@ public class SlidingTileTest {
      */
     @Test
     public void testSwapFirstTwo() {
-//         setUpCorrect();
-//        assertEquals(1, boardManager.getBoard().getTile(0, 0).getId());
-//        assertEquals(2, boardManager.getBoard().getTile(0, 1).getId());
+//        assertEquals(1, board.getTile(0, 0).getId());
+//        assertEquals(2, board.getTile(0, 1).getId());
 //        boardManager.getBoard().swapTiles(0, 0, 0, 1);
-//        assertEquals(2, boardManager.getBoard().getTile(0, 0).getId());
-//        assertEquals(1, boardManager.getBoard().getTile(0, 1).getId());
+//        assertEquals(2, board.getTile(0, 0).getId());
+//        assertEquals(1, board.getTile(0, 1).getId());
     }
 }
