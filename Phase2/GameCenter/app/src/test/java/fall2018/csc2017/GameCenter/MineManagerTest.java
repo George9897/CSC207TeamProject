@@ -20,7 +20,7 @@ public class MineManagerTest {
     /**
      * The mocked context for mine manager test.
      */
-    private Context context = new MockContext();
+    private Context context;
     /**
      * The mine manager for test.
      */
@@ -31,6 +31,7 @@ public class MineManagerTest {
      */
     @Before
     public void setUp() {
+        context = new MockContext();
         mineManager = new MineManager(context);
     }
 
