@@ -7,7 +7,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test mine manager test.
@@ -39,6 +42,9 @@ public class MineManagerTest {
         mineManager = null;
     }
 
+    /**
+     * Test whether get lose works.
+     */
     @Test
     public void testGetLose() {
         setUp();
@@ -46,6 +52,9 @@ public class MineManagerTest {
         assertTrue(mineManager.getLose());
     }
 
+    /**
+     * Test whether SetLose works.
+     */
     @Test
     public void testSetLose() {
         setUp();
@@ -54,12 +63,18 @@ public class MineManagerTest {
         assertTrue(mineManager.getLose());
     }
 
+    /**
+     * Test whether GetTime works.
+     */
     @Test
     public void testGetTime() {
         setUp();
         assertEquals(0 , mineManager.getTime());
     }
 
+    /**
+     * Test whether SetTime works.
+     */
     @Test
     public void testSetTime(){
         setUp();
@@ -67,12 +82,18 @@ public class MineManagerTest {
         assertEquals(0 , mineManager.getTime());
     }
 
+    /**
+     * Test whether GetScore works.
+     */
     @Test
     public void testGetScore() {
         setUp();
         assertEquals(0 , mineManager.getScore());
     }
 
+    /**
+     * Test whether SetScore works.
+     */
     @Test
     public void testSetScore() {
         setUp();
@@ -80,12 +101,18 @@ public class MineManagerTest {
         assertEquals(0 , mineManager.getScore());
     }
 
+    /**
+     * Test whether GetMineBoard works.
+     */
     @Test
     public void testGetMineBoard() {
         setUp();
         assertFalse(mineManager.getMineBoard().getMineTile(15, 15).getIsOpened());
     }
 
+    /**
+     * Test whether tGetUserName works.
+     */
     @Test
     public void testGetUserName() {
         setUp();
@@ -93,24 +120,36 @@ public class MineManagerTest {
 
     }
 
+    /**
+     * Test whether GetContext works.
+     */
     @Test
     public void testGetContext() {
         setUp();
         assertEquals(context, mineManager.getContext());
     }
 
+    /**
+     * Test whether GetMineDifficulty works.
+     */
     @Test
     public void testGetMineDifficulty() {
         setUp();
         assertNull(mineManager.getMineDifficulty());
     }
 
+    /**
+     * Test whether GetMineTiles works.
+     */
     @Test
     public void testGetMineTiles() {
         setUp();
         assertEquals(256, mineManager.getMineTiles().size());
     }
 
+    /**
+     * Test whether SetMineDifficulty works.
+     */
     @Test
     public void testSetMineDifficulty() {
         setUp();
@@ -119,12 +158,18 @@ public class MineManagerTest {
         assertEquals("Hard", mineManager.getMineDifficulty());
     }
 
+    /**
+     * Test whether CreateTiles works.
+     */
     @Test
     public void testCreateTiles() {
         setUp();
         assertEquals(256, mineManager.getMineTiles().size());
     }
 
+    /**
+     * Test whether PuzzleSolved works.
+     */
     @Test
     public void testPuzzleSolved() {
         setUp();
@@ -135,8 +180,7 @@ public class MineManagerTest {
             for (int col = 0; col < MineBoard.getSize(); col++) {
                 if (mineManager.getMineBoard().getMineTile(row, col).getValue() == -1) {
                     mineManager.getMineBoard().replaceToFlag(row, col);
-                }
-                else {
+                } else {
                     mineManager.getMineBoard().replaceToTrue(row, col);
                 }
             }
@@ -144,6 +188,9 @@ public class MineManagerTest {
         assertTrue(mineManager.puzzleSolved());
     }
 
+    /**
+     * Test whether IsValidTap works.
+     */
     @Test
     public void testIsValidTap() {
         setUp();
@@ -153,6 +200,9 @@ public class MineManagerTest {
         assertFalse(mineManager.isValidTap(0));
     }
 
+    /**
+     * Test whether Failing works.
+     */
     @Test
     public void testFailing() {
         setUp();
@@ -164,6 +214,9 @@ public class MineManagerTest {
 
     }
 
+    /**
+     * Test whether Winning works.
+     */
     @Test
     public void testWinning() {
         setUp();
@@ -176,6 +229,9 @@ public class MineManagerTest {
         assertEquals(9463, mineManager.getScore());
     }
 
+    /**
+     * Test whether SetUserName works.
+     */
     @Test
     public void testSetUserName() {
         setUp();
