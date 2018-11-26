@@ -1,8 +1,8 @@
 package fall2018.csc2017.GameCenter;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
 public class ChooseGameScoreActivity extends AppCompatActivity {
@@ -29,7 +29,7 @@ public class ChooseGameScoreActivity extends AppCompatActivity {
     }
 
     /**
-     * Add Sudouku scoreboard button
+     * Add Sudoku scoreboard button
      */
     private void addSDButtonListener() {
         Button sdButton = findViewById(R.id.sudoukuscore);
@@ -41,7 +41,7 @@ public class ChooseGameScoreActivity extends AppCompatActivity {
     }
 
     /**
-     * Add Slidingtile scoreboard button
+     * Add Sliding tile scoreboard button
      */
     private void addSTButtonListener() {
         Button stButton = findViewById(R.id.slidingscore);

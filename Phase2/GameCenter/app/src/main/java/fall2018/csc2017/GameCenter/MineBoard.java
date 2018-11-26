@@ -30,7 +30,7 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
      */
     private MineTile[][] mineTile = new MineTile[size][size];
     /**
-     * The randomizer of the tiles(booms).
+     * The randomization of the tiles(booms).
      */
     private Random randomize;
     /**
@@ -141,11 +141,11 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
     MineBoard(List<MineTile> tiles, int numBoom, Random randomize) {
         this.numBoom = numBoom;
         this.randomize = randomize;
-        Iterator<MineTile> iter = tiles.iterator();
+        Iterator<MineTile> iterator = tiles.iterator();
 
         for (int col = 0; col != size; col++) {
             for (int row = 0; row != size; row++) {
-                this.mineTile[row][col] = iter.next();
+                this.mineTile[row][col] = iterator.next();
                 this.mineTile[row][col].setX(row);
                 this.mineTile[row][col].setY(col);
             }

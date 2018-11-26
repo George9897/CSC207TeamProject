@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class MineTileTest {
+public class DetailScoreBoardTest {
 
     @Before
     public void setUp() throws Exception {
@@ -17,38 +17,38 @@ public class MineTileTest {
     }
 
     @Test
-    public void getValue() {
+    public void getDetailScoreBoard() {
     }
 
     @Test
-    public void getIsOpened() {
+    public void destroyDetailScoreBoard() {
     }
 
     @Test
-    public void getX() {
+    public void getEasyTopOne() {
     }
 
     @Test
-    public void getY() {
+    public void getMediumTopOne() {
     }
 
     @Test
-    public void getBackground() {
+    public void getHardTopOne() {
     }
 
     @Test
-    public void setValue() {
+    public void getEasySortedList() {
     }
 
     @Test
-    public void setX() {
+    public void getMediumSortedList() {
     }
 
     @Test
-    public void setY() {
+    public void getHardSortedList() {
     }
 
     @Test
-    public void setBackground() {
+    public void display() {
     }
 }

@@ -3,6 +3,7 @@ package fall2018.csc2017.GameCenter;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
+
 import java.io.Serializable;
 
 /**
@@ -13,15 +14,15 @@ class SudokuMovementController implements Serializable {
     private SudokuBoardManager sudokuBoardManager;
 
     /**
-     * The constructor of MovementController.
+     * The constructor of SudokuMovementController.
      */
     SudokuMovementController() {
     }
 
     /**
-     * Set a MovementController.
+     * Set a SudokuMovementController.
      *
-     * @param sudokuBoardManager The boardmanager that is being set.
+     * @param sudokuBoardManager The board manager that is being set.
      */
     void setSudokuBoardManager(SudokuBoardManager sudokuBoardManager) {
         this.sudokuBoardManager = sudokuBoardManager;

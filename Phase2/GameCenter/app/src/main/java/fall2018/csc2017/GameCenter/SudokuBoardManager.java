@@ -9,13 +9,14 @@ import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 
-//TODO
-
+/**
+ * The sudoku board manager.
+ */
 public class SudokuBoardManager extends Manager implements Serializable {
 
-    /**
-     * The serialVersionUID.
-     */
+//    /**
+//     * The serialVersionUID.
+//     */
     //TODO: don't know for now
     //public static final long serialVersionUID = 7738996747003692034L;
 
@@ -65,7 +66,7 @@ public class SudokuBoardManager extends Manager implements Serializable {
     /**
      *
      */
-    static String sudokuDifficulty;
+    private String sudokuDifficulty;
 
 //    /**
 //     * The time score for one game play.
@@ -120,7 +121,15 @@ public class SudokuBoardManager extends Manager implements Serializable {
         return score;
     }
 
-//
+    public String getSudokuDifficulty() {
+        return sudokuDifficulty;
+    }
+
+    public void setSudokuDifficulty(String sudokuDifficulty) {
+        this.sudokuDifficulty = sudokuDifficulty;
+    }
+
+    //
 //    /**
 //     * Setter for numBoom.
 //     *

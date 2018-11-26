@@ -21,14 +21,14 @@ class MineMovementController implements Serializable {
     private Context context;
 
     /**
-     * The constructor of MovementController.
+     * The constructor of MineMovementController.
      */
     MineMovementController(Context context) {
         this.context = context;
     }
 
     /**
-     * Set a MovementController.
+     * Set a MineMovementController.
      *
      * @param mineManager The manager that is being set.
      */

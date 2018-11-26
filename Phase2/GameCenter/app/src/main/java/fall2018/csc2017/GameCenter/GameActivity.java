@@ -3,8 +3,8 @@ package fall2018.csc2017.GameCenter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -44,7 +44,7 @@ public class GameActivity extends AppCompatActivity implements Observer, Seriali
     /**
      * The GestureDetectGridView of this game.
      */
-    private GestureDetectGridView gridView;
+    private SlidingTileGestureDetectGridView gridView;
 
     /**
      * The width and height of column.
@@ -60,7 +60,7 @@ public class GameActivity extends AppCompatActivity implements Observer, Seriali
         updateTileButtons();
         TextView steps = findViewById(R.id.step);
         steps.setText("Step:" + Integer.toString(boardManager.getNumMoves()));
-        gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
+        gridView.setAdapter(new SlidingTileCustomAdapter(tileButtons, columnWidth, columnHeight));
     }
 
     /**

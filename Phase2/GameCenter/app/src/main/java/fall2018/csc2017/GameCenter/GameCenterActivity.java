@@ -1,18 +1,19 @@
 package fall2018.csc2017.GameCenter;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+
+//TODO Delete?
+//import java.io.ObjectInputStream;
 
 /**
  * The GamaCenterActivity.
@@ -79,19 +80,19 @@ public class GameCenterActivity extends AppCompatActivity implements Serializabl
     @Override
     protected void onResume() {
         super.onResume();
-        loadFromFile(TEMP_SAVE_FILENAME);
+        loadFromFile();
     }
 
     /**
      * Load the slidingTile manager from fileName.
      *
-     * @param fileName the name of the file
      */
-    private void loadFromFile(String fileName) {
+    private void loadFromFile() {
         try {
-            InputStream inputStream = this.openFileInput(fileName);
+            InputStream inputStream = this.openFileInput(GameCenterActivity.TEMP_SAVE_FILENAME);
             if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
+                //TODO Delete?
+//                ObjectInputStream input = new ObjectInputStream(inputStream);
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {

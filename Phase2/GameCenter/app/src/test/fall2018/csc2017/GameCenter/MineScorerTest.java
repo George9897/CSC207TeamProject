@@ -8,7 +8,10 @@ import java.io.Serializable;
 
 import static org.junit.Assert.*;
 
-public class MineScorerTest extends Scorer implements Serializable {
+/**
+ * Test for mine scorer class.
+ */
+public class MineScorerTest {
 
     @Before
     public void setUp() throws Exception {
@@ -18,12 +21,10 @@ public class MineScorerTest extends Scorer implements Serializable {
     public void tearDown() throws Exception {
     }
 
+    /**
+     * Test whether calculateScore works.
+     */
     @Test
-    public void calculateScore() {
-    }
-
-    @Override
-    public int calculateScore(int level, int time) {
-        return 0;
+    public void testCalculateScore() {
     }
 }

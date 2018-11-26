@@ -7,9 +7,7 @@ This extension of GridView contains built in logic for handling swipes between b
  */
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -24,8 +22,8 @@ public class SudokuGestureDetectGridView extends GridView implements Serializabl
     private boolean mFlingConfirmed = false;
     private float mTouchX;
     private float mTouchY;
+    //TODO FIX?
     private SudokuBoardManager sudokuBoardManager;
-    private int move;
 
     public SudokuGestureDetectGridView(Context context) {
         super(context);

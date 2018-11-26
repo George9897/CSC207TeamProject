@@ -37,10 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
      * The AccountManager.
      */
     AccountManager accountManager;
-    /**
-     * The ScoreBoard.
-     */
-    ScoreBoard scoreBoard;
+
     /**
      * The Uri of avatar.
      */
@@ -60,7 +57,6 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         accountManager = AccountManager.getAccountManager();
-        scoreBoard = ScoreBoard.getScoreBoard(this);
         usernameInfo = findViewById(R.id.usernameInfo);
         passwordInfo = findViewById(R.id.passwordInfo);
         recordInfo = findViewById(R.id.recordInfo);
@@ -68,31 +64,31 @@ public class ProfileActivity extends AppCompatActivity {
         loadFromFile(accountManager.userName + "Avatar.ser");
         usernameInfo.setText("Username: " + accountManager.userName);
         passwordInfo.setText("Password: " + accountManager.map.get(accountManager.userName));
-        recordInfo.setText(record());
+        recordInfo.setText("No Record");
         userAvatar.setImageURI(avatar);
     }
 
-    /**
-     * helper function for records.
-     *
-     * @return record information.
-     */
-    private String record() {
-        String record5 = scoreBoard.toString(5, accountManager.userName);
-        String record4 = scoreBoard.toString(4, accountManager.userName);
-        String record3 = scoreBoard.toString(3, accountManager.userName);
-        if (record3.equals("")) {
-            record3 = "No records.";
-        }
-        if (record4.equals("")) {
-            record4 = "No records.";
-        }
-        if (record5.equals("")) {
-            record5 = "No records.";
-        }
-        return "Records:\n\n5x5\n" + record5 + "\n\n" + "4x4\n" + record4
-                + "\n\n" + "3x3\n" + record3;
-    }
+//    /**
+//     * helper function for records.
+//     *
+//     * @return record information.
+//     */
+//    private String record() {
+//        String record5 = detailScoreBoard.toString(5, accountManager.userName);
+//        String record4 = detailScoreBoard.toString(4, accountManager.userName);
+//        String record3 = detailScoreBoard.toString(3, accountManager.userName);
+//        if (record3.equals("")) {
+//            record3 = "No records.";
+//        }
+//        if (record4.equals("")) {
+//            record4 = "No records.";
+//        }
+//        if (record5.equals("")) {
+//            record5 = "No records.";
+//        }
+//        return "Records:\n\n5x5\n" + record5 + "\n\n" + "4x4\n" + record4
+//                + "\n\n" + "3x3\n" + record3;
+//    }
 
     /**
      * Load the avatar from fileName.

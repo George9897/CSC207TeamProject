@@ -1,8 +1,8 @@
 package fall2018.csc2017.GameCenter;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -35,6 +35,7 @@ public class SudokuSettingActivity extends AppCompatActivity implements Serializ
                 Toast.makeText(getBaseContext(),
                         "You have selected difficulty : " + item, Toast.LENGTH_SHORT).show();
                 switch (item) {
+                    //TODO FIX
                     case "Easy":
                         SudokuBoardManager.sudokuDifficulty = "Easy";
                         break;
