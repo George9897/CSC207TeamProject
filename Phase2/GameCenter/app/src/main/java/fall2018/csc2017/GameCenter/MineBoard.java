@@ -187,7 +187,7 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
      */
     private List<MineTile> randomGenerateBoomsList(List<MineTile> givenTile){
         List<MineTile> boomTile = new LinkedList<>();
-        for (int i = 0; i <= numBoom; i++) {
+        for (int i = 0; i < numBoom; i++) {
             int idx = randomize.nextInt(givenTile.size());
             boomTile.add(givenTile.get(idx));
             givenTile.remove(idx);
@@ -243,7 +243,7 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
      * @param row The row of the mine tile that needs to be replaced.
      * @param col The col of the mine tile that needs to be replaced.
      */
-    private void replaceToTrue(int row, int col) {
+    void replaceToTrue(int row, int col) {
         mineTile[row][col] = new MineTile(mineTile[row][col].getValue(), true);
     }
 

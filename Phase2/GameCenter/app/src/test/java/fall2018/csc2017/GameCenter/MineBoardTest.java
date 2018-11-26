@@ -77,6 +77,7 @@ public class MineBoardTest {
      */
     @Test
     public void testGetSize() {
+        setUp();
         assertEquals(16, MineBoard.getSize());
     }
 
@@ -85,6 +86,7 @@ public class MineBoardTest {
      */
     @Test
     public void testGetNumBoom() {
+        setUp();
         assertEquals(26, mineBoard.getNumBoom());
     }
 
@@ -93,6 +95,7 @@ public class MineBoardTest {
      */
     @Test
     public void testGetMineTile() {
+        setUp();
         int row = 8;
         int col = 8;
         assertEquals(0, mineBoard.getMineTile(row, col).getValue());
@@ -104,6 +107,7 @@ public class MineBoardTest {
      */
     @Test
     public void testSetNumBoom() {
+        setUp();
         assertEquals(26, mineBoard.getNumBoom());
         mineBoard.setNumBoom(52);
         assertEquals(52, mineBoard.getNumBoom());
@@ -114,8 +118,9 @@ public class MineBoardTest {
      */
     @Test
     public void testTouchOpen() {
+        setUp();
 
-        mineBoard = new MineBoard(createTiles(), 1, new Random());
+        mineBoard = new MineBoard(createTiles(), 40, new Random());
         int position = 0;
 
         assertEquals(0, testCreateBooms());
@@ -123,16 +128,29 @@ public class MineBoardTest {
 
         mineBoard.touchOpen(position, true);
 
-        assertEquals(2, testCreateBooms());
+        assertEquals(40, testCreateBooms());
         assertTrue(mineBoard.getMineTile(0, 0).getIsOpened());
-        assertEquals(1, testOpenedBooms());
+
         // test recursively open surrounding tiles when find a 0 value tile.
         int expectedOpen = getExpectedOpenedTile(position);
         int numOfOpenedTiles = testOpenedTiles();
         assertEquals(numOfOpenedTiles, expectedOpen);
 
+        int boomLocation = -1;
+        for (int row = 0; row < MineBoard.getSize(); row++) {
+            for (int col = 0; col < MineBoard.getSize(); col++) {
+                if (mineBoard.getMineTile(row, col).getValue() == -1) {
+                    boomLocation = row * MineBoard.getSize() + col;
+                }
+            }
+        }
+        if(boomLocation != -1) {
+            mineBoard.touchOpen(boomLocation, false);
+            assertEquals(40, testOpenedBooms());
+        }
+
         // test createBooms without first tap.
-        mineBoard = new MineBoard(createTiles(), 1, new Random());
+        mineBoard = new MineBoard(createTiles(), 40, new Random());
         assertEquals(0, testCreateBooms());
         mineBoard.touchOpen(position, false);
         assertEquals(0, testCreateBooms());
@@ -145,6 +163,7 @@ public class MineBoardTest {
      * @return expected opened Tile
      */
     private int getExpectedOpenedTile(int position){
+        setUp();
         int expectedOpenedTiles = 0;
         int row = position / MineBoard.getSize();
         int col = position % MineBoard.getSize();
@@ -161,6 +180,7 @@ public class MineBoardTest {
      * @return num of booms are created.
      */
     private int testCreateBooms(){
+        setUp();
         int numberOfBooms = 0;
         for (int row = 0; row < MineBoard.getSize(); row++) {
             for (int col = 0; col < MineBoard.getSize(); col++) {
@@ -178,10 +198,12 @@ public class MineBoardTest {
      * @return num of booms are opened.
      */
     private int testOpenedBooms(){
+        setUp();
         int numberOfDisplay = 0;
         for (int boomRow = 0; boomRow < MineBoard.getSize(); boomRow++) {
             for (int boomCol = 0; boomCol < MineBoard.getSize(); boomCol++) {
-                if (mineBoard.getMineTile(boomRow, boomCol).getIsOpened()){
+                if (mineBoard.getMineTile(boomRow, boomCol).getValue() == -1
+                && mineBoard.getMineTile(boomRow, boomCol).getIsOpened()){
                     numberOfDisplay++;
                 }
             }
@@ -195,6 +217,7 @@ public class MineBoardTest {
      * @return num of tile are opened.
      */
     private int testOpenedTiles(){
+        setUp();
         int numberOfOpenedTiles = 0;
         for (int Row = 0; Row < MineBoard.getSize(); Row++) {
             for (int Col = 0; Col < MineBoard.getSize(); Col++) {
@@ -213,6 +236,7 @@ public class MineBoardTest {
      */
     @Test
     public void testReplaceToFlag() {
+        setUp();
         int row = 8;
         int col = 8;
         assertFalse(mineBoard.getMineTile(row, col).getIsOpened());
