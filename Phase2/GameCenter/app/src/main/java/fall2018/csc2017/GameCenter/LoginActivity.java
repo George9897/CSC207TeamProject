@@ -55,6 +55,7 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
                     canYouLogin.setText("Welcome back!");
                     accountManager.login(username_string);
                     Intent tmp = new Intent(this, GameCenterActivity.class);
+                    tmp.putExtra("userName",username_string);
                     startActivity(tmp);
                 }
             }
