@@ -56,7 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        accountManager = AccountManager.getAccountManager();
+        accountManager = new AccountManager(this);
         usernameInfo = findViewById(R.id.usernameInfo);
         passwordInfo = findViewById(R.id.passwordInfo);
         recordInfo = findViewById(R.id.recordInfo);

@@ -14,7 +14,7 @@ public class DetailScoreBoard implements Serializable {
     /**
      * The serialVersionUID.
      */
-    //public static final long serialVersionUID =  -3921180421292202865L;
+
 
     private String gameType;
 
@@ -75,10 +75,10 @@ public class DetailScoreBoard implements Serializable {
     }
 
     private void collectScoreLevel(){
-        mineManager = MineManager.getMineManager(context);
+        mineManager = MineManager.getMineManager(this.context);
         switch (gameType) {
             case "SlidingTile":
-                boardManager = new BoardManager(context, 0);
+                boardManager = new BoardManager(this.context, 3);
                 score = boardManager.getScore();
                 if (boardManager.getSlidingTileDifficulty() !=null) {
                     level = boardManager.getSlidingTileDifficulty();
@@ -93,7 +93,7 @@ public class DetailScoreBoard implements Serializable {
                 username = mineManager.getUserName();
                 break;
             case "Sudoku":
-                sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(context);
+                sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this.context);
                 score = sudokuBoardManager.getScore();
                 if (sudokuBoardManager.getSudokuDifficulty()!=null) {
                     level = sudokuBoardManager.getSudokuDifficulty();

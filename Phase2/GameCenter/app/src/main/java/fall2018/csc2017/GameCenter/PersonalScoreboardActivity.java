@@ -31,7 +31,8 @@ public class PersonalScoreboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_scoreboard);
-        this.userName = AccountManager.getAccountManager().getUserName();
+        AccountManager accountManager = new AccountManager(this);
+        this.userName = accountManager.getUserName();
         setUserName();
         setSlidingTile();
         setMine();

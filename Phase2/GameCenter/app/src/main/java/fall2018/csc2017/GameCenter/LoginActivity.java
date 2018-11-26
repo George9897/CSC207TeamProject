@@ -18,7 +18,7 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
     /**
      * get the singleton accountManager.
      */
-    AccountManager accountManager = AccountManager.getAccountManager();
+    private AccountManager accountManager;
 
     /**
      * generate buttons when createBooms this activity.
@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        accountManager = new AccountManager(this);
         setupIsLoginButtonListener();
     }
 
@@ -44,10 +45,10 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
             String username_string = username.getText().toString();
             String password_string = password.getText().toString();
 
-            if (!accountManager.checkUsername(username_string, this)) {
+            if (!accountManager.checkUsername(username_string)) {
                 canYouLogin.setText("Please go back the home page and sign up!");
             } else {
-                if (!accountManager.checkPassword(username_string, password_string, this)) {
+                if (!accountManager.checkPassword(username_string, password_string)) {
                     canYouLogin.setText("Wrong password!");
                 } else {
                     canYouLogin.setText("Welcome back!");
