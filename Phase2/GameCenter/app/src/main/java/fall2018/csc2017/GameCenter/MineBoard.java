@@ -5,7 +5,6 @@ import android.util.Pair;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -226,10 +225,10 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
         }
         replaceToTrue(row, col);
         if (mineTile[row][col].getValue() == -1 && mineTile[row][col].getIsOpened()) {
-            displayAllBoom();
+            displayBoom();
         }
         //tap the mineTile with a number.
-        else if (mineTile[row][col].getValue() == 0) {
+        else if (mineTile[row][col].getValue() == 0 && !firstTap) {
             Queue<Pair<Integer, Integer>> queue = new LinkedList<>();
             queue = putSurroundingOnQueue(row, col, queue);
             recursiveSurroundingOnQueue(queue);
@@ -267,7 +266,7 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
     /**
      * Display all boom when the user failed.
      */
-    private void displayAllBoom() {
+    private void displayBoom() {
         for (int boomRow = 0; boomRow < size; boomRow++) {
             for (int boomCol = 0; boomCol < size; boomCol++) {
                 if (mineTile[boomRow][boomCol].getValue() == -1) {

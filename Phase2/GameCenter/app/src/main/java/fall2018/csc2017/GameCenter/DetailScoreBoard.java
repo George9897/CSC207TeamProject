@@ -67,9 +67,9 @@ public class DetailScoreBoard implements Serializable {
     }
 
     void destroyAllManager(){
-        SudokuBoardManager.destroySudokuBoardManager();
+        sudokuBoardManager = null;
         boardManager = null;
-        MineManager.destroyMineManager();
+        mineManager = null;
     }
 
     void setContext(Context context){
@@ -103,7 +103,8 @@ public class DetailScoreBoard implements Serializable {
                 username = mineManager.getUserName();
                 break;
             case "Sudoku":
-                sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this.context);
+                //change to load from file
+                sudokuBoardManager = new SudokuBoardManager(this.context, "Easy");
                 score = sudokuBoardManager.getScore();
                 if (sudokuBoardManager.getSudokuDifficulty()!=null) {
                     level = sudokuBoardManager.getSudokuDifficulty();
