@@ -169,7 +169,7 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
         Button logoutButton = findViewById(R.id.LogoutButton);
         logoutButton.setOnClickListener(view -> {
             boardManager = null;
-            Intent temp = new Intent(this, HomeActivity.class);
+            Intent temp = new Intent(this, LoginActivity.class);
             startActivity(temp);
         });
     }
