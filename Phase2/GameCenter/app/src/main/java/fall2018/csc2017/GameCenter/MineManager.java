@@ -27,7 +27,7 @@ public class MineManager extends Manager implements Serializable {
     /**
      * The context.
      */
-    private Context context;
+    private transient Context context;
     /**
      * The mine game's difficulty.
      */
@@ -174,6 +174,7 @@ public class MineManager extends Manager implements Serializable {
 
     MineManager(Context context, String userName, String level){
         this.context = context;
+        this.userName = userName;
         this.mineTiles = createTiles();
         this.mineDifficulty = level;
         this.mineBoard = generateMineBoardByLevel(level);

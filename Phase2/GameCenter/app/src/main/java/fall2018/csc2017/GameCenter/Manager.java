@@ -1,11 +1,12 @@
 package fall2018.csc2017.GameCenter;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * The Manager interface for board games.
  */
-abstract class Manager {
+abstract class Manager implements Serializable {
     /**
      * @return the score of a game play through.
      */

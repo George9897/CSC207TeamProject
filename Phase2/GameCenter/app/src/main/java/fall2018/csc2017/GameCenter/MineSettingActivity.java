@@ -48,10 +48,6 @@ public class MineSettingActivity extends AppCompatActivity implements Serializab
         Intent intent = getIntent();
         userName = intent.getStringExtra("userName");
 
-        mineManager = new MineManager(this);
-        mineManager.setUserName(userName);
-
-
         boomDifficulty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             /**
              * Perform actions when an item is selected.
@@ -67,20 +63,6 @@ public class MineSettingActivity extends AppCompatActivity implements Serializab
                 String item = (String) arg0.getSelectedItem();
                 Toast.makeText(getBaseContext(),
                         "You have selected difficulty : " + item, Toast.LENGTH_SHORT).show();
-//                switch (item) {
-//                    case "EASY":
-//                        mineManager.getMineBoard().setNumBoom(1);
-//                        mineManager.setMineDifficulty("Easy");
-//                        break;
-//                    case "INTERMEDIATE":
-//                        mineManager.getMineBoard().setNumBoom(40);
-//                        mineManager.setMineDifficulty("Medium");
-//                        break;
-//                    case "PROFESSIONAL":
-//                        mineManager.getMineBoard().setNumBoom(52);
-//                        mineManager.setMineDifficulty("Hard");
-//                        break;
-//                }
                 level = item;
             }
 

@@ -60,7 +60,7 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
         Intent intent = getIntent();
         String userName = intent.getStringExtra("UserName");
         String level = intent.getStringExtra("level");
-        mineManager = new MineManager(this,userName,level);
+        mineManager = new MineManager(this, userName, level);
         createTileButtons(this);
         setContentView(R.layout.activity_mine_game);
         addQuitButtonListener();
@@ -89,7 +89,7 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
                 .setTitle("Rules:")
                 .setMessage("Leave those tiles that you think are booms alone! " +
                         "Tap only when you consider that tile is not a boom. \n\n--Have fun!")
-                .setPositiveButton("Let the show start",null)
+                .setPositiveButton("Let the show start", null)
                 .create()
                 .show();
     }
@@ -163,7 +163,8 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
 
     /**
      * Update the screen view.
-     * @param o the observable object that need to be updated.
+     *
+     * @param o   the observable object that need to be updated.
      * @param arg the object that is required for the updating.
      */
     @Override
