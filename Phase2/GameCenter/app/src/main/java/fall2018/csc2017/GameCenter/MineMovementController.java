@@ -66,8 +66,7 @@ class MineMovementController implements Serializable {
      */
     void processTapMovement(Context context, int position) {
         if(mineManager.isValidTap(position)) {
-            mineManager.getMineBoard().touchOpen(position, mineManager.isFirstTap());
-            mineManager.setFirstTapToFalse();
+            mineManager.getMineBoard().touchOpen(position);
             int row = position / MineBoard.getSize();
             int col = position % MineBoard.getSize();
             if (mineManager.getMineBoard().getMineTile(row, col).getValue() == -1) {

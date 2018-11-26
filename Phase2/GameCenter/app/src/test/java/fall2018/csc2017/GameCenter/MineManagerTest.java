@@ -7,8 +7,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Random;
-
 import static org.junit.Assert.*;
 
 /**
@@ -108,12 +106,6 @@ public class MineManagerTest {
     }
 
     @Test
-    public void testIsFirstTap() {
-        setUp();
-        assertTrue(mineManager.isFirstTap());
-    }
-
-    @Test
     public void testGetMineTiles() {
         setUp();
         assertEquals(256, mineManager.getMineTiles().size());
@@ -128,14 +120,6 @@ public class MineManagerTest {
     }
 
     @Test
-    public void testSetFirstTapToFalse() {
-        setUp();
-        assertTrue(mineManager.isFirstTap());
-        mineManager.setFirstTapToFalse();
-        assertFalse(mineManager.isFirstTap());
-    }
-
-    @Test
     public void testCreateTiles() {
         setUp();
         assertEquals(256, mineManager.getMineTiles().size());
@@ -146,7 +130,7 @@ public class MineManagerTest {
         setUp();
         assertFalse(mineManager.puzzleSolved());
         mineManager.getMineBoard().setNumBoom(1);
-        mineManager.getMineBoard().touchOpen(0, true);
+        mineManager.getMineBoard().touchOpen(0);
         for (int row = 0; row < MineBoard.getSize(); row++) {
             for (int col = 0; col < MineBoard.getSize(); col++) {
                 if (mineManager.getMineBoard().getMineTile(row, col).getValue() == -1) {
@@ -165,7 +149,7 @@ public class MineManagerTest {
         setUp();
         assertFalse(mineManager.getMineBoard().getMineTile(0,0).getIsOpened());
         assertTrue(mineManager.isValidTap(0));
-        mineManager.getMineBoard().touchOpen(0, true);
+        mineManager.getMineBoard().touchOpen(0);
         assertFalse(mineManager.isValidTap(0));
     }
 

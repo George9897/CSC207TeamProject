@@ -26,6 +26,10 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
      */
     private final static int size = 16;
     /**
+     * The mark of whether the user tapped for at least once.
+     */
+    private boolean firstTap;
+    /**
      * The 2D array of tiles.
      */
     private MineTile[][] mineTile = new MineTile[size][size];
@@ -76,12 +80,28 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
     }
 
     /**
+     * Getter for firstTap.
+     *
+     * @return whether tapped once or not.
+     */
+    boolean isFirstTap() {
+        return firstTap;
+    }
+
+    /**
      * Setter for the number of booms.
      *
      * @param numBoom the number of booms.
      */
     void setNumBoom(int numBoom) {
         this.numBoom = numBoom;
+    }
+
+    /**
+     * Set the firstTap to false.
+     */
+    void setFirstTapToFalse() {
+        this.firstTap = false;
     }
 
     /**
@@ -141,6 +161,7 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
     MineBoard(List<MineTile> tiles, int numBoom, Random randomize) {
         this.numBoom = numBoom;
         this.randomize = randomize;
+        this.firstTap = true;
         Iterator<MineTile> iterator = tiles.iterator();
 
         for (int col = 0; col != size; col++) {
@@ -192,6 +213,7 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
             boomTile.add(givenTile.get(idx));
             givenTile.remove(idx);
         }
+        System.out.println(boomTile.size());
         return boomTile;
     }
 
@@ -215,20 +237,20 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
     /**
      * Tap to open some position.
      *
-     * @param firstTap First touch or not.
      */
-    void touchOpen(int position, boolean firstTap) {
+    void touchOpen(int position) {
         int row = position / MineBoard.getSize();
         int col = position % MineBoard.getSize();
         if (firstTap) {
             createBooms(mineTile[row][col]);
+            setFirstTapToFalse();
         }
         replaceToTrue(row, col);
         if (mineTile[row][col].getValue() == -1 && mineTile[row][col].getIsOpened()) {
             displayBoom();
         }
         //tap the mineTile with a number.
-        else if (mineTile[row][col].getValue() == 0 && !firstTap) {
+        else if (mineTile[row][col].getValue() == 0) {
             Queue<Pair<Integer, Integer>> queue = new LinkedList<>();
             queue = putSurroundingOnQueue(row, col, queue);
             recursiveSurroundingOnQueue(queue);
