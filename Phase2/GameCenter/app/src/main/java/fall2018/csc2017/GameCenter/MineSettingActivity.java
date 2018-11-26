@@ -18,12 +18,13 @@ import java.util.ArrayList;
  */
 public class MineSettingActivity extends AppCompatActivity implements Serializable {
     /**
-     * The mine manager.
+     * The user's name.
      */
-    private MineManager mineManager;
-
     private String userName;
 
+    /**
+     * The level.
+     */
     private String level;
 
     /**
