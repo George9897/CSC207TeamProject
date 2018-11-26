@@ -30,7 +30,7 @@ public class AccountManager implements Serializable {
     /**
      * Current user's user name.
      */
-    String userName = null;
+    private String userName = null;
 
     /**
      * The save file which contains the dictionary of username and password.

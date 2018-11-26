@@ -12,9 +12,6 @@ import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-//TODO Delete?
-//import java.io.ObjectInputStream;
-
 /**
  * The GamaCenterActivity.
  */
@@ -91,8 +88,6 @@ public class GameCenterActivity extends AppCompatActivity implements Serializabl
         try {
             InputStream inputStream = this.openFileInput(GameCenterActivity.TEMP_SAVE_FILENAME);
             if (inputStream != null) {
-                //TODO Delete?
-//                ObjectInputStream input = new ObjectInputStream(inputStream);
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {

@@ -14,7 +14,7 @@
         android:layout_marginTop="92dp"
         android:layout_marginEnd="124dp"
         android:layout_marginBottom="94dp"
-        android:text="@string/finish"
+        android:text="@string/victory"
         android:textAlignment="center"
         android:textAppearance="@android:style/TextAppearance.Large"
         android:textSize="58sp"

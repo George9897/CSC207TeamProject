@@ -1,17 +1,12 @@
 package fall2018.csc2017.GameCenter;
 
-import android.content.Context;
-import android.test.mock.MockContext;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class AccountManagerTest {
-
-    Context context = new MockContext();
+public class SudokuBoardActivityTest {
 
     @Before
     public void setUp() throws Exception {
@@ -22,26 +17,22 @@ public class AccountManagerTest {
     }
 
     @Test
-    public void getAccountManager() {
+    public void display() {
     }
 
     @Test
-    public void setUp1() {
+    public void onCreate() {
     }
 
     @Test
-    public void login() {
+    public void onPause() {
     }
 
     @Test
-    public void checkUsername() {
+    public void saveToFile() {
     }
 
     @Test
-    public void checkPassword() {
-    }
-
-    @Test
-    public void getUserName() {
+    public void update() {
     }
 }
