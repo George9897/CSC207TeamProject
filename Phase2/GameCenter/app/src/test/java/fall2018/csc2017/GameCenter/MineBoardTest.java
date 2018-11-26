@@ -1,6 +1,5 @@
 package fall2018.csc2017.GameCenter;
 
-import android.content.Intent;
 import android.util.Pair;
 
 import org.junit.After;
@@ -13,7 +12,9 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Random;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test for Mine board class.
@@ -114,6 +115,17 @@ public class MineBoardTest {
         assertEquals(testBoomNumber, mineBoard.getNumBoom());
         mineBoard.setNumBoom(52);
         assertEquals(52, mineBoard.getNumBoom());
+    }
+
+    /**
+     * Test whether setFirstTapToFalse works.
+     */
+    @Test
+    public void testSetFirstTapToFalse() {
+        setUp();
+        assertTrue(mineBoard.isFirstTap());
+        mineBoard.setFirstTapToFalse();
+        assertFalse(mineBoard.isFirstTap());
     }
 
     /**
