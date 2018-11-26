@@ -38,6 +38,10 @@ public class MineTileTest {
     @Test
     public void testGetValue() {
         assertEquals(0, mineTile.getValue());
+        for (int i=-1; i < 9; i++) {
+            mineTile = new MineTile(i, true);
+            assertEquals(i, mineTile.getValue());
+        }
     }
 
     /**

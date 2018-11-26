@@ -213,7 +213,7 @@ class BoardManager extends Manager implements Serializable, Undoable {
             // Random choose an element from swapChoices, then swap them.
             Random r2 = new Random();
             int c = (int) (swapChoices.get(r2.nextInt(swapChoices.size())));
-            history.add(c);
+            //history.add(c);
             int d = bPosition + c;
             this.slidingTile.swapTiles(row, col, d / this.level, d % this.level);
             bPosition = d;

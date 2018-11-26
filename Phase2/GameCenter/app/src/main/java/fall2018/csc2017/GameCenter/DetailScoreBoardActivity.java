@@ -34,7 +34,9 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
         getGameType();
         String filename = gameType + "DetailScoreBoard.ser";
         loadFromFile(filename);
-        detailScoreBoard = DetailScoreBoard.getDetailScoreBoard(gameType, this);
+        if (detailScoreBoard == null){
+            detailScoreBoard = DetailScoreBoard.getDetailScoreBoard(gameType, this);
+        }
         detailScoreBoard.display();
         TextView gameView = findViewById(R.id.GameView);
         gameView.setText(gameType);

@@ -22,7 +22,7 @@ import java.util.Observer;
 public class SudokuBoardActivity extends AppCompatActivity implements Observer, Serializable {
 
     /**
-     * The slidingTile manager.
+     * The sudoku board manager.
      */
     SudokuBoardManager sudokuBoardManager;
 
@@ -140,7 +140,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
     }
 
     /**
-     * Load the slidingTile manager from fileName.
+     * Load the sudoku board manager from fileName.
      *
      * @param fileName the name of the file
      */
@@ -163,7 +163,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
     }
 
     /**
-     * Save the slidingTile manager to fileName.
+     * Save the sudoku board manager to fileName.
      *
      * @param fileName the name of the file
      */
@@ -286,6 +286,9 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         });
     }
 
+    /**
+     * Activate the buttons for eraser.
+     */
     private void addEraserButtonListener() {
         Button eraser = findViewById(R.id.eraserButton);
         eraser.setOnClickListener(v -> {
@@ -295,6 +298,9 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         });
     }
 
+    /**
+     * Activate the buttons for clear.
+     */
     private void addClearButtonListener() {
         Button clear = findViewById(R.id.clearButton);
         clear.setOnClickListener(v -> {
@@ -314,6 +320,9 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         });
     }
 
+    /**
+     * Activate the buttons for undo.
+     */
     private void addSudokuUndoButtonsListener() {
         Button undoButton = findViewById(R.id.sudokuUndoButton);
         undoButton.setOnClickListener((v) -> sudokuBoardManager.undo());

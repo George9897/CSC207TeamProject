@@ -54,9 +54,11 @@ public class PersonalScoreboardActivity extends AppCompatActivity {
     private void setSlidingTile(){
         String gameType = "SlidingTile";
         loadFromFile(gameType + "DetailScoreBoard.ser");
-        int highestScore = detailScoreBoard.getHighestScoreByUser(userName);
-        TextView soreView = findViewById(R.id.slidingTileHighestScore);
-        soreView.setText(Integer.toString(highestScore));
+        if (detailScoreBoard != null) {
+            int highestScore = detailScoreBoard.getHighestScoreByUser(userName);
+            TextView soreView = findViewById(R.id.slidingTileHighestScore);
+            soreView.setText(Integer.toString(highestScore));
+        }
     }
 
     /**
@@ -66,9 +68,11 @@ public class PersonalScoreboardActivity extends AppCompatActivity {
     private void setMine() {
         String gameType = "Mine";
         loadFromFile(gameType + "DetailScoreBoard.ser");
-        int highestScore = detailScoreBoard.getHighestScoreByUser(userName);
-        TextView soreView = findViewById(R.id.mineHighestScore);
-        soreView.setText(Integer.toString(highestScore));
+        if (detailScoreBoard != null) {
+            int highestScore = detailScoreBoard.getHighestScoreByUser(userName);
+            TextView soreView = findViewById(R.id.mineHighestScore);
+            soreView.setText(Integer.toString(highestScore));
+        }
     }
 
     /**
@@ -78,9 +82,11 @@ public class PersonalScoreboardActivity extends AppCompatActivity {
     private void setSudoku(){
         String gameType = "Sudoku";
         loadFromFile(gameType + "DetailScoreBoard.ser");
-        int highestScore = detailScoreBoard.getHighestScoreByUser(userName);
-        TextView soreView = findViewById(R.id.sudokuHighestScore);
-        soreView.setText(Integer.toString(highestScore));
+        if (detailScoreBoard != null) {
+            int highestScore = detailScoreBoard.getHighestScoreByUser(userName);
+            TextView soreView = findViewById(R.id.sudokuHighestScore);
+            soreView.setText(Integer.toString(highestScore));
+        }
     }
 
     /**
