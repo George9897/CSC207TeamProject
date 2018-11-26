@@ -143,7 +143,7 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
                     BoardManager.destroyBoardManager();
                     break;
                 case "Mine":
-                    //TODO
+                    MineManager.destroyMineManager();
                     break;
                 case "Sudoku":
                     SudokuBoardManager.destroySudokuBoardManager();
