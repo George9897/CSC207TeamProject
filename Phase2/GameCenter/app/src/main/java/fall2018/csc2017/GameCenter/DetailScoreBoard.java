@@ -18,13 +18,11 @@ public class DetailScoreBoard implements Serializable {
 
     private String gameType;
 
-    String filename;
+    private BoardManager boardManager;
 
-    BoardManager boardManager;
+    private SudokuBoardManager sudokuBoardManager;
 
-    SudokuBoardManager sudokuBoardManager;
-
-    MineManager mineManager;
+    private MineManager mineManager;
 
     private Map<Integer, List<String>> easyMap = new HashMap<>();
 
@@ -47,9 +45,9 @@ public class DetailScoreBoard implements Serializable {
     private int hardTopOneScore;
     private String hardTopOneName;
 
-    int score = 0;
+    private int score = 0;
 
-    String username;
+    private String username;
 
     private String easyLevel;
 
@@ -58,7 +56,7 @@ public class DetailScoreBoard implements Serializable {
     private String hardLevel;
     private String level = "neverPlayed";
 
-    Context context;
+    private Context context;
 
     /**
      * Init AccountManager.
@@ -66,7 +64,14 @@ public class DetailScoreBoard implements Serializable {
     public DetailScoreBoard(String gameType, Context context) {
         this.gameType = gameType;
         this.context = context;
-        filename = gameType + "DetailScoreBoard.ser";
+    }
+
+    public void display(){
+        collectScoreLevel();
+        createSortedList();
+        modifyEasyTopOne();
+        modifyMediumTopOne();
+        modifyHardTopOne();
     }
 
     private void collectScoreLevel(){
@@ -177,14 +182,9 @@ public class DetailScoreBoard implements Serializable {
                 findTopOne(easyTopOneScore, easyTopOneName, score, username)==null) {
             easyTopOneName = "No data";
         } else if(score != 0) {
-            System.out.println(easyTopOneName + easyTopOneScore + "old");
-            System.out.println(username + score + "score");
             easyTopOneName = findTopOne(easyTopOneScore, easyTopOneName, score, username);
             easyTopOneScore = easyScoreList.get(easyScoreList.size()-1);
-            System.out.println(easyScoreList);
-            System.out.println(easyTopOneName + easyTopOneScore + "done");
         }
-
     }
 
     private void modifyMediumTopOne(){
@@ -304,14 +304,6 @@ public class DetailScoreBoard implements Serializable {
         return sortedList;
     }
 
-    public void display(){
-        collectScoreLevel();
-        createSortedList();
-        modifyEasyTopOne();
-        modifyMediumTopOne();
-        modifyHardTopOne();
-    }
-
     /**
      * Return Highest score by a given username;
      *
@@ -321,17 +313,17 @@ public class DetailScoreBoard implements Serializable {
     public int getHighestScoreByUser(String username){
         int highestScore = 0;
         List<Integer> scores = new ArrayList<>();
-        for (int index = 0; index <= easyScoreList.size(); index++){
+        for (int index = 0; index < easyScoreList.size(); index++){
             if (easyMap.get(easyScoreList.get(index)).contains(username)){
                 scores.add(easyScoreList.get(index));
             }
         }
-        for (int index = 0; index <= mediumScoreList.size(); index++){
+        for (int index = 0; index < mediumScoreList.size(); index++){
             if (mediumMap.get(mediumScoreList.get(index)).contains(username)){
                 scores.add(mediumScoreList.get(index));
             }
         }
-        for (int index = 0; index <= hardScoreList.size(); index++){
+        for (int index = 0; index < hardScoreList.size(); index++){
             if (hardMap.get(hardScoreList.get(index)).contains(username)){
                 scores.add(hardScoreList.get(index));
             }

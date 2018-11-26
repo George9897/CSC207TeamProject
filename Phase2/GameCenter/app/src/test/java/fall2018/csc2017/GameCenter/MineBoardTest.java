@@ -88,20 +88,20 @@ public class MineBoardTest {
         assertEquals(52, mineBoard.getNumBoom());
     }
 
-    /**
-     * Test whether touchOpen works.
-     */
-    @Test
-    public void testTouchOpen() {
-        int position = 8;
-        int row = position / MineBoard.getSize();
-        int col = position % MineBoard.getSize();
-        assertFalse(mineBoard.getMineTile(row, col).getIsOpened());
-        assertEquals(0, mineBoard.getMineTile(row, col).getValue());
-        mineBoard.touchOpen(position, true);
+//    /**
+//     * Test whether touchOpen works.
+//     */
+//    @Test
+//    public void testTouchOpen() {
+//        int position = 8;
+//        int row = position / MineBoard.getSize();
+//        int col = position % MineBoard.getSize();
+//        assertFalse(mineBoard.getMineTile(row, col).getIsOpened());
+//        assertEquals(0, mineBoard.getMineTile(row, col).getValue());
+//        mineBoard.touchOpen(position, true);
+//
 
-
-    }
+//    }
 
     /**
      * Test whether replaceToFlag works.
