@@ -128,34 +128,63 @@
 
     <TextView
         android:id="@+id/nameData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="128dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="156dp"
+        android:layout_marginBottom="36dp"
         android:text="please login"
-        tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="89dp" />
+        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView17"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <TextView
-        android:id="@+id/SlidingTileHighestScore"
+        android:id="@+id/slidingTileHighestScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="54dp"
+        android:layout_marginBottom="50dp"
         android:text="Please play a Sliding Tile."
-        tools:layout_editor_absoluteX="174dp"
-        tools:layout_editor_absoluteY="200dp" />
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/mineHighestScore"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView14"
+        app:layout_constraintTop_toBottomOf="@+id/nameData" />
 
     <TextView
-        android:id="@+id/MineHighestScore"
+        android:id="@+id/mineHighestScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="51dp"
+        android:layout_marginBottom="50dp"
         android:text="Please play a Mine Game."
-        tools:layout_editor_absoluteX="174dp"
-        tools:layout_editor_absoluteY="334dp" />
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/sudokuHighestScore"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView15"
+        app:layout_constraintTop_toBottomOf="@+id/slidingTileHighestScore" />
 
     <TextView
-        android:id="@+id/SudokuHighestScore"
+        android:id="@+id/sudokuHighestScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="70dp"
         android:text="Please play a Sudoku Game."
-        tools:layout_editor_absoluteX="174dp"
-        tools:layout_editor_absoluteY="468dp" />
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView16"
+        app:layout_constraintTop_toBottomOf="@+id/mineHighestScore" />
 
 </android.support.constraint.ConstraintLayout>

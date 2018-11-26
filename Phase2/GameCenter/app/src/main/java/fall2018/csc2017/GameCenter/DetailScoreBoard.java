@@ -11,9 +11,20 @@ import java.util.Map;
 
 public class DetailScoreBoard implements Serializable {
 
+    /**
+     * The serialVersionUID.
+     */
+    //public static final long serialVersionUID =  -3921180421292202865L;
+
     private String gameType;
 
     String filename;
+
+    BoardManager boardManager;
+
+    SudokuBoardManager sudokuBoardManager;
+
+    MineManager mineManager;
 
     private Map<Integer, List<String>> easyMap = new HashMap<>();
 
@@ -76,16 +87,16 @@ public class DetailScoreBoard implements Serializable {
     }
 
     void destroyDetailScoreBoard() {
-        BoardManager.destroyBoardManager();
-        MineManager.destroyMineManager();
+        boardManager = null;
+        mineManager = null;
         SudokuBoardManager.destroySudokuBoardManager();
     }
 
     private void collectScoreLevel(){
-        MineManager mineManager = MineManager.getMineManager(context);
+        mineManager = MineManager.getMineManager(context);
         switch (gameType) {
             case "SlidingTile":
-                BoardManager boardManager = BoardManager.getBoardManager(context);
+                boardManager = new BoardManager(context, 0);
                 score = boardManager.getScore();
                 if (boardManager.getSlidingTileDifficulty() !=null) {
                     level = boardManager.getSlidingTileDifficulty();
@@ -100,7 +111,7 @@ public class DetailScoreBoard implements Serializable {
                 username = mineManager.getUserName();
                 break;
             case "Sudoku":
-                SudokuBoardManager sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(context);
+                sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(context);
                 score = sudokuBoardManager.getScore();
                 if (sudokuBoardManager.getSudokuDifficulty()!=null) {
                     level = sudokuBoardManager.getSudokuDifficulty();
@@ -109,11 +120,11 @@ public class DetailScoreBoard implements Serializable {
                 break;
         }
         if (score != 0 || mineManager.getLose()) {
-            helper();
+            updateScore();
         }
     }
 
-    private void helper(){
+    private void updateScore(){
         switch (level) {
             case "Easy":
                 if (!easyMap.containsKey(score)) {
@@ -322,5 +333,36 @@ public class DetailScoreBoard implements Serializable {
         modifyEasyTopOne();
         modifyMediumTopOne();
         modifyHardTopOne();
+    }
+
+    /**
+     * Return Highest score by a given username;
+     *
+     * @param username given username
+     * @return Highest score
+     */
+    public int getHighestScoreByUser(String username){
+        int highestScore = 0;
+        List<Integer> scores = new ArrayList<>();
+        for (int index = 0; index <= easyScoreList.size(); index++){
+            if (easyMap.get(easyScoreList.get(index)).contains(username)){
+                scores.add(easyScoreList.get(index));
+            }
+        }
+        for (int index = 0; index <= mediumScoreList.size(); index++){
+            if (mediumMap.get(mediumScoreList.get(index)).contains(username)){
+                scores.add(mediumScoreList.get(index));
+            }
+        }
+        for (int index = 0; index <= hardScoreList.size(); index++){
+            if (hardMap.get(hardScoreList.get(index)).contains(username)){
+                scores.add(hardScoreList.get(index));
+            }
+        }
+        if (scores.size() > 0) {
+            Collections.sort(scores);
+            highestScore = scores.get(scores.size() - 1);
+        }
+        return highestScore;
     }
 }

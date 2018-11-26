@@ -71,13 +71,13 @@ public class GameActivity extends AppCompatActivity implements Observer, Seriali
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        boardManager = BoardManager.getBoardManager(this);
+        Intent intent = getIntent();
+        boardManager = (BoardManager) intent.getExtras().get("slidingTileBoardManager");
         loadFromFile(boardManager.userName + ".ser");
         createTileButtons(this);
         setContentView(R.layout.activity_main);
         addQuitButtonsListener();
 
-        Intent intent = getIntent();
         if (intent.getExtras() != null) {
             undo = intent.getExtras().getBoolean("undo");
         }
@@ -90,7 +90,7 @@ public class GameActivity extends AppCompatActivity implements Observer, Seriali
         }
 
         gridView = findViewById(R.id.grid);
-        gridView.setNumColumns(SlidingTile.level);
+        gridView.setNumColumns(boardManager.getSlidingTile().getLevel());
         gridView.setBoardManager(boardManager);
         boardManager.getSlidingTile().addObserver(GameActivity.this);
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -102,12 +102,15 @@ public class GameActivity extends AppCompatActivity implements Observer, Seriali
                         int displayWidth = gridView.getMeasuredWidth();
                         int displayHeight = gridView.getMeasuredHeight();
 
-                        columnWidth = displayWidth / SlidingTile.level;
-                        columnHeight = displayHeight / SlidingTile.level;
+                        columnWidth = displayWidth / boardManager.getSlidingTile().getLevel();
+                        columnHeight = displayHeight / boardManager.getSlidingTile().getLevel();
 
                         display();
                     }
                 });
+
+        Intent tmp = new Intent(this, YouWinActivity.class);
+        tmp.putExtra("slidingTileBoardManager", boardManager);
     }
 
     /**
@@ -116,11 +119,10 @@ public class GameActivity extends AppCompatActivity implements Observer, Seriali
      * @param context the context
      */
     private void createTileButtons(Context context) {
-        boardManager = BoardManager.getBoardManager(this);
         SlidingTile slidingTile = boardManager.getSlidingTile();
         tileButtons = new ArrayList<>();
-        for (int row = 0; row != SlidingTile.level; row++) {
-            for (int col = 0; col != SlidingTile.level; col++) {
+        for (int row = 0; row != boardManager.getSlidingTile().getLevel(); row++) {
+            for (int col = 0; col != boardManager.getSlidingTile().getLevel(); col++) {
                 Button tmp = new Button(context);
                 tmp.setBackgroundResource(slidingTile.getTile(row, col).getBackground());
                 this.tileButtons.add(tmp);
@@ -132,12 +134,11 @@ public class GameActivity extends AppCompatActivity implements Observer, Seriali
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateTileButtons() {
-        boardManager = BoardManager.getBoardManager(this);
         SlidingTile slidingTile = boardManager.getSlidingTile();
         int nextPos = 0;
         for (Button b : tileButtons) {
-            int row = nextPos / SlidingTile.level;
-            int col = nextPos % SlidingTile.level;
+            int row = nextPos / boardManager.getSlidingTile().getLevel();
+            int col = nextPos % boardManager.getSlidingTile().getLevel();
             b.setBackgroundResource(slidingTile.getTile(row, col).getBackground());
             nextPos++;
         }

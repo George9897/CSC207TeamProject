@@ -43,6 +43,8 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
      */
     boolean undoLimited;
 
+    private int level;
+
     /**
      * The creator of setting activity.
      *
@@ -78,18 +80,18 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
                 switch (item) {
                     case "3x3":
                         difficulty = 3;
-                        SlidingTile.level = 3;
-                        boardManager.setSlidingTileDifficulty( "Easy");
+                        level = 3;
+//                        boardManager.setSlidingTileDifficulty( "Easy");
                         break;
                     case "4x4":
                         difficulty = 4;
-                        SlidingTile.level = 4;
-                        boardManager.setSlidingTileDifficulty( "Medium");
+                        level = 4;
+//                        boardManager.setSlidingTileDifficulty( "Medium");
                         break;
                     default:
                         difficulty = 5;
-                        SlidingTile.level = 5;
-                        boardManager.setSlidingTileDifficulty( "Hard");
+                        level = 5;
+//                        boardManager.setSlidingTileDifficulty( "Hard");
                         break;
                 }
             }
@@ -148,8 +150,9 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
      */
     private void switchToGame() {
         Intent tmp = new Intent(this, GameActivity.class);
-        boardManager = BoardManager.getBoardManager(this);
+        boardManager = new BoardManager(this,level);
         saveToFile(boardManager.userName + ".ser");
+        tmp.putExtra("slidingTileBoardManager", boardManager);
         tmp.putExtra("slidingTile", slidingTile);
         tmp.putExtra("undo", undoLimited);
         startActivity(tmp);
@@ -170,10 +173,10 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
     private void addConfirmButtonListener() {
         Button confirmButton = findViewById(R.id.ConfirmButton);
         confirmButton.setOnClickListener(view -> {
-            BoardManager.destroyBoardManager();
-            boardManager = BoardManager.getBoardManager(this);
+            boardManager = null;
+            //boardManager = BoardManager.getBoardManager(this);
+            switchToGame();
             System.out.println(boardManager.getSlidingTile().getTileList().length);
-            SettingActivity.this.switchToGame();
             System.out.println("still numbers mode");
         });
     }

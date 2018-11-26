@@ -61,9 +61,9 @@ public class ProfileActivity extends AppCompatActivity {
         passwordInfo = findViewById(R.id.passwordInfo);
         recordInfo = findViewById(R.id.recordInfo);
 
-        loadFromFile(accountManager.userName + "Avatar.ser");
-        usernameInfo.setText("Username: " + accountManager.userName);
-        passwordInfo.setText("Password: " + accountManager.map.get(accountManager.userName));
+        loadFromFile(accountManager.getUserName() + "Avatar.ser");
+        usernameInfo.setText("Username: " + accountManager.getUserName());
+        passwordInfo.setText("Password: " + accountManager.map.get(accountManager.getUserName()));
         recordInfo.setText("No Record");
         userAvatar.setImageURI(avatar);
     }

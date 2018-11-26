@@ -40,7 +40,7 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
 
         switch (gameType){
             case "SlidingTile":
-                boardManager = BoardManager.getBoardManager(this);
+                boardManager = (BoardManager) intent.getExtras().get("slidingTileBoardManager");
                 scoreBox.setText("Your Score: " + (Integer.toString(boardManager.getScore())));
                 break;
             case "Mine":
