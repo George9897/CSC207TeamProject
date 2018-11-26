@@ -91,7 +91,7 @@ public class SudokuSettingActivity extends AppCompatActivity implements Serializ
      * Activate the confirm button.
      */
     private void addSudokuConfirmButtonListener() {
-        Button mineConfirmButton = findViewById(R.id.sudokuConfirmButton);
-        mineConfirmButton.setOnClickListener(v -> switchToGame());
+        Button sudokuConfirmButton = findViewById(R.id.sudokuConfirmButton);
+        sudokuConfirmButton.setOnClickListener(v -> switchToGame());
     }
 }
