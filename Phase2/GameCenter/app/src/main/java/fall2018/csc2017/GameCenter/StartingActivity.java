@@ -51,13 +51,13 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
 
         switch (gameType){
             case "SlidingTile":
-                saveToFile(slidingFile);
+                loadFromFile(slidingFile);
                 break;
             case "Mine":
-                saveToFile(mineFile);
+                loadFromFile(mineFile);
                 break;
             case "Sudoku":
-                saveToFile(sudokuFile);
+                loadFromFile(sudokuFile);
                 break;
         }
 
@@ -77,7 +77,7 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
         startButton.setOnClickListener(v -> {
             switch (gameType){
                 case "SlidingTile":
-                    Intent slidingTile = new Intent(this, GameActivity.class);
+                    Intent slidingTile = new Intent(this, SettingActivity.class);
                     startActivity(slidingTile);
                     break;
                 case "Mine":
@@ -158,7 +158,7 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
     private void addLogoutButtonListener() {
         Button logoutButton = findViewById(R.id.LogoutButton);
         logoutButton.setOnClickListener(view -> {
-            BoardManager.destroyBoardManager();
+            boardManager = null;
             Intent temp = new Intent(this, HomeActivity.class);
             startActivity(temp);
         });
@@ -197,8 +197,15 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
         switch (gameType){
             case "SlidingTile":
                 Intent slidingTile = new Intent(this, GameActivity.class);
+                loadFromFile(slidingFile);
                 saveToFile(slidingFile);
-                startActivity(slidingTile);
+                if(boardManager!=null) {
+                    System.out.println(boardManager.userName + "============================");
+                    slidingTile.putExtra("slidingTileBoardManager", boardManager);
+                    startActivity(slidingTile);
+                } else {
+                    Toast.makeText(this, "Never played before.", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case "Mine":
                 Intent mine = new Intent(this, MineGameActivity.class);

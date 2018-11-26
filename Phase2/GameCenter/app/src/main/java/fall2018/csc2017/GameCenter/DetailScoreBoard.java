@@ -11,9 +11,20 @@ import java.util.Map;
 
 public class DetailScoreBoard implements Serializable {
 
+    /**
+     * The serialVersionUID.
+     */
+    //public static final long serialVersionUID =  -3921180421292202865L;
+
     private String gameType;
 
     String filename;
+
+    BoardManager boardManager;
+
+    SudokuBoardManager sudokuBoardManager;
+
+    MineManager mineManager;
 
     private Map<Integer, List<String>> easyMap = new HashMap<>();
 
@@ -76,16 +87,16 @@ public class DetailScoreBoard implements Serializable {
     }
 
     void destroyDetailScoreBoard() {
-        BoardManager.destroyBoardManager();
-        MineManager.destroyMineManager();
+        boardManager = null;
+        mineManager = null;
         SudokuBoardManager.destroySudokuBoardManager();
     }
 
     private void collectScoreLevel(){
-        MineManager mineManager = MineManager.getMineManager(context);
+        mineManager = MineManager.getMineManager(context);
         switch (gameType) {
             case "SlidingTile":
-                BoardManager boardManager = BoardManager.getBoardManager(context);
+                boardManager = new BoardManager(context, 0);
                 score = boardManager.getScore();
                 if (boardManager.getSlidingTileDifficulty() !=null) {
                     level = boardManager.getSlidingTileDifficulty();
@@ -100,7 +111,7 @@ public class DetailScoreBoard implements Serializable {
                 username = mineManager.getUserName();
                 break;
             case "Sudoku":
-                SudokuBoardManager sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(context);
+                sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(context);
                 score = sudokuBoardManager.getScore();
                 if (sudokuBoardManager.getSudokuDifficulty()!=null) {
                     level = sudokuBoardManager.getSudokuDifficulty();
