@@ -4,12 +4,15 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test for mine scorer class.
  */
 public class MineScorerTest {
+    /**
+     * The mineScorer for test.
+     */
     private MineScorer mineScorer;
 
     /**

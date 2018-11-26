@@ -4,19 +4,32 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 /**
  * Test for mine tile class.
  */
 public class MineTileTest {
+    /**
+     * The mineTile for test.
+     */
+    private MineTile mineTile;
 
+    /**
+     * Set up a empty mine tile for test.
+     */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
+        mineTile = new MineTile(0, false);
     }
 
+    /**
+     * Tear down.
+     */
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
+        mineTile = null;
     }
 
     /**
@@ -24,6 +37,7 @@ public class MineTileTest {
      */
     @Test
     public void testGetValue() {
+        assertEquals(0, mineTile.getValue());
     }
 
     /**
@@ -31,6 +45,7 @@ public class MineTileTest {
      */
     @Test
     public void testGetIsOpened() {
+        assertFalse(mineTile.getIsOpened());
     }
 
     /**
@@ -38,6 +53,7 @@ public class MineTileTest {
      */
     @Test
     public void testGetX() {
+        assertEquals(0, mineTile.getX());
     }
 
     /**
@@ -45,6 +61,7 @@ public class MineTileTest {
      */
     @Test
     public void testGetY() {
+        assertEquals(0, mineTile.getY());
     }
 
     /**
@@ -52,6 +69,7 @@ public class MineTileTest {
      */
     @Test
     public void testGetBackground() {
+        assertEquals(R.drawable.tile_closed, mineTile.getBackground());
     }
 
     /**
@@ -59,6 +77,9 @@ public class MineTileTest {
      */
     @Test
     public void testSetValue() {
+        assertEquals(0, mineTile.getValue());
+        mineTile.setValue(-1);
+        assertEquals(-1, mineTile.getValue());
     }
 
     /**
@@ -66,6 +87,9 @@ public class MineTileTest {
      */
     @Test
     public void testSetX() {
+        assertEquals(0, mineTile.getX());
+        mineTile.setX(8);
+        assertEquals(8, mineTile.getX());
     }
 
     /**
@@ -73,6 +97,9 @@ public class MineTileTest {
      */
     @Test
     public void testSetY() {
+        assertEquals(0, mineTile.getY());
+        mineTile.setY(8);
+        assertEquals(8, mineTile.getY());
     }
 
     /**
@@ -80,5 +107,8 @@ public class MineTileTest {
      */
     @Test
     public void testSetBackground() {
+        assertEquals(R.drawable.tile_closed, mineTile.getBackground());
+        mineTile.setBackground(R.drawable.tile_boom);
+        assertEquals(R.drawable.tile_boom, mineTile.getBackground());
     }
 }
