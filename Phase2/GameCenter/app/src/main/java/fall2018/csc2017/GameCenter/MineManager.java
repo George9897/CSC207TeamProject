@@ -182,17 +182,6 @@ public class MineManager extends Manager implements Serializable {
         timer.schedule(scorer, 0, 1000);
     }
 
-    /**
-     * The constructor of MineManager.
-     */
-    MineManager(Context context) {
-        this.context = context;
-        this.mineTiles = createTiles();
-        this.mineBoard = new MineBoard(mineTiles, numBoom, new Random());
-        this.numBoom = this.mineBoard.getNumBoom();
-        timer.schedule(scorer, 0, 1000);
-    }
-
     private MineBoard generateMineBoardByLevel(String level){
         switch (level) {
                     case "EASY":
