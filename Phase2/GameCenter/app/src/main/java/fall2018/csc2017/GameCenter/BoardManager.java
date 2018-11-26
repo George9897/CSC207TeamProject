@@ -65,7 +65,7 @@ class BoardManager extends Manager implements Serializable, Undoable {
     /**
      * The sliding tile Difficulty
      */
-    static String slidingTileDifficulty;
+    private String slidingTileDifficulty;
 
 
     /**
@@ -77,6 +77,8 @@ class BoardManager extends Manager implements Serializable, Undoable {
      * The undo limitation (Only 3 times allowed)
      */
     private int undoLimit3;
+
+    private int level;
 
     /**
      * Getter for slidingTile.
@@ -109,7 +111,7 @@ class BoardManager extends Manager implements Serializable, Undoable {
      */
     List createTiles() {
         List<Tile> tiles = new ArrayList<>();
-        final int numTiles = SlidingTile.level * SlidingTile.level;
+        final int numTiles = this.level * this.level;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             if (tileNum == numTiles - 1) {
                 tiles.add(new Tile(0));
@@ -123,7 +125,15 @@ class BoardManager extends Manager implements Serializable, Undoable {
     /**
      * Constructor for BoardManager.
      */
-    private BoardManager(Context context) {
+    BoardManager(Context context, int level) {
+        this.level = level;
+        if (level == 3){
+            slidingTileDifficulty = "Easy";
+        } else if (level == 4){
+            slidingTileDifficulty = "Medium";
+        } else if(level == 5){
+            slidingTileDifficulty = "Hard";
+        }
         this.context = context;
         if (this.listOfPosition == null) {
             this.undoLimit = 0;
@@ -131,7 +141,7 @@ class BoardManager extends Manager implements Serializable, Undoable {
             this.numMoves = 0;
             this.listOfPosition = new ArrayList<>();
             List tiles = createTiles();
-            this.slidingTile = new SlidingTile(tiles);
+            this.slidingTile = new SlidingTile(tiles, level);
             solvableShuffle();
         }
     }
@@ -167,7 +177,7 @@ class BoardManager extends Manager implements Serializable, Undoable {
      */
     private void solvableShuffle() {
         // Constant for swapping directions.
-        int level = SlidingTile.level;
+        int level = this.level;
         int left = -1;
         int right = 1;
         int up = -(level);
@@ -215,19 +225,19 @@ class BoardManager extends Manager implements Serializable, Undoable {
      * @param context The context used for connecting activity.
      * @return The singleton BoardManager.
      */
-    static BoardManager getBoardManager(Context context) {
-        if (boardManager == null) {
-            boardManager = new BoardManager(context);
-        }
-        return boardManager;
-    }
+//    static BoardManager getBoardManager(Context context, level) {
+//        if (boardManager == null) {
+//            boardManager = new BoardManager(context, level);
+//        }
+//        return boardManager;
+//    }
 
     /**
      * Destroy current BoardManager.
      */
-    static void destroyBoardManager() {
-        boardManager = null;
-    }
+//    static void destroyBoardManager() {
+//        boardManager = null;
+//    }
 
     /**
      * Add a modified SlidingTile in the list of boards.
@@ -275,13 +285,13 @@ class BoardManager extends Manager implements Serializable, Undoable {
      * @return whether the tile at position is surrounded by a blank tile
      */
     boolean isValidTap(int position) {
-        int row = position / SlidingTile.level;
-        int col = position % SlidingTile.level;
+        int row = position / this.level;
+        int col = position % this.level;
         int blankId = 0;
         Tile above = row == 0 ? null : slidingTile.getTile(row - 1, col);
-        Tile below = row == SlidingTile.level - 1 ? null : slidingTile.getTile(row + 1, col);
+        Tile below = row == this.level - 1 ? null : slidingTile.getTile(row + 1, col);
         Tile left = col == 0 ? null : slidingTile.getTile(row, col - 1);
-        Tile right = col == SlidingTile.level - 1 ? null : slidingTile.getTile(row, col + 1);
+        Tile right = col == this.level - 1 ? null : slidingTile.getTile(row, col + 1);
         return (below != null && below.getId() == blankId)
                 || (above != null && above.getId() == blankId)
                 || (left != null && left.getId() == blankId)
@@ -299,8 +309,8 @@ class BoardManager extends Manager implements Serializable, Undoable {
      */
     void touchMove(int position) {
 
-        row = position / SlidingTile.level;
-        col = position % SlidingTile.level;
+        row = position / this.level;
+        col = position % this.level;
         blankId = 0;
         if (isValidTap(position)) {
             makeMove();
@@ -313,23 +323,23 @@ class BoardManager extends Manager implements Serializable, Undoable {
     private void makeMove() {
         numMoves++;
         undoLimit++;
-        if (row != SlidingTile.level - 1 && (slidingTile.getTile(row + 1, col)).getId() ==
+        if (row != this.level - 1 && (slidingTile.getTile(row + 1, col)).getId() ==
                 blankId) {
             slidingTile.swapTiles(row, col, row + 1, col);
-            addPosition((row + 1) * SlidingTile.level + col);
+            addPosition((row + 1) * this.level + col);
         }
         if (row != 0 && (slidingTile.getTile(row - 1, col)).getId() == blankId) {
             slidingTile.swapTiles(row, col, row - 1, col);
-            addPosition((row - 1) * SlidingTile.level + col);
+            addPosition((row - 1) * this.level + col);
         }
         if (col != 0 && (slidingTile.getTile(row, col - 1)).getId() == blankId) {
             slidingTile.swapTiles(row, col, row, col - 1);
-            addPosition((row) * SlidingTile.level + col - 1);
+            addPosition((row) * this.level + col - 1);
         }
-        if (col != SlidingTile.level - 1 && (slidingTile.getTile(row, col + 1)).getId() ==
+        if (col != this.level - 1 && (slidingTile.getTile(row, col + 1)).getId() ==
                 blankId) {
             slidingTile.swapTiles(row, col, row, col + 1);
-            addPosition((row) * SlidingTile.level + col + 1);
+            addPosition((row) * this.level + col + 1);
         }
     }
 

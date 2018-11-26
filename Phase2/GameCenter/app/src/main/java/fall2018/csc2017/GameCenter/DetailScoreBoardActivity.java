@@ -138,17 +138,7 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
     private void addScoreQuitButtonsListener() {
         Button quitButton = findViewById(R.id.scoreBoardQuitbutton);
         quitButton.setOnClickListener((v) -> {
-            switch (gameType){
-                case "SlidingTile":
-                    BoardManager.destroyBoardManager();
-                    break;
-                case "Mine":
-                    MineManager.destroyMineManager();
-                    break;
-                case "Sudoku":
-                    SudokuBoardManager.destroySudokuBoardManager();
-                    break;
-            }
+            detailScoreBoard.destroyDetailScoreBoard();
             Intent tmp = new Intent(this, GameCenterActivity.class);
             startActivity(tmp);
         });

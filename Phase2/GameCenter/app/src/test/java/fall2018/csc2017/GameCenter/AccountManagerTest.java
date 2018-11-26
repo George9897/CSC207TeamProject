@@ -1,5 +1,8 @@
 package fall2018.csc2017.GameCenter;
 
+import android.content.Context;
+import android.test.mock.MockContext;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -7,6 +10,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class AccountManagerTest {
+
+    Context context = new MockContext();
 
     @Before
     public void setUp() throws Exception {
