@@ -146,7 +146,7 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
         Button backToHomeButton = findViewById(R.id.backHomeButton);
 
         backToHomeButton.setOnClickListener((v) -> {
-            Intent tmp = new Intent(this, StartingActivity.class);
+            Intent tmp = new Intent(this, GameCenterActivity.class);
             startActivity(tmp);
         });
     }
