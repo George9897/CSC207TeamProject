@@ -120,11 +120,11 @@ public class DetailScoreBoard implements Serializable {
                 break;
         }
         if (score != 0 || mineManager.getLose()) {
-            helper();
+            updateScore();
         }
     }
 
-    private void helper(){
+    private void updateScore(){
         switch (level) {
             case "Easy":
                 if (!easyMap.containsKey(score)) {
@@ -335,7 +335,6 @@ public class DetailScoreBoard implements Serializable {
         modifyHardTopOne();
     }
 
-    //TODO: implement this.
     /**
      * Return Highest score by a given username;
      *
@@ -343,6 +342,27 @@ public class DetailScoreBoard implements Serializable {
      * @return Highest score
      */
     public int getHighestScoreByUser(String username){
-        return 0;
+        int highestScore = 0;
+        List<Integer> scores = new ArrayList<>();
+        for (int index = 0; index <= easyScoreList.size(); index++){
+            if (easyMap.get(easyScoreList.get(index)).contains(username)){
+                scores.add(easyScoreList.get(index));
+            }
+        }
+        for (int index = 0; index <= mediumScoreList.size(); index++){
+            if (mediumMap.get(mediumScoreList.get(index)).contains(username)){
+                scores.add(mediumScoreList.get(index));
+            }
+        }
+        for (int index = 0; index <= hardScoreList.size(); index++){
+            if (hardMap.get(hardScoreList.get(index)).contains(username)){
+                scores.add(hardScoreList.get(index));
+            }
+        }
+        if (scores.size() > 0) {
+            Collections.sort(scores);
+            highestScore = scores.get(scores.size() - 1);
+        }
+        return highestScore;
     }
 }
