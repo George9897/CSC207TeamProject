@@ -287,11 +287,13 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
     (Queue<Pair<Integer, Integer>> queue) {
         if (queue.size() != 0) {
             Pair<Integer, Integer> pointPair = queue.poll();
-            int row = pointPair.first;
-            int col = pointPair.second;
-            replaceToTrue(row, col);
-            putSurroundingOnQueue(row, col, queue);
-            recursiveSurroundingOnQueue(queue);
+            if (pointPair.first != null && pointPair.second != null) {
+                int row = pointPair.first;
+                int col = pointPair.second;
+                replaceToTrue(row, col);
+                putSurroundingOnQueue(row, col, queue);
+                recursiveSurroundingOnQueue(queue);
+            }
         }
     }
 
