@@ -4,21 +4,28 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.Serializable;
-
 import static org.junit.Assert.*;
 
 /**
  * Test for mine scorer class.
  */
 public class MineScorerTest {
+    private MineScorer mineScorer;
 
+    /**
+     * Set up a scorer for testing it.
+     */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
+        mineScorer = new MineScorer();
     }
 
+    /**
+     * Tear down.
+     */
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
+        mineScorer = null;
     }
 
     /**
@@ -26,5 +33,7 @@ public class MineScorerTest {
      */
     @Test
     public void testCalculateScore() {
+        assertEquals(26000, mineScorer.calculateScore(26,0));
+        assertEquals(24728, mineScorer.calculateScore(26, 10));
     }
 }
