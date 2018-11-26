@@ -85,8 +85,11 @@ public class SudokuSettingActivity extends AppCompatActivity implements Serializ
      * Switch to the MineGameActivity view to play the game.
      */
     private void switchToGame() {
+        Intent intent = getIntent();
+//        String username = intent.getExtras().getString("userName");
         Intent tmp = new Intent(this, SudokuBoardActivity.class);
         tmp.putExtra("sudokuDifficulty", sudokuDifficulty);
+        //tmp.putExtra("sudokuusername", username);
         startActivity(tmp);
         finish();
     }

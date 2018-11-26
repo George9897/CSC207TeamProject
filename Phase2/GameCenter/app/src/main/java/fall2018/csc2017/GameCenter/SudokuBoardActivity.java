@@ -45,6 +45,8 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
 
     private String sudokuDifficulty;
 
+    private String username;
+
     /**
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
@@ -60,11 +62,16 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent tmp = getIntent();
+//        username = tmp.getExtras().getString("sudokuusername");
+////        loadFromFile(username + "Sudoku.ser");
         sudokuDifficulty = tmp.getExtras().getString("sudokuDifficulty");
+        if (sudokuBoardManager == null) {
+            sudokuBoardManager = new SudokuBoardManager(this, sudokuDifficulty);
+        }
+        if (tmp.getExtras().getBoolean("load")){
+            loadFromFile(StartingActivity.sudokuFile);
+        }
 
-        sudokuBoardManager = new SudokuBoardManager(this, sudokuDifficulty);
-
-        loadFromFile(sudokuBoardManager.getUserName() + "Sudoku.ser");
         createTileButtons(this);
         setContentView(R.layout.activity_sudoku_board);
         addOneButtonListener();
@@ -141,7 +148,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
     @Override
     protected void onPause() {
         super.onPause();
-        saveToFile(StartingActivity.slidingFile);
+        saveToFile(StartingActivity.sudokuFile);
     }
 
     /**
