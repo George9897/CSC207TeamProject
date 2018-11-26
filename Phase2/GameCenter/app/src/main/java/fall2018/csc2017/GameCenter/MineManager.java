@@ -20,11 +20,6 @@ public class MineManager extends Manager implements Serializable {
      * The mine tiles.
      */
     private List<MineTile> mineTiles;
-
-    /**
-     * The AccountManager.
-     */
-    private AccountManager accountManager;
     /**
      * The user's name.
      */
@@ -187,8 +182,6 @@ public class MineManager extends Manager implements Serializable {
      */
     public MineManager(Context context) {
         this.context = context;
-        this.accountManager = new AccountManager(context);
-        this.userName = accountManager.getUserName();
         this.mineTiles = createTiles();
         this.mineBoard = new MineBoard(mineTiles, numBoom, new Random());
         this.numBoom = this.mineBoard.getNumBoom();
@@ -247,5 +240,9 @@ public class MineManager extends Manager implements Serializable {
         time = scorer.getTimeScore();
         score = scorer.calculateScore(mineBoard.getNumBoom(), time);
         timer.cancel();
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }
