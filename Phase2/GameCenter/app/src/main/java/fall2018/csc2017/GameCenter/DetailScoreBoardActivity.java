@@ -31,17 +31,21 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
         Intent intent = getIntent();
         gameType = intent.getStringExtra("gameTypeWantedToSee");
 
+        boolean played = true;
         String filename = gameType + "DetailScoreBoard.ser";
         loadFromFile(filename);
         if (detailScoreBoard == null){
             System.out.println(filename);
             detailScoreBoard = new DetailScoreBoard(gameType, this);
+            played =false;
         }
         detailScoreBoard.setContext(this);
 
         System.out.println(detailScoreBoard.context);
 
-        //detailScoreBoard.display();
+        if (!played) {
+            detailScoreBoard.display();
+        }
         TextView gameView = findViewById(R.id.GameView);
         gameView.setText(gameType);
         setTopOnes(detailScoreBoard);

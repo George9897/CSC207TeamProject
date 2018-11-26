@@ -98,7 +98,6 @@ public class DetailScoreBoard implements Serializable {
                 if (boardManager == null){
                     boardManager = new BoardManager(this.context, 3 );
                 }
-                boardManager.setContext(this.context);
                 score = boardManager.getScore();
                 if (boardManager.getSlidingTileDifficulty() !=null) {
                     level = boardManager.getSlidingTileDifficulty();
@@ -110,7 +109,6 @@ public class DetailScoreBoard implements Serializable {
                 if (mineManager == null){
                     mineManager = new MineManager(this.context);
                 }
-                mineManager.setContext(this.context);
                 score = mineManager.getScore();
                 if (mineManager.getMineDifficulty()!=null) {
                     level = mineManager.getMineDifficulty();
@@ -122,18 +120,25 @@ public class DetailScoreBoard implements Serializable {
                 //sudokuBoardManager = new SudokuBoardManager(this.context, "Easy");
                 loadFromFile(StartingActivity.sudokuFile);
                 if (sudokuBoardManager == null){
+                    System.out.println("+++++11111111111111111");
                     sudokuBoardManager = new SudokuBoardManager(this.context, "Easy");
                 }
-                sudokuBoardManager.setContext(this.context);
                 score = sudokuBoardManager.getScore();
+                System.out.println(sudokuBoardManager.getDifficulty() + "scoreeeeeeee");
                 if (sudokuBoardManager.getSudokuDifficulty()!=null) {
                     level = sudokuBoardManager.getSudokuDifficulty();
                 }
                 username = sudokuBoardManager.getUserName();
                 break;
         }
-        if (score != 0 || mineManager.getLose()) {
-            updateScore();
+        if (mineManager != null) {
+            if (mineManager.getLose()) {
+                updateScore();
+            }
+        }else{
+            if (score != 0) {
+                updateScore();
+            }
         }
     }
 
@@ -204,17 +209,22 @@ public class DetailScoreBoard implements Serializable {
     }
 
     private void modifyEasyTopOne(){
+        System.out.println(easyScoreList);
         if (easyScoreList.isEmpty()){
             easyLevel = "neverPlayed";
+            System.out.println("easylevel++++++++++++never");
         } else {
             easyLevel = "played";
+            System.out.println("easylevel++++++++++++ever");
         }
         if (level.equals("neverPlayed")|| easyLevel.equals("neverPlayed") ||
                 findTopOne(easyTopOneScore, easyTopOneName, score, username)==null) {
             easyTopOneName = "No data";
+            System.out.println(easyTopOneName + "-------------------");
         } else if(score != 0) {
             easyTopOneName = findTopOne(easyTopOneScore, easyTopOneName, score, username);
             easyTopOneScore = easyScoreList.get(easyScoreList.size()-1);
+            System.out.println(easyTopOneName + "-------------------" + easyTopOneScore);
         }
     }
 
