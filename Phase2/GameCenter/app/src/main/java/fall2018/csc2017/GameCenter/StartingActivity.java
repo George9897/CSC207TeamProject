@@ -94,7 +94,7 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
                     startActivity(mine);
                     break;
                 case "Sudoku":
-                    Intent sudoku = new Intent(this, SudokuBoardActivity.class);
+                    Intent sudoku = new Intent(this, SudokuSettingActivity.class);
                     startActivity(sudoku);
                     break;
             }

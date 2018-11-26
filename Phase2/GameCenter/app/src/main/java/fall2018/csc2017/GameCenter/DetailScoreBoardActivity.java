@@ -92,6 +92,7 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
     public void onBackPressed() {
         if (!gameType.equals("")) {
             detailScoreBoard.destroyDetailScoreBoard();
+            System.out.println("++++++++++++++");
         }
         super.onBackPressed();
     }
@@ -148,7 +149,7 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
                     SudokuBoardManager.destroySudokuBoardManager();
                     break;
             }
-            Intent tmp = new Intent(this, StartingActivity.class);
+            Intent tmp = new Intent(this, GameCenterActivity.class);
             startActivity(tmp);
         });
     }

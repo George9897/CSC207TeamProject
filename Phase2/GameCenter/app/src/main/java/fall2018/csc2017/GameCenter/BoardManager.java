@@ -67,7 +67,6 @@ class BoardManager extends Manager implements Serializable, Undoable {
      */
     static String slidingTileDifficulty;
 
-
     /**
      * The undo limitation.
      */
