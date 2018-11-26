@@ -324,4 +324,14 @@ public class DetailScoreBoard implements Serializable {
         modifyHardTopOne();
     }
 
+    //TODO: implement this.
+    /**
+     * Return Highest score by a given username;
+     *
+     * @param username given username
+     * @return Highest score
+     */
+    public int getHighestScoreByUser(String username){
+        return 0;
+    }
 }
