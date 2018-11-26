@@ -187,7 +187,7 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
      */
     private List<MineTile> randomGenerateBoomsList(List<MineTile> givenTile){
         List<MineTile> boomTile = new LinkedList<>();
-        for (int i = 0; i <= numBoom; i++) {
+        for (int i = 0; i < numBoom; i++) {
             int idx = randomize.nextInt(givenTile.size());
             boomTile.add(givenTile.get(idx));
             givenTile.remove(idx);

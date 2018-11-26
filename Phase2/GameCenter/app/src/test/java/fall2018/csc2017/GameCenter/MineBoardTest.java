@@ -115,7 +115,7 @@ public class MineBoardTest {
     @Test
     public void testTouchOpen() {
 
-        mineBoard = new MineBoard(createTiles(), 1, new Random());
+        mineBoard = new MineBoard(createTiles(), 40, new Random());
         int position = 0;
 
         assertEquals(0, testCreateBooms());
@@ -123,16 +123,29 @@ public class MineBoardTest {
 
         mineBoard.touchOpen(position, true);
 
-        assertEquals(2, testCreateBooms());
+        assertEquals(40, testCreateBooms());
         assertTrue(mineBoard.getMineTile(0, 0).getIsOpened());
-        assertEquals(1, testOpenedBooms());
+
         // test recursively open surrounding tiles when find a 0 value tile.
         int expectedOpen = getExpectedOpenedTile(position);
         int numOfOpenedTiles = testOpenedTiles();
         assertEquals(numOfOpenedTiles, expectedOpen);
 
+        int boomLocation = -1;
+        for (int row = 0; row < MineBoard.getSize(); row++) {
+            for (int col = 0; col < MineBoard.getSize(); col++) {
+                if (mineBoard.getMineTile(row, col).getValue() == -1) {
+                    boomLocation = row * MineBoard.getSize() + col;
+                }
+            }
+        }
+        if(boomLocation != -1) {
+            mineBoard.touchOpen(boomLocation, false);
+            assertEquals(40, testOpenedBooms());
+        }
+
         // test createBooms without first tap.
-        mineBoard = new MineBoard(createTiles(), 1, new Random());
+        mineBoard = new MineBoard(createTiles(), 40, new Random());
         assertEquals(0, testCreateBooms());
         mineBoard.touchOpen(position, false);
         assertEquals(0, testCreateBooms());
@@ -181,7 +194,8 @@ public class MineBoardTest {
         int numberOfDisplay = 0;
         for (int boomRow = 0; boomRow < MineBoard.getSize(); boomRow++) {
             for (int boomCol = 0; boomCol < MineBoard.getSize(); boomCol++) {
-                if (mineBoard.getMineTile(boomRow, boomCol).getIsOpened()){
+                if (mineBoard.getMineTile(boomRow, boomCol).getValue() == -1
+                && mineBoard.getMineTile(boomRow, boomCol).getIsOpened()){
                     numberOfDisplay++;
                 }
             }
