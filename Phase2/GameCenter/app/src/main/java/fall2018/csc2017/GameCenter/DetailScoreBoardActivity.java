@@ -31,21 +31,28 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
         Intent intent = getIntent();
         gameType = intent.getStringExtra("gameTypeWantedToSee");
 
-        getGameType();
         String filename = gameType + "DetailScoreBoard.ser";
         loadFromFile(filename);
         if (detailScoreBoard == null){
+            System.out.println(filename);
             detailScoreBoard = new DetailScoreBoard(gameType, this);
         }
-        detailScoreBoard.display();
+        detailScoreBoard.setContext(this);
+
+        System.out.println(detailScoreBoard.context);
+
+        //detailScoreBoard.display();
         TextView gameView = findViewById(R.id.GameView);
         gameView.setText(gameType);
         setTopOnes(detailScoreBoard);
         setModeData(detailScoreBoard);
 
         addScoreQuitButtonsListener();
-        detailScoreBoard = null;
+        System.out.println(filename);
         saveToFile(filename);
+        System.out.println(detailScoreBoard.context);
+        detailScoreBoard.destroyAllManager();
+        detailScoreBoard = null;
     }
 
     /**
@@ -58,7 +65,7 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
             InputStream inputStream = this.openFileInput(fileName);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                detailScoreBoard = (DetailScoreBoard) input.readObject();
+                this.detailScoreBoard = (DetailScoreBoard) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
@@ -81,24 +88,11 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(detailScoreBoard);
+            outputStream.writeObject(this.detailScoreBoard);
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (!gameType.equals("")) {
-            detailScoreBoard = null;
-            System.out.println("++++++++++++++");
-        }
-        super.onBackPressed();
-    }
-
-    private void getGameType(){
-
     }
 
     private void setTopOnes(DetailScoreBoard scoreBoard){
@@ -138,7 +132,6 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
     private void addScoreQuitButtonsListener() {
         Button quitButton = findViewById(R.id.scoreBoardQuitbutton);
         quitButton.setOnClickListener((v) -> {
-            detailScoreBoard = null;
             Intent tmp = new Intent(this, GameCenterActivity.class);
             startActivity(tmp);
         });

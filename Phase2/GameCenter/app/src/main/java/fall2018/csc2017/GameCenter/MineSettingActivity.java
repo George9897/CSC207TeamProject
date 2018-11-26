@@ -22,6 +22,8 @@ public class MineSettingActivity extends AppCompatActivity implements Serializab
      */
     private MineManager mineManager;
 
+    private String userName;
+
     /**
      * The default creator for Mine Setting Activity.
      *
@@ -41,8 +43,12 @@ public class MineSettingActivity extends AppCompatActivity implements Serializab
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         boomDifficulty.setAdapter(dataAdapter);
 
-        MineManager.destroyMineManager();
-        mineManager = MineManager.getMineManager(this);
+        Intent intent = getIntent();
+        userName = intent.getStringExtra("userName");
+
+        mineManager = new MineManager(this);
+        mineManager.setUserName(userName);
+
 
         boomDifficulty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             /**
