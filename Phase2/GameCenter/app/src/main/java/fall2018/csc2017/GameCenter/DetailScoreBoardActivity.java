@@ -35,7 +35,7 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
         String filename = gameType + "DetailScoreBoard.ser";
         loadFromFile(filename);
         if (detailScoreBoard == null){
-            detailScoreBoard = DetailScoreBoard.getDetailScoreBoard(gameType, this);
+            detailScoreBoard = new DetailScoreBoard(gameType, this);
         }
         detailScoreBoard.display();
         TextView gameView = findViewById(R.id.GameView);
@@ -44,7 +44,7 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
         setModeData(detailScoreBoard);
 
         addScoreQuitButtonsListener();
-        detailScoreBoard.destroyDetailScoreBoard();
+        detailScoreBoard = null;
         saveToFile(filename);
     }
 
@@ -91,7 +91,7 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
     @Override
     public void onBackPressed() {
         if (!gameType.equals("")) {
-            detailScoreBoard.destroyDetailScoreBoard();
+            detailScoreBoard = null;
             System.out.println("++++++++++++++");
         }
         super.onBackPressed();
@@ -138,17 +138,7 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
     private void addScoreQuitButtonsListener() {
         Button quitButton = findViewById(R.id.scoreBoardQuitbutton);
         quitButton.setOnClickListener((v) -> {
-            switch (gameType){
-                case "SlidingTile":
-                    BoardManager.destroyBoardManager();
-                    break;
-                case "Mine":
-                    MineManager.destroyMineManager();
-                    break;
-                case "Sudoku":
-                    SudokuBoardManager.destroySudokuBoardManager();
-                    break;
-            }
+            detailScoreBoard = null;
             Intent tmp = new Intent(this, GameCenterActivity.class);
             startActivity(tmp);
         });

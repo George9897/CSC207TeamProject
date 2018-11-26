@@ -1,5 +1,8 @@
 package fall2018.csc2017.GameCenter;
 
+import android.content.Context;
+import android.test.mock.MockContext;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,13 +14,23 @@ import java.util.List;
  * Test for mine manager class.
  */
 public class MineManagerTest {
+    /**
+     * The mine manager for test.
+     */
+    private MineManager mineManager;
+    private Context context;
 
+    /**
+     * @throws Exception
+     */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
+        context = new MockContext();
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
+        mineManager = null;
     }
 
     /**

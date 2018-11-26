@@ -17,14 +17,6 @@ public class DetailScoreBoardTest {
     }
 
     @Test
-    public void getDetailScoreBoard() {
-    }
-
-    @Test
-    public void destroyDetailScoreBoard() {
-    }
-
-    @Test
     public void getEasyTopOne() {
     }
 
@@ -50,5 +42,9 @@ public class DetailScoreBoardTest {
 
     @Test
     public void display() {
+    }
+
+    @Test
+    public void getHighestScoreByUser() {
     }
 }
