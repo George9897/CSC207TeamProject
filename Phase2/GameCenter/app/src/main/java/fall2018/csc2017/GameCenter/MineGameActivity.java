@@ -57,7 +57,7 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mineManager = MineManager.getMineManager(this);
+        mineManager = new MineManager(this);
         createTileButtons(this);
         setContentView(R.layout.activity_mine_game);
         addQuitButtonListener();
@@ -97,7 +97,6 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
      * @param context the context
      */
     private void createTileButtons(Context context) {
-        mineManager = MineManager.getMineManager(this);
         tileButtons = new ArrayList<>();
         for (int row = 0; row < MineBoard.getSize(); row++) {
             for (int col = 0; col < MineBoard.getSize(); col++) {
@@ -113,7 +112,6 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateTileButtons() {
-        mineManager = MineManager.getMineManager(this);
         MineBoard mineBoard = mineManager.getMineBoard();
         int nextPos = 0;
         for (Button b : tileButtons) {
