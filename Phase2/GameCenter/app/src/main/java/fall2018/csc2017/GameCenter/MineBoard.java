@@ -229,7 +229,7 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
             displayAllBoom();
         }
         //tap the mineTile with a number.
-        else if (mineTile[row][col].getValue() == 0) {
+        else if (mineTile[row][col].getValue() == 0 && !firstTap) {
             Queue<Pair<Integer, Integer>> queue = new LinkedList<>();
             queue = putSurroundingOnQueue(row, col, queue);
             recursiveSurroundingOnQueue(queue);
@@ -267,7 +267,7 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
     /**
      * Display all boom when the user failed.
      */
-    private void displayAllBoom() {
+    void displayAllBoom() {
         for (int boomRow = 0; boomRow < size; boomRow++) {
             for (int boomCol = 0; boomCol < size; boomCol++) {
                 if (mineTile[boomRow][boomCol].getValue() == -1) {
