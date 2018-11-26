@@ -11,10 +11,10 @@ import java.util.Map;
 
 public class DetailScoreBoard implements Serializable {
 
-//    /**
-//     * The serialVersionUID.
-//     */
-//    public static final long serialVersionUID =  -3921180421292202865L;
+    /**
+     * The serialVersionUID.
+     */
+
 
     private String gameType;
 

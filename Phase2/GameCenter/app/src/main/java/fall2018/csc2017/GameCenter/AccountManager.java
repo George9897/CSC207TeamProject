@@ -48,6 +48,7 @@ public class AccountManager implements Serializable {
     AccountManager(Context context) {
         this.context = context;
         loadFromFile();
+        loadName();
     }
 
     /**
@@ -58,8 +59,9 @@ public class AccountManager implements Serializable {
      */
     public void setUp(String userName, String password) {
         this.userName = userName;
+        saveName();
         map.put(userName, password);
-        saveToFile(context);
+        saveToFile();
     }
 
     /**
@@ -69,6 +71,7 @@ public class AccountManager implements Serializable {
      */
     public void login(String userName) {
         this.userName = userName;
+        saveName();
     }
 
     /**
@@ -121,11 +124,48 @@ public class AccountManager implements Serializable {
      * Save the user account to fileName.
      *
      */
-    private void saveToFile(Context context) {
+    private void saveToFile() {
         try {
             ObjectOutputStream outputStream = new ObjectOutputStream(
                     this.context.openFileOutput(AccountManager.SAVE_FILENAME, MODE_PRIVATE));
             outputStream.writeObject(map);
+            outputStream.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
+
+    /**
+     * Load the user account from fileName.
+     *
+     */
+    private void loadName() {
+        try {
+            InputStream inputStream = this.context.openFileInput("currentPlayer.ser");
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                this.userName = (String) input.readObject();
+                inputStream.close();
+            }
+        } catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+        }
+
+    }
+
+    /**
+     * Save the user account to fileName.
+     *
+     */
+    private void saveName() {
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(
+                    this.context.openFileOutput("currentPlayer.ser", MODE_PRIVATE));
+            outputStream.writeObject(userName);
             outputStream.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
