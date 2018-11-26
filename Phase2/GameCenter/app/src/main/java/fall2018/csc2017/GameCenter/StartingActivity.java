@@ -108,18 +108,35 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
             switch (gameType){
                 case "SlidingTile":
                     loadFromFile(slidingFile);
-                    makeToastLoadedText();
-                    switchToGame();
+                    if(boardManager == null){
+                        Toast.makeText(this, "You haven't play this game before", Toast.LENGTH_SHORT).show();
+                    }else if (boardManager.puzzleSolved()){
+                        Toast.makeText(this, "You finish your previous game, please start another one", Toast.LENGTH_SHORT).show();
+                    }else {
+                        makeToastLoadedText();
+                        switchToGame();
+                    }
                     break;
                 case "Mine":
                     loadFromFile(mineFile);
-                    makeToastLoadedText();
-                    switchToGame();
-                    break;
+                    if(mineManager == null){
+                        Toast.makeText(this, "You haven't play this game before", Toast.LENGTH_SHORT).show();
+                    }else if (mineManager.puzzleSolved()){
+                        Toast.makeText(this, "You finish your previous game, please start another one", Toast.LENGTH_SHORT).show();
+                    }else {
+                        makeToastLoadedText();
+                        switchToGame();
+                    }
                 case "Sudoku":
                     loadFromFile(sudokuFile);
-                    makeToastLoadedText();
-                    switchToGame();
+                    if(sudokuBoardManager == null){
+                        Toast.makeText(this, "You haven't play this game before", Toast.LENGTH_SHORT).show();
+                    }else if (sudokuBoardManager.puzzleSolved()){
+                        Toast.makeText(this, "You finish your previous game, please start another one", Toast.LENGTH_SHORT).show();
+                    }else {
+                        makeToastLoadedText();
+                        switchToGame();
+                    }
                     break;
             }
         });
