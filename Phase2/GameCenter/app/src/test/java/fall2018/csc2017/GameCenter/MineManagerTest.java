@@ -11,29 +11,46 @@ import java.util.Random;
 
 import static org.junit.Assert.*;
 
+/**
+ * Test mine manager test.
+ */
 public class MineManagerTest {
 
-    Context context = new MockContext();
+    /**
+     * The mocked context for mine manager test.
+     */
+    private Context context = new MockContext();
+    /**
+     * The mine manager for test.
+     */
+    private MineManager mineManager;
 
+    /**
+     * Set up a mine manager for test.
+     */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
+        mineManager = new MineManager(context);
     }
 
+    /**
+     * Tear down.
+     */
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
+        mineManager = null;
     }
 
     @Test
     public void testGetLose() {
-        MineManager mineManager = new MineManager(context);
-        assertFalse(mineManager.getLose());
+        setUp();
         mineManager.setLose();
         assertTrue(mineManager.getLose());
     }
 
     @Test
     public void testSetLose() {
-        MineManager mineManager = new MineManager(context);
+        setUp();
         assertFalse(mineManager.getLose());
         mineManager.setLose();
         assertTrue(mineManager.getLose());
@@ -41,85 +58,145 @@ public class MineManagerTest {
 
     @Test
     public void testGetTime() {
-        MineManager mineManager = new MineManager(context);
-        mineManager.setTime(0);
+        setUp();
         assertEquals(0 , mineManager.getTime());
     }
 
     @Test
     public void testSetTime(){
-        MineManager mineManager = new MineManager(context);
+        setUp();
         mineManager.setTime(0);
         assertEquals(0 , mineManager.getTime());
     }
 
     @Test
     public void testGetScore() {
-        MineManager mineManager = new MineManager(context);
-        mineManager.setScore(0);
+        setUp();
         assertEquals(0 , mineManager.getScore());
     }
 
     @Test
     public void testSetScore() {
-        MineManager mineManager = new MineManager(context);
+        setUp();
         mineManager.setScore(0);
         assertEquals(0 , mineManager.getScore());
     }
 
     @Test
     public void testGetMineBoard() {
+        setUp();
+        assertFalse(mineManager.getMineBoard().getMineTile(15, 15).getIsOpened());
     }
 
     @Test
     public void testGetUserName() {
+        setUp();
+        assertNull(mineManager.getUserName());
+
     }
 
     @Test
     public void testGetContext() {
+        setUp();
+        assertEquals(context, mineManager.getContext());
     }
 
     @Test
     public void testGetMineDifficulty() {
+        setUp();
+        assertNull(mineManager.getMineDifficulty());
     }
 
     @Test
     public void testIsFirstTap() {
+        setUp();
+        assertTrue(mineManager.isFirstTap());
     }
 
     @Test
     public void testGetMineTiles() {
+        setUp();
+        assertEquals(256, mineManager.getMineTiles().size());
     }
 
     @Test
     public void testSetMineDifficulty() {
+        setUp();
+        assertNull(mineManager.getMineDifficulty());
+        mineManager.setMineDifficulty("Hard");
+        assertEquals("Hard", mineManager.getMineDifficulty());
     }
 
     @Test
     public void testSetFirstTapToFalse() {
+        setUp();
+        assertTrue(mineManager.isFirstTap());
+        mineManager.setFirstTapToFalse();
+        assertFalse(mineManager.isFirstTap());
     }
 
     @Test
     public void testCreateTiles() {
+        setUp();
+        assertEquals(256, mineManager.getMineTiles().size());
     }
 
     @Test
     public void testPuzzleSolved() {
+        setUp();
+        assertFalse(mineManager.puzzleSolved());
+        mineManager.getMineBoard().setNumBoom(1);
+        mineManager.getMineBoard().touchOpen(0, true);
+        for (int row = 0; row < MineBoard.getSize(); row++) {
+            for (int col = 0; col < MineBoard.getSize(); col++) {
+                if (mineManager.getMineBoard().getMineTile(row, col).getValue() == -1) {
+                    mineManager.getMineBoard().replaceToFlag(row, col);
+                }
+                else {
+                    mineManager.getMineBoard().replaceToTrue(row, col);
+                }
+            }
+        }
+        assertTrue(mineManager.puzzleSolved());
     }
 
     @Test
     public void testIsValidTap() {
+        setUp();
+        assertFalse(mineManager.getMineBoard().getMineTile(0,0).getIsOpened());
+        assertTrue(mineManager.isValidTap(0));
+        mineManager.getMineBoard().touchOpen(0, true);
+        assertFalse(mineManager.isValidTap(0));
     }
 
     @Test
     public void testFailing() {
+        setUp();
+        assertEquals(0, mineManager.getScore());
+        mineManager.setScore(50000);
+        assertEquals(50000, mineManager.getScore());
+        mineManager.failing();
+        assertEquals(0, mineManager.getScore());
+
     }
 
     @Test
     public void testWinning() {
+        setUp();
+        for (int i = 0; i < 11; i++) {
+            mineManager.scorer.run();
+        }
+        mineManager.getMineBoard().setNumBoom(10);
+        mineManager.winning();
+        assertEquals(11, mineManager.getTime());
+        assertEquals(9463, mineManager.getScore());
     }
 
     @Test
     public void testSetUserName() {
+        setUp();
+        assertNull(mineManager.getUserName());
+        mineManager.setUserName("A");
+        assertEquals("A", mineManager.getUserName());
     }
 }
