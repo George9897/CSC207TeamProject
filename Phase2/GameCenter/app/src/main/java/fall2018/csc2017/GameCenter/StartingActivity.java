@@ -38,6 +38,8 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
 
     private String gameType;
 
+    private String userName;
+
     /**
      * Creator of of starting activity.
      * @param savedInstanceState the saved instance state.
@@ -48,6 +50,7 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
 
         Intent intent = getIntent();
         gameType = intent.getStringExtra("gameType");
+        userName = intent.getStringExtra("userName");
 
         switch (gameType){
             case "SlidingTile":
@@ -79,14 +82,17 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
             switch (gameType){
                 case "SlidingTile":
                     Intent slidingTile = new Intent(this, SettingActivity.class);
+                    slidingTile.putExtra("userName", userName);
                     startActivity(slidingTile);
                     break;
                 case "Mine":
                     Intent mine = new Intent(this, MineSettingActivity.class);
+                    mine.putExtra("userName", userName);
                     startActivity(mine);
                     break;
                 case "Sudoku":
                     Intent sudoku = new Intent(this, SudokuSettingActivity.class);
+                    sudoku.putExtra("userName", userName);
                     startActivity(sudoku);
                     break;
             }
@@ -126,6 +132,7 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
         Button scoreboardButton = findViewById(R.id.scoreButton);
         scoreboardButton.setOnClickListener(view -> {
             Intent tmp = new Intent(this, ChooseGameScoreActivity.class);
+            tmp.putExtra("userName", userName);
             startActivity(tmp);
         });
     }
@@ -137,6 +144,7 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
         Button myScoreButton = findViewById(R.id.MyScore);
         myScoreButton.setOnClickListener(view -> {
             Intent tmp = new Intent(this, PersonalScoreboardActivity.class);
+            tmp.putExtra("userName", userName);
             startActivity(tmp);
         });
     }
@@ -149,6 +157,7 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
         Button profileButton = findViewById(R.id.profileButton);
         profileButton.setOnClickListener(view -> {
             Intent tmp = new Intent(this, ProfileActivity.class);
+            tmp.putExtra("userName", userName);
             startActivity(tmp);
         });
     }
@@ -160,7 +169,7 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
         Button logoutButton = findViewById(R.id.LogoutButton);
         logoutButton.setOnClickListener(view -> {
             boardManager = null;
-            Intent temp = new Intent(this, HomeActivity.class);
+            Intent temp = new Intent(this, LoginActivity.class);
             startActivity(temp);
         });
     }
@@ -189,7 +198,6 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
                 Intent slidingTile = new Intent(this, GameActivity.class);
                 loadFromFile(slidingFile);
                 if(boardManager!=null) {
-                    System.out.println(boardManager.userName + "============================");
                     slidingTile.putExtra("slidingTileBoardManager", boardManager);
                     startActivity(slidingTile);
                 } else {

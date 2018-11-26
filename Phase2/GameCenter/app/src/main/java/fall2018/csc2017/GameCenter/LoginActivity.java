@@ -30,6 +30,7 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
 
         accountManager = new AccountManager(this);
         setupIsLoginButtonListener();
+        setupHomeSignUpButtonListener();
     }
 
     /**
@@ -54,9 +55,20 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
                     canYouLogin.setText("Welcome back!");
                     accountManager.login(username_string);
                     Intent tmp = new Intent(this, GameCenterActivity.class);
+                    tmp.putExtra("userName",username_string);
                     startActivity(tmp);
                 }
             }
+        });
+    }
+    /**
+     * Create Button for signUp.
+     */
+    private void setupHomeSignUpButtonListener() {
+        Button homeSignUpButton = findViewById(R.id.home_sign_up);
+        homeSignUpButton.setOnClickListener((v) -> {
+            Intent tmp = new Intent(this, SignUpActivity.class);
+            startActivity(tmp);
         });
     }
 }

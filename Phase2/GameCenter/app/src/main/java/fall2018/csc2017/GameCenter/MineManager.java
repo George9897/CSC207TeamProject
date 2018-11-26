@@ -21,14 +21,6 @@ public class MineManager extends Manager implements Serializable {
      */
     private List<MineTile> mineTiles;
     /**
-     * The singleton mine Manager.
-     */
-    private static MineManager mineManager;
-    /**
-     * The AccountManager.
-     */
-    private AccountManager accountManager;
-    /**
      * The user's name.
      */
     private String userName;
@@ -188,34 +180,12 @@ public class MineManager extends Manager implements Serializable {
     /**
      * The constructor of MineManager.
      */
-    private MineManager(Context context) {
+    public MineManager(Context context) {
         this.context = context;
-        this.accountManager = new AccountManager(context);
-        this.userName = accountManager.getUserName();
         this.mineTiles = createTiles();
         this.mineBoard = new MineBoard(mineTiles, numBoom, new Random());
         this.numBoom = this.mineBoard.getNumBoom();
         timer.schedule(scorer, 0, 1000);
-    }
-
-    /**
-     * Getter for singleton Mine Manager.
-     *
-     * @param context The context.
-     * @return mineManager.
-     */
-    static MineManager getMineManager(Context context) {
-        if (mineManager == null) {
-            mineManager = new MineManager(context);
-        }
-        return mineManager;
-    }
-
-    /**
-     * Destroy for new singleton Mine Manager.
-     */
-    static void destroyMineManager() {
-        mineManager = null;
     }
 
     /**
@@ -270,5 +240,9 @@ public class MineManager extends Manager implements Serializable {
         time = scorer.getTimeScore();
         score = scorer.calculateScore(mineBoard.getNumBoom(), time);
         timer.cancel();
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

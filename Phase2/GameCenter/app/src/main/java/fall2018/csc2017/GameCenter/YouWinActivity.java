@@ -4,9 +4,15 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 /**
@@ -21,6 +27,8 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
     private MineManager mineManager;
 
     private SudokuBoardManager sudokuBoardManager;
+
+    private DetailScoreBoard detailScoreBoard;
 
     private String gameType;
 
@@ -44,7 +52,7 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
                 scoreBox.setText("Your Score: " + (Integer.toString(boardManager.getScore())));
                 break;
             case "Mine":
-                mineManager = MineManager.getMineManager(this);
+                mineManager = new MineManager(this);
                 TextView youWinView = findViewById(R.id.finishView);
                 if (mineManager.puzzleSolved()) {
                     youWinView.setText("Victory!");
@@ -61,9 +69,62 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
                         + (Integer.toString(sudokuBoardManager.getTime())) + " Seconds");
                 break;
         }
+        String filename = gameType + "DetailScoreBoard.ser";
+        loadFromFile(filename);
+        if (detailScoreBoard == null){
+            System.out.println(filename);
+            detailScoreBoard = new DetailScoreBoard(gameType, this);
+        }
+        detailScoreBoard.setContext(this);
+
+        System.out.println(detailScoreBoard.context);
+
+        detailScoreBoard.display();
+        saveToFile(filename);
         setUpSeeScoreButtonListener();
         setUpBackHButtonListener();
         setUpPlayAgainButtonListener();
+        SudokuBoardManager.destroySudokuBoardManager();
+    }
+
+    /**
+     * Load the user account from fileName.
+     *
+     * @param fileName the save file which contains the dictionary of username and password
+     */
+    void loadFromFile(String fileName) {
+        try {
+            InputStream inputStream = this.openFileInput(fileName);
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                this.detailScoreBoard = (DetailScoreBoard) input.readObject();
+                inputStream.close();
+            }
+        } catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("login activity", "File contained unexpected data type: "
+                    + e.toString());
+        }
+    }
+
+
+    /**
+     * Save the user account to fileName.
+     *
+     * @param fileName the save file which contains the dictionary of username and password
+     */
+    private void saveToFile(String fileName) {
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(
+                    this.openFileOutput(fileName, MODE_PRIVATE));
+            outputStream.writeObject(this.detailScoreBoard);
+            outputStream.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
     }
 
     /**
@@ -107,7 +168,7 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
                     startActivity(MineTmp);
                     break;
                 case "Sudoku":
-                    Intent SudokuTmp = new Intent(this, SudokuBoardActivity.class);
+                    Intent SudokuTmp = new Intent(this, SudokuSettingActivity.class);
                     startActivity(SudokuTmp);
                     break;
             }
