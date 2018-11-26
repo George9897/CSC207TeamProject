@@ -243,7 +243,7 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
      * @param row The row of the mine tile that needs to be replaced.
      * @param col The col of the mine tile that needs to be replaced.
      */
-    private void replaceToTrue(int row, int col) {
+    void replaceToTrue(int row, int col) {
         mineTile[row][col] = new MineTile(mineTile[row][col].getValue(), true);
     }
 
@@ -287,11 +287,13 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
     (Queue<Pair<Integer, Integer>> queue) {
         if (queue.size() != 0) {
             Pair<Integer, Integer> pointPair = queue.poll();
-            int row = pointPair.first;
-            int col = pointPair.second;
-            replaceToTrue(row, col);
-            putSurroundingOnQueue(row, col, queue);
-            recursiveSurroundingOnQueue(queue);
+            if (pointPair.first != null && pointPair.second != null) {
+                int row = pointPair.first;
+                int col = pointPair.second;
+                replaceToTrue(row, col);
+                putSurroundingOnQueue(row, col, queue);
+                recursiveSurroundingOnQueue(queue);
+            }
         }
     }
 

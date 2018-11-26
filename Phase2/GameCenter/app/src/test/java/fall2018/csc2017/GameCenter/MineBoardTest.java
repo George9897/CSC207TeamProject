@@ -1,5 +1,6 @@
 package fall2018.csc2017.GameCenter;
 
+import android.content.Intent;
 import android.util.Pair;
 
 import org.junit.After;
@@ -76,6 +77,7 @@ public class MineBoardTest {
      */
     @Test
     public void testGetSize() {
+        setUp();
         assertEquals(16, MineBoard.getSize());
     }
 
@@ -84,6 +86,7 @@ public class MineBoardTest {
      */
     @Test
     public void testGetNumBoom() {
+        setUp();
         assertEquals(26, mineBoard.getNumBoom());
     }
 
@@ -92,6 +95,7 @@ public class MineBoardTest {
      */
     @Test
     public void testGetMineTile() {
+        setUp();
         int row = 8;
         int col = 8;
         assertEquals(0, mineBoard.getMineTile(row, col).getValue());
@@ -103,6 +107,7 @@ public class MineBoardTest {
      */
     @Test
     public void testSetNumBoom() {
+        setUp();
         assertEquals(26, mineBoard.getNumBoom());
         mineBoard.setNumBoom(52);
         assertEquals(52, mineBoard.getNumBoom());
@@ -113,6 +118,7 @@ public class MineBoardTest {
      */
     @Test
     public void testTouchOpen() {
+        setUp();
 
         mineBoard = new MineBoard(createTiles(), 1, new Random());
         int position = 0;
@@ -122,11 +128,11 @@ public class MineBoardTest {
 
         mineBoard.touchOpen(position, true);
 
-        assertEquals(1, testCreateBooms());
+        assertEquals(2, testCreateBooms());
         assertTrue(mineBoard.getMineTile(0, 0).getIsOpened());
-        assertEquals(1, testOpenedBooms());
+        assertEquals(2, testOpenedBooms());
         // test recursively open surrounding tiles when find a 0 value tile.
-        int expectedOpen = getExpectedOpenedTile(position) + 1;
+        int expectedOpen = getExpectedOpenedTile(position);
         int numOfOpenedTiles = testOpenedTiles();
         assertEquals(numOfOpenedTiles, expectedOpen);
 
@@ -144,6 +150,7 @@ public class MineBoardTest {
      * @return expected opened Tile
      */
     private int getExpectedOpenedTile(int position){
+        setUp();
         int expectedOpenedTiles = 0;
         int row = position / MineBoard.getSize();
         int col = position % MineBoard.getSize();
@@ -160,6 +167,7 @@ public class MineBoardTest {
      * @return num of booms are created.
      */
     private int testCreateBooms(){
+        setUp();
         int numberOfBooms = 0;
         for (int row = 0; row < MineBoard.getSize(); row++) {
             for (int col = 0; col < MineBoard.getSize(); col++) {
@@ -177,6 +185,7 @@ public class MineBoardTest {
      * @return num of booms are opened.
      */
     private int testOpenedBooms(){
+        setUp();
         int numberOfDisplay = 0;
         for (int boomRow = 0; boomRow < MineBoard.getSize(); boomRow++) {
             for (int boomCol = 0; boomCol < MineBoard.getSize(); boomCol++) {
@@ -194,6 +203,7 @@ public class MineBoardTest {
      * @return num of tile are opened.
      */
     private int testOpenedTiles(){
+        setUp();
         int numberOfOpenedTiles = 0;
         for (int Row = 0; Row < MineBoard.getSize(); Row++) {
             for (int Col = 0; Col < MineBoard.getSize(); Col++) {
@@ -212,6 +222,7 @@ public class MineBoardTest {
      */
     @Test
     public void testReplaceToFlag() {
+        setUp();
         int row = 8;
         int col = 8;
         assertFalse(mineBoard.getMineTile(row, col).getIsOpened());
@@ -236,26 +247,27 @@ public class MineBoardTest {
      */
     private void recursiveSurroundingOnQueue
     (Queue<Pair<Integer, Integer>> queue) {
-        if (queue.size() != 0) {
+        if (queue.size() > 0) {
             Pair<Integer, Integer> pointPair = queue.poll();
-            int row = pointPair.first;
-            int col = pointPair.second;
-            expectedOpenedTiles++;
-            putSurroundingOnQueue(row, col, queue);
-            recursiveSurroundingOnQueue(queue);
+            if (pointPair.first != null && pointPair.second != null) {
+                int row = pointPair.first;
+                int col = pointPair.second;
+                expectedOpenedTiles++;
+                putSurroundingOnQueue(row, col, queue);
+                recursiveSurroundingOnQueue(queue);
+            }
         }
     }
 
     /**
-     * Put the surrounding empty mine tiles in the queue.
+     * Change the surrounding empty mine tiles in the queue.
      * Helper for recursiveSurroundingOnQueue.
      *
      * @param row   The row of the mine tile.
      * @param col   The col of the mine tile.
-     * @param queue The queue of empty mine tiles.
-     * @return The modified queue.
+     * @param queue The queue of given mine tiles.
      */
-    private Queue<Pair<Integer, Integer>> putSurroundingOnQueue
+    private void putSurroundingOnQueue
     (int row, int col, Queue<Pair<Integer, Integer>> queue) {
         for (int i = 0; i < 8; i++) {
             Integer surroundingX = row + surrounding_directions[i][0],
@@ -275,6 +287,5 @@ public class MineBoardTest {
                 }
             }
         }
-        return queue;
     }
 }
