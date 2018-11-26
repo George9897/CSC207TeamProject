@@ -191,6 +191,10 @@ public class MineManager extends Manager implements Serializable {
         return mineTiles;
     }
 
+    void setContext(Context context){
+        this.context = context;
+    }
+
     /**
      * The constructor of MineManager.
      */

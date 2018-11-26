@@ -1,7 +1,12 @@
 package fall2018.csc2017.GameCenter;
 
 import android.content.Context;
+import android.util.Log;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -85,10 +90,15 @@ public class DetailScoreBoard implements Serializable {
     }
 
     private void collectScoreLevel(){
-        mineManager = new MineManager(this.context);
+        //mineManager = new MineManager(this.context);
         switch (gameType) {
             case "SlidingTile":
-                boardManager = new BoardManager(this.context, 3);
+                //boardManager = new BoardManager(this.context, 3);
+                loadFromFile(StartingActivity.slidingFile);
+                if (boardManager == null){
+                    boardManager = new BoardManager(this.context, 3 );
+                }
+                boardManager.setContext(this.context);
                 score = boardManager.getScore();
                 if (boardManager.getSlidingTileDifficulty() !=null) {
                     level = boardManager.getSlidingTileDifficulty();
@@ -96,6 +106,11 @@ public class DetailScoreBoard implements Serializable {
                 username = boardManager.userName;
                 break;
             case "Mine":
+                loadFromFile(StartingActivity.mineFile);
+                if (mineManager == null){
+                    mineManager = new MineManager(this.context);
+                }
+                mineManager.setContext(this.context);
                 score = mineManager.getScore();
                 if (mineManager.getMineDifficulty()!=null) {
                     level = mineManager.getMineDifficulty();
@@ -104,7 +119,12 @@ public class DetailScoreBoard implements Serializable {
                 break;
             case "Sudoku":
                 //change to load from file
-                sudokuBoardManager = new SudokuBoardManager(this.context, "Easy");
+                //sudokuBoardManager = new SudokuBoardManager(this.context, "Easy");
+                loadFromFile(StartingActivity.sudokuFile);
+                if (sudokuBoardManager == null){
+                    sudokuBoardManager = new SudokuBoardManager(this.context, "Easy");
+                }
+                sudokuBoardManager.setContext(this.context);
                 score = sudokuBoardManager.getScore();
                 if (sudokuBoardManager.getSudokuDifficulty()!=null) {
                     level = sudokuBoardManager.getSudokuDifficulty();
@@ -345,4 +365,38 @@ public class DetailScoreBoard implements Serializable {
         }
         return highestScore;
     }
+
+    /**
+     * Load the slidingTile manager from fileName.
+     *
+     * @param fileName the name of the file
+     */
+    private void loadFromFile(String fileName) {
+
+        try {
+            InputStream inputStream = this.context.openFileInput(fileName);
+            if (inputStream != null) {
+                ObjectInputStream input = new ObjectInputStream(inputStream);
+                switch (gameType){
+                    case "SlidingTile":
+                        boardManager = (BoardManager) input.readObject();
+                        break;
+                    case "Mine":
+                        mineManager = (MineManager) input.readObject();
+                        break;
+                    case "Sudoku":
+                        sudokuBoardManager = (SudokuBoardManager) input.readObject();
+                        break;
+                }
+                inputStream.close();
+            }
+        } catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        } catch (ClassNotFoundException e) {
+            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+        }
+    }
+
 }

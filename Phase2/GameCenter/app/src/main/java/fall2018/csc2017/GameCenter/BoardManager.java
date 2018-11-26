@@ -103,6 +103,10 @@ class BoardManager extends Manager implements Serializable, Undoable {
         return undoLimit3;
     }
 
+    void setContext(Context context){
+        this.context = context;
+    }
+
 
     /**
      * Create a initial list of Tiles for game with matching sizes.

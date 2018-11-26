@@ -125,6 +125,10 @@ public class SudokuBoardManager extends Manager implements Serializable {
         return sudokuDifficulty;
     }
 
+    void setContext(Context context){
+        this.context = context;
+    }
+
     //
 //    /**
 //     * Setter for numBoom.
