@@ -27,11 +27,11 @@ public class MineManager extends Manager implements Serializable {
     /**
      * The AccountManager.
      */
-    private AccountManager accountManager = AccountManager.getAccountManager();
+    private AccountManager accountManager;
     /**
      * The user's name.
      */
-    private String userName = accountManager.getUserName();
+    private String userName;
     /**
      * The mark of whether the user tapped for at least once.
      */
@@ -190,6 +190,8 @@ public class MineManager extends Manager implements Serializable {
      */
     private MineManager(Context context) {
         this.context = context;
+        this.accountManager = new AccountManager(context);
+        this.userName = accountManager.getUserName();
         this.mineTiles = createTiles();
         this.mineBoard = new MineBoard(mineTiles, numBoom, new Random());
         this.numBoom = this.mineBoard.getNumBoom();
