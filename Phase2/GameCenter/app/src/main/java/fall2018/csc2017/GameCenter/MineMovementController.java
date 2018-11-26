@@ -56,7 +56,6 @@ class MineMovementController implements Serializable {
     private void finish() {
         Intent tmp = new Intent(mineManager.getContext(), YouWinActivity.class);
         tmp.putExtra("gameType", "Mine");
-        saveToFile(StartingActivity.mineFile,context);
         mineManager.getContext().startActivity(tmp);
     }
 
@@ -74,6 +73,7 @@ class MineMovementController implements Serializable {
             if (mineManager.getMineBoard().getMineTile(row, col).getValue() == -1) {
                 mineManager.failing();
                 mineManager.setLose();
+                saveToFile(StartingActivity.mineFile,context);
                 new AlertDialog.Builder(context)
                         .setCancelable(false)
                         .setMessage("You Shall Not Pass！")
@@ -101,6 +101,7 @@ class MineMovementController implements Serializable {
             mineManager.getMineBoard().replaceToFlag(row, col);
             if (mineManager.puzzleSolved()) {
                 mineManager.winning();
+                saveToFile(StartingActivity.mineFile,context);
                 new AlertDialog.Builder(context)
                         .setCancelable(false)
                         .setMessage("Victory!")
