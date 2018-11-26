@@ -78,6 +78,9 @@ class BoardManager extends Manager implements Serializable, Undoable {
      */
     private int undoLimit3;
 
+    /**
+     * The size of the board.
+     */
     private int level;
 
     /**
@@ -120,6 +123,14 @@ class BoardManager extends Manager implements Serializable, Undoable {
             }
         }
         return tiles;
+    }
+
+    /**
+     * Getter for Level.
+     * @return the size of the board
+     */
+    public int getLevel() {
+        return level;
     }
 
     /**
@@ -189,7 +200,6 @@ class BoardManager extends Manager implements Serializable, Undoable {
         // Random choose i
         Random r1 = new Random();
         int i = 50 + r1.nextInt(50);
-        ArrayList history = new ArrayList();
         while (k <= i) {
             ArrayList swapChoices = new ArrayList();
             int row = bPosition / this.level;
@@ -197,23 +207,18 @@ class BoardManager extends Manager implements Serializable, Undoable {
             Tile above = row == 0 ? null : slidingTile.getTile(row - 1, col);
             Tile below = row == this.level - 1 ? null : slidingTile.getTile(row + 1, col);
             Tile lefT = col == 0 ? null : slidingTile.getTile(row, col - 1);
-            Tile righT = col == this.level - 1 ? null : slidingTile.getTile(row, col + 1);
+            Tile richT = col == this.level - 1 ? null : slidingTile.getTile(row, col + 1);
             if (above != null) {
-                swapChoices.add(up);
-            }
+                swapChoices.add(up); }
             if (below != null) {
-                swapChoices.add(level);
-            }
+                swapChoices.add(level); }
             if (lefT != null) {
-                swapChoices.add(left);
-            }
-            if (righT != null) {
-                swapChoices.add(right);
-            }
+                swapChoices.add(left); }
+            if (richT != null) {
+                swapChoices.add(right); }
             // Random choose an element from swapChoices, then swap them.
             Random r2 = new Random();
             int c = (int) (swapChoices.get(r2.nextInt(swapChoices.size())));
-            //history.add(c);
             int d = bPosition + c;
             this.slidingTile.swapTiles(row, col, d / this.level, d % this.level);
             bPosition = d;
