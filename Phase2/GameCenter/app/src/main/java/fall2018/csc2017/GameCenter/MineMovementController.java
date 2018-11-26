@@ -14,7 +14,7 @@ class MineMovementController implements Serializable {
     /**
      * The singleton mine manager.
      */
-    private static MineManager mineManager;
+    private MineManager mineManager;
     /**
      * The context.
      */
@@ -33,15 +33,14 @@ class MineMovementController implements Serializable {
      * @param mineManager The manager that is being set.
      */
     void setMineManager(MineManager mineManager) {
-        MineMovementController.mineManager = mineManager;
+        this.mineManager = mineManager;
     }
 
     /**
      * Reset the game if the user choose to do so.
      */
     private void resetTheGame() {
-        MineManager.destroyMineManager();
-        mineManager = MineManager.getMineManager(context);
+        mineManager = new MineManager(context);
         Intent tmp = new Intent(context, MineSettingActivity.class);
         context.startActivity(tmp);
     }

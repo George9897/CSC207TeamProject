@@ -52,7 +52,7 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
                 scoreBox.setText("Your Score: " + (Integer.toString(boardManager.getScore())));
                 break;
             case "Mine":
-                mineManager = MineManager.getMineManager(this);
+                mineManager = new MineManager(this);
                 TextView youWinView = findViewById(R.id.finishView);
                 if (mineManager.puzzleSolved()) {
                     youWinView.setText("Victory!");

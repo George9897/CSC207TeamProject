@@ -85,7 +85,7 @@ public class DetailScoreBoard implements Serializable {
     }
 
     private void collectScoreLevel(){
-        mineManager = MineManager.getMineManager(this.context);
+        mineManager = new MineManager(this.context);
         switch (gameType) {
             case "SlidingTile":
                 boardManager = new BoardManager(this.context, 3);

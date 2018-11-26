@@ -20,6 +20,9 @@ public class GameCenterActivity extends AppCompatActivity implements Serializabl
      * A temporary save file.
      */
     public static final String TEMP_SAVE_FILENAME = "save_center_file_tmp.ser";
+
+    private String userName;
+
     /**
      * Create a Game Center Activity for user to choose game.
      *
@@ -29,6 +32,9 @@ public class GameCenterActivity extends AppCompatActivity implements Serializabl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_center);
+
+        Intent intent = getIntent();
+        userName = intent.getStringExtra("userName");
 
         addTileGameButton();
         addMineGameButton();
@@ -43,6 +49,7 @@ public class GameCenterActivity extends AppCompatActivity implements Serializabl
         tileGamePicButton.setOnClickListener(view -> {
             Intent tmp = new Intent(this, StartingActivity.class);
             tmp.putExtra("gameType", "SlidingTile");
+            tmp.putExtra("userName", userName);
             GameCenterActivity.this.startActivity(tmp);
         });
     }
@@ -55,6 +62,7 @@ public class GameCenterActivity extends AppCompatActivity implements Serializabl
         MineGamePicButton.setOnClickListener(view -> {
             Intent tmp = new Intent(this, StartingActivity.class);
             tmp.putExtra("gameType", "Mine");
+            tmp.putExtra("userName", userName);
             GameCenterActivity.this.startActivity(tmp);
         });
     }
@@ -67,6 +75,7 @@ public class GameCenterActivity extends AppCompatActivity implements Serializabl
         sudokuButton.setOnClickListener(view -> {
             Intent tmp = new Intent(this, StartingActivity.class);
             tmp.putExtra("gameType", "Sudoku");
+            tmp.putExtra("userName", userName);
             GameCenterActivity.this.startActivity(tmp);
         });
     }
