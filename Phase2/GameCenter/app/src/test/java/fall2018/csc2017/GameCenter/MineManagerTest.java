@@ -32,7 +32,7 @@ public class MineManagerTest {
     @Before
     public void setUp() {
         context = new MockContext();
-        mineManager = new MineManager(context);
+        mineManager = new MineManager(context, "userName", "INTERMEDIATE");
     }
 
     /**
