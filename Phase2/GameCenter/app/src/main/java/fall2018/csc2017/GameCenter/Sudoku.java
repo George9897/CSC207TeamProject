@@ -18,18 +18,7 @@ public class Sudoku extends Observable implements Serializable, Iterable<Tile> {
     }
 
     /**
-     * The serialVersionUID.
-     */
-    //TODO: don't know for now
-    //public static final long serialVersionUID = L;
-
-//    /**
-//     * The boolean of whether this slidingTile is drawable.
-//     */
-//    boolean isDrawable = false;
-
-    /**
-     * Iterate over tiles on the slidingTile
+     * Iterate over tiles on the sudoku
      */
     private class SudokuIterator implements Iterator<Tile> {
 
@@ -66,20 +55,20 @@ public class Sudoku extends Observable implements Serializable, Iterable<Tile> {
     }
 
     /**
-     * The number of level.
+     * The length of the side of sudoku board.
      */
     static final int size = 9;
 
     /**
-     * The tiles on the slidingTile in row-major order.
+     * The tiles on the sudoku board in row-major order.
      */
     private Tile[][] tiles = new Tile[size][size];
 
     /**
-     * A new slidingTile of tiles in row-major order.
+     * A new sudoku of tiles in row-major order.
      * Precondition: len(tiles) == level * level
      *
-     * @param tiles the tiles for the slidingTile
+     * @param tiles the tiles for the sudoku
      */
     Sudoku(List<Tile> tiles) {
         Iterator<Tile> iter = tiles.iterator();
@@ -92,19 +81,18 @@ public class Sudoku extends Observable implements Serializable, Iterable<Tile> {
     }
 
     /**
-     * Return the level.
+     * Return the size of sudoku.
      *
-     * @return the size of slidingTile
+     * @return the size of sudoku
      */
-    //change from getLevel
     int getSize() {
         return size;
     }
 
     /**
-     * Return the number of tiles on the slidingTile.
+     * Return the number of tiles on the sudoku.
      *
-     * @return the number of tiles on the slidingTile
+     * @return the number of tiles on the sudoku
      */
     private int numTiles() {
         return size * size;
@@ -121,15 +109,13 @@ public class Sudoku extends Observable implements Serializable, Iterable<Tile> {
         return tiles[row][col];
     }
 
-//    /**
-//     * Swap the tiles at (row1, col1) and (row2, col2)
-//     *
-//     * @param row1 the first tile row
-//     * @param col1 the first tile col
-//     * @param row2 the second tile row
-//     * @param col2 the second tile col
-//     */
-    // change from swapTile
+    /**
+     * Write the num into the tiles at (row1, col1)
+     *
+     * @param row the tile row
+     * @param col the tile col
+     * @param move the number wanted to be written into the tile
+     */
     void writeNum(int row, int col, int move) {
         tiles[row][col] = new Tile(move);
         setChanged();
@@ -137,9 +123,9 @@ public class Sudoku extends Observable implements Serializable, Iterable<Tile> {
     }
 
     /**
-     * Convert a slidingTile to a String.
+     * Convert a sudoku to a String.
      *
-     * @return a string representation of a slidingTile.
+     * @return a string representation of a sudoku.
      */
     @Override
     public String toString() {
