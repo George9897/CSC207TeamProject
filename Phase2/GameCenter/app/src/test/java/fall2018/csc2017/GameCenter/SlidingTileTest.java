@@ -6,23 +6,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 //import fall2018.csc2017.GameCenter.BoardManager;
-//
-//import static org.junit.Assert.*;
-//
-//public class SlidingTileTest {
-//
-//    @Before
-//    public void setUp() throws Exception {
-//        /*
-//          The board manager for testing.
-//         */
-//        //BoardManager boardManager;
-//    }
-//
-//    @After
-//    public void tearDown() throws Exception {
-//    }
-//
+
+import static org.junit.Assert.*;
+
+public class SlidingTileTest {
+    /*
+    The board manager for testing.
+    */
+    //private BoardManager boardManager;
+
+    @Before
+    public void setUp() throws Exception {
+
+    }
+
+    @After
+    public void tearDown() throws Exception {
+    }
+
 //    @Test    /**
 //     * Make a set of tiles that are in order.
 //     * @return a set of tiles that are in order
@@ -38,37 +39,37 @@ import java.util.List;
 //    }
 //    public void iterator() {
 //    }
-//
-//    @Test
-//    public void getLevel() {
-//    }
-//
-//    @Test
-//    public void numTiles() {
-//    }
-//
-//    @Test
-//    public void getTileList() {
-//    }
-//
-//    @Test
-//    public void getTile() {
-//    }
-//
-//    @Test
-//    public void swapTiles() {
-//    }
-//
-//    /**
-//     * Test whether swapping the first two tiles works.
-//     */
-//    @Test
-//    public void testSwapFirstTwo() {
-        // setUpCorrect();
+
+    @Test
+    public void getLevel() {
+    }
+
+    @Test
+    public void numTiles() {
+    }
+
+    @Test
+    public void getTileList() {
+    }
+
+    @Test
+    public void getTile() {
+    }
+
+    @Test
+    public void swapTiles() {
+    }
+
+    /**
+     * Test whether swapping the first two tiles works.
+     */
+    @Test
+    public void testSwapFirstTwo() {
+//         setUpCorrect();
 //        assertEquals(1, boardManager.getBoard().getTile(0, 0).getId());
 //        assertEquals(2, boardManager.getBoard().getTile(0, 1).getId());
 //        boardManager.getBoard().swapTiles(0, 0, 0, 1);
 //        assertEquals(2, boardManager.getBoard().getTile(0, 0).getId());
 //        assertEquals(1, boardManager.getBoard().getTile(0, 1).getId());
-//    }
-//}
+    }
+}
