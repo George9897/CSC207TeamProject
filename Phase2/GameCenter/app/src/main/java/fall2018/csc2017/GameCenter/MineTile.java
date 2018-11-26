@@ -115,9 +115,6 @@ class MineTile implements Serializable {
             background = R.drawable.tile_closed;
         } else {
             switch (value) {
-                case -2:
-                    background = R.drawable.tile_flagged;
-                    break;
                 case -1:
                     background = R.drawable.tile_boom;
                     break;
