@@ -7,147 +7,119 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.Serializable;
-import java.util.List;
+import java.util.Random;
 
-/**
- * Test for mine manager class.
- */
+import static org.junit.Assert.*;
+
 public class MineManagerTest {
-    /**
-     * The mine manager for test.
-     */
-    private MineManager mineManager;
-    private Context context;
 
-    /**
-     * @throws Exception
-     */
+    Context context = new MockContext();
+
     @Before
-    public void setUp() {
-        context = new MockContext();
+    public void setUp() throws Exception {
     }
 
     @After
-    public void tearDown() {
-        mineManager = null;
+    public void tearDown() throws Exception {
     }
 
-    /**
-     * Test whether getTime works.
-     */
+    @Test
+    public void testGetLose() {
+        MineManager mineManager = new MineManager(context);
+        assertFalse(mineManager.getLose());
+        mineManager.setLose();
+        assertTrue(mineManager.getLose());
+    }
+
+    @Test
+    public void testSetLose() {
+        MineManager mineManager = new MineManager(context);
+        assertFalse(mineManager.getLose());
+        mineManager.setLose();
+        assertTrue(mineManager.getLose());
+    }
+
     @Test
     public void testGetTime() {
+        MineManager mineManager = new MineManager(context);
+        mineManager.setTime(0);
+        assertEquals(0 , mineManager.getTime());
     }
 
-    /**
-     * Test whether getTime works.
-     */
     @Test
-    public void testGetScore() {}
+    public void testSetTime(){
+        MineManager mineManager = new MineManager(context);
+        mineManager.setTime(0);
+        assertEquals(0 , mineManager.getTime());
+    }
 
-    /**
-     * Test whether getTime works.
-     */
+    @Test
+    public void testGetScore() {
+        MineManager mineManager = new MineManager(context);
+        mineManager.setScore(0);
+        assertEquals(0 , mineManager.getScore());
+    }
+
+    @Test
+    public void testSetScore() {
+        MineManager mineManager = new MineManager(context);
+        mineManager.setScore(0);
+        assertEquals(0 , mineManager.getScore());
+    }
+
     @Test
     public void testGetMineBoard() {
     }
 
-    /**
-     * Test whether getTime works.
-     */
     @Test
     public void testGetUserName() {
     }
 
-    /**
-     * Test whether getTime works.
-     */
     @Test
     public void testGetContext() {
     }
 
-    /**
-     * Test whether getTime works.
-     */
     @Test
     public void testGetMineDifficulty() {
     }
 
-    /**
-     * Test whether getTime works.
-     */
     @Test
     public void testIsFirstTap() {
     }
 
-    /**
-     * Test whether getTime works.
-     */
     @Test
     public void testGetMineTiles() {
     }
 
-    /**
-     * Test whether getTime works.
-     */
     @Test
     public void testSetMineDifficulty() {
     }
 
-    /**
-     * Test whether getTime works.
-     */
     @Test
-    public void testsSetFirstTapToFalse() {
+    public void testSetFirstTapToFalse() {
     }
 
-    /**
-     * Test whether getTime works.
-     */
     @Test
     public void testCreateTiles() {
     }
 
-    /**
-     * Test whether getTime works.
-     */
-    @Test
-    public void testGetMineManager() {
-    }
-
-    /**
-     * Test whether getTime works.
-     */
-    @Test
-    public void testDestroyMineManager() {
-    }
-
-    /**
-     * Test whether getTime works.
-     */
     @Test
     public void testPuzzleSolved() {
     }
 
-    /**
-     * Test whether getTime works.
-     */
     @Test
     public void testIsValidTap() {
     }
 
-    /**
-     * Test whether getTime works.
-     */
     @Test
     public void testFailing() {
     }
 
-    /**
-     * Test whether getTime works.
-     */
     @Test
     public void testWinning() {
+    }
+
+    @Test
+    public void testSetUserName() {
     }
 }
