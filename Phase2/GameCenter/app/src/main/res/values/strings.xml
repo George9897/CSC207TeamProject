@@ -16,4 +16,5 @@
     <string name="see_scoreboard">See Scoreboard</string>
     <string name="play_again">Play Again!</string>
     <string name="finish">FINISH</string>
+    <string name="victory">Victory!</string>
 </resources>

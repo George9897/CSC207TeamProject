@@ -184,9 +184,9 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
         //Mark the position of booms.
         for (MineTile nextBoomTile : boomTile) {
             mineTile[nextBoomTile.getX()][nextBoomTile.getY()].setValue(-1);
+            buildBoom(nextBoomTile.getX(), nextBoomTile.getY());
         }
         //Add number to some tiles.
-        updateTiles();
         setChanged();
         notifyObservers();
     }
@@ -205,20 +205,6 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
             givenTile.remove(idx);
         }
         return boomTile;
-    }
-
-    /**
-     * Update all tiles and build boom on tile with value -1.
-     */
-    private void updateTiles(){
-        for (int row = 0; row < size; row++) {
-            for (int col = 0; col < size; col++) {
-                int tileNum = this.mineTile[row][col].getValue();
-                if (tileNum == -1) {
-                    buildBoom(row, col);
-                }
-            }
-        }
     }
 
     /**

@@ -77,11 +77,11 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
         startButton.setOnClickListener(v -> {
             switch (gameType){
                 case "SlidingTile":
-                    Intent slidingTile = new Intent(this, GameActivity.class);
+                    Intent slidingTile = new Intent(this, SettingActivity.class);
                     startActivity(slidingTile);
                     break;
                 case "Mine":
-                    Intent mine = new Intent(this, MineGameActivity.class);
+                    Intent mine = new Intent(this, MineSettingActivity.class);
                     startActivity(mine);
                     break;
                 case "Sudoku":
@@ -109,25 +109,16 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
                     loadFromFile(mineFile);
                     saveToFile(mineFile);
                     makeToastLoadedText();
-                    switchToMine();
+                    switchToGame();
                     break;
                 case "Sudoku":
                     loadFromFile(sudokuFile);
                     saveToFile(sudokuFile);
                     makeToastLoadedText();
-                    switchToMine();
+                    switchToGame();
                     break;
             }
         });
-    }
-
-    /**
-     * Switch to mine game.
-     */
-    private void switchToMine(){
-        Intent tmp = new Intent(this, MineGameActivity.class);
-        saveToFile(StartingActivity.mineFile);
-        startActivity(tmp);
     }
 
     /**
