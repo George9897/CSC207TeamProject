@@ -93,14 +93,12 @@ public class MineBoardTest {
      */
     @Test
     public void testTouchOpen() {
-        int position = 8;
-        int row = position / MineBoard.getSize();
-        int col = position % MineBoard.getSize();
-        assertFalse(mineBoard.getMineTile(row, col).getIsOpened());
-        assertEquals(0, mineBoard.getMineTile(row, col).getValue());
-        mineBoard.touchOpen(position, true);
-
-
+        mineBoard = new MineBoard(createTiles(), 1, new Random());
+        mineBoard.touchOpen(0, true);
+        assertTrue(mineBoard.getMineTile(0,0).getIsOpened());
+        mineBoard.displayAllBoom();
+        mineBoard.iterator();
+        mineBoard.notifyObservers();
     }
 
     /**

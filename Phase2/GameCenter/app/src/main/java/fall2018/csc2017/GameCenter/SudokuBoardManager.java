@@ -28,7 +28,7 @@ public class SudokuBoardManager extends Manager implements Serializable {
     /**
      * The boardManager.
      */
-    private static SudokuBoardManager sudokuBoardManager;
+    //private static SudokuBoardManager sudokuBoardManager;
 
     /**
      * The number of moves taken by the users.
@@ -66,7 +66,7 @@ public class SudokuBoardManager extends Manager implements Serializable {
     /**
      *
      */
-    static String sudokuDifficulty;
+    private String sudokuDifficulty;
 
 //    /**
 //     * The time score for one game play.
@@ -121,12 +121,8 @@ public class SudokuBoardManager extends Manager implements Serializable {
         return score;
     }
 
-    public String getSudokuDifficulty() {
+    String getSudokuDifficulty() {
         return sudokuDifficulty;
-    }
-
-    public void setSudokuDifficulty(String sudokuDifficulty) {
-        this.sudokuDifficulty = sudokuDifficulty;
     }
 
     //
@@ -197,8 +193,9 @@ public class SudokuBoardManager extends Manager implements Serializable {
     /**
      * Constructor for BoardManager.
      */
-    private SudokuBoardManager(Context context) {
+    SudokuBoardManager(Context context, String sudokuDifficulty) {
         this.context = context;
+        this.sudokuDifficulty = sudokuDifficulty;
         this.accountManager = new AccountManager(context);
         this.userName = accountManager.getUserName();
         if (this.listOfPosition == null) {
@@ -207,26 +204,6 @@ public class SudokuBoardManager extends Manager implements Serializable {
             this.sudoku = new Sudoku(tiles);
             timer.schedule(scorer, 0, 1000);
         }
-    }
-
-    /**
-     * Getter for singleton BoardManager.
-     *
-     * @param context The context used for connecting activity.
-     * @return The singleton BoardManager.
-     */
-    static SudokuBoardManager getSudokuBoardManager(Context context) {
-        if (sudokuBoardManager == null) {
-            sudokuBoardManager = new SudokuBoardManager(context);
-        }
-        return sudokuBoardManager;
-    }
-
-    /**
-     * Destroy current BoardManager.
-     */
-    static void destroySudokuBoardManager() {
-        sudokuBoardManager = null;
     }
 
     /**

@@ -67,12 +67,12 @@ public class MineManager extends Manager implements Serializable {
      *
      * @return the status of losing.
      */
-    boolean getLose(){return lose;}
+    public boolean getLose(){return lose;}
 
     /**
      * Setter for status of losing.
      */
-    void setLose(){lose = true;}
+    public void setLose(){lose = true;}
 
     /**
      * Getter for the time passed.
@@ -84,6 +84,13 @@ public class MineManager extends Manager implements Serializable {
     }
 
     /**
+     * Setter for the time passed.
+     */
+    public void setTime(int time) {
+        this.time = time;
+    }
+
+    /**
      * Getter for the score.
      *
      * @return score.
@@ -91,6 +98,13 @@ public class MineManager extends Manager implements Serializable {
     @Override
     public int getScore() {
         return score;
+    }
+
+    /**
+     * Setter for the score.
+     */
+    public void setScore(int score) {
+        this.score = score;
     }
 
     /**
@@ -228,8 +242,8 @@ public class MineManager extends Manager implements Serializable {
      * Game failing logic.
      */
     void failing() {
-        time = scorer.getTimeScore();
-        score = 0;
+        setTime(scorer.getTimeScore());
+        setScore(0);
         timer.cancel();
     }
 
@@ -237,8 +251,8 @@ public class MineManager extends Manager implements Serializable {
      * Game winning logic.
      */
     void winning() {
-        time = scorer.getTimeScore();
-        score = scorer.calculateScore(mineBoard.getNumBoom(), time);
+        setTime(scorer.getTimeScore());
+        setScore(scorer.calculateScore(mineBoard.getNumBoom(), time));
         timer.cancel();
     }
 
