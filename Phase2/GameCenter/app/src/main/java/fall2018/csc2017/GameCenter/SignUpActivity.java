@@ -25,7 +25,7 @@ public class SignUpActivity extends AppCompatActivity implements Serializable {
     /**
      * The accountManager.
      */
-    AccountManager accountManager = AccountManager.getAccountManager();
+    private AccountManager accountManager;
 
     /**
      * The creator of sign up activity.
@@ -36,6 +36,8 @@ public class SignUpActivity extends AppCompatActivity implements Serializable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+        accountManager = new AccountManager(this);
         setupCreateUserButtonListener();
     }
 
@@ -57,7 +59,7 @@ public class SignUpActivity extends AppCompatActivity implements Serializable {
                 meg_box.setText("This name is invalid! The first character shouldn't " +
                         "be number and this name shouldn't contain other things except " +
                         "numbers and characters Please type again!");
-            } else if (accountManager.checkUsername(nameWantToHave_string, this)) {
+            } else if (accountManager.checkUsername(nameWantToHave_string)) {
                 meg_box.setText("This name is used!");
             } else {
                 helper_check_password_and_sign_up(nameWantToHave_string,
@@ -113,7 +115,7 @@ public class SignUpActivity extends AppCompatActivity implements Serializable {
                         "numbers and characters Please type again!");
             } else {
                 meg_box.setText("Sign up successfully! Welcome!");
-                accountManager.setUp(username, password, this);
+                accountManager.setUp(username, password);
                 Intent tmp = new Intent(this, GameCenterActivity.class);
                 startActivity(tmp);
             }

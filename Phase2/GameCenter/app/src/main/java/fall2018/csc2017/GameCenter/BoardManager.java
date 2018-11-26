@@ -40,12 +40,12 @@ class BoardManager extends Manager implements Serializable, Undoable {
     /**
      * The AccountManager.
      */
-    private AccountManager accountManager = AccountManager.getAccountManager();
+    private AccountManager accountManager;
 
     /**
      * The user's name.
      */
-    String userName = accountManager.getUserName();
+    String userName;
 
     /**
      * The context used to connect to activity.
@@ -135,6 +135,8 @@ class BoardManager extends Manager implements Serializable, Undoable {
             slidingTileDifficulty = "Hard";
         }
         this.context = context;
+        this.accountManager = new AccountManager(context);
+        this.userName = accountManager.getUserName();
         if (this.listOfPosition == null) {
             this.undoLimit = 0;
             this.undoLimit3 = 3;
@@ -190,12 +192,12 @@ class BoardManager extends Manager implements Serializable, Undoable {
         ArrayList history = new ArrayList();
         while (k <= i) {
             ArrayList swapChoices = new ArrayList();
-            int row = bPosition / level;
-            int col = bPosition % level;
+            int row = bPosition / this.level;
+            int col = bPosition % this.level;
             Tile above = row == 0 ? null : slidingTile.getTile(row - 1, col);
-            Tile below = row == level - 1 ? null : slidingTile.getTile(row + 1, col);
+            Tile below = row == this.level - 1 ? null : slidingTile.getTile(row + 1, col);
             Tile lefT = col == 0 ? null : slidingTile.getTile(row, col - 1);
-            Tile righT = col == level - 1 ? null : slidingTile.getTile(row, col + 1);
+            Tile righT = col == this.level - 1 ? null : slidingTile.getTile(row, col + 1);
             if (above != null) {
                 swapChoices.add(up);
             }
@@ -213,31 +215,11 @@ class BoardManager extends Manager implements Serializable, Undoable {
             int c = (int) (swapChoices.get(r2.nextInt(swapChoices.size())));
             history.add(c);
             int d = bPosition + c;
-            this.slidingTile.swapTiles(row, col, d / level, d % level);
+            this.slidingTile.swapTiles(row, col, d / this.level, d % this.level);
             bPosition = d;
             k++;
         }
     }
-
-    /**
-     * Getter for singleton BoardManager.
-     *
-     * @param context The context used for connecting activity.
-     * @return The singleton BoardManager.
-     */
-//    static BoardManager getBoardManager(Context context, level) {
-//        if (boardManager == null) {
-//            boardManager = new BoardManager(context, level);
-//        }
-//        return boardManager;
-//    }
-
-    /**
-     * Destroy current BoardManager.
-     */
-//    static void destroyBoardManager() {
-//        boardManager = null;
-//    }
 
     /**
      * Add a modified SlidingTile in the list of boards.
