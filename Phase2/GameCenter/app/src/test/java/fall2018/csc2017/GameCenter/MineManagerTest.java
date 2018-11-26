@@ -117,7 +117,7 @@ public class MineManagerTest {
     @Test
     public void testGetUserName() {
         setUp();
-        assertNull(mineManager.getUserName());
+        assertEquals("userName", mineManager.getUserName());
 
     }
 
@@ -136,7 +136,7 @@ public class MineManagerTest {
     @Test
     public void testGetMineDifficulty() {
         setUp();
-        assertNull(mineManager.getMineDifficulty());
+        assertEquals("INTERMEDIATE", mineManager.getMineDifficulty());
     }
 
     /**
@@ -164,7 +164,6 @@ public class MineManagerTest {
     public void testPuzzleSolved() {
         setUp();
         assertFalse(mineManager.puzzleSolved());
-        mineManager.getMineBoard().setNumBoom(1);
         mineManager.getMineBoard().touchOpen(0);
         for (int row = 0; row < MineBoard.getSize(); row++) {
             for (int col = 0; col < MineBoard.getSize(); col++) {
@@ -213,6 +212,7 @@ public class MineManagerTest {
         for (int i = 0; i < 11; i++) {
             mineManager.scorer.run();
         }
+        mineManager.scorer.cancel();
         mineManager.getMineBoard().setNumBoom(10);
         mineManager.winning();
         assertEquals(11, mineManager.getTime());
@@ -225,7 +225,7 @@ public class MineManagerTest {
     @Test
     public void testSetUserName() {
         setUp();
-        assertNull(mineManager.getUserName());
+        assertEquals("userName", mineManager.getUserName());
         mineManager.setUserName("A");
         assertEquals("A", mineManager.getUserName());
     }
