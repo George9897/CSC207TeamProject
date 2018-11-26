@@ -243,7 +243,7 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
      * @param row The row of the mine tile that needs to be replaced.
      * @param col The col of the mine tile that needs to be replaced.
      */
-    private void replaceToTrue(int row, int col) {
+    void replaceToTrue(int row, int col) {
         mineTile[row][col] = new MineTile(mineTile[row][col].getValue(), true);
     }
 
