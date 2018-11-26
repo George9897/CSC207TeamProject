@@ -77,4 +77,12 @@
         android:layout_marginTop="38dp"
         android:text="profile" />
 
+    <Button
+        android:id="@+id/MyScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/GameText"
+        android:layout_alignTop="@+id/scoreButton"
+        android:text="My score" />
+
 </RelativeLayout>

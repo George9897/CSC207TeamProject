@@ -323,4 +323,5 @@ public class DetailScoreBoard implements Serializable {
         modifyMediumTopOne();
         modifyHardTopOne();
     }
+
 }

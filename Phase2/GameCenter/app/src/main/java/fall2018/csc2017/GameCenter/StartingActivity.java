@@ -65,6 +65,7 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
         addStartButtonListener();
         addLoadButtonListener();
         addScoreboardButtonListener();
+        addMyScoreButtonListener();
         addLogoutButtonListener();
         addProfileButtonListener();
     }
@@ -131,6 +132,18 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
             startActivity(tmp);
         });
     }
+
+    /**
+     * Activate the MyScore button.
+     */
+    private void addMyScoreButtonListener(){
+        Button myScoreButton = findViewById(R.id.MyScore);
+        myScoreButton.setOnClickListener(view -> {
+            Intent tmp = new Intent(this, PersonalScoreboardActivity.class);
+            startActivity(tmp);
+        });
+    }
+
 
     /**
      * Activate the profile button.
