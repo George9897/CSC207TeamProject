@@ -24,7 +24,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
     /**
      * The sudoku board manager.
      */
-    SudokuBoardManager sudokuBoardManager;
+    private SudokuBoardManager sudokuBoardManager;
 
     /**
      * The buttons to display.
@@ -43,6 +43,8 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
 
     private int move;
 
+    private String sudokuDifficulty;
+
     /**
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
@@ -57,7 +59,10 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
+        Intent tmp = getIntent();
+        sudokuDifficulty = tmp.getExtras().getString("sudokuDifficulty");
+
+        sudokuBoardManager = new SudokuBoardManager(this, sudokuDifficulty);
 
         loadFromFile(sudokuBoardManager.getUserName() + "Sudoku.ser");
         createTileButtons(this);
@@ -103,7 +108,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
      * @param context the context
      */
     private void createTileButtons(Context context) {
-        sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
+        //sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
         Sudoku sudoku = sudokuBoardManager.getSudoku();
         tileButtons = new ArrayList<>();
         for (int row = 0; row != Sudoku.size; row++) {
@@ -119,7 +124,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateTileButtons() {
-        sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
+        //sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
         Sudoku sudoku = sudokuBoardManager.getSudoku();
         int nextPos = 0;
         for (Button b : tileButtons) {
@@ -185,7 +190,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         Button nine = findViewById(R.id.nine);
         nine.setOnClickListener(v -> {
             this.move = 109;
-            sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
+            //sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
             sudokuBoardManager.setMove(move);
         });
     }
@@ -197,7 +202,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         Button eight = findViewById(R.id.eight);
         eight.setOnClickListener(v -> {
             this.move = 108;
-            sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
+            //sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
             sudokuBoardManager.setMove(move);
         });
     }
@@ -209,7 +214,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         Button seven = findViewById(R.id.seven);
         seven.setOnClickListener(v -> {
             this.move = 107;
-            sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
+            //sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
             sudokuBoardManager.setMove(move);
         });
     }
@@ -221,7 +226,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         Button six = findViewById(R.id.six);
         six.setOnClickListener(v -> {
             this.move = 106;
-            sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
+            //sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
             sudokuBoardManager.setMove(move);
         });
     }
@@ -233,7 +238,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         Button five = findViewById(R.id.five);
         five.setOnClickListener(v -> {
             this.move = 105;
-            sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
+            //sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
             sudokuBoardManager.setMove(move);
         });
     }
@@ -245,7 +250,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         Button four = findViewById(R.id.four);
         four.setOnClickListener(v -> {
             this.move = 104;
-            sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
+            //sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
             sudokuBoardManager.setMove(move);
         });
     }
@@ -257,7 +262,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         Button three = findViewById(R.id.three);
         three.setOnClickListener(v -> {
             this.move = 103;
-            sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
+            //sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
             sudokuBoardManager.setMove(move);
         });
     }
@@ -269,7 +274,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         Button two = findViewById(R.id.two);
         two.setOnClickListener(v -> {
             this.move = 102;
-            sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
+            //sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
             sudokuBoardManager.setMove(move);
         });
     }
@@ -281,7 +286,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         Button one = findViewById(R.id.one);
         one.setOnClickListener(v -> {
             this.move = 101;
-            sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
+            //sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
             sudokuBoardManager.setMove(move);
         });
     }
@@ -293,7 +298,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         Button eraser = findViewById(R.id.eraserButton);
         eraser.setOnClickListener(v -> {
             this.move = 0;
-            sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
+            //sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
             sudokuBoardManager.setMove(move);
         });
     }
@@ -304,7 +309,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
     private void addClearButtonListener() {
         Button clear = findViewById(R.id.clearButton);
         clear.setOnClickListener(v -> {
-            sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
+            //sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
             sudokuBoardManager.clear();
         });
     }

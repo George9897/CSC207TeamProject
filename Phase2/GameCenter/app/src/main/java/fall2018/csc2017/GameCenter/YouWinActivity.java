@@ -64,7 +64,7 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
                         + (Integer.toString(mineManager.getTime())) + " Seconds");
                 break;
             case "Sudoku":
-                sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
+                sudokuBoardManager = (SudokuBoardManager)intent.getExtras().get("sudokuGameBoard");
                 scoreBox.setText("Your Score: " + (Integer.toString(sudokuBoardManager.getScore())) + "\n\r" + "Time: "
                         + (Integer.toString(sudokuBoardManager.getTime())) + " Seconds");
                 break;
@@ -84,7 +84,7 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
         setUpSeeScoreButtonListener();
         setUpBackHButtonListener();
         setUpPlayAgainButtonListener();
-        SudokuBoardManager.destroySudokuBoardManager();
+        sudokuBoardManager = null;
     }
 
     /**

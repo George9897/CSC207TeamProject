@@ -14,6 +14,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class SudokuSettingActivity extends AppCompatActivity implements Serializable {
+
+    private String sudokuDifficulty;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,13 +40,13 @@ public class SudokuSettingActivity extends AppCompatActivity implements Serializ
                 switch (item) {
                     //TODO FIX
                     case "Easy":
-                        SudokuBoardManager.sudokuDifficulty = "Easy";
+                        sudokuDifficulty = "Easy";
                         break;
                     case "Medium":
-                        SudokuBoardManager.sudokuDifficulty = "Medium";
+                        sudokuDifficulty = "Medium";
                         break;
                     case "Hard":
-                        SudokuBoardManager.sudokuDifficulty = "Hard";
+                        sudokuDifficulty = "Hard";
                         break;
                 }
             }
@@ -83,6 +86,7 @@ public class SudokuSettingActivity extends AppCompatActivity implements Serializ
      */
     private void switchToGame() {
         Intent tmp = new Intent(this, SudokuBoardActivity.class);
+        tmp.putExtra("sudokuDifficulty", sudokuDifficulty);
         startActivity(tmp);
         finish();
     }
