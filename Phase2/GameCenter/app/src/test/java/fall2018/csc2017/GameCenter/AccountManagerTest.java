@@ -1,12 +1,10 @@
-package fall2018.csc2017.GameCenter;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class SlidingTileTest {
+public class AccountManagerTest {
 
     @Before
     public void setUp() throws Exception {
@@ -17,26 +15,26 @@ public class SlidingTileTest {
     }
 
     @Test
-    public void iterator() {
+    public void getAccountManager() {
     }
 
     @Test
-    public void getLevel() {
+    public void setUp1() {
     }
 
     @Test
-    public void numTiles() {
+    public void login() {
     }
 
     @Test
-    public void getTileList() {
+    public void checkUsername() {
     }
 
     @Test
-    public void getTile() {
+    public void checkPassword() {
     }
 
     @Test
-    public void swapTiles() {
+    public void getUserName() {
     }
 }
