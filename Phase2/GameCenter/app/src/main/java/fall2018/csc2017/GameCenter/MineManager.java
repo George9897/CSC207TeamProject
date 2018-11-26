@@ -216,7 +216,7 @@ public class MineManager extends Manager implements Serializable {
         for (int row = 0; row < MineBoard.getSize(); row++) {
             for (int col = 0; col < MineBoard.getSize(); col++) {
                 if (!mineBoard.getMineTile(row, col).getIsOpened() &&
-                        mineBoard.getMineTile(row, col).getBackground() !=
+                        mineBoard.getMineTile(row, col).getBackground() ==
                                 R.drawable.tile_flagged) {
                     count++;
                 }
