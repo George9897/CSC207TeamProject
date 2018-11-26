@@ -48,6 +48,7 @@ public class SlidingTileMovementController implements Serializable {
                 Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
                 Intent tmp = new Intent(context, YouWinActivity.class);
                 tmp.putExtra("gameType","SlidingTile" );
+                tmp.putExtra("slidingTileBoardManager", boardManager);
                 saveToFile(StartingActivity.slidingFile,context);
                 context.startActivity(tmp);
             }
