@@ -96,9 +96,19 @@ public class MineBoardTest {
         mineBoard = new MineBoard(createTiles(), 1, new Random());
         mineBoard.touchOpen(0, true);
         assertTrue(mineBoard.getMineTile(0,0).getIsOpened());
+        int row = 0;
+        int col = 0;
+        for (int i = 0; i < 16 * 16; i++) {
+            if (mineBoard.iterator().hasNext() && mineBoard.iterator().next().getValue() == 0) {
+                int position = mineBoard.iterator().next().getX() * 16 + mineBoard.iterator().next().getY();
+                mineBoard.touchOpen(position, false);
+                row = mineBoard.iterator().next().getX();
+                col = mineBoard.iterator().next().getY();
+                break;
+            }
+        }
+        assertTrue(mineBoard.getMineTile(row, col).getIsOpened());
         mineBoard.displayAllBoom();
-        mineBoard.iterator();
-        mineBoard.notifyObservers();
     }
 
     /**
