@@ -26,7 +26,7 @@ public class SlidingTileTest {
      *
      * @return list of Tiles.
      */
-    List createTiles(int level) {
+    private List createTiles(int level) {
         List<Tile> tiles = new ArrayList<>();
         final int numTiles = level * level;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
@@ -154,5 +154,9 @@ public class SlidingTileTest {
         String result = "SlidingTile{" +
                 "tiles=" + Arrays.toString(slidingTile1.getTileList()) + '}';
         assertEquals(result,slidingTile1.toString());
+    }
+
+    @Test
+    public void iterator() {
     }
 }
