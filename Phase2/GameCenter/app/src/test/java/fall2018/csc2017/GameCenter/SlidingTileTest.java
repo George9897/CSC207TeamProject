@@ -157,6 +157,8 @@ public class SlidingTileTest {
     }
 
     @Test
-    public void iterator() {
+    public void iterator() throws Exception {
+        assertTrue(slidingTile1.iterator().hasNext());
+        assertEquals(1, slidingTile1.iterator().next().getId());
     }
 }

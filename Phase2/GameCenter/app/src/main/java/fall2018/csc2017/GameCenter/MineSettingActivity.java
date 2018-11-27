@@ -38,9 +38,9 @@ public class MineSettingActivity extends AppCompatActivity implements Serializab
         setContentView(R.layout.activity_mine_setting);
         Spinner boomDifficulty = findViewById(R.id.Difficulty_numBooms);
         ArrayList<String> categories = new ArrayList<>();
-        categories.add("EASY");
-        categories.add("INTERMEDIATE");
-        categories.add("PROFESSIONAL");
+        categories.add("Easy");
+        categories.add("Medium");
+        categories.add("Hard");
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, categories);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
