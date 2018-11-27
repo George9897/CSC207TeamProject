@@ -9,7 +9,9 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.Assert.*;
 
@@ -20,10 +22,9 @@ public class SudokuTest {
      */
     private Sudoku sudoku;
 
-    /**
-     * The tiles on the sudoku board in row-major order.
-     */
-    private Tile[][] tiles = new Tile[9][9];
+//    private Iterator<Tile> iterator = sudoku.SudokuIterator();
+
+
 
     /**
      * Context for test.
@@ -37,7 +38,8 @@ public class SudokuTest {
      */
     private List createTiles() {
         List<Tile> tiles = new ArrayList<>();
-        final int numTiles = sudoku.getSize() * sudoku.getSize();
+//        final int numTiles = sudoku.getSize() * sudoku.getSize();
+        final int numTiles = 81;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             if (tileNum == numTiles - 1) {
                 tiles.add(new Tile(0));
@@ -50,7 +52,6 @@ public class SudokuTest {
 
     @Before
     public void setUp() throws Exception {
-        context = new MockContext();
         sudoku = new Sudoku(createTiles());
     }
 
@@ -60,7 +61,14 @@ public class SudokuTest {
     }
 
     @Test
-    public void iterator() {
+    public void iterator() throws Exception {
+        assertTrue(sudoku.iterator().hasNext());
+        assertEquals(1, sudoku.iterator().next().getId());
+    }
+
+    @Test
+    public void numTiles() {
+        assertEquals(81, sudoku.numTiles());
     }
 
     @Test
@@ -70,16 +78,22 @@ public class SudokuTest {
 
     @Test
     public void getTile() {
+        assertEquals(11, sudoku.getTile(1,1).getId());
     }
 
     @Test
     public void writeNum() {
-//        tiles[9][9] = new Tile(move);
-//        setChanged();
-//        notifyObservers();
+        sudoku.writeNum(1, 1, 1);
+        assertEquals(1, sudoku.getTile(1,1).getId());
+        sudoku.writeNum(8, 8, 7);
+        assertEquals(7, sudoku.getTile(8,8).getId());
+
     }
 
-//    @Test
-//    public void toString() {
-//    }
+    @Test
+    public void testtoString() {
+        assertEquals("Sudoku{" +
+                "tiles=" + Arrays.toString(sudoku.tiles) +
+                '}', sudoku.toString());
+    }
 }
