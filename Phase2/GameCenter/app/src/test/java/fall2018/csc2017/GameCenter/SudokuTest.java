@@ -93,7 +93,7 @@ public class SudokuTest {
     @Test
     public void testtoString() {
         assertEquals("Sudoku{" +
-                "tiles=" + Arrays.toString(sudoku.tiles) +
+                "tiles=" + Arrays.toString(sudoku.getTileList()) +
                 '}', sudoku.toString());
     }
 }
