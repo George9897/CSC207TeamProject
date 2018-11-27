@@ -203,11 +203,11 @@ public class MineManager extends Manager implements Serializable {
      */
     private MineBoard generateMineBoardByLevel(String level){
         switch (level) {
-            case "EASY":
+            case "Easy":
                 return new MineBoard(mineTiles, 1, new Random());
-            case "INTERMEDIATE":
+            case "Medium":
                 return new MineBoard(mineTiles, 40, new Random());
-            case "PROFESSIONAL":
+            case "Hard":
                 return new MineBoard(mineTiles, 52, new Random());
         }
         return new MineBoard(mineTiles, numBoom, new Random());
