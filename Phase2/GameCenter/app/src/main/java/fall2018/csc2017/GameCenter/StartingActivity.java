@@ -129,7 +129,6 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
                     }
                 case "Sudoku":
                     loadFromFile(sudokuFile);
-                    System.out.println(sudokuBoardManager.getDifficulty());
                     if(sudokuBoardManager == null){
                         Toast.makeText(this, "You haven't play this game before", Toast.LENGTH_SHORT).show();
                     }else if (sudokuBoardManager.puzzleSolved()){
