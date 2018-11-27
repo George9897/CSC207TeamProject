@@ -62,7 +62,16 @@ public class Sudoku extends Observable implements Serializable, Iterable<Tile> {
     /**
      * The tiles on the sudoku board in row-major order.
      */
-    private Tile[][] tiles = new Tile[size][size];
+    protected Tile[][] tiles = new Tile[size][size];
+
+    /**
+     * Return the tiles
+     *
+     * @return the tiles
+     */
+    Tile[][] getTileList() {
+        return tiles;
+    }
 
     /**
      * A new sudoku of tiles in row-major order.
@@ -94,7 +103,7 @@ public class Sudoku extends Observable implements Serializable, Iterable<Tile> {
      *
      * @return the number of tiles on the sudoku
      */
-    private int numTiles() {
+    protected int numTiles() {
         return size * size;
     }
 
@@ -130,7 +139,7 @@ public class Sudoku extends Observable implements Serializable, Iterable<Tile> {
     @Override
     public String toString() {
         return "Sudoku{" +
-                "tiles=" + Arrays.toString(tiles) +
+                "tiles=" + Arrays.toString(getTileList()) +
                 '}';
     }
 }
