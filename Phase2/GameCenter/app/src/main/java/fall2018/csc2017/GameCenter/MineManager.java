@@ -25,13 +25,9 @@ public class MineManager extends Manager implements Serializable {
      */
     private String userName;
     /**
-     * The mark of whether the user tapped for at least once.
-     */
-    private boolean firstTap = true;
-    /**
      * The context.
      */
-    private Context context;
+    private transient Context context;
     /**
      * The mine game's difficulty.
      */
@@ -67,12 +63,12 @@ public class MineManager extends Manager implements Serializable {
      *
      * @return the status of losing.
      */
-    public boolean getLose(){return lose;}
+    boolean getLose(){return lose;}
 
     /**
      * Setter for status of losing.
      */
-    public void setLose(){lose = true;}
+    void setLose(){lose = true;}
 
     /**
      * Getter for the time passed.
@@ -143,38 +139,12 @@ public class MineManager extends Manager implements Serializable {
     }
 
     /**
-     * Getter for firstTap.
-     *
-     * @return whether tapped once or not.
-     */
-    boolean isFirstTap() {
-        return firstTap;
-    }
-
-    /**
      * Getter for mine tiles.
      *
      * @return the list of mine tiles.
      */
     List<MineTile> getMineTiles() {
         return mineTiles;
-    }
-
-
-    /**
-     * Setter for mine game's difficulty.
-     *
-     * @param mineDifficulty the mine game's difficulty.
-     */
-    void setMineDifficulty(String mineDifficulty) {
-        this.mineDifficulty = mineDifficulty;
-    }
-
-    /**
-     * Set the firstTap to false.
-     */
-    void setFirstTapToFalse() {
-        this.firstTap = false;
     }
 
     /**
@@ -192,14 +162,38 @@ public class MineManager extends Manager implements Serializable {
     }
 
     /**
-     * The constructor of MineManager.
+     * The constructor for mine manager.
+     *
+     * @param context  the context.
+     * @param userName the user Name.
+     * @param level    the level.
      */
-    public MineManager(Context context) {
+    MineManager(Context context, String userName, String level){
         this.context = context;
+        this.userName = userName;
         this.mineTiles = createTiles();
-        this.mineBoard = new MineBoard(mineTiles, numBoom, new Random());
+        this.mineDifficulty = level;
+        this.mineBoard = generateMineBoardByLevel(level);
         this.numBoom = this.mineBoard.getNumBoom();
         timer.schedule(scorer, 0, 1000);
+    }
+
+    /**
+     * Generate mine board by level input.
+     *
+     * @param level the level.
+     * @return the generated mine board.
+     */
+    private MineBoard generateMineBoardByLevel(String level){
+        switch (level) {
+            case "EASY":
+                return new MineBoard(mineTiles, 1, new Random());
+            case "INTERMEDIATE":
+                return new MineBoard(mineTiles, 40, new Random());
+            case "PROFESSIONAL":
+                return new MineBoard(mineTiles, 52, new Random());
+        }
+        return new MineBoard(mineTiles, numBoom, new Random());
     }
 
     /**
@@ -213,7 +207,7 @@ public class MineManager extends Manager implements Serializable {
         for (int row = 0; row < MineBoard.getSize(); row++) {
             for (int col = 0; col < MineBoard.getSize(); col++) {
                 if (!mineBoard.getMineTile(row, col).getIsOpened() &&
-                        mineBoard.getMineTile(row, col).getBackground() !=
+                        mineBoard.getMineTile(row, col).getBackground() ==
                                 R.drawable.tile_flagged) {
                     count++;
                 }

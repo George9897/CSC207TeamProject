@@ -25,7 +25,7 @@ public class AccountManager implements Serializable {
     /**
      * a Map of username and password.
      */
-    Map<String, String> map = new HashMap<>();
+    private Map<String, String> map = new HashMap<>();
 
     /**
      * Current user's user name.
@@ -118,6 +118,10 @@ public class AccountManager implements Serializable {
             Log.e("login activity", "File contained unexpected data type: " + e.toString());
         }
 
+    }
+
+    Map<String, String> getMap(){
+        return map;
     }
 
     /**

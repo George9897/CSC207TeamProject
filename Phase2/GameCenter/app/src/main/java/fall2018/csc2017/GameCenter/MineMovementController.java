@@ -3,9 +3,14 @@ package fall2018.csc2017.GameCenter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * The movement controller of game.
@@ -40,7 +45,6 @@ class MineMovementController implements Serializable {
      * Reset the game if the user choose to do so.
      */
     private void resetTheGame() {
-        mineManager = new MineManager(context);
         Intent tmp = new Intent(context, MineSettingActivity.class);
         context.startActivity(tmp);
     }
@@ -51,6 +55,7 @@ class MineMovementController implements Serializable {
     private void finish() {
         Intent tmp = new Intent(mineManager.getContext(), YouWinActivity.class);
         tmp.putExtra("gameType", "Mine");
+        tmp.putExtra("mineManager", mineManager);
         mineManager.getContext().startActivity(tmp);
     }
 
@@ -61,13 +66,13 @@ class MineMovementController implements Serializable {
      */
     void processTapMovement(Context context, int position) {
         if(mineManager.isValidTap(position)) {
-            mineManager.getMineBoard().touchOpen(position, mineManager.isFirstTap());
-            mineManager.setFirstTapToFalse();
+            mineManager.getMineBoard().touchOpen(position);
             int row = position / MineBoard.getSize();
             int col = position % MineBoard.getSize();
             if (mineManager.getMineBoard().getMineTile(row, col).getValue() == -1) {
                 mineManager.failing();
                 mineManager.setLose();
+                saveToFile(StartingActivity.mineFile,context);
                 new AlertDialog.Builder(context)
                         .setCancelable(false)
                         .setMessage("You Shall Not Pass！")
@@ -95,6 +100,7 @@ class MineMovementController implements Serializable {
             mineManager.getMineBoard().replaceToFlag(row, col);
             if (mineManager.puzzleSolved()) {
                 mineManager.winning();
+                saveToFile(StartingActivity.mineFile,context);
                 new AlertDialog.Builder(context)
                         .setCancelable(false)
                         .setMessage("Victory!")
@@ -107,6 +113,24 @@ class MineMovementController implements Serializable {
         }
         else {
             Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Save the slidingTile manager to fileName.
+     *
+     * @param fileName the name of the file
+     */
+    public void saveToFile(String fileName, Context context) {
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(
+                    context.openFileOutput(fileName, MODE_PRIVATE));
+
+            outputStream.writeObject(mineManager);
+
+            outputStream.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
         }
     }
 }

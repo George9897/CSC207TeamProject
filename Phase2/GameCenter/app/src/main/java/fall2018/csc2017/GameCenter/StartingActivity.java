@@ -108,18 +108,36 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
             switch (gameType){
                 case "SlidingTile":
                     loadFromFile(slidingFile);
-                    makeToastLoadedText();
-                    switchToGame();
+                    if(boardManager == null){
+                        Toast.makeText(this, "You haven't play this game before", Toast.LENGTH_SHORT).show();
+                    }else if (boardManager.puzzleSolved()){
+                        Toast.makeText(this, "You finish your previous game, please start another one", Toast.LENGTH_SHORT).show();
+                    }else {
+                        makeToastLoadedText();
+                        switchToGame();
+                    }
                     break;
                 case "Mine":
                     loadFromFile(mineFile);
-                    makeToastLoadedText();
-                    switchToGame();
-                    break;
+                    if(mineManager == null){
+                        Toast.makeText(this, "You haven't play this game before", Toast.LENGTH_SHORT).show();
+                    }else if (mineManager.puzzleSolved() || mineManager.getLose()){
+                        Toast.makeText(this, "You finish your previous game, please start another one", Toast.LENGTH_SHORT).show();
+                    }else {
+                        makeToastLoadedText();
+                        switchToGame();
+                    }
                 case "Sudoku":
                     loadFromFile(sudokuFile);
-                    makeToastLoadedText();
-                    switchToGame();
+                    System.out.println(sudokuBoardManager.getDifficulty());
+                    if(sudokuBoardManager == null){
+                        Toast.makeText(this, "You haven't play this game before", Toast.LENGTH_SHORT).show();
+                    }else if (sudokuBoardManager.puzzleSolved()){
+                        Toast.makeText(this, "You finish your previous game, please start another one", Toast.LENGTH_SHORT).show();
+                    }else {
+                        makeToastLoadedText();
+                        switchToGame();
+                    }
                     break;
             }
         });
@@ -196,22 +214,21 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
         switch (gameType){
             case "SlidingTile":
                 Intent slidingTile = new Intent(this, GameActivity.class);
-                loadFromFile(slidingFile);
-                if(boardManager!=null) {
-                    slidingTile.putExtra("slidingTileBoardManager", boardManager);
-                    startActivity(slidingTile);
-                } else {
-                    Toast.makeText(this, "Never played before.", Toast.LENGTH_SHORT).show();
-                }
+                slidingTile.putExtra("load", true);
+                //loadFromFile(slidingFile);
+                startActivity(slidingTile);
                 break;
             case "Mine":
                 Intent mine = new Intent(this, MineGameActivity.class);
-                saveToFile(mineFile);
+                mine.putExtra("load", true);
+                //saveToFile(mineFile);
                 startActivity(mine);
                 break;
             case "Sudoku":
                 Intent sudoku = new Intent(this, SudokuBoardActivity.class);
-                saveToFile(sudokuFile);
+                sudoku.putExtra("sudokuusername", userName);
+                sudoku.putExtra("load", true);
+                //saveToFile(sudokuFile);
                 startActivity(sudoku);
                 break;
         }

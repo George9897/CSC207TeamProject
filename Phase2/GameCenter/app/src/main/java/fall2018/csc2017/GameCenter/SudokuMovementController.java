@@ -2,9 +2,14 @@ package fall2018.csc2017.GameCenter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * The movement controller of game.
@@ -43,10 +48,29 @@ class SudokuMovementController implements Serializable {
                 tmp.putExtra("gameType", "Sudoku");
                 tmp.putExtra("sudokuGameBoard", sudokuBoardManager);
                 sudokuBoardManager.wining();
+                saveToFile(StartingActivity.sudokuFile,context);
                 context.startActivity(tmp);
             }
         } else {
             Toast.makeText(context, "Invalid Tap", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Save the slidingTile manager to fileName.
+     *
+     * @param fileName the name of the file
+     */
+    public void saveToFile(String fileName, Context context) {
+        try {
+            ObjectOutputStream outputStream = new ObjectOutputStream(
+                    context.openFileOutput(fileName, MODE_PRIVATE));
+
+            outputStream.writeObject(sudokuBoardManager);
+
+            outputStream.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
         }
     }
 }

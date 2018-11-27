@@ -26,6 +26,10 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
      */
     private final static int size = 16;
     /**
+     * The mark of whether the user tapped for at least once.
+     */
+    private boolean firstTap;
+    /**
      * The 2D array of tiles.
      */
     private MineTile[][] mineTile = new MineTile[size][size];
@@ -76,12 +80,28 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
     }
 
     /**
+     * Getter for firstTap.
+     *
+     * @return whether tapped once or not.
+     */
+    boolean isFirstTap() {
+        return firstTap;
+    }
+
+    /**
      * Setter for the number of booms.
      *
      * @param numBoom the number of booms.
      */
     void setNumBoom(int numBoom) {
         this.numBoom = numBoom;
+    }
+
+    /**
+     * Set the firstTap to false.
+     */
+    void setFirstTapToFalse() {
+        this.firstTap = false;
     }
 
     /**
@@ -141,6 +161,7 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
     MineBoard(List<MineTile> tiles, int numBoom, Random randomize) {
         this.numBoom = numBoom;
         this.randomize = randomize;
+        this.firstTap = true;
         Iterator<MineTile> iterator = tiles.iterator();
 
         for (int col = 0; col != size; col++) {
@@ -157,7 +178,7 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
      *
      * @param exception This position doesn't contain booms.
      */
-    private void createBooms(MineTile exception) {
+    void createBooms(MineTile exception) {
         List<MineTile> allTile = new ArrayList<>();
 
         //Add all the positions, except the first tapping one.
@@ -187,7 +208,7 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
      */
     private List<MineTile> randomGenerateBoomsList(List<MineTile> givenTile){
         List<MineTile> boomTile = new LinkedList<>();
-        for (int i = 0; i <= numBoom; i++) {
+        for (int i = 0; i < numBoom; i++) {
             int idx = randomize.nextInt(givenTile.size());
             boomTile.add(givenTile.get(idx));
             givenTile.remove(idx);
@@ -215,20 +236,20 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
     /**
      * Tap to open some position.
      *
-     * @param firstTap First touch or not.
      */
-    void touchOpen(int position, boolean firstTap) {
+    void touchOpen(int position) {
         int row = position / MineBoard.getSize();
         int col = position % MineBoard.getSize();
         if (firstTap) {
             createBooms(mineTile[row][col]);
+            setFirstTapToFalse();
         }
         replaceToTrue(row, col);
         if (mineTile[row][col].getValue() == -1 && mineTile[row][col].getIsOpened()) {
             displayBoom();
         }
         //tap the mineTile with a number.
-        else if (mineTile[row][col].getValue() == 0 && !firstTap) {
+        else if (mineTile[row][col].getValue() == 0) {
             Queue<Pair<Integer, Integer>> queue = new LinkedList<>();
             queue = putSurroundingOnQueue(row, col, queue);
             recursiveSurroundingOnQueue(queue);
@@ -266,7 +287,7 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
     /**
      * Display all boom when the user failed.
      */
-    private void displayBoom() {
+    void displayBoom() {
         for (int boomRow = 0; boomRow < size; boomRow++) {
             for (int boomCol = 0; boomCol < size; boomCol++) {
                 if (mineTile[boomRow][boomCol].getValue() == -1) {

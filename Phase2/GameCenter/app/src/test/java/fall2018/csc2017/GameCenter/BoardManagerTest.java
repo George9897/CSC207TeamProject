@@ -99,6 +99,7 @@ public class BoardManagerTest {
 
     @Test
     public void isValidTap() {
+//        assertEquals(True, boardManager.isValidTap());
     }
 
     @Test

@@ -63,9 +63,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         loadFromFile(accountManager.getUserName() + "Avatar.ser");
         usernameInfo.setText("Username: " + accountManager.getUserName());
-        passwordInfo.setText("Password: " + accountManager.map.get(accountManager.getUserName()));
+        passwordInfo.setText("Password: " + accountManager.getMap().get(accountManager.getUserName()));
         recordInfo.setText("No Record");
-        userAvatar.setImageURI(avatar);
     }
 
 //    /**
