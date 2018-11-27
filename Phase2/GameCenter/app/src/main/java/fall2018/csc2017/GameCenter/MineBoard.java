@@ -213,7 +213,6 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
             boomTile.add(givenTile.get(idx));
             givenTile.remove(idx);
         }
-        System.out.println(boomTile.size());
         return boomTile;
     }
 

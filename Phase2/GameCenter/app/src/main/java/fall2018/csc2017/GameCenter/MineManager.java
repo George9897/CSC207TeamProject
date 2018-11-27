@@ -27,7 +27,7 @@ public class MineManager extends Manager implements Serializable {
     /**
      * The context.
      */
-    private Context context;
+    private transient Context context;
     /**
      * The mine game's difficulty.
      */
@@ -147,17 +147,6 @@ public class MineManager extends Manager implements Serializable {
         return mineTiles;
     }
 
-
-    /**
-     * Setter for mine game's difficulty.
-     *
-     * @param mineDifficulty the mine game's difficulty.
-     */
-    void setMineDifficulty(String mineDifficulty) {
-        this.mineDifficulty = mineDifficulty;
-    }
-
-
     /**
      * Create a initial list of Tiles for game with matching sizes.
      *
@@ -172,8 +161,16 @@ public class MineManager extends Manager implements Serializable {
         return mineTiles;
     }
 
+    /**
+     * The constructor for mine manager.
+     *
+     * @param context  the context.
+     * @param userName the user Name.
+     * @param level    the level.
+     */
     MineManager(Context context, String userName, String level){
         this.context = context;
+        this.userName = userName;
         this.mineTiles = createTiles();
         this.mineDifficulty = level;
         this.mineBoard = generateMineBoardByLevel(level);
@@ -182,26 +179,21 @@ public class MineManager extends Manager implements Serializable {
     }
 
     /**
-     * The constructor of MineManager.
+     * Generate mine board by level input.
+     *
+     * @param level the level.
+     * @return the generated mine board.
      */
-    MineManager(Context context) {
-        this.context = context;
-        this.mineTiles = createTiles();
-        this.mineBoard = new MineBoard(mineTiles, numBoom, new Random());
-        this.numBoom = this.mineBoard.getNumBoom();
-        timer.schedule(scorer, 0, 1000);
-    }
-
     private MineBoard generateMineBoardByLevel(String level){
         switch (level) {
-                    case "EASY":
-                        return new MineBoard(mineTiles, 1, new Random());
-                    case "INTERMEDIATE":
-                        return new MineBoard(mineTiles, 40, new Random());
-                    case "PROFESSIONAL":
-                        return new MineBoard(mineTiles, 52, new Random());
-                }
-                return new MineBoard(mineTiles, numBoom, new Random());
+            case "EASY":
+                return new MineBoard(mineTiles, 1, new Random());
+            case "INTERMEDIATE":
+                return new MineBoard(mineTiles, 40, new Random());
+            case "PROFESSIONAL":
+                return new MineBoard(mineTiles, 52, new Random());
+        }
+        return new MineBoard(mineTiles, numBoom, new Random());
     }
 
     /**
@@ -215,7 +207,7 @@ public class MineManager extends Manager implements Serializable {
         for (int row = 0; row < MineBoard.getSize(); row++) {
             for (int col = 0; col < MineBoard.getSize(); col++) {
                 if (!mineBoard.getMineTile(row, col).getIsOpened() &&
-                        mineBoard.getMineTile(row, col).getBackground() !=
+                        mineBoard.getMineTile(row, col).getBackground() ==
                                 R.drawable.tile_flagged) {
                     count++;
                 }

@@ -73,7 +73,10 @@ public class GameActivity extends AppCompatActivity implements Observer, Seriali
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         boardManager = (BoardManager) intent.getExtras().get("slidingTileBoardManager");
-        loadFromFile(boardManager.userName + "SlidingTile.ser");
+        //loadFromFile(boardManager.userName + "SlidingTile.ser");
+        if (intent.getExtras().getBoolean("load")){
+            loadFromFile(StartingActivity.slidingFile);
+        }
         createTileButtons(this);
         setContentView(R.layout.activity_main);
         addQuitButtonsListener();
