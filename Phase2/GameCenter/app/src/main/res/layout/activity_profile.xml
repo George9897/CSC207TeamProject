@@ -34,20 +34,42 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usernameInfo" />
 
-    <TextView
-        android:id="@+id/recordInfo"
+    <ScrollView
+        android:id="@+id/scorllviewrecord"
         android:layout_width="300dp"
         android:layout_height="250dp"
-        android:layout_marginStart="31dp"
+        android:layout_marginStart="48dp"
         android:layout_marginTop="25dp"
-        android:layout_marginEnd="31dp"
-        android:layout_marginBottom="45dp"
-        android:gravity="center"
-        android:text="Record"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="58dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordInfo" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordInfo"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/recordInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="31dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="31dp"
+                android:layout_marginBottom="45dp"
+                android:gravity="center"
+                android:text="Record"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/passwordInfo" />
+        </LinearLayout>
+    </ScrollView>
 
     <TextView
         android:id="@+id/textView3"
