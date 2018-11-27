@@ -31,7 +31,7 @@ public class MineManagerTest {
     @Before
     public void setUp() {
         context = new MockContext();
-        mineManager = new MineManager(context, "userName", "INTERMEDIATE");
+        mineManager = new MineManager(context, "userName", "Medium");
     }
 
     /**
@@ -135,7 +135,11 @@ public class MineManagerTest {
     @Test
     public void testGetMineDifficulty() {
         setUp();
-        assertEquals("INTERMEDIATE", mineManager.getMineDifficulty());
+        assertEquals("Medium", mineManager.getMineDifficulty());
+        mineManager = new MineManager(context, "userName", "Easy");
+        assertEquals("Easy", mineManager.getMineDifficulty());
+        mineManager = new MineManager(context, "userName", "Hard");
+        assertEquals("Hard", mineManager.getMineDifficulty());
     }
 
     /**
