@@ -19,9 +19,10 @@ public class AccountManagerTest {
 
 
     @Before
-    public void setUp() throws Exception {
-        context = new MockContext();
-//        accountManager.context = context;
+    public void setUpCorrect() throws Exception {
+//        context = new mockContext();
+        accountManager = new AccountManager(context);
+        accountManager.setUp(userName,"tom123");
     }
 
     @After
@@ -30,7 +31,7 @@ public class AccountManagerTest {
     }
 
     @Test
-    public void setUp1() {
+    public void setUp() {
     }
 
     @Test
