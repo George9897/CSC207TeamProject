@@ -175,7 +175,7 @@ public class MineBoardTest {
     @Test
     public void testRecursiveAfterTouchOpen() {
         setUp();
-        mineBoard = new MineBoard(createTiles(), testBoomNumber, new Random());
+//        mineBoard = new MineBoard(createTiles(), testBoomNumber, new Random());
         mineBoard.touchOpen(testPosition);
 
         int expectedOpen = getExpectedOpenedTile(testPosition);
