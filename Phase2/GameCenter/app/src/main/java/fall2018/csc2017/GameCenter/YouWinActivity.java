@@ -81,9 +81,12 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
         }
         detailScoreBoard.setContext(this);
 
-        System.out.println(detailScoreBoard.context);
+        detailScoreBoard.collectScoreLevel();
+        detailScoreBoard.createSortedList();
+        detailScoreBoard.modifyEasyTopOne();
+        detailScoreBoard.modifyMediumTopOne();
+        detailScoreBoard.modifyHardTopOne();
 
-        detailScoreBoard.display();
         saveToFile(filename);
         setUpSeeScoreButtonListener();
         setUpBackHButtonListener();
