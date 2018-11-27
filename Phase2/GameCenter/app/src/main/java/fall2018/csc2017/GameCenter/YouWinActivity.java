@@ -20,14 +20,6 @@ import java.util.Objects;
  * The Activity used to show "you win".
  */
 public class YouWinActivity extends AppCompatActivity implements Serializable {
-    /**
-     * The boardManager that is used in that round.
-     */
-    private BoardManager boardManager;
-
-    private MineManager mineManager;
-
-    private SudokuBoardManager sudokuBoardManager;
 
     private DetailScoreBoard detailScoreBoard;
 
@@ -46,6 +38,9 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
         TextView scoreBox = findViewById(R.id.scoreViewData);
         Intent intent = getIntent();
         gameType = intent.getStringExtra("gameType");
+        SudokuBoardManager sudokuBoardManager;
+        MineManager mineManager;
+        BoardManager boardManager;
 
         switch (gameType){
             case "SlidingTile":
@@ -58,7 +53,7 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
                 mineManager = (MineManager)
                         Objects.requireNonNull(intent.getExtras()).get("mineManager");
                 TextView youWinView = findViewById(R.id.finishView);
-                if (mineManager.puzzleSolved()) {
+                if (Objects.requireNonNull(mineManager).puzzleSolved()) {
                     youWinView.setText("Victory!");
                 }
                 else {
@@ -93,7 +88,6 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
         setUpSeeScoreButtonListener();
         setUpBackHButtonListener();
         setUpPlayAgainButtonListener();
-        sudokuBoardManager = null;
     }
 
     /**
