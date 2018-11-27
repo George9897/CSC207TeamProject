@@ -3,12 +3,16 @@ package fall2018.csc2017.GameCenter;
 import android.content.Context;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 //import fall2018.csc2017.GameCenter.BoardManager;
 
@@ -21,6 +25,8 @@ public class SlidingTileTest {
     private SlidingTile slidingTile1;
     private SlidingTile slidingTile2;
     private SlidingTile slidingTile3;
+
+
     /**
      * Create a initial list of Tiles for game with matching sizes.
      *
@@ -158,7 +164,17 @@ public class SlidingTileTest {
 
     @Test
     public void iterator() throws Exception {
+        // Test iterator hasNext method and next non exception case.
         assertTrue(slidingTile1.iterator().hasNext());
         assertEquals(1, slidingTile1.iterator().next().getId());
+        // Test iterator next exception case.
+        SlidingTile slidingTile = new SlidingTile(createTiles(0), 0);
+        Iterator<Tile> iter = slidingTile.iterator();
+        try{
+            Object a = iter.next();
+        } catch (Exception ex) {
+            assertTrue(ex instanceof NoSuchElementException);
+        }
     }
+
 }
