@@ -22,24 +22,6 @@ public class BoardManagerTest {
      */
     Context context = new MockContext();
 
-//    /**
-//     * Create a initial list of Tiles for game with matching sizes.
-//     *
-//     * @return list of Tiles.
-//     */
-//    private List createTiles() {
-//        List<Tile> tiles = new ArrayList<>();
-//        final int numTiles = this.boardManager.getLevel() * this.boardManager.getLevel();
-//        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-//            if (tileNum == numTiles - 1) {
-//                tiles.add(new Tile(0));
-//            } else {
-//                tiles.add(new Tile(tileNum + 1));
-//            }
-//        }
-//        return tiles;
-//    }
-
     @Before
     public void setUp() throws Exception {
         boardManager = new BoardManager(context, 3);
