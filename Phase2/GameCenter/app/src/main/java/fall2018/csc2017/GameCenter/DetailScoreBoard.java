@@ -394,11 +394,11 @@ public class DetailScoreBoard implements Serializable {
         if (getLevel().equals("neverPlayed") || getHardLevel().equals("neverPlayed") ||
                 findTopOne(getHardTopOneScore(), getHardTopOneName(),
                         getScore(), getUsername()) == null) {
-            hardTopOneName = "No data";
+            setHardTopOneName("No data");
         } else {
-            hardTopOneName = findTopOne(getHardTopOneScore(), getHardTopOneName(),
-                    getScore(), getUsername());
-            hardTopOneScore = hardScoreList.get(hardScoreList.size() - 1);
+            setHardTopOneName(findTopOne(getHardTopOneScore(), getHardTopOneName(),
+                    getScore(), getUsername()));
+            setHardTopOneScore(hardScoreList.get(hardScoreList.size() - 1));
         }
     }
 
