@@ -234,6 +234,11 @@ public class DetailScoreBoardTest {
         detailScoreBoard.collectScoreLevel();
         assertEquals(testUserName, detailScoreBoard.getUsername());
     }
+
+    @Test
+    public void testEasyMineCollectScoreLevelUpdateScore() {
+    }
+
     @Test
     public void testMediumMineCollectScoreLevelScore() {
         setUpMineScoreBoard();
@@ -263,6 +268,11 @@ public class DetailScoreBoardTest {
         detailScoreBoard.collectScoreLevel();
         assertEquals(testUserName, detailScoreBoard.getUsername());
     }
+
+    @Test
+    public void testMediumMineCollectScoreLevelUpdateScore() {
+    }
+
     @Test
     public void testHardMineCollectScoreLevelScore() {
         setUpMineScoreBoard();
@@ -291,6 +301,10 @@ public class DetailScoreBoardTest {
         setUpMineManager(testScore, "Hard", testUserName);
         detailScoreBoard.collectScoreLevel();
         assertEquals(testUserName, detailScoreBoard.getUsername());
+    }
+
+    @Test
+    public void testHardMineCollectScoreLevelUpdateScore() {
     }
 
     private void setUpSudokuScoreBoard(){
@@ -336,6 +350,11 @@ public class DetailScoreBoardTest {
         detailScoreBoard.collectScoreLevel();
         assertEquals(testUserName, detailScoreBoard.getUsername());
     }
+
+    @Test
+    public void testEasySudokuCollectScoreLevelUpdateScore() {
+    }
+
     @Test
     public void testMediumSudokuCollectScoreLevelScore() {
         setUpSudokuScoreBoard();
@@ -365,6 +384,11 @@ public class DetailScoreBoardTest {
         detailScoreBoard.collectScoreLevel();
         assertEquals(testUserName, detailScoreBoard.getUsername());
     }
+
+    @Test
+    public void testMediumSudokuCollectScoreLevelUpdateScore() {
+    }
+
     @Test
     public void testHardSudokuCollectScoreLevelScore() {
         setUpSudokuScoreBoard();
@@ -393,6 +417,10 @@ public class DetailScoreBoardTest {
         setUpSudokuManager(testScore, "Hard", testUserName);
         detailScoreBoard.collectScoreLevel();
         assertEquals(testUserName, detailScoreBoard.getUsername());
+    }
+
+    @Test
+    public void testHardSudokuCollectScoreLevelUpdateScore() {
     }
 
     @Test

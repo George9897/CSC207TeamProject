@@ -188,30 +188,30 @@ public class DetailScoreBoard implements Serializable {
     private void updateScore() {
         switch (level) {
             case "Easy":
-                if (!easyMap.containsKey(score)) {
+                if (!getEasyMap().containsKey(getScore())) {
                     List<String> l = new ArrayList<>();
-                    l.add(username);
-                    easyMap.put(score, l);
+                    l.add(getUsername());
+                    getEasyMap().put(getScore(), l);
                 } else {
-                    easyMap.get(score).add(username);
+                    getEasyMap().get(getScore()).add(getUsername());
                 }
                 break;
             case "Medium":
-                if (!mediumMap.containsKey(score)) {
+                if (!getMediumMap().containsKey(getScore())) {
                     List<String> l = new ArrayList<>();
-                    l.add(username);
-                    mediumMap.put(score, l);
+                    l.add(getUsername());
+                    getMediumMap().put(getScore(), l);
                 } else {
-                    mediumMap.get(score).add(username);
+                    getMediumMap().get(getScore()).add(getUsername());
                 }
                 break;
             case "Hard":
-                if (!hardMap.containsKey(score)) {
+                if (!getHardMap().containsKey(getScore())) {
                     List<String> l = new ArrayList<>();
-                    l.add(username);
-                    hardMap.put(score, l);
+                    l.add(getUsername());
+                    getHardMap().put(getScore(), l);
                 } else {
-                    hardMap.get(score).add(username);
+                    getHardMap().get(getScore()).add(getUsername());
                 }
                 break;
         }
@@ -220,21 +220,21 @@ public class DetailScoreBoard implements Serializable {
     public void createSortedList() {
         switch (level) {
             case "Easy":
-                if (!easyScoreList.contains(score)) {
-                    easyScoreList.add(score);
-                    Collections.sort(easyScoreList);
+                if (!getEasyScoreList().contains(getScore())) {
+                    getEasyScoreList().add(getScore());
+                    Collections.sort(getEasyScoreList());
                 }
                 break;
             case "Medium":
-                if (!mediumScoreList.contains(score)) {
-                    mediumScoreList.add(score);
-                    Collections.sort(mediumScoreList);
+                if (!getMediumScoreList().contains(getScore())) {
+                    getMediumScoreList().add(getScore());
+                    Collections.sort(getMediumScoreList());
                 }
                 break;
             case "Hard":
-                if (!hardScoreList.contains(score)) {
-                    hardScoreList.add(score);
-                    Collections.sort(hardScoreList);
+                if (!getHardScoreList().contains(getScore())) {
+                    getHardScoreList().add(getScore());
+                    Collections.sort(getHardScoreList());
                 }
                 break;
             case "neverPlayed":
