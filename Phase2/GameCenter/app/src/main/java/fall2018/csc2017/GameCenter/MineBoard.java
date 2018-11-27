@@ -178,7 +178,7 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
      *
      * @param exception This position doesn't contain booms.
      */
-    void createBooms(MineTile exception) {
+    private void createBooms(MineTile exception) {
         List<MineTile> allTile = new ArrayList<>();
 
         //Add all the positions, except the first tapping one.
@@ -287,7 +287,7 @@ class MineBoard extends Observable implements Serializable, Iterable<MineTile> {
     /**
      * Display all boom when the user failed.
      */
-    void displayBoom() {
+    private void displayBoom() {
         for (int boomRow = 0; boomRow < size; boomRow++) {
             for (int boomCol = 0; boomCol < size; boomCol++) {
                 if (mineTile[boomRow][boomCol].getValue() == -1) {

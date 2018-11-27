@@ -1,15 +1,11 @@
 package fall2018.csc2017.GameCenter;
 
-import android.util.Pair;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import java.util.Random;
 
 import static org.junit.Assert.assertEquals;
@@ -26,19 +22,6 @@ public class MineBoardTest {
     private MineBoard mineBoard;
 
     /**
-     * The surrounding_directions.
-     */
-    private int[][] surrounding_directions = {
-            {-1, 1},//upper-left
-            {0, 1},//upper
-            {1, 1},//upper-right
-            {-1, 0},//left
-            {1, 0},//right
-            {-1, -1},//lower-left
-            {0, -1},//lower
-            {1, -1}};//lower-right
-
-    /**
      * Number of booms for test.
      */
     private int testBoomNumber = 40;
@@ -47,10 +30,6 @@ public class MineBoardTest {
      * Test position.
      */
     private int testPosition = 0;
-    /**
-     * The expected opened tiles used in test touchOpen.
-     */
-    private int expectedOpenedTiles;
 
     /**
      * Create a initial list of Tiles for game with matching sizes.
@@ -255,5 +234,14 @@ public class MineBoardTest {
         assertFalse(mineBoard.getMineTile(row, col).getIsOpened());
         assertEquals(0, mineBoard.getMineTile(row, col).getValue());
         assertEquals(R.drawable.tile_closed, mineBoard.getMineTile(row, col).getBackground());
+    }
+
+    /**
+     * Test whether iterator works.
+     */
+    @Test
+    public void iterator() {
+        assertTrue(mineBoard.iterator().hasNext());
+        assertEquals(MineTile.class, mineBoard.iterator().next().getClass());
     }
 }

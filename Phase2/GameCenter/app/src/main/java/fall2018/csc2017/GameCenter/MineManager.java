@@ -59,16 +59,33 @@ public class MineManager extends Manager implements Serializable {
     private boolean lose = false;
 
     /**
+     * Status of winning.
+     */
+    private boolean win = false;
+
+    /**
      * Getter for losing status.
      *
      * @return the status of losing.
      */
-    boolean getLose(){return lose;}
+    boolean getLose(){return this.lose;}
 
     /**
      * Setter for status of losing.
      */
-    void setLose(){lose = true;}
+    void setLose(){this.lose = true;}
+
+    /**
+     * Getter for losing status.
+     *
+     * @return the status of losing.
+     */
+    boolean getWin(){return this.win;}
+
+    /**
+     * Setter for status of losing.
+     */
+    void setWin(){this.win = true;}
 
     /**
      * Getter for the time passed.
@@ -83,7 +100,7 @@ public class MineManager extends Manager implements Serializable {
      * Setter for the time passed.
      */
     public void setTime(int time) {
-        this.time = time;
+        this.time += time;
     }
 
     /**
@@ -230,6 +247,20 @@ public class MineManager extends Manager implements Serializable {
         int row = position / MineBoard.getSize();
         int col = position % MineBoard.getSize();
         return !mineBoard.getMineTile(row, col).getIsOpened();
+    }
+
+    Timer getTimer(){return timer;}
+
+    void addTime(int time){
+        this.time += time;
+    }
+
+    Scorer getScorer(){
+        return scorer;
+    }
+
+    void setTimer(Timer timer){
+        this.timer = timer;
     }
 
     /**
