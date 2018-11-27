@@ -18,6 +18,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Timer;
 
 public class SudokuBoardActivity extends AppCompatActivity implements Observer, Serializable {
 
@@ -45,7 +46,10 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
 
     private String sudokuDifficulty;
 
-    private String username;
+    /**
+     * The timer.
+     */
+    private transient Timer timer = new Timer();
 
     /**
      * Set up the background image for each button based on the master list
@@ -70,6 +74,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         }
         if (tmp.getExtras().getBoolean("load")){
             loadFromFile(StartingActivity.sudokuFile);
+            sudokuBoardManager.setTimer(timer);
         }
 
         createTileButtons(this);
@@ -148,6 +153,8 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
     @Override
     protected void onPause() {
         super.onPause();
+        sudokuBoardManager.addTime(sudokuBoardManager.getScorer().getTimeScore());
+        sudokuBoardManager.getTimer().cancel();
         saveToFile(StartingActivity.sudokuFile);
     }
 

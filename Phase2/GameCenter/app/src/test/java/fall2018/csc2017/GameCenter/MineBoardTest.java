@@ -178,8 +178,12 @@ public class MineBoardTest {
 //        mineBoard = new MineBoard(createTiles(), testBoomNumber, new Random());
         mineBoard.touchOpen(testPosition);
 
-        int expectedOpen = getExpectedOpenedTile(testPosition);
         int numOfOpenedTiles = testOpenedTiles();
+        int expectedOpen = 1;
+        if (mineBoard.getMineTile(testPosition / MineBoard.getSize(),
+                testPosition % MineBoard.getSize()).getValue() == 0) {
+            expectedOpen = getExpectedOpenedTile(testPosition);
+        }
         assertEquals(expectedOpen, numOfOpenedTiles);
     }
 
@@ -228,7 +232,6 @@ public class MineBoardTest {
      * @return expected opened Tile
      */
     private int getExpectedOpenedTile(int position) {
-        setUp();
         expectedOpenedTiles = 0;
         int row = position / MineBoard.getSize();
         int col = position % MineBoard.getSize();

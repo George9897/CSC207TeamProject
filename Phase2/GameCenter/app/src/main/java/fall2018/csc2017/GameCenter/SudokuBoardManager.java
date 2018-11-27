@@ -167,9 +167,19 @@ public class SudokuBoardManager extends Manager implements Serializable {
         return tiles;
     }
 
-//    int getScore(){
-//        return 0;
-//    }
+    Timer getTimer(){return timer;}
+
+    void addTime(int time){
+        this.time += time;
+    }
+
+    Scorer getScorer(){
+        return scorer;
+    }
+
+    void setTimer(Timer timer){
+        this.timer = timer;
+    }
 
     /**
      * Constructor for BoardManager.
@@ -209,7 +219,7 @@ public class SudokuBoardManager extends Manager implements Serializable {
 
     void wining() {
         if (puzzleSolved()) {
-            this.time = scorer.getTimeScore();
+            this.time += scorer.getTimeScore();
             this.score = scorer.calculateScore(difficulty, time);
             timer.cancel();
         }
