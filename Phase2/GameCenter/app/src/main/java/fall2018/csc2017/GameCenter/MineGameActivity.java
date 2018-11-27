@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Timer;
 
 /**
  * The GameActivity for Mine.
@@ -42,6 +43,11 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
     private int columnWidth, columnHeight;
 
     /**
+     * The timer.
+     */
+    private transient Timer timer = new Timer();
+
+    /**
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
      */
@@ -61,11 +67,14 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        String userName = intent.getStringExtra("UserName");
-        String level = intent.getStringExtra("level");
-        mineManager = new MineManager(this, userName, level);
         if (intent.getExtras().getBoolean("load")){
             loadFromFile(StartingActivity.mineFile);
+            mineManager.setTimer(timer);
+        }
+        String userName = intent.getStringExtra("UserName");
+        String level = intent.getStringExtra("level");
+        if (mineManager == null) {
+            mineManager = new MineManager(this, userName, level);
         }
         createTileButtons(this);
         setContentView(R.layout.activity_mine_game);
@@ -148,6 +157,8 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
     @Override
     protected void onPause() {
         super.onPause();
+        mineManager.addTime(mineManager.getScorer().getTimeScore());
+        mineManager.getTimer().cancel();
         saveToFile(StartingActivity.mineFile);
     }
 

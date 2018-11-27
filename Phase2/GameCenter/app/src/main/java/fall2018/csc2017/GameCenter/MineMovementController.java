@@ -53,10 +53,10 @@ class MineMovementController implements Serializable {
      * Finish the game with You Win Activity.
      */
     private void finish() {
-        Intent tmp = new Intent(mineManager.getContext(), YouWinActivity.class);
+        Intent tmp = new Intent(context, YouWinActivity.class);
         tmp.putExtra("gameType", "Mine");
         tmp.putExtra("mineManager", mineManager);
-        mineManager.getContext().startActivity(tmp);
+        context.startActivity(tmp);
     }
 
     /**
@@ -100,6 +100,7 @@ class MineMovementController implements Serializable {
             mineManager.getMineBoard().replaceToFlag(row, col);
             if (mineManager.puzzleSolved()) {
                 mineManager.winning();
+                mineManager.setWin();
                 saveToFile(StartingActivity.mineFile,context);
                 new AlertDialog.Builder(context)
                         .setCancelable(false)
