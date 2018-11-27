@@ -41,7 +41,11 @@ public class DetailScoreBoardTest {
     }
 
     @Test
-    public void destroyAllManager() {
+    public void testDestroyAllManager() {
+        // build Managers.
+        // check Managers.
+        // Destroy.
+        // check Managers.
     }
 
     @Test
@@ -77,11 +81,12 @@ public class DetailScoreBoardTest {
     }
 
     @Test
-    public void collectScoreLevel() {
+    public void testCollectScoreLevel() {
+
     }
 
     @Test
-    public void createSortedList() {
+    public void testCreateSortedList() {
     }
 
     @Test
@@ -117,7 +122,7 @@ public class DetailScoreBoardTest {
     }
 
     @Test
-    public void modifyEasyTopOne() {
+    public void testModifyEasyTopOne() {
     }
 
     @Test
@@ -153,7 +158,7 @@ public class DetailScoreBoardTest {
     }
 
     @Test
-    public void modifyMediumTopOne() {
+    public void testModifyMediumTopOne() {
     }
 
     @Test
@@ -189,7 +194,7 @@ public class DetailScoreBoardTest {
     }
 
     @Test
-    public void modifyHardTopOne() {
+    public void testModifyHardTopOne() {
     }
 
     @Test
@@ -249,6 +254,6 @@ public class DetailScoreBoardTest {
     }
 
     @Test
-    public void getHighestScoreByUser() {
+    public void testGetHighestScoreByUser() {
     }
 }
