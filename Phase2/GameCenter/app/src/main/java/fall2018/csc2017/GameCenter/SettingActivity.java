@@ -151,7 +151,7 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
     private void switchToGame() {
         Intent tmp = new Intent(this, GameActivity.class);
         boardManager = new BoardManager(this,level);
-        saveToFile(boardManager.userName + ".ser");
+        saveToFile(boardManager.getUserName() + ".ser");
         tmp.putExtra("slidingTileBoardManager", boardManager);
         tmp.putExtra("slidingTile", slidingTile);
         tmp.putExtra("undo", undoLimited);

@@ -1,12 +1,22 @@
 package fall2018.csc2017.GameCenter;
 
+import android.content.Context;
+import android.test.mock.MockContext;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.Assert.*;
 
 public class DetailScoreBoardTest {
+
+    private DetailScoreBoard detailScoreBoard;
+    private Context context = new MockContext();
+    private String gameType;
 
     @Before
     public void setUp() throws Exception {
@@ -80,9 +90,309 @@ public class DetailScoreBoardTest {
     public void setScore() {
     }
 
-    @Test
-    public void testCollectScoreLevel() {
+    private void setUpSlidingTileScoreBoard(){
+        gameType = "SlidingTile";
+        detailScoreBoard = new DetailScoreBoard(gameType, context);
+    }
 
+    private void setUpSlidingTileManager(int score, int level, String userName){
+        BoardManager slidingTileManager = new BoardManager(context, level);
+        slidingTileManager.setScore(score);
+        slidingTileManager.setUserName(userName);
+        SlidingTileMovementController mController = new SlidingTileMovementController();
+        mController.setBoardManager(slidingTileManager);
+        mController.saveToFile(StartingActivity.slidingFile, context);
+    }
+
+    @Test
+    public void testEasySlidingTileCollectScoreLevelScore() {
+        setUpSlidingTileScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSlidingTileManager(testScore, 3, testUserName);
+        detailScoreBoard.collectScoreLevel();
+        assertEquals(testScore, detailScoreBoard.getScore());
+    }
+
+    @Test
+    public void testEasySlidingTileCollectScoreLevelLevel() {
+        setUpSlidingTileScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSlidingTileManager(testScore, 3, testUserName);
+        detailScoreBoard.collectScoreLevel();
+        assertEquals("Easy", detailScoreBoard.getLevel());
+    }
+
+    @Test
+    public void testEasySlidingTileCollectScoreLevelUserName() {
+        setUpSlidingTileScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSlidingTileManager(testScore, 3, testUserName);
+        detailScoreBoard.collectScoreLevel();
+        assertEquals(testUserName, detailScoreBoard.getUsername());
+    }
+    @Test
+    public void testMediumSlidingTileCollectScoreLevelScore() {
+        setUpSlidingTileScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSlidingTileManager(testScore, 4, testUserName);
+        detailScoreBoard.collectScoreLevel();
+        assertEquals(testScore, detailScoreBoard.getScore());
+    }
+
+    @Test
+    public void testMediumSlidingTileCollectScoreLevelLevel() {
+        setUpSlidingTileScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSlidingTileManager(testScore, 4, testUserName);
+        detailScoreBoard.collectScoreLevel();
+        assertEquals("Easy", detailScoreBoard.getLevel());
+    }
+
+    @Test
+    public void testMediumSlidingTileCollectScoreLevelUserName() {
+        setUpSlidingTileScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSlidingTileManager(testScore, 4, testUserName);
+        detailScoreBoard.collectScoreLevel();
+        assertEquals(testUserName, detailScoreBoard.getUsername());
+    }
+    @Test
+    public void testHardSlidingTileCollectScoreLevelScore() {
+        setUpSlidingTileScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSlidingTileManager(testScore, 5, testUserName);
+        detailScoreBoard.collectScoreLevel();
+        assertEquals(testScore, detailScoreBoard.getScore());
+    }
+
+    @Test
+    public void testHardSlidingTileCollectScoreLevelLevel() {
+        setUpSlidingTileScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSlidingTileManager(testScore, 5, testUserName);
+        detailScoreBoard.collectScoreLevel();
+        assertEquals("Easy", detailScoreBoard.getLevel());
+    }
+
+    @Test
+    public void testHardSlidingTileCollectScoreLevelUserName() {
+        setUpSlidingTileScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSlidingTileManager(testScore, 5, testUserName);
+        detailScoreBoard.collectScoreLevel();
+        assertEquals(testUserName, detailScoreBoard.getUsername());
+    }
+
+    private void setUpMineScoreBoard(){
+        gameType = "Mine";
+        detailScoreBoard = new DetailScoreBoard(gameType, context);
+    }
+
+    private void setUpMineManager(int score, String level, String userName){
+        MineManager mineManager = new MineManager(context, userName, level);
+        mineManager.setScore(score);
+        MineMovementController mController = new MineMovementController(context);
+        mController.setMineManager(mineManager);
+        mController.saveToFile(StartingActivity.mineFile, context);
+    }
+
+    @Test
+    public void testEasyMineCollectScoreLevelScore() {
+        setUpMineScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpMineManager(testScore, "Easy", testUserName);
+        detailScoreBoard.collectScoreLevel();
+        assertEquals(testScore, detailScoreBoard.getScore());
+    }
+
+    @Test
+    public void testEasyMineCollectScoreLevelLevel() {
+        setUpMineScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpMineManager(testScore, "Easy", testUserName);
+        detailScoreBoard.collectScoreLevel();
+        assertEquals("Easy", detailScoreBoard.getLevel());
+    }
+
+    @Test
+    public void testEasyMineCollectScoreLevelUserName() {
+        setUpMineScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpMineManager(testScore, "Easy", testUserName);
+        detailScoreBoard.collectScoreLevel();
+        assertEquals(testUserName, detailScoreBoard.getUsername());
+    }
+    @Test
+    public void testMediumMineCollectScoreLevelScore() {
+        setUpMineScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpMineManager(testScore, "Medium", testUserName);
+        detailScoreBoard.collectScoreLevel();
+        assertEquals(testScore, detailScoreBoard.getScore());
+    }
+
+    @Test
+    public void testMediumMineCollectScoreLevelLevel() {
+        setUpMineScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpMineManager(testScore, "Medium", testUserName);
+        detailScoreBoard.collectScoreLevel();
+        assertEquals("Easy", detailScoreBoard.getLevel());
+    }
+
+    @Test
+    public void testMediumMineCollectScoreLevelUserName() {
+        setUpMineScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpMineManager(testScore, "Medium", testUserName);
+        detailScoreBoard.collectScoreLevel();
+        assertEquals(testUserName, detailScoreBoard.getUsername());
+    }
+    @Test
+    public void testHardMineCollectScoreLevelScore() {
+        setUpMineScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpMineManager(testScore, "Hard", testUserName);
+        detailScoreBoard.collectScoreLevel();
+        assertEquals(testScore, detailScoreBoard.getScore());
+    }
+
+    @Test
+    public void testHardMineCollectScoreLevelLevel() {
+        setUpMineScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpMineManager(testScore, "Hard", testUserName);
+        detailScoreBoard.collectScoreLevel();
+        assertEquals("Easy", detailScoreBoard.getLevel());
+    }
+
+    @Test
+    public void testHardMineCollectScoreLevelUserName() {
+        setUpMineScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpMineManager(testScore, "Hard", testUserName);
+        detailScoreBoard.collectScoreLevel();
+        assertEquals(testUserName, detailScoreBoard.getUsername());
+    }
+
+    private void setUpSudokuScoreBoard(){
+        gameType = "Sudoku";
+        detailScoreBoard = new DetailScoreBoard(gameType, context);
+    }
+
+    private void setUpSudokuManager(int score, String level, String userName){
+        SudokuBoardManager sudokuManager = new SudokuBoardManager(context, level);
+        sudokuManager.setScore(score);
+        sudokuManager.setUserName(userName);
+        SudokuMovementController mController = new SudokuMovementController();
+        mController.setSudokuBoardManager(sudokuManager);
+        mController.saveToFile(StartingActivity.sudokuFile, context);
+    }
+
+    @Test
+    public void testEasySudokuCollectScoreLevelScore() {
+        setUpSudokuScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSudokuManager(testScore, "Easy", testUserName);
+        detailScoreBoard.collectScoreLevel();
+        assertEquals(testScore, detailScoreBoard.getScore());
+    }
+
+    @Test
+    public void testEasySudokuCollectScoreLevelLevel() {
+        setUpSudokuScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSudokuManager(testScore, "Easy", testUserName);
+        detailScoreBoard.collectScoreLevel();
+        assertEquals("Easy", detailScoreBoard.getLevel());
+    }
+
+    @Test
+    public void testEasySudokuCollectScoreLevelUserName() {
+        setUpSudokuScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSudokuManager(testScore, "Easy", testUserName);
+        detailScoreBoard.collectScoreLevel();
+        assertEquals(testUserName, detailScoreBoard.getUsername());
+    }
+    @Test
+    public void testMediumSudokuCollectScoreLevelScore() {
+        setUpSudokuScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSudokuManager(testScore, "Medium", testUserName);
+        detailScoreBoard.collectScoreLevel();
+        assertEquals(testScore, detailScoreBoard.getScore());
+    }
+
+    @Test
+    public void testMediumSudokuCollectScoreLevelLevel() {
+        setUpSudokuScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSudokuManager(testScore, "Medium", testUserName);
+        detailScoreBoard.collectScoreLevel();
+        assertEquals("Easy", detailScoreBoard.getLevel());
+    }
+
+    @Test
+    public void testMediumSudokuCollectScoreLevelUserName() {
+        setUpSudokuScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSudokuManager(testScore, "Medium", testUserName);
+        detailScoreBoard.collectScoreLevel();
+        assertEquals(testUserName, detailScoreBoard.getUsername());
+    }
+    @Test
+    public void testHardSudokuCollectScoreLevelScore() {
+        setUpSudokuScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSudokuManager(testScore, "Hard", testUserName);
+        detailScoreBoard.collectScoreLevel();
+        assertEquals(testScore, detailScoreBoard.getScore());
+    }
+
+    @Test
+    public void testHardSudokuCollectScoreLevelLevel() {
+        setUpSudokuScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSudokuManager(testScore, "Hard", testUserName);
+        detailScoreBoard.collectScoreLevel();
+        assertEquals("Easy", detailScoreBoard.getLevel());
+    }
+
+    @Test
+    public void testHardSudokuCollectScoreLevelUserName() {
+        setUpSudokuScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSudokuManager(testScore, "Hard", testUserName);
+        detailScoreBoard.collectScoreLevel();
+        assertEquals(testUserName, detailScoreBoard.getUsername());
     }
 
     @Test

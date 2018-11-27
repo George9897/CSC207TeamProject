@@ -148,7 +148,7 @@ public class DetailScoreBoard implements Serializable {
                 if (boardManager.getSlidingTileDifficulty() != null) {
                     setLevel(boardManager.getSlidingTileDifficulty());
                 }
-                setUsername(boardManager.userName);
+                setUsername(boardManager.getUserName());
                 break;
             case "Mine":
                 loadFromFile(StartingActivity.mineFile);
