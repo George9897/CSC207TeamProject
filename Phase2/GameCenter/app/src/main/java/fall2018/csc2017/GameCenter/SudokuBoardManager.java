@@ -14,26 +14,15 @@ import java.util.Timer;
  */
 public class SudokuBoardManager extends Manager implements Serializable {
 
-//    /**
-//     * The serialVersionUID.
-//     */
-    //TODO: don't know for now
-    //public static final long serialVersionUID = 7738996747003692034L;
-
     /**
-     * The slidingTile being managing
+     * The Sudoku Board being managing
      */
     private Sudoku sudoku;
 
     /**
-     * The boardManager.
+     * The SudokuBoardManager.
      */
-    //private static SudokuBoardManager sudokuBoardManager;
-
-    /**
-     * The number of moves taken by the users.
-     */
-    private int numMoves;
+    private static SudokuBoardManager sudokuBoardManager;
 
     /**
      * The list of storing Boards.
@@ -59,19 +48,14 @@ public class SudokuBoardManager extends Manager implements Serializable {
     private transient Context context;
 
     /**
-     *
+     * The list of undo.
      */
     private List<Integer> undoList = new ArrayList<>();
 
     /**
-     *
+     * the difficulty of sudoku.
      */
     private String sudokuDifficulty;
-
-//    /**
-//     * The time score for one game play.
-//     */
-//    private int timeScore;
 
     /**
      * The score after the user find out all the booms.
@@ -88,7 +72,7 @@ public class SudokuBoardManager extends Manager implements Serializable {
     private transient Timer timer = new Timer();
 
     /**
-     *
+     * the difficulty number of sudoku.
      */
     private int difficulty;
 
@@ -96,12 +80,6 @@ public class SudokuBoardManager extends Manager implements Serializable {
      * The scorer for Sudoku game.
      */
     private SudokuScorer scorer = new SudokuScorer();
-
-//    /**
-//     * Getter for time score.
-//     * @return the Time score.
-//     */
-//    int getTimeScore() { return timeScore; }
 
     /**
      * Getter for the time passed.
@@ -121,6 +99,9 @@ public class SudokuBoardManager extends Manager implements Serializable {
         return score;
     }
 
+    /**
+     * @return the Sudoku Difficulty.
+     */
     String getSudokuDifficulty() {
         return sudokuDifficulty;
     }

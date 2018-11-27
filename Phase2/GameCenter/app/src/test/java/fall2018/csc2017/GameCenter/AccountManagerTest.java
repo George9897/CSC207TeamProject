@@ -10,19 +10,23 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class AccountManagerTest {
+    /**
+     * The mine manager for test.
+     */
+    private AccountManager accountManager;
+    private Context context;
+    private String userName = "Tom";
 
-    Context context = new MockContext();
 
     @Before
     public void setUp() throws Exception {
+        context = new MockContext();
+//        accountManager.context = context;
     }
 
     @After
     public void tearDown() throws Exception {
-    }
-
-    @Test
-    public void getAccountManager() {
+        accountManager = null;
     }
 
     @Test
@@ -43,5 +47,6 @@ public class AccountManagerTest {
 
     @Test
     public void getUserName() {
+        assertEquals("Tom", accountManager.getUserName());
     }
 }
