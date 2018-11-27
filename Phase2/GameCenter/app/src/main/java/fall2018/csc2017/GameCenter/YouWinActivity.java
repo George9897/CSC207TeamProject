@@ -49,11 +49,14 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
 
         switch (gameType){
             case "SlidingTile":
-                boardManager = (BoardManager) intent.getExtras().get("slidingTileBoardManager");
-                scoreBox.setText("Your Score: " + (Integer.toString(boardManager.getScore())));
+                boardManager = (BoardManager)
+                        Objects.requireNonNull(intent.getExtras()).get("slidingTileBoardManager");
+                scoreBox.setText("Your Score: " +
+                        (Integer.toString(Objects.requireNonNull(boardManager).getScore())));
                 break;
             case "Mine":
-                mineManager = (MineManager) Objects.requireNonNull(intent.getExtras()).get("mineManager");
+                mineManager = (MineManager)
+                        Objects.requireNonNull(intent.getExtras()).get("mineManager");
                 TextView youWinView = findViewById(R.id.finishView);
                 if (mineManager.puzzleSolved()) {
                     youWinView.setText("Victory!");
@@ -61,12 +64,17 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
                 else {
                     youWinView.setText("Failed");
                 }
-                scoreBox.setText("Your Score: " + (Integer.toString(mineManager.getScore())) + "\n\r" + "Time: "
+                scoreBox.setText("Your Score: " + (Integer.toString(mineManager.getScore())) +
+                        "\n\r" + "Time: "
                         + (Integer.toString(mineManager.getTime())) + " Seconds");
                 break;
             case "Sudoku":
-                sudokuBoardManager = (SudokuBoardManager)intent.getExtras().get("sudokuGameBoard");
-                scoreBox.setText("Your Score: " + (Integer.toString(sudokuBoardManager.getScore())) + "\n\r" + "Time: "
+                sudokuBoardManager =
+                        (SudokuBoardManager)Objects.requireNonNull(intent.getExtras()).
+                                get("sudokuGameBoard");
+                scoreBox.setText("Your Score: " +
+                        (Integer.toString(Objects.requireNonNull(sudokuBoardManager).getScore())) +
+                        "\n\r" + "Time: "
                         + (Integer.toString(sudokuBoardManager.getTime())) + " Seconds");
                 break;
         }
