@@ -100,7 +100,7 @@ public class MineManager extends Manager implements Serializable {
      * Setter for the time passed.
      */
     public void setTime(int time) {
-        this.time = time;
+        this.time += time;
     }
 
     /**
@@ -247,6 +247,20 @@ public class MineManager extends Manager implements Serializable {
         int row = position / MineBoard.getSize();
         int col = position % MineBoard.getSize();
         return !mineBoard.getMineTile(row, col).getIsOpened();
+    }
+
+    Timer getTimer(){return timer;}
+
+    void addTime(int time){
+        this.time += time;
+    }
+
+    Scorer getScorer(){
+        return scorer;
+    }
+
+    void setTimer(Timer timer){
+        this.timer = timer;
     }
 
     /**

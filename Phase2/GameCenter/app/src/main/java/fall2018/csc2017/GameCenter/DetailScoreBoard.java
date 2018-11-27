@@ -213,6 +213,10 @@ public class DetailScoreBoard implements Serializable {
                            int newScore, String newName){
         if (newScore > oldTopOneScore){
             return  newName;
+        }else if(newScore == 0 && oldTopOneName!=null){
+            if (oldTopOneName.equals("No data")) {
+                return newName;
+            }
         }
         return oldTopOneName;
     }
@@ -230,7 +234,7 @@ public class DetailScoreBoard implements Serializable {
                 findTopOne(easyTopOneScore, easyTopOneName, score, username)==null) {
             easyTopOneName = "No data";
             System.out.println(easyTopOneName + "-------------------");
-        } else if(score != 0) {
+        } else {
             easyTopOneName = findTopOne(easyTopOneScore, easyTopOneName, score, username);
             easyTopOneScore = easyScoreList.get(easyScoreList.size()-1);
             System.out.println(easyTopOneName + "-------------------" + easyTopOneScore);
@@ -250,7 +254,7 @@ public class DetailScoreBoard implements Serializable {
                 || findTopOne(mediumTopOneScore, mediumTopOneName, score, username) == null) {
             mediumTopOneName = "No data";
             System.out.println(mediumTopOneName + "-------------------");
-        } else if(score != 0){
+        } else {
             mediumTopOneName = findTopOne(mediumTopOneScore, mediumTopOneName, score, username);
             mediumTopOneScore = mediumScoreList.get(mediumScoreList.size()-1);
             System.out.println(mediumTopOneName + "-------------------" + mediumTopOneScore);
@@ -266,7 +270,7 @@ public class DetailScoreBoard implements Serializable {
         if (level.equals("neverPlayed")|| hardLevel.equals("neverPlayed") ||
                 findTopOne(hardTopOneScore, hardTopOneName, score, username) == null) {
             hardTopOneName = "No data";
-        } else if(score != 0){
+        } else {
             hardTopOneName = findTopOne(hardTopOneScore, hardTopOneName, score, username);
             hardTopOneScore = hardScoreList.get(hardScoreList.size()-1);
         }
@@ -308,9 +312,11 @@ public class DetailScoreBoard implements Serializable {
                 }
             }
             if (easyMap.get(easyScoreList.get(0)) != null) {
-                for (int j = 0; j < easyMap.get(easyScoreList.get(0)).size(); j++) {
-                    sortedList.add(easyScoreList.get(0) + "  " +
-                            easyMap.get(easyScoreList.get(0)).get(j));
+                if((!gameType.equals("Mine")&&easyScoreList.get(0)!=0) || (gameType.equals("Mine"))) {
+                    for (int j = 0; j < easyMap.get(easyScoreList.get(0)).size(); j++) {
+                        sortedList.add(easyScoreList.get(0) + "  " +
+                                easyMap.get(easyScoreList.get(0)).get(j));
+                    }
                 }
             }
             easyMap.get(easyTopOneScore).add(0,easyTopOneName);
