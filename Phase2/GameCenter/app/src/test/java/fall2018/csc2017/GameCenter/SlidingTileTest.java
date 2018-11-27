@@ -26,7 +26,6 @@ public class SlidingTileTest {
     private SlidingTile slidingTile2;
     private SlidingTile slidingTile3;
 
-    public NoSuchElementException thrown= new NoSuchElementException();
 
     /**
      * Create a initial list of Tiles for game with matching sizes.
@@ -165,11 +164,15 @@ public class SlidingTileTest {
 
     @Test
     public void iterator() throws Exception {
-        SlidingTile slidingTile = new SlidingTile(createTiles(0), 0);
-        Iterator<Tile> iter = slidingTile.iterator();
+        // Test iterator hasNext method and next non exception case.
         assertTrue(slidingTile1.iterator().hasNext());
         assertEquals(1, slidingTile1.iterator().next().getId());
-        try{Object a = iter.next();} catch (Exception ex) {
+        // Test iterator next exception case.
+        SlidingTile slidingTile = new SlidingTile(createTiles(0), 0);
+        Iterator<Tile> iter = slidingTile.iterator();
+        try{
+            Object a = iter.next();
+        } catch (Exception ex) {
             assertTrue(ex instanceof NoSuchElementException);
         }
     }
