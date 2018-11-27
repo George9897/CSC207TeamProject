@@ -65,7 +65,7 @@ public class DetailScoreBoard implements Serializable {
     private String hardLevel;
     private String level = "neverPlayed";
 
-    transient Context context;
+    private transient Context context;
 
     /**
      * Init AccountManager.
@@ -94,10 +94,8 @@ public class DetailScoreBoard implements Serializable {
     }
 
     private void collectScoreLevel(){
-        //mineManager = new MineManager(this.context);
         switch (gameType) {
             case "SlidingTile":
-                //boardManager = new BoardManager(this.context, 3);
                 loadFromFile(StartingActivity.slidingFile);
                 if (boardManager == null){
                     boardManager = new BoardManager(this.context, 3 );
@@ -145,7 +143,6 @@ public class DetailScoreBoard implements Serializable {
     private void updateScore(){
         switch (level) {
             case "Easy":
-                System.out.println(score);
                 if (!easyMap.containsKey(score)) {
                     List<String> l = new ArrayList<>();
                     l.add(username);
@@ -222,6 +219,7 @@ public class DetailScoreBoard implements Serializable {
         if (level.equals("neverPlayed")|| easyLevel.equals("neverPlayed") ||
                 findTopOne(easyTopOneScore, easyTopOneName, score, username)==null) {
             easyTopOneName = "No data";
+        } else if(score != 0) {
         } else {
             easyTopOneName = findTopOne(easyTopOneScore, easyTopOneName, score, username);
             easyTopOneScore = easyScoreList.get(easyScoreList.size()-1);
@@ -426,5 +424,21 @@ public class DetailScoreBoard implements Serializable {
         } catch (ClassNotFoundException e) {
             Log.e("login activity", "File contained unexpected data type: " + e.toString());
         }
+    }
+
+    public BoardManager getBoardManager() {
+        return boardManager;
+    }
+
+    public SudokuBoardManager getSudokuBoardManager() {
+        return sudokuBoardManager;
+    }
+
+    public MineManager getMineManager() {
+        return mineManager;
+    }
+
+    public Context getContext() {
+        return context;
     }
 }
