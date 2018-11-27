@@ -9,7 +9,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -209,7 +208,7 @@ public class MineManagerTest {
     @Test
     public void testWinning() {
         setUp();
-        for (int i = 0; i < 11; i++) {
+        for (int i = 0; i < 10; i++) {
             mineManager.scorer.run();
         }
         mineManager.scorer.cancel();

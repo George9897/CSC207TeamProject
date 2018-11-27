@@ -175,12 +175,16 @@ public class MineBoardTest {
     @Test
     public void testRecursiveAfterTouchOpen() {
         setUp();
-        mineBoard = new MineBoard(createTiles(), testBoomNumber, new Random());
+//        mineBoard = new MineBoard(createTiles(), testBoomNumber, new Random());
         mineBoard.touchOpen(testPosition);
 
-        int expectedOpen = getExpectedOpenedTile(testPosition);
         int numOfOpenedTiles = testOpenedTiles();
-        assertEquals(numOfOpenedTiles, expectedOpen);
+        int expectedOpen = 1;
+        if (mineBoard.getMineTile(testPosition / MineBoard.getSize(),
+                testPosition % MineBoard.getSize()).getValue() == 0) {
+            expectedOpen = getExpectedOpenedTile(testPosition);
+        }
+        assertEquals(expectedOpen, numOfOpenedTiles);
     }
 
     /**
@@ -217,7 +221,7 @@ public class MineBoardTest {
         mineBoard = new MineBoard(createTiles(), testBoomNumber, new Random());
         assertEquals(0, testCreateBooms());
         mineBoard.touchOpen(testPosition);
-        assertEquals(0, testCreateBooms());
+        assertEquals(40, testCreateBooms());
     }
 
 
@@ -228,7 +232,6 @@ public class MineBoardTest {
      * @return expected opened Tile
      */
     private int getExpectedOpenedTile(int position) {
-        setUp();
         expectedOpenedTiles = 0;
         int row = position / MineBoard.getSize();
         int col = position % MineBoard.getSize();
@@ -245,7 +248,6 @@ public class MineBoardTest {
      * @return num of booms are created.
      */
     private int testCreateBooms() {
-        setUp();
         int numberOfBooms = 0;
         for (int row = 0; row < MineBoard.getSize(); row++) {
             for (int col = 0; col < MineBoard.getSize(); col++) {
@@ -281,14 +283,11 @@ public class MineBoardTest {
      * @return num of tile are opened.
      */
     private int testOpenedTiles() {
-        setUp();
         int numberOfOpenedTiles = 0;
         for (int Row = 0; Row < MineBoard.getSize(); Row++) {
             for (int Col = 0; Col < MineBoard.getSize(); Col++) {
-                if (mineBoard.getMineTile(Row, Col).getValue() == -1) {
-                    if (mineBoard.getMineTile(Row, Col).getIsOpened()) {
+                if (mineBoard.getMineTile(Row, Col).getIsOpened()) {
                         numberOfOpenedTiles++;
-                    }
                 }
             }
         }
