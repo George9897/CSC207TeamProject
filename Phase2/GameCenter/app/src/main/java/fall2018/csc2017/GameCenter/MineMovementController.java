@@ -100,6 +100,7 @@ class MineMovementController implements Serializable {
             mineManager.getMineBoard().replaceToFlag(row, col);
             if (mineManager.puzzleSolved()) {
                 mineManager.winning();
+                mineManager.setWin();
                 saveToFile(StartingActivity.mineFile,context);
                 new AlertDialog.Builder(context)
                         .setCancelable(false)

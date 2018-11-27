@@ -110,8 +110,10 @@ public class DetailScoreBoard implements Serializable {
                 loadFromFile(StartingActivity.mineFile);
                 if (mineManager == null){
                     mineManager = new MineManager(this.context, username, "EASY");
+                    System.out.println("1235467422575");
                 }
                 score = mineManager.getScore();
+                System.out.println(mineManager.getScore() + "scoreeeeeeee");
                 if (mineManager.getMineDifficulty()!=null) {
                     level = mineManager.getMineDifficulty();
                 }
@@ -134,8 +136,10 @@ public class DetailScoreBoard implements Serializable {
                 break;
         }
         if (mineManager != null) {
-            if (mineManager.getLose() || mineManager.puzzleSolved()) {
+            if (mineManager.getLose() || mineManager.getWin()) {
                 updateScore();
+                System.out.println("update" + username);
+                System.out.println("update" + level);
             }
         }else{
             if (score != 0) {
@@ -145,9 +149,12 @@ public class DetailScoreBoard implements Serializable {
     }
 
     private void updateScore(){
+        System.out.println(level.equals("Easy"));
         switch (level) {
             case "Easy":
+                System.out.println(score);
                 if (!easyMap.containsKey(score)) {
+                    System.out.println("add");
                     List l = new ArrayList();
                     l.add(username);
                     easyMap.put(score, l);

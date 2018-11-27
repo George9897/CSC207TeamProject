@@ -59,16 +59,33 @@ public class MineManager extends Manager implements Serializable {
     private boolean lose = false;
 
     /**
+     * Status of winning.
+     */
+    private boolean win = false;
+
+    /**
      * Getter for losing status.
      *
      * @return the status of losing.
      */
-    boolean getLose(){return lose;}
+    boolean getLose(){return this.lose;}
 
     /**
      * Setter for status of losing.
      */
-    void setLose(){lose = true;}
+    void setLose(){this.lose = true;}
+
+    /**
+     * Getter for losing status.
+     *
+     * @return the status of losing.
+     */
+    boolean getWin(){return this.win;}
+
+    /**
+     * Setter for status of losing.
+     */
+    void setWin(){this.win = true;}
 
     /**
      * Getter for the time passed.
