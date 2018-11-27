@@ -41,7 +41,11 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
         detailScoreBoard.setContext(this);
 
         if (!played) {
-            detailScoreBoard.display();
+            detailScoreBoard.collectScoreLevel();
+            detailScoreBoard.createSortedList();
+            detailScoreBoard.modifyEasyTopOne();
+            detailScoreBoard.modifyMediumTopOne();
+            detailScoreBoard.modifyHardTopOne();
         }
 
         TextView gameView = findViewById(R.id.GameView);
