@@ -425,4 +425,20 @@ public class DetailScoreBoard implements Serializable {
             Log.e("login activity", "File contained unexpected data type: " + e.toString());
         }
     }
+
+    public BoardManager getBoardManager() {
+        return boardManager;
+    }
+
+    public SudokuBoardManager getSudokuBoardManager() {
+        return sudokuBoardManager;
+    }
+
+    public MineManager getMineManager() {
+        return mineManager;
+    }
+
+    public Context getContext() {
+        return context;
+    }
 }
