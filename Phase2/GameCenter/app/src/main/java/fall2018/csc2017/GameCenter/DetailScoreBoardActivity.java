@@ -35,26 +35,22 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
         String filename = gameType + "DetailScoreBoard.ser";
         loadFromFile(filename);
         if (detailScoreBoard == null){
-            System.out.println(filename);
             detailScoreBoard = new DetailScoreBoard(gameType, this);
             played =false;
         }
         detailScoreBoard.setContext(this);
 
-        System.out.println(detailScoreBoard.context);
-
         if (!played) {
             detailScoreBoard.display();
         }
+
         TextView gameView = findViewById(R.id.GameView);
         gameView.setText(gameType);
         setTopOnes(detailScoreBoard);
         setModeData(detailScoreBoard);
 
         addScoreQuitButtonsListener();
-        System.out.println(filename);
         saveToFile(filename);
-        System.out.println(detailScoreBoard.context);
         detailScoreBoard.destroyAllManager();
         detailScoreBoard = null;
     }
