@@ -140,7 +140,6 @@ public class MineBoardTest {
     @Test
     public void testBeforeTouchOpen() {
         setUp();
-        mineBoard = new MineBoard(createTiles(), testBoomNumber, new Random());
         assertEquals(0, testCreateBooms());
         assertFalse(mineBoard.getMineTile(testPosition / MineBoard.getSize(),
                 testPosition % MineBoard.getSize()).getIsOpened());
@@ -152,7 +151,6 @@ public class MineBoardTest {
     @Test
     public void testCreateBoomsAfterTouchOpen() {
         setUp();
-        mineBoard = new MineBoard(createTiles(), testBoomNumber, new Random());
         mineBoard.touchOpen(testPosition);
         assertEquals(testBoomNumber, testCreateBooms());
     }
@@ -163,28 +161,9 @@ public class MineBoardTest {
     @Test
     public void testOpenTileAfterTouchOpen() {
         setUp();
-        mineBoard = new MineBoard(createTiles(), testBoomNumber, new Random());
         mineBoard.touchOpen(testPosition);
         assertTrue(mineBoard.getMineTile(testPosition / MineBoard.getSize(),
                 testPosition % MineBoard.getSize()).getIsOpened());
-    }
-
-    /**
-     * Test recursive after touchOpen.
-     */
-    @Test
-    public void testRecursiveAfterTouchOpen() {
-        setUp();
-//        mineBoard = new MineBoard(createTiles(), testBoomNumber, new Random());
-        mineBoard.touchOpen(testPosition);
-
-        int numOfOpenedTiles = testOpenedTiles();
-        int expectedOpen = 1;
-        if (mineBoard.getMineTile(testPosition / MineBoard.getSize(),
-                testPosition % MineBoard.getSize()).getValue() == 0) {
-            expectedOpen = getExpectedOpenedTile(testPosition);
-        }
-        assertEquals(expectedOpen, numOfOpenedTiles);
     }
 
     /**
@@ -193,7 +172,6 @@ public class MineBoardTest {
     @Test
     public void testDisplayBoomsAfterTouchOpenFail() {
         setUp();
-        mineBoard = new MineBoard(createTiles(), testBoomNumber, new Random());
         mineBoard.touchOpen(testPosition);
 
         for (int row = 0; row < MineBoard.getSize(); row++) {
@@ -214,7 +192,6 @@ public class MineBoardTest {
     @Test
     public void testTouchOpenWhenNotFirstTap() {
         setUp();
-        mineBoard = new MineBoard(createTiles(), testBoomNumber, new Random());
         mineBoard.touchOpen(testPosition);
 
         // test createBooms without first tap.
@@ -223,24 +200,6 @@ public class MineBoardTest {
         mineBoard.touchOpen(testPosition);
         assertEquals(40, testCreateBooms());
     }
-
-
-    /**
-     * Get expected opened Tile with the given position.
-     *
-     * @param position the given position.
-     * @return expected opened Tile
-     */
-    private int getExpectedOpenedTile(int position) {
-        expectedOpenedTiles = 0;
-        int row = position / MineBoard.getSize();
-        int col = position % MineBoard.getSize();
-        Queue<Pair<Integer, Integer>> queue = new LinkedList<>();
-        putSurroundingOnQueue(row, col, queue);
-        recursiveSurroundingOnQueue(queue);
-        return expectedOpenedTiles;
-    }
-
 
     /**
      * Test createBooms().
@@ -278,23 +237,6 @@ public class MineBoardTest {
     }
 
     /**
-     * Test opened tile.
-     *
-     * @return num of tile are opened.
-     */
-    private int testOpenedTiles() {
-        int numberOfOpenedTiles = 0;
-        for (int Row = 0; Row < MineBoard.getSize(); Row++) {
-            for (int Col = 0; Col < MineBoard.getSize(); Col++) {
-                if (mineBoard.getMineTile(Row, Col).getIsOpened()) {
-                        numberOfOpenedTiles++;
-                }
-            }
-        }
-        return numberOfOpenedTiles;
-    }
-
-    /**
      * Test whether replaceToFlag works.
      */
     @Test
@@ -313,56 +255,5 @@ public class MineBoardTest {
         assertFalse(mineBoard.getMineTile(row, col).getIsOpened());
         assertEquals(0, mineBoard.getMineTile(row, col).getValue());
         assertEquals(R.drawable.tile_closed, mineBoard.getMineTile(row, col).getBackground());
-    }
-
-    /**
-     * Recursively put surrounding empty mine tiles into the queue.
-     *
-     * @param queue the queue that stores all the surrounding empty mine tiles.
-     *              Note: the "surrounding" might recursively gets bigger until there is a number
-     *              tile border.
-     */
-    private void recursiveSurroundingOnQueue
-    (Queue<Pair<Integer, Integer>> queue) {
-        if (queue.size() > 0) {
-            Pair<Integer, Integer> pointPair = queue.poll();
-            if (pointPair.first != null && pointPair.second != null) {
-                int row = pointPair.first;
-                int col = pointPair.second;
-                expectedOpenedTiles++;
-                putSurroundingOnQueue(row, col, queue);
-                recursiveSurroundingOnQueue(queue);
-            }
-        }
-    }
-
-    /**
-     * Change the surrounding empty mine tiles in the queue.
-     * Helper for recursiveSurroundingOnQueue.
-     *
-     * @param row   The row of the mine tile.
-     * @param col   The col of the mine tile.
-     * @param queue The queue of given mine tiles.
-     */
-    private void putSurroundingOnQueue
-    (int row, int col, Queue<Pair<Integer, Integer>> queue) {
-        for (int i = 0; i < 8; i++) {
-            Integer surroundingX = row + surrounding_directions[i][0],
-                    surroundingY = col + surrounding_directions[i][1];
-            //Check given minePoint's surroundings and whether they are opened or not.
-            boolean isOpenable = surroundingX >= 0 && surroundingX < MineBoard.getSize() &&
-                    surroundingY >= 0 && surroundingY < MineBoard.getSize();
-            if (isOpenable) {
-                //Make all surroundings empty tiles appear inside a number tile border.
-                if (mineBoard.getMineTile(surroundingX, surroundingY).getValue() == 0 &&
-                        !mineBoard.getMineTile(surroundingX, surroundingY).getIsOpened()) {
-                    expectedOpenedTiles++;
-                    queue.offer(new Pair<>(surroundingX, surroundingY));
-                    //Show the number tile.
-                } else if (mineBoard.getMineTile(surroundingX, surroundingY).getValue() > 0) {
-                    expectedOpenedTiles++;
-                }
-            }
-        }
     }
 }

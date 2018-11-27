@@ -68,7 +68,7 @@ public class SudokuTest {
 
     @Test
     public void numTiles() {
-        // assertEquals(81, sudoku.numTiles());
+        assertEquals(81, sudoku.numTiles());
     }
 
     @Test
@@ -92,8 +92,8 @@ public class SudokuTest {
 
     @Test
     public void testtoString() {
-//        assertEquals("Sudoku{" +
-//                "tiles=" + Arrays.toString(sudoku.tiles) +
-//                '}', sudoku.toString());
+        assertEquals("Sudoku{" +
+                "tiles=" + Arrays.toString(sudoku.getTileList()) +
+                '}', sudoku.toString());
     }
 }
