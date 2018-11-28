@@ -884,7 +884,32 @@ public class DetailScoreBoardTest {
     }
 
     @Test
-    public void getEasySortedList() {
+    public void testGetEasySortedList() {
+        String testUserName;
+        int testScore;
+        ArrayList<String> expectResult = new ArrayList<>();
+        expectResult.add("1000 Bella");
+        expectResult.add("100 Ace");
+
+        setUpSlidingTileScoreBoard();
+        testScore = 100;
+        testUserName = "Ace";
+        setUpSlidingTileManager(testScore, 4, testUserName);
+        detailScoreBoard.collectScoreLevel();
+
+        setUpSlidingTileScoreBoard();
+        testScore = 1000;
+        testUserName = "Bella";
+        setUpSlidingTileManager(testScore, 4, testUserName);
+        detailScoreBoard.collectScoreLevel();
+
+        setUpSlidingTileScoreBoard();
+        testScore = 10000;
+        testUserName = "Cara";
+        setUpSlidingTileManager(testScore, 4, testUserName);
+        detailScoreBoard.collectScoreLevel();
+
+        assertEquals(expectResult, detailScoreBoard.getEasySortedList());
     }
 
 
@@ -901,7 +926,32 @@ public class DetailScoreBoardTest {
     }
 
     @Test
-    public void getMediumSortedList() {
+    public void testGetMediumSortedList() {
+        String testUserName;
+        int testScore;
+        ArrayList<String> expectResult = new ArrayList<>();
+        expectResult.add("1000 Bella");
+        expectResult.add("100 Ace");
+
+        setUpSlidingTileScoreBoard();
+        testScore = 100;
+        testUserName = "Ace";
+        setUpSlidingTileManager(testScore, 4, testUserName);
+        detailScoreBoard.collectScoreLevel();
+
+        setUpSlidingTileScoreBoard();
+        testScore = 1000;
+        testUserName = "Bella";
+        setUpSlidingTileManager(testScore, 4, testUserName);
+        detailScoreBoard.collectScoreLevel();
+
+        setUpSlidingTileScoreBoard();
+        testScore = 10000;
+        testUserName = "Cara";
+        setUpSlidingTileManager(testScore, 4, testUserName);
+        detailScoreBoard.collectScoreLevel();
+
+        assertEquals(expectResult, detailScoreBoard.getMediumSortedList());
     }
 
     @Test
@@ -917,7 +967,32 @@ public class DetailScoreBoardTest {
     }
 
     @Test
-    public void getHardSortedList() {
+    public void testGetHardSortedList() {
+        String testUserName;
+        int testScore;
+        ArrayList<String> expectResult = new ArrayList<>();
+        expectResult.add("1000 Bella");
+        expectResult.add("100 Ace");
+
+        setUpSlidingTileScoreBoard();
+        testScore = 100;
+        testUserName = "Ace";
+        setUpSlidingTileManager(testScore, 5, testUserName);
+        detailScoreBoard.collectScoreLevel();
+
+        setUpSlidingTileScoreBoard();
+        testScore = 1000;
+        testUserName = "Bella";
+        setUpSlidingTileManager(testScore, 5, testUserName);
+        detailScoreBoard.collectScoreLevel();
+
+        setUpSlidingTileScoreBoard();
+        testScore = 10000;
+        testUserName = "Cara";
+        setUpSlidingTileManager(testScore, 5, testUserName);
+        detailScoreBoard.collectScoreLevel();
+
+        assertEquals(expectResult, detailScoreBoard.getHardSortedList());
     }
 
     @Test
