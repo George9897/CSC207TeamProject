@@ -1,18 +1,12 @@
 package fall2018.csc2017.GameCenter;
 
 import android.content.Context;
-import android.test.mock.MockContext;
+import android.test.InstrumentationTestCase;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.*;
-
-public class BoardManagerTest {
+public class BoardManagerTest extends InstrumentationTestCase {
     /**
      * The Boardmanager for test.
      */
@@ -20,7 +14,27 @@ public class BoardManagerTest {
     /**
      * Context for test.
      */
-    Context context = new MockContext();
+    //Context context = new MockContext();
+
+    Context context =getInstrumentation().getContext() ;
+
+
+    public void setUp() throws Exception {
+
+        super.setUp();
+//        super.setUp();
+//
+//        MyApplication myApplication = new MyApplication();
+//        myApplication.onCreate(savedInstanceState);
+////
+//        context = MyApplication.getInstance();
+//
+//        assertNotNull(context);
+//
+        boardManager = new BoardManager(context, 3);
+
+    }
+
 
 //    /**
 //     * Create a initial list of Tiles for game with matching sizes.
@@ -40,10 +54,10 @@ public class BoardManagerTest {
 //        return tiles;
 //    }
 
-    @Before
-    public void setUp() throws Exception {
-        boardManager = new BoardManager(context, 3);
-    }
+//    @Before
+//    public void setUp() throws Exception {
+//        boardManager = new BoardManager(context, 3);
+//    }
 
     @After
     public void tearDown() throws Exception {
