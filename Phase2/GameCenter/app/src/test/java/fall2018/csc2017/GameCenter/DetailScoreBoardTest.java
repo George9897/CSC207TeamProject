@@ -7,7 +7,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.*;
@@ -69,27 +71,59 @@ public class DetailScoreBoardTest {
     }
 
     @Test
-    public void getBoardManager() {
+    public void testGetBoardManager() {
+        setUpSlidingTileScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSlidingTileManager(testScore, 4, testUserName);
+        assertNotNull(detailScoreBoard.getBoardManager());
     }
 
     @Test
-    public void setBoardManager() {
+    public void testSetBoardManager() {
+        setUpSlidingTileScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSlidingTileManager(testScore, 4, testUserName);
+        assertNull(detailScoreBoard.getBoardManager());
     }
 
     @Test
     public void getSudokuBoardManager() {
+        setUpSudokuScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSudokuManager(testScore, "Easy", testUserName);
+        assertNotNull(detailScoreBoard.getSudokuBoardManager());
     }
 
     @Test
     public void setSudokuBoardManager() {
+        setUpSudokuScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSudokuManager(testScore, "Easy", testUserName);
+        detailScoreBoard.setSudokuBoardManager(null);
+        assertNull(detailScoreBoard.getSudokuBoardManager());
     }
 
     @Test
     public void getMineManager() {
+        setUpMineScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpMineManager(testScore, "Medium", testUserName);
+        assertNotNull(detailScoreBoard.getMineManager());
     }
 
     @Test
     public void setMineManager() {
+        setUpMineScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpMineManager(testScore, "Medium", testUserName);
+        detailScoreBoard.setMineManager(null);
+        assertNull(detailScoreBoard.getMineManager());
     }
 
     @Test
@@ -98,7 +132,6 @@ public class DetailScoreBoardTest {
         int testScore = 10000;
         String testUserName = "user";
         setUpSlidingTileManager(testScore, 4, testUserName);
-
         detailScoreBoard.destroyAllManager();
         assertNull(detailScoreBoard.getBoardManager());
     }
@@ -109,7 +142,6 @@ public class DetailScoreBoardTest {
         int testScore = 10000;
         String testUserName = "user";
         setUpMineManager(testScore, "Medium", testUserName);
-
         detailScoreBoard.destroyAllManager();
         assertNull(detailScoreBoard.getMineManager());
     }
@@ -120,41 +152,73 @@ public class DetailScoreBoardTest {
         int testScore = 10000;
         String testUserName = "user";
         setUpSudokuManager(testScore, "Easy", testUserName);
-
         detailScoreBoard.destroyAllManager();
         assertNull(detailScoreBoard.getSudokuBoardManager());
     }
 
     @Test
-    public void setContext() {
+    public void testSetContext() {
     }
 
     @Test
-    public void getContext() {
+    public void testGetContext() {
     }
 
     @Test
-    public void getLevel() {
+    public void testGetLevel() {
+        setUpSudokuScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSudokuManager(testScore, "Easy", testUserName);
+        assertEquals("Easy", detailScoreBoard.getLevel());
     }
 
     @Test
-    public void setLevel() {
+    public void testSetLevel() {
+        setUpSudokuScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSudokuManager(testScore, "Hard", testUserName);
+        detailScoreBoard.setLevel("Easy");
+        assertEquals("Easy", detailScoreBoard.getLevel());
     }
 
     @Test
-    public void getUsername() {
+    public void testGetUsername() {
+        setUpSudokuScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSudokuManager(testScore, "Hard", testUserName);
+        assertEquals("user", detailScoreBoard.getUsername());
     }
 
     @Test
-    public void setUsername() {
+    public void testSetUsername() {
+        setUpSudokuScoreBoard();
+        int testScore = 10000;
+        String testUserName = "tester";
+        setUpSudokuManager(testScore, "Hard", testUserName);
+        detailScoreBoard.setUsername("user");
+        assertEquals("user", detailScoreBoard.getUsername());
     }
 
     @Test
-    public void getScore() {
+    public void testGetScore() {
+        setUpSudokuScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSudokuManager(testScore, "Easy", testUserName);
+        assertEquals(testScore, detailScoreBoard.getScore());
     }
 
     @Test
-    public void setScore() {
+    public void testSetScore() {
+        setUpSudokuScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSudokuManager(testScore, "Easy", testUserName);
+        detailScoreBoard.setScore(10);
+        assertEquals(10, detailScoreBoard.getScore());
     }
 
     @Test
@@ -484,35 +548,65 @@ public class DetailScoreBoardTest {
     //TODO: Medium, Hard tests.
 
     @Test
-    public void getEasyLevel() {
+    public void testGetEasyLevel() {
+        setUpSudokuScoreBoard();
+        String testLevel = "played";
+        detailScoreBoard.setEasyLevel(testLevel);
+        assertEquals(testLevel, detailScoreBoard.getEasyLevel());
     }
 
     @Test
-    public void setEasyLevel() {
+    public void testSetEasyLevel() {
+        setUpSudokuScoreBoard();
+        String testLevel = "played";
+        detailScoreBoard.setEasyLevel(testLevel);
+        assertEquals(testLevel, detailScoreBoard.getEasyLevel());
     }
 
     @Test
-    public void getEasyTopOneName() {
+    public void testGetEasyTopOneName() {
+        setUpSlidingTileScoreBoard();
+        String testUserName = "user";
+        detailScoreBoard.setEasyTopOneName(testUserName);
+        assertEquals(testUserName, detailScoreBoard.getEasyTopOneName());
     }
 
     @Test
-    public void setEasyTopOneName() {
+    public void testSetEasyTopOneName() {
+        setUpSlidingTileScoreBoard();
+        String testUserName = "user";
+        detailScoreBoard.setEasyTopOneName(testUserName);
+        assertEquals(testUserName, detailScoreBoard.getEasyTopOneName());
     }
 
     @Test
-    public void getEasyTopOneScore() {
+    public void testGetEasyTopOneScore() {
+        setUpSlidingTileScoreBoard();
+        int testScore = 10000;
+        detailScoreBoard.setEasyTopOneScore(testScore);
+        assertEquals(testScore, detailScoreBoard.getEasyTopOneScore());
     }
 
     @Test
-    public void setEasyTopOneScore() {
+    public void testSetEasyTopOneScore() {
+        setUpSlidingTileScoreBoard();
+        int testScore = 10000;
+        detailScoreBoard.setEasyTopOneScore(testScore);
+        assertEquals(testScore, detailScoreBoard.getEasyTopOneScore());
     }
 
     @Test
-    public void getEasyScoreList() {
+    public void testGetEasyScoreList() {
+        setUpSlidingTileScoreBoard();
+        detailScoreBoard.setEasyScoreList(null);
+        assertNull(detailScoreBoard.getEasyScoreList());
     }
 
     @Test
-    public void setEasyScoreList() {
+    public void testSetEasyScoreList() {
+        setUpSlidingTileScoreBoard();
+        detailScoreBoard.setEasyScoreList(null);
+        assertNull(detailScoreBoard.getEasyScoreList());
     }
 
     @Test
@@ -550,35 +644,65 @@ public class DetailScoreBoardTest {
 
 
     @Test
-    public void getMediumLevel() {
+    public void testGetMediumLevel() {
+        setUpSudokuScoreBoard();
+        String testLevel = "played";
+        detailScoreBoard.setMediumLevel(testLevel);
+        assertEquals(testLevel, detailScoreBoard.getMediumLevel());
     }
 
     @Test
-    public void setMediumLevel() {
+    public void testSetMediumLevel() {
+        setUpSudokuScoreBoard();
+        String testLevel = "played";
+        detailScoreBoard.setMediumLevel(testLevel);
+        assertEquals(testLevel, detailScoreBoard.getMediumLevel());
     }
 
     @Test
-    public void getMediumTopOneName() {
+    public void testGetMediumTopOneName() {
+        setUpSlidingTileScoreBoard();
+        String testUserName = "user";
+        detailScoreBoard.setMediumTopOneName(testUserName);
+        assertEquals(testUserName, detailScoreBoard.getMediumTopOneName());
     }
 
     @Test
-    public void setMediumTopOneName() {
+    public void testSetMediumTopOneName() {
+        setUpSlidingTileScoreBoard();
+        String testUserName = "user";
+        detailScoreBoard.setMediumTopOneName(testUserName);
+        assertEquals(testUserName, detailScoreBoard.getMediumTopOneName());
     }
 
     @Test
-    public void getMediumTopOneScore() {
+    public void testGetMediumTopOneScore() {
+        setUpSlidingTileScoreBoard();
+        int testScore = 10000;
+        detailScoreBoard.setMediumTopOneScore(testScore);
+        assertEquals(testScore, detailScoreBoard.getMediumTopOneScore());
     }
 
     @Test
-    public void setMediumTopOneScore() {
+    public void testSetMediumTopOneScore() {
+        setUpSlidingTileScoreBoard();
+        int testScore = 10000;
+        detailScoreBoard.setMediumTopOneScore(testScore);
+        assertEquals(testScore, detailScoreBoard.getMediumTopOneScore());
     }
 
     @Test
-    public void getMediumScoreList() {
+    public void testGetMediumScoreList() {
+        setUpSlidingTileScoreBoard();
+        detailScoreBoard.setMediumScoreList(null);
+        assertNull(detailScoreBoard.getMediumScoreList());
     }
 
     @Test
-    public void setMediumScoreList() {
+    public void testSetMediumScoreList() {
+        setUpSlidingTileScoreBoard();
+        detailScoreBoard.setMediumScoreList(null);
+        assertNull(detailScoreBoard.getMediumScoreList());
     }
 
     @Test
@@ -614,35 +738,65 @@ public class DetailScoreBoardTest {
     // TODO: test Mine, Sodoku
 
     @Test
-    public void getHardLevel() {
+    public void testGetHardLevel() {
+        setUpSudokuScoreBoard();
+        String testLevel = "played";
+        detailScoreBoard.setHardLevel(testLevel);
+        assertEquals(testLevel, detailScoreBoard.getHardLevel());
     }
 
     @Test
-    public void setHardLevel() {
+    public void testSetHardLevel() {
+        setUpSudokuScoreBoard();
+        String testLevel = "played";
+        detailScoreBoard.setHardLevel(testLevel);
+        assertEquals(testLevel, detailScoreBoard.getHardLevel());
     }
 
     @Test
-    public void getHardTopOneScore() {
+    public void testGetHardTopOneName() {
+        setUpSlidingTileScoreBoard();
+        String testUserName = "user";
+        detailScoreBoard.setHardTopOneName(testUserName);
+        assertEquals(testUserName, detailScoreBoard.getHardTopOneName());
     }
 
     @Test
-    public void setHardTopOneScore() {
+    public void testSetHardTopOneName() {
+        setUpSlidingTileScoreBoard();
+        String testUserName = "user";
+        detailScoreBoard.setHardTopOneName(testUserName);
+        assertEquals(testUserName, detailScoreBoard.getHardTopOneName());
     }
 
     @Test
-    public void getHardTopOneName() {
+    public void testGetHardTopOneScore() {
+        setUpSlidingTileScoreBoard();
+        int testScore = 10000;
+        detailScoreBoard.setHardTopOneScore(testScore);
+        assertEquals(testScore, detailScoreBoard.getHardTopOneScore());
     }
 
     @Test
-    public void setHardTopOneName() {
+    public void testSetHardTopOneScore() {
+        setUpSlidingTileScoreBoard();
+        int testScore = 10000;
+        detailScoreBoard.setHardTopOneScore(testScore);
+        assertEquals(testScore, detailScoreBoard.getHardTopOneScore());
     }
 
     @Test
-    public void getHardScoreList() {
+    public void testGetHardScoreList() {
+        setUpSlidingTileScoreBoard();
+        detailScoreBoard.setHardScoreList(null);
+        assertNull(detailScoreBoard.getHardScoreList());
     }
 
     @Test
-    public void setHardScoreList() {
+    public void testSetHardScoreList() {
+        setUpSlidingTileScoreBoard();
+        detailScoreBoard.setHardScoreList(null);
+        assertNull(detailScoreBoard.getHardScoreList());
     }
 
     @Test
@@ -679,43 +833,71 @@ public class DetailScoreBoardTest {
 
 
     @Test
-    public void getEasyTopOne() {
+    public void testGetEasyTopOne() {
+        setUpSlidingTileScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        String expectMassage = testScore + " " + testUserName;
+        detailScoreBoard.setEasyTopOneName(testUserName);
+        detailScoreBoard.setEasyTopOneScore(testScore);
+        assertEquals(expectMassage, detailScoreBoard.getEasyTopOne());
     }
 
     @Test
-    public void getMediumTopOne() {
+    public void testGetMediumTopOne() {
+        setUpSlidingTileScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        String expectMassage = testScore + " " + testUserName;
+        detailScoreBoard.setMediumTopOneName(testUserName);
+        detailScoreBoard.setMediumTopOneScore(testScore);
+        assertEquals(expectMassage, detailScoreBoard.getMediumTopOne());
     }
 
     @Test
-    public void getHardTopOne() {
+    public void testGetHardTopOne() {
+        setUpSlidingTileScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        String expectMassage = testScore + " " + testUserName;
+        detailScoreBoard.setMediumTopOneName(testUserName);
+        detailScoreBoard.setMediumTopOneScore(testScore);
+        assertEquals(expectMassage, detailScoreBoard.getMediumTopOne());
     }
 
     @Test
-    public void getEasyMap() {
-    }
-
-    @Test
-    public void setEasyMap() {
+    public void testGetEasyMap() {
+        setUpSlidingTileScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        List<String> testList = new ArrayList<>();
+        testList.add(testUserName);
+        detailScoreBoard.getEasyMap().put(testScore, testList);
+        assertTrue(detailScoreBoard.getEasyMap().containsKey(testScore));
+        assertEquals(testList, detailScoreBoard.getEasyMap().get(testScore));
     }
 
     @Test
     public void getGameType() {
-    }
-
-    @Test
-    public void setGameType() {
+        setUpSlidingTileScoreBoard();
+        assertEquals("SlidingTile", detailScoreBoard.getGameType());
     }
 
     @Test
     public void getEasySortedList() {
     }
 
-    @Test
-    public void getMediumMap() {
-    }
 
     @Test
-    public void setMediumMap() {
+    public void getMediumMap() {
+        setUpSlidingTileScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        List<String> testList = new ArrayList<>();
+        testList.add(testUserName);
+        detailScoreBoard.getMediumMap().put(testScore, testList);
+        assertTrue(detailScoreBoard.getMediumMap().containsKey(testScore));
+        assertEquals(testList, detailScoreBoard.getMediumMap().get(testScore));
     }
 
     @Test
@@ -724,10 +906,14 @@ public class DetailScoreBoardTest {
 
     @Test
     public void getHardMap() {
-    }
-
-    @Test
-    public void setHardMap() {
+        setUpSlidingTileScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        List<String> testList = new ArrayList<>();
+        testList.add(testUserName);
+        detailScoreBoard.getHardMap().put(testScore, testList);
+        assertTrue(detailScoreBoard.getHardMap().containsKey(testScore));
+        assertEquals(testList, detailScoreBoard.getHardMap().get(testScore));
     }
 
     @Test
