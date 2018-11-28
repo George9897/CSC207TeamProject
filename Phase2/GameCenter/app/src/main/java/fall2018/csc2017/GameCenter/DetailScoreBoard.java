@@ -142,7 +142,7 @@ public class DetailScoreBoard implements Serializable {
             case "SlidingTile":
                 loadFromFile(StartingActivity.slidingFile);
                 if (getBoardManager() == null) {
-                    setBoardManager(new BoardManager(this.context, 3));
+                    setBoardManager(new BoardManager(this.context, 3, false));
                 }
                 setScore(boardManager.getScore());
                 if (boardManager.getSlidingTileDifficulty() != null) {
