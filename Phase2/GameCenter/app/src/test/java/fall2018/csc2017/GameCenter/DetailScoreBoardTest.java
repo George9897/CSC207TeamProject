@@ -26,6 +26,48 @@ public class DetailScoreBoardTest {
     public void tearDown() throws Exception {
     }
 
+    private void setUpSlidingTileScoreBoard(){
+        gameType = "SlidingTile";
+        detailScoreBoard = new DetailScoreBoard(gameType, context);
+    }
+
+    private void setUpSlidingTileManager(int score, int level, String userName){
+        BoardManager slidingTileManager = new BoardManager(context, level);
+        slidingTileManager.setScore(score);
+        slidingTileManager.setUserName(userName);
+        SlidingTileMovementController mController = new SlidingTileMovementController();
+        mController.setBoardManager(slidingTileManager);
+        mController.saveToFile(StartingActivity.slidingFile, context);
+    }
+
+
+    private void setUpMineScoreBoard(){
+        gameType = "Mine";
+        detailScoreBoard = new DetailScoreBoard(gameType, context);
+    }
+
+    private void setUpMineManager(int score, String level, String userName){
+        MineManager mineManager = new MineManager(context, userName, level);
+        mineManager.setScore(score);
+        MineMovementController mController = new MineMovementController(context);
+        mController.setMineManager(mineManager);
+        mController.saveToFile(StartingActivity.mineFile, context);
+    }
+
+    private void setUpSudokuScoreBoard(){
+        gameType = "Sudoku";
+        detailScoreBoard = new DetailScoreBoard(gameType, context);
+    }
+
+    private void setUpSudokuManager(int score, String level, String userName){
+        SudokuBoardManager sudokuManager = new SudokuBoardManager(context, level);
+        sudokuManager.setScore(score);
+        sudokuManager.setUserName(userName);
+        SudokuMovementController mController = new SudokuMovementController();
+        mController.setSudokuBoardManager(sudokuManager);
+        mController.saveToFile(StartingActivity.sudokuFile, context);
+    }
+
     @Test
     public void getBoardManager() {
     }
@@ -51,11 +93,36 @@ public class DetailScoreBoardTest {
     }
 
     @Test
-    public void testDestroyAllManager() {
-        // build Managers.
-        // check Managers.
-        // Destroy.
-        // check Managers.
+    public void testDestroySlidingTileManager() {
+        setUpSlidingTileScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSlidingTileManager(testScore, 4, testUserName);
+
+        detailScoreBoard.destroyAllManager();
+        assertNull(detailScoreBoard.getBoardManager());
+    }
+
+    @Test
+    public void testDestroyMineManager() {
+        setUpMineScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpMineManager(testScore, "Medium", testUserName);
+
+        detailScoreBoard.destroyAllManager();
+        assertNull(detailScoreBoard.getMineManager());
+    }
+
+    @Test
+    public void testDestroySudokuManager() {
+        setUpSudokuScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSudokuManager(testScore, "Easy", testUserName);
+
+        detailScoreBoard.destroyAllManager();
+        assertNull(detailScoreBoard.getSudokuBoardManager());
     }
 
     @Test
@@ -88,20 +155,6 @@ public class DetailScoreBoardTest {
 
     @Test
     public void setScore() {
-    }
-
-    private void setUpSlidingTileScoreBoard(){
-        gameType = "SlidingTile";
-        detailScoreBoard = new DetailScoreBoard(gameType, context);
-    }
-
-    private void setUpSlidingTileManager(int score, int level, String userName){
-        BoardManager slidingTileManager = new BoardManager(context, level);
-        slidingTileManager.setScore(score);
-        slidingTileManager.setUserName(userName);
-        SlidingTileMovementController mController = new SlidingTileMovementController();
-        mController.setBoardManager(slidingTileManager);
-        mController.saveToFile(StartingActivity.slidingFile, context);
     }
 
     @Test
@@ -190,19 +243,6 @@ public class DetailScoreBoardTest {
         setUpSlidingTileManager(testScore, 5, testUserName);
         detailScoreBoard.collectScoreLevel();
         assertEquals(testUserName, detailScoreBoard.getUsername());
-    }
-
-    private void setUpMineScoreBoard(){
-        gameType = "Mine";
-        detailScoreBoard = new DetailScoreBoard(gameType, context);
-    }
-
-    private void setUpMineManager(int score, String level, String userName){
-        MineManager mineManager = new MineManager(context, userName, level);
-        mineManager.setScore(score);
-        MineMovementController mController = new MineMovementController(context);
-        mController.setMineManager(mineManager);
-        mController.saveToFile(StartingActivity.mineFile, context);
     }
 
     @Test
@@ -305,20 +345,6 @@ public class DetailScoreBoardTest {
 
     @Test
     public void testHardMineCollectScoreLevelUpdateScore() {
-    }
-
-    private void setUpSudokuScoreBoard(){
-        gameType = "Sudoku";
-        detailScoreBoard = new DetailScoreBoard(gameType, context);
-    }
-
-    private void setUpSudokuManager(int score, String level, String userName){
-        SudokuBoardManager sudokuManager = new SudokuBoardManager(context, level);
-        sudokuManager.setScore(score);
-        sudokuManager.setUserName(userName);
-        SudokuMovementController mController = new SudokuMovementController();
-        mController.setSudokuBoardManager(sudokuManager);
-        mController.saveToFile(StartingActivity.sudokuFile, context);
     }
 
     @Test
@@ -710,5 +736,24 @@ public class DetailScoreBoardTest {
 
     @Test
     public void testGetHighestScoreByUser() {
+        String testUserName = "user";
+        int testScore;
+
+        setUpSlidingTileScoreBoard();
+        testScore = 100;
+        setUpSlidingTileManager(testScore, 3, testUserName);
+        detailScoreBoard.collectScoreLevel();
+
+        setUpSlidingTileScoreBoard();
+        testScore = 1000;
+        setUpSlidingTileManager(testScore, 4, testUserName);
+        detailScoreBoard.collectScoreLevel();
+
+        setUpSlidingTileScoreBoard();
+        testScore = 10000;
+        setUpSlidingTileManager(testScore, 5, testUserName);
+        detailScoreBoard.collectScoreLevel();
+
+        assertEquals(10000, detailScoreBoard.getHighestScoreByUser(testUserName));
     }
 }
