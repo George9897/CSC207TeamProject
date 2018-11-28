@@ -428,16 +428,8 @@ public class DetailScoreBoard implements Serializable {
         return easyMap;
     }
 
-    public void setEasyMap(Map<Integer, List<String>> easyMap) {
-        this.easyMap = easyMap;
-    }
-
     public String getGameType() {
         return gameType;
-    }
-
-    public void setGameType(String gameType) {
-        this.gameType = gameType;
     }
 
     ArrayList<String> getEasySortedList() {
@@ -475,10 +467,6 @@ public class DetailScoreBoard implements Serializable {
         return mediumMap;
     }
 
-    public void setMediumMap(Map<Integer, List<String>> mediumMap) {
-        this.mediumMap = mediumMap;
-    }
-
     ArrayList<String> getMediumSortedList() {
         ArrayList<String> sortedList = new ArrayList<>();
         if (!getLevel().equals("neverPlayed") && !getMediumLevel().equals("neverPlayed") &&
@@ -512,10 +500,6 @@ public class DetailScoreBoard implements Serializable {
 
     public Map<Integer, List<String>> getHardMap() {
         return hardMap;
-    }
-
-    public void setHardMap(Map<Integer, List<String>> hardMap) {
-        this.hardMap = hardMap;
     }
 
     ArrayList<String> getHardSortedList() {
