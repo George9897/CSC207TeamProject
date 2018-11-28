@@ -396,10 +396,6 @@ public class DetailScoreBoard implements Serializable {
         return easyMap;
     }
 
-    public String getGameType() {
-        return gameType;
-    }
-
     ArrayList<String> getEasySortedList() {
         ArrayList<String> sortedList = new ArrayList<>();
         if (!level.equals("neverPlayed") && !getEasyLevel().equals("neverPlayed")
@@ -415,8 +411,8 @@ public class DetailScoreBoard implements Serializable {
                 }
             }
             if (getEasyMap().get(getEasyScoreList().get(0)) != null) {
-                if ((!getGameType().equals("Mine") && getEasyScoreList().get(0) != 0) ||
-                        (getGameType().equals("Mine"))) {
+                if ((!gameType.equals("Mine") && getEasyScoreList().get(0) != 0) ||
+                        (gameType.equals("Mine"))) {
                     for (int j = 0; j < getEasyMap().get(getEasyScoreList().get(0)).size(); j++) {
                         sortedList.add(getEasyScoreList().get(0) + "  " +
                                 getEasyMap().get(getEasyScoreList().get(0)).get(j));

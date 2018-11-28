@@ -325,13 +325,7 @@ public class DetailScoreBoardTest {
     }
 
     @Test
-    public void getGameType() {
-        setUpSlidingTileScoreBoard();
-        assertEquals("SlidingTile", detailScoreBoard.getGameType());
-    }
-
-    @Test
-    public void getMediumMap() {
+    public void testGetMediumMap() {
         setUpSlidingTileScoreBoard();
         int testScore = 10000;
         String testUserName = "user";
@@ -343,7 +337,7 @@ public class DetailScoreBoardTest {
     }
 
     @Test
-    public void getHardMap() {
+    public void testGetHardMap() {
         setUpSlidingTileScoreBoard();
         int testScore = 10000;
         String testUserName = "user";
