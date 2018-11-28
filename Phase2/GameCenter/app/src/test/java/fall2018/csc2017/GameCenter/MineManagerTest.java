@@ -1,15 +1,18 @@
 package fall2018.csc2017.GameCenter;
 
 import android.content.Context;
-import android.test.mock.MockContext;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
+
+import java.util.Timer;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.spy;
 
 /**
  * Test mine manager test.
@@ -30,8 +33,9 @@ public class MineManagerTest {
      */
     @Before
     public void setUp() {
-        context = new MockContext();
+        context = Mockito.mock(Context.class);
         mineManager = new MineManager(context, "userName", "Medium");
+        mineManager = spy(mineManager);
     }
 
     /**
@@ -40,16 +44,6 @@ public class MineManagerTest {
     @After
     public void tearDown() {
         mineManager = null;
-    }
-
-    /**
-     * Test whether get lose works.
-     */
-    @Test
-    public void testGetLose() {
-        setUp();
-        mineManager.setLose();
-        assertTrue(mineManager.getLose());
     }
 
     /**
@@ -64,15 +58,6 @@ public class MineManagerTest {
     }
 
     /**
-     * Test whether GetTime works.
-     */
-    @Test
-    public void testGetTime() {
-        setUp();
-        assertEquals(0 , mineManager.getTime());
-    }
-
-    /**
      * Test whether SetTime works.
      */
     @Test
@@ -80,15 +65,6 @@ public class MineManagerTest {
         setUp();
         mineManager.setTime(0);
         assertEquals(0 , mineManager.getTime());
-    }
-
-    /**
-     * Test whether GetScore works.
-     */
-    @Test
-    public void testGetScore() {
-        setUp();
-        assertEquals(0 , mineManager.getScore());
     }
 
     /**
@@ -108,16 +84,6 @@ public class MineManagerTest {
     public void testGetMineBoard() {
         setUp();
         assertFalse(mineManager.getMineBoard().getMineTile(15, 15).getIsOpened());
-    }
-
-    /**
-     * Test whether tGetUserName works.
-     */
-    @Test
-    public void testGetUserName() {
-        setUp();
-        assertEquals("userName", mineManager.getUserName());
-
     }
 
     /**
@@ -151,6 +117,45 @@ public class MineManagerTest {
     public void testGetMineTiles() {
         setUp();
         assertEquals(256, mineManager.getMineTiles().size());
+    }
+
+    /**
+     * Test whether addTime works.
+     */
+    @Test
+    public void testAddTime() {
+        setUp();
+        mineManager.addTime(10);
+        assertEquals(10, mineManager.getTime());
+    }
+
+    /**
+     * Test whether getScorer works.
+     */
+    @Test
+    public void testGetScorer() {
+        setUp();
+        assertEquals(MineScorer.class, mineManager.getScorer().getClass());
+    }
+
+    /**
+     * Test whether setTimer works.
+     */
+    @Test
+    public void testSetTimer() {
+        setUp();
+        mineManager.setTimer(new Timer());
+        assertEquals(Timer.class, mineManager.getTimer().getClass());
+    }
+
+    /**
+     * Test whether setWin works.
+     */
+    @Test
+    public void testSetWin() {
+        setUp();
+        mineManager.setWin();
+        assertTrue(mineManager.getWin());
     }
 
     /**
@@ -214,13 +219,11 @@ public class MineManagerTest {
     @Test
     public void testWinning() {
         setUp();
-        for (int i = 0; i < 11; i++) {
+        for (int i = 0; i != 10; i++) {
             mineManager.scorer.run();
         }
-        mineManager.scorer.cancel();
         mineManager.getMineBoard().setNumBoom(10);
         mineManager.winning();
-        assertEquals(11, mineManager.getTime());
         assertEquals(9463, mineManager.getScore());
     }
 
