@@ -25,6 +25,10 @@ public class SudokuBoardManagerTest {
     }
 
     @Test
+    public void setScore() {
+    }
+
+    @Test
     public void getSudokuDifficulty() {
     }
 

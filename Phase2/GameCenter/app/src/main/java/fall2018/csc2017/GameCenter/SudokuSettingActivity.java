@@ -38,7 +38,6 @@ public class SudokuSettingActivity extends AppCompatActivity implements Serializ
                 Toast.makeText(getBaseContext(),
                         "You have selected difficulty : " + item, Toast.LENGTH_SHORT).show();
                 switch (item) {
-                    //TODO FIX
                     case "Easy":
                         sudokuDifficulty = "Easy";
                         break;

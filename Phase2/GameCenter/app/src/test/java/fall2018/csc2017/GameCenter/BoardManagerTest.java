@@ -62,8 +62,16 @@ public class BoardManagerTest {
     }
 
     @Test
+    public void setScore(){
+        int testScore = 0;
+        boardManager.setScore(testScore);
+        assertEquals(testScore, boardManager.getScore());
+    }
+    @Test
     public void getScore() {
-        assertEquals(0, boardManager.getScore());
+        int testScore = 0;
+        boardManager.setScore(testScore);
+        assertEquals(testScore, boardManager.getScore());
     }
 
     @Test
