@@ -20,6 +20,8 @@ android {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
     }
+    repositories { jcenter() }
+    dependencies { testCompile "org.mockito:mockito-core:2.+" }
 }
 
 dependencies {
