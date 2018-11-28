@@ -424,8 +424,38 @@ public class DetailScoreBoardTest {
     }
 
     @Test
-    public void testCreateSortedList() {
+    public void testEasySlidingTileCreateSortedList() {
+        setUpSlidingTileScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSlidingTileManager(testScore, 3, testUserName);
+        detailScoreBoard.createSortedList();
+        assertTrue(detailScoreBoard.getEasyScoreList().contains(testScore));
     }
+    //TODO: Medium, Hard tests.
+
+    @Test
+    public void testEasyMineCreateSortedList() {
+        setUpMineScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpMineManager(testScore, "Easy", testUserName);
+        detailScoreBoard.createSortedList();
+        assertTrue(detailScoreBoard.getEasyScoreList().contains(testScore));
+    }
+    //TODO: Medium, Hard tests.
+
+
+    @Test
+    public void testEasySudokuCreateSortedList() {
+        setUpSudokuScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSudokuManager(testScore, "Easy", testUserName);
+        detailScoreBoard.createSortedList();
+        assertTrue(detailScoreBoard.getEasyScoreList().contains(testScore));
+    }
+    //TODO: Medium, Hard tests.
 
     @Test
     public void getEasyLevel() {
@@ -460,8 +490,38 @@ public class DetailScoreBoardTest {
     }
 
     @Test
-    public void testModifyEasyTopOne() {
+    public void testSlidingTileModifyEasyTopOneNeverPlayed() {
+        setUpSlidingTileScoreBoard();
+        detailScoreBoard.setEasyScoreList(null);
+        assertEquals("neverPlayed", detailScoreBoard.getEasyLevel());
     }
+
+    @Test
+    public void testSlidingTileModifyEasyTopOnePlayed() {
+        setUpSlidingTileScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSlidingTileManager(testScore, 3, testUserName);
+        assertEquals("played", detailScoreBoard.getEasyLevel());
+    }
+
+    @Test
+    public void testSlidingTileModifyEasyTopOneLevelNoData() {
+        setUpSlidingTileScoreBoard();
+        detailScoreBoard.setLevel("neverPlayed");
+        assertEquals("No data", detailScoreBoard.getEasyTopOne());
+    }
+
+    @Test
+    public void testSlidingTileModifyEasyTopOneEasyLevelNoData() {
+        setUpSlidingTileScoreBoard();
+        // getEasyLevel().equals("neverPlayed")
+        detailScoreBoard.setEasyLevel("neverPlayed");
+        assertEquals("No data", detailScoreBoard.getEasyTopOne());
+    }
+    // TODO: findTopOne(getEasyTopOneScore(), getEasyTopOneName(),getScore(), getUsername()) == null
+    // TODO: test Mine, Sodoku
+
 
     @Test
     public void getMediumLevel() {
@@ -496,8 +556,36 @@ public class DetailScoreBoardTest {
     }
 
     @Test
-    public void testModifyMediumTopOne() {
+    public void testSlidingTileModifyMediumTopOneNeverPlayed() {
+        setUpSlidingTileScoreBoard();
+        detailScoreBoard.setMediumScoreList(null);
+        assertEquals("neverPlayed", detailScoreBoard.getMediumLevel());
     }
+
+    @Test
+    public void testSlidingTileModifyMediumTopOnePlayed() {
+        setUpSlidingTileScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSlidingTileManager(testScore, 4, testUserName);
+        assertEquals("played", detailScoreBoard.getMediumLevel());
+    }
+
+    @Test
+    public void testSlidingTileModifyMediumTopOneLevelNoData() {
+        setUpSlidingTileScoreBoard();
+        detailScoreBoard.setLevel("neverPlayed");
+        assertEquals("No data", detailScoreBoard.getMediumTopOne());
+    }
+
+    @Test
+    public void testSlidingTileModifyMediumTopOneEasyLevelNoData() {
+        setUpSlidingTileScoreBoard();
+        detailScoreBoard.setMediumLevel("neverPlayed");
+        assertEquals("No data", detailScoreBoard.getMediumTopOne());
+    }
+    // TODO: findTopOne(getEasyTopOneScore(), getMediumTopOneName(),getScore(), getUsername()) == null
+    // TODO: test Mine, Sodoku
 
     @Test
     public void getHardLevel() {
@@ -532,8 +620,37 @@ public class DetailScoreBoardTest {
     }
 
     @Test
-    public void testModifyHardTopOne() {
+    public void testSlidingTileHardMediumTopOneNeverPlayed() {
+        setUpSlidingTileScoreBoard();
+        detailScoreBoard.setHardScoreList(null);
+        assertEquals("neverPlayed", detailScoreBoard.getHardLevel());
     }
+
+    @Test
+    public void testSlidingTileModifyHardTopOnePlayed() {
+        setUpSlidingTileScoreBoard();
+        int testScore = 10000;
+        String testUserName = "user";
+        setUpSlidingTileManager(testScore, 5, testUserName);
+        assertEquals("played", detailScoreBoard.getHardLevel());
+    }
+
+    @Test
+    public void testSlidingTileModifyHardTopOneLevelNoData() {
+        setUpSlidingTileScoreBoard();
+        detailScoreBoard.setLevel("neverPlayed");
+        assertEquals("No data", detailScoreBoard.getHardTopOne());
+    }
+
+    @Test
+    public void testSlidingTileModifyHardTopOneEasyLevelNoData() {
+        setUpSlidingTileScoreBoard();
+        detailScoreBoard.setHardLevel("neverPlayed");
+        assertEquals("No data", detailScoreBoard.getHardTopOne());
+    }
+    // TODO: findTopOne(getEasyTopOneScore(), getHardTopOneName(),getScore(), getUsername()) == null
+    // TODO: test Mine, Sodoku
+
 
     @Test
     public void getEasyTopOne() {
