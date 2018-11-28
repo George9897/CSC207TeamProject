@@ -83,16 +83,8 @@ public class DetailScoreBoard implements Serializable {
         this.boardManager = boardManager;
     }
 
-    public SudokuBoardManager getSudokuBoardManager() {
-        return sudokuBoardManager;
-    }
-
     public void setSudokuBoardManager(SudokuBoardManager sudokuBoardManager) {
         this.sudokuBoardManager = sudokuBoardManager;
-    }
-
-    public MineManager getMineManager() {
-        return mineManager;
     }
 
     public void setMineManager(MineManager mineManager) {
@@ -109,32 +101,8 @@ public class DetailScoreBoard implements Serializable {
         this.context = context;
     }
 
-    public Context getContext() {
-        return context;
-    }
-
-    public String getLevel() {
-        return level;
-    }
-
     public void setLevel(String level) {
         this.level = level;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
     }
 
     public void collectScoreLevel() {
@@ -144,22 +112,22 @@ public class DetailScoreBoard implements Serializable {
                 if (getBoardManager() == null) {
                     setBoardManager(new BoardManager(this.context, 3, false));
                 }
-                setScore(boardManager.getScore());
+                score = boardManager.getScore();
                 if (boardManager.getSlidingTileDifficulty() != null) {
                     setLevel(boardManager.getSlidingTileDifficulty());
                 }
-                setUsername(boardManager.getUserName());
+                username = boardManager.getUserName();
                 break;
             case "Mine":
                 loadFromFile(StartingActivity.mineFile);
                 if (mineManager == null) {
                     setMineManager(new MineManager(this.context, username, "Easy"));
                 }
-                setScore(mineManager.getScore());
+                score = mineManager.getScore();
                 if (mineManager.getMineDifficulty() != null) {
                     setLevel(mineManager.getMineDifficulty());
                 }
-                setUsername(mineManager.getUserName());
+                username = mineManager.getUserName();
                 break;
             case "Sudoku":
                 loadFromFile(StartingActivity.sudokuFile);
@@ -167,11 +135,11 @@ public class DetailScoreBoard implements Serializable {
                     setSudokuBoardManager(new SudokuBoardManager
                             (this.context, "Easy"));
                 }
-                setScore(sudokuBoardManager.getScore());
+                score = sudokuBoardManager.getScore();
                 if (sudokuBoardManager.getSudokuDifficulty() != null) {
                     setLevel(sudokuBoardManager.getSudokuDifficulty());
                 }
-                setUsername(sudokuBoardManager.getUserName());
+                username = sudokuBoardManager.getUserName();
                 break;
         }
         if (mineManager != null) {
@@ -188,30 +156,30 @@ public class DetailScoreBoard implements Serializable {
     private void updateScore() {
         switch (level) {
             case "Easy":
-                if (!getEasyMap().containsKey(getScore())) {
+                if (!getEasyMap().containsKey(score)) {
                     List<String> l = new ArrayList<>();
-                    l.add(getUsername());
-                    getEasyMap().put(getScore(), l);
+                    l.add(username);
+                    getEasyMap().put(score, l);
                 } else {
-                    getEasyMap().get(getScore()).add(getUsername());
+                    getEasyMap().get(score).add(username);
                 }
                 break;
             case "Medium":
-                if (!getMediumMap().containsKey(getScore())) {
+                if (!getMediumMap().containsKey(score)) {
                     List<String> l = new ArrayList<>();
-                    l.add(getUsername());
-                    getMediumMap().put(getScore(), l);
+                    l.add(username);
+                    getMediumMap().put(score, l);
                 } else {
-                    getMediumMap().get(getScore()).add(getUsername());
+                    getMediumMap().get(score).add(username);
                 }
                 break;
             case "Hard":
-                if (!getHardMap().containsKey(getScore())) {
+                if (!getHardMap().containsKey(score)) {
                     List<String> l = new ArrayList<>();
-                    l.add(getUsername());
-                    getHardMap().put(getScore(), l);
+                    l.add(username);
+                    getHardMap().put(score, l);
                 } else {
-                    getHardMap().get(getScore()).add(getUsername());
+                    getHardMap().get(score).add(username);
                 }
                 break;
         }
@@ -220,20 +188,20 @@ public class DetailScoreBoard implements Serializable {
     public void createSortedList() {
         switch (level) {
             case "Easy":
-                if (!getEasyScoreList().contains(getScore())) {
-                    getEasyScoreList().add(getScore());
+                if (!getEasyScoreList().contains(score)) {
+                    getEasyScoreList().add(score);
                     Collections.sort(getEasyScoreList());
                 }
                 break;
             case "Medium":
-                if (!getMediumScoreList().contains(getScore())) {
-                    getMediumScoreList().add(getScore());
+                if (!getMediumScoreList().contains(score)) {
+                    getMediumScoreList().add(score);
                     Collections.sort(getMediumScoreList());
                 }
                 break;
             case "Hard":
-                if (!getHardScoreList().contains(getScore())) {
-                    getHardScoreList().add(getScore());
+                if (!getHardScoreList().contains(score)) {
+                    getHardScoreList().add(score);
                     Collections.sort(getHardScoreList());
                 }
                 break;
@@ -292,14 +260,14 @@ public class DetailScoreBoard implements Serializable {
         } else {
             setEasyLevel("played");
         }
-        if (getLevel().equals("neverPlayed") || getEasyLevel().equals("neverPlayed") ||
+        if (level.equals("neverPlayed") || getEasyLevel().equals("neverPlayed") ||
                 findTopOne(getEasyTopOneScore(), getEasyTopOneName(),
-                        getScore(), getUsername()) == null) {
+                        score, username) == null) {
             setEasyTopOneName("No data");
         } else if (score != 0) {
         } else {
             setEasyTopOneName(findTopOne(getEasyTopOneScore(), getEasyTopOneName(),
-                    getScore(), getUsername()));
+                    score, username));
             setEasyTopOneScore(easyScoreList.get(easyScoreList.size() - 1));
         }
     }
@@ -342,13 +310,13 @@ public class DetailScoreBoard implements Serializable {
         } else {
             setMediumLevel("played");
         }
-        if (getLevel().equals("neverPlayed") || getMediumLevel().equals("neverPlayed")
+        if (level.equals("neverPlayed") || getMediumLevel().equals("neverPlayed")
                 || findTopOne(getMediumTopOneScore(), getMediumTopOneName(),
-                getScore(), getUsername()) == null) {
+                score, username) == null) {
             setMediumTopOneName("No data");
         } else {
             setMediumTopOneName(findTopOne(getMediumTopOneScore(), getMediumTopOneName(),
-                    getScore(), getUsername()));
+                    score, username));
             setMediumTopOneScore(mediumScoreList.get(mediumScoreList.size() - 1));
         }
     }
@@ -391,13 +359,13 @@ public class DetailScoreBoard implements Serializable {
         } else {
             setHardLevel("played");
         }
-        if (getLevel().equals("neverPlayed") || getHardLevel().equals("neverPlayed") ||
+        if (level.equals("neverPlayed") || getHardLevel().equals("neverPlayed") ||
                 findTopOne(getHardTopOneScore(), getHardTopOneName(),
-                        getScore(), getUsername()) == null) {
+                        score, username) == null) {
             setHardTopOneName("No data");
         } else {
             setHardTopOneName(findTopOne(getHardTopOneScore(), getHardTopOneName(),
-                    getScore(), getUsername()));
+                    score, username));
             setHardTopOneScore(hardScoreList.get(hardScoreList.size() - 1));
         }
     }
@@ -434,7 +402,7 @@ public class DetailScoreBoard implements Serializable {
 
     ArrayList<String> getEasySortedList() {
         ArrayList<String> sortedList = new ArrayList<>();
-        if (!getLevel().equals("neverPlayed") && !getEasyLevel().equals("neverPlayed")
+        if (!level.equals("neverPlayed") && !getEasyLevel().equals("neverPlayed")
                 && !getEasyTopOneName().equals("No data")) {
             getEasyMap().get(getEasyTopOneScore()).remove(getEasyTopOneName());
             if (getEasyMap().get(getEasyTopOneScore()).isEmpty() && getEasyScoreList().size() == 1) {
@@ -469,7 +437,7 @@ public class DetailScoreBoard implements Serializable {
 
     ArrayList<String> getMediumSortedList() {
         ArrayList<String> sortedList = new ArrayList<>();
-        if (!getLevel().equals("neverPlayed") && !getMediumLevel().equals("neverPlayed") &&
+        if (!level.equals("neverPlayed") && !getMediumLevel().equals("neverPlayed") &&
                 !getMediumTopOneName().equals("No data") && getMediumScoreList().size() > 1) {
             getMediumMap().get(getMediumTopOneScore()).remove(getMediumTopOneName());
             if (getMediumMap().get(getMediumTopOneScore()).isEmpty() &&
@@ -504,7 +472,7 @@ public class DetailScoreBoard implements Serializable {
 
     ArrayList<String> getHardSortedList() {
         ArrayList<String> sortedList = new ArrayList<>();
-        if (!getLevel().equals("neverPlayed") && !getHardLevel().equals("neverPlayed") &&
+        if (!level.equals("neverPlayed") && !getHardLevel().equals("neverPlayed") &&
                 !getHardTopOneName().equals("No data") && getHardScoreList().size() > 1) {
             getHardMap().get(getHardTopOneScore()).remove(getHardTopOneName());
             if (getHardMap().get(getHardTopOneScore()).isEmpty() && getHardScoreList().size() == 1) {
