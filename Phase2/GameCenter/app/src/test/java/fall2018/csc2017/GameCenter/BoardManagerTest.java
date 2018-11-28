@@ -6,11 +6,11 @@ import android.test.mock.MockContext;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
 public class BoardManagerTest {
     /**
@@ -20,16 +20,20 @@ public class BoardManagerTest {
     /**
      * Context for test.
      */
-    Context context = new MockContext();
+    Context context;
+//    context = Mockito.mock(Context.class);
 
     @Before
     public void setUp() throws Exception {
+        context = Mockito.mock(Context.class);
         boardManager = new BoardManager(context, 3);
+        boardManager = spy(boardManager);
+//        when(boardManager.getUndoLimit3()).thenReturn(3);
     }
 
     @After
     public void tearDown() throws Exception {
-        context = null;
+//        context = null;
         boardManager = null;
     }
 
