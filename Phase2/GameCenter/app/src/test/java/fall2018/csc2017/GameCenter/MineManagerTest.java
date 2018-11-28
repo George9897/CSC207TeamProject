@@ -140,6 +140,8 @@ public class MineManagerTest {
         assertEquals("Easy", mineManager.getMineDifficulty());
         mineManager = new MineManager(context, "userName", "Hard");
         assertEquals("Hard", mineManager.getMineDifficulty());
+        mineManager = new MineManager(context, "userName", "");
+        assertEquals(0, mineManager.getMineBoard().getNumBoom());
     }
 
     /**

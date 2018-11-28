@@ -1,12 +1,18 @@
 package fall2018.csc2017.GameCenter;
 
 import android.content.Context;
-import android.test.InstrumentationTestCase;
+import android.test.mock.MockContext;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
-public class BoardManagerTest extends InstrumentationTestCase {
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
+
+public class BoardManagerTest {
     /**
      * The Boardmanager for test.
      */
@@ -14,50 +20,16 @@ public class BoardManagerTest extends InstrumentationTestCase {
     /**
      * Context for test.
      */
-    //Context context = new MockContext();
+    Context context;
+//    context = Mockito.mock(Context.class);
 
-    Context context =getInstrumentation().getContext() ;
-
-
+    @Before
     public void setUp() throws Exception {
-
-        super.setUp();
-//        super.setUp();
-//
-//        MyApplication myApplication = new MyApplication();
-//        myApplication.onCreate(savedInstanceState);
-////
-//        context = MyApplication.getInstance();
-//
-//        assertNotNull(context);
-//
+        context = Mockito.mock(Context.class);
         boardManager = new BoardManager(context, 3);
-
+//        boardManager = spy(boardManager);
+//        when(boardManager.getUndoLimit3()).thenReturn(3);
     }
-
-
-//    /**
-//     * Create a initial list of Tiles for game with matching sizes.
-//     *
-//     * @return list of Tiles.
-//     */
-//    private List createTiles() {
-//        List<Tile> tiles = new ArrayList<>();
-//        final int numTiles = this.boardManager.getLevel() * this.boardManager.getLevel();
-//        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-//            if (tileNum == numTiles - 1) {
-//                tiles.add(new Tile(0));
-//            } else {
-//                tiles.add(new Tile(tileNum + 1));
-//            }
-//        }
-//        return tiles;
-//    }
-
-//    @Before
-//    public void setUp() throws Exception {
-//        boardManager = new BoardManager(context, 3);
-//    }
 
     @After
     public void tearDown() throws Exception {
@@ -90,8 +62,16 @@ public class BoardManagerTest extends InstrumentationTestCase {
     }
 
     @Test
+    public void setScore(){
+        int testScore = 0;
+        boardManager.setScore(testScore);
+        assertEquals(testScore, boardManager.getScore());
+    }
+    @Test
     public void getScore() {
-        assertEquals(0, boardManager.getScore());
+        int testScore = 0;
+        boardManager.setScore(testScore);
+        assertEquals(testScore, boardManager.getScore());
     }
 
     @Test
@@ -126,5 +106,18 @@ public class BoardManagerTest extends InstrumentationTestCase {
 
     @Test
     public void undo3() {
+    }
+
+    @Test
+    public void getUserName() {
+    }
+
+    @Test
+    public void setUserName() {
+    }
+
+    @Test
+    public void getLevel() {
+        assertEquals(3, boardManager.getLevel());
     }
 }
