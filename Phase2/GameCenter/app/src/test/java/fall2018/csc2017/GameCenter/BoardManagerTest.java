@@ -27,13 +27,13 @@ public class BoardManagerTest {
     public void setUp() throws Exception {
         context = Mockito.mock(Context.class);
         boardManager = new BoardManager(context, 3);
-        boardManager = spy(boardManager);
+//        boardManager = spy(boardManager);
 //        when(boardManager.getUndoLimit3()).thenReturn(3);
     }
 
     @After
     public void tearDown() throws Exception {
-//        context = null;
+        context = null;
         boardManager = null;
     }
 
@@ -106,5 +106,18 @@ public class BoardManagerTest {
 
     @Test
     public void undo3() {
+    }
+
+    @Test
+    public void getUserName() {
+    }
+
+    @Test
+    public void setUserName() {
+    }
+
+    @Test
+    public void getLevel() {
+        assertEquals(3, boardManager.getLevel());
     }
 }
