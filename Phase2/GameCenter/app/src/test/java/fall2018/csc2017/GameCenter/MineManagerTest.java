@@ -224,7 +224,7 @@ public class MineManagerTest {
         }
         mineManager.getMineBoard().setNumBoom(10);
         mineManager.winning();
-        assertEquals(9463, mineManager.getScore());
+        assertEquals(9511, mineManager.getScore());
     }
 
     /**
