@@ -613,7 +613,7 @@ public class DetailScoreBoardTest {
     public void testSlidingTileModifyEasyTopOneNeverPlayed() {
         setUpSlidingTileScoreBoard();
         detailScoreBoard.setEasyScoreList(null);
-        assertEquals("neverPlayed", detailScoreBoard.getEasyLevel());
+        assertNull(detailScoreBoard.getEasyLevel());
     }
 
     @Test
@@ -629,15 +629,14 @@ public class DetailScoreBoardTest {
     public void testSlidingTileModifyEasyTopOneLevelNoData() {
         setUpSlidingTileScoreBoard();
         detailScoreBoard.setLevel("neverPlayed");
-        assertEquals("No data", detailScoreBoard.getEasyTopOne());
+        assertEquals("", detailScoreBoard.getEasyTopOneName());
     }
 
     @Test
     public void testSlidingTileModifyEasyTopOneEasyLevelNoData() {
         setUpSlidingTileScoreBoard();
-        // getEasyLevel().equals("neverPlayed")
         detailScoreBoard.setEasyLevel("neverPlayed");
-        assertEquals("No data", detailScoreBoard.getEasyTopOne());
+        assertEquals("", detailScoreBoard.getEasyTopOneName());
     }
     // TODO: findTopOne(getEasyTopOneScore(), getEasyTopOneName(),getScore(), getUsername()) == null
     // TODO: test Mine, Sodoku
@@ -709,7 +708,7 @@ public class DetailScoreBoardTest {
     public void testSlidingTileModifyMediumTopOneNeverPlayed() {
         setUpSlidingTileScoreBoard();
         detailScoreBoard.setMediumScoreList(null);
-        assertEquals("neverPlayed", detailScoreBoard.getMediumLevel());
+        assertNull(detailScoreBoard.getMediumLevel());
     }
 
     @Test
@@ -725,14 +724,14 @@ public class DetailScoreBoardTest {
     public void testSlidingTileModifyMediumTopOneLevelNoData() {
         setUpSlidingTileScoreBoard();
         detailScoreBoard.setLevel("neverPlayed");
-        assertEquals("No data", detailScoreBoard.getMediumTopOne());
+        assertEquals("", detailScoreBoard.getMediumTopOneName());
     }
 
     @Test
     public void testSlidingTileModifyMediumTopOneEasyLevelNoData() {
         setUpSlidingTileScoreBoard();
         detailScoreBoard.setMediumLevel("neverPlayed");
-        assertEquals("No data", detailScoreBoard.getMediumTopOne());
+        assertEquals("", detailScoreBoard.getMediumTopOneName());
     }
     // TODO: findTopOne(getEasyTopOneScore(), getMediumTopOneName(),getScore(), getUsername()) == null
     // TODO: test Mine, Sodoku
@@ -803,7 +802,7 @@ public class DetailScoreBoardTest {
     public void testSlidingTileHardMediumTopOneNeverPlayed() {
         setUpSlidingTileScoreBoard();
         detailScoreBoard.setHardScoreList(null);
-        assertEquals("neverPlayed", detailScoreBoard.getHardLevel());
+        assertNull(detailScoreBoard.getHardLevel());
     }
 
     @Test
@@ -819,14 +818,14 @@ public class DetailScoreBoardTest {
     public void testSlidingTileModifyHardTopOneLevelNoData() {
         setUpSlidingTileScoreBoard();
         detailScoreBoard.setLevel("neverPlayed");
-        assertEquals("No data", detailScoreBoard.getHardTopOne());
+        assertEquals("", detailScoreBoard.getHardTopOneName());
     }
 
     @Test
     public void testSlidingTileModifyHardTopOneEasyLevelNoData() {
         setUpSlidingTileScoreBoard();
         detailScoreBoard.setHardLevel("neverPlayed");
-        assertEquals("No data", detailScoreBoard.getHardTopOne());
+        assertEquals("", detailScoreBoard.getHardTopOneName());
     }
     // TODO: findTopOne(getEasyTopOneScore(), getHardTopOneName(),getScore(), getUsername()) == null
     // TODO: test Mine, Sodoku
@@ -837,7 +836,7 @@ public class DetailScoreBoardTest {
         setUpSlidingTileScoreBoard();
         int testScore = 10000;
         String testUserName = "user";
-        String expectMassage = testScore + " " + testUserName;
+        String expectMassage = testScore + "  " + testUserName;
         detailScoreBoard.setEasyTopOneName(testUserName);
         detailScoreBoard.setEasyTopOneScore(testScore);
         assertEquals(expectMassage, detailScoreBoard.getEasyTopOne());
@@ -848,7 +847,7 @@ public class DetailScoreBoardTest {
         setUpSlidingTileScoreBoard();
         int testScore = 10000;
         String testUserName = "user";
-        String expectMassage = testScore + " " + testUserName;
+        String expectMassage = testScore + "  " + testUserName;
         detailScoreBoard.setMediumTopOneName(testUserName);
         detailScoreBoard.setMediumTopOneScore(testScore);
         assertEquals(expectMassage, detailScoreBoard.getMediumTopOne());
@@ -859,7 +858,7 @@ public class DetailScoreBoardTest {
         setUpSlidingTileScoreBoard();
         int testScore = 10000;
         String testUserName = "user";
-        String expectMassage = testScore + " " + testUserName;
+        String expectMassage = testScore + "  " + testUserName;
         detailScoreBoard.setMediumTopOneName(testUserName);
         detailScoreBoard.setMediumTopOneScore(testScore);
         assertEquals(expectMassage, detailScoreBoard.getMediumTopOne());
@@ -884,7 +883,32 @@ public class DetailScoreBoardTest {
     }
 
     @Test
-    public void getEasySortedList() {
+    public void testGetEasySortedList() {
+        String testUserName;
+        int testScore;
+        ArrayList<String> expectResult = new ArrayList<>();
+        expectResult.add("1000 Bella");
+        expectResult.add("100 Ace");
+
+        setUpSlidingTileScoreBoard();
+        testScore = 100;
+        testUserName = "Ace";
+        setUpSlidingTileManager(testScore, 4, testUserName);
+        detailScoreBoard.collectScoreLevel();
+
+        setUpSlidingTileScoreBoard();
+        testScore = 1000;
+        testUserName = "Bella";
+        setUpSlidingTileManager(testScore, 4, testUserName);
+        detailScoreBoard.collectScoreLevel();
+
+        setUpSlidingTileScoreBoard();
+        testScore = 10000;
+        testUserName = "Cara";
+        setUpSlidingTileManager(testScore, 4, testUserName);
+        detailScoreBoard.collectScoreLevel();
+
+        assertEquals(expectResult, detailScoreBoard.getEasySortedList());
     }
 
 
@@ -901,7 +925,32 @@ public class DetailScoreBoardTest {
     }
 
     @Test
-    public void getMediumSortedList() {
+    public void testGetMediumSortedList() {
+        String testUserName;
+        int testScore;
+        ArrayList<String> expectResult = new ArrayList<>();
+        expectResult.add("1000 Bella");
+        expectResult.add("100 Ace");
+
+        setUpSlidingTileScoreBoard();
+        testScore = 100;
+        testUserName = "Ace";
+        setUpSlidingTileManager(testScore, 4, testUserName);
+        detailScoreBoard.collectScoreLevel();
+
+        setUpSlidingTileScoreBoard();
+        testScore = 1000;
+        testUserName = "Bella";
+        setUpSlidingTileManager(testScore, 4, testUserName);
+        detailScoreBoard.collectScoreLevel();
+
+        setUpSlidingTileScoreBoard();
+        testScore = 10000;
+        testUserName = "Cara";
+        setUpSlidingTileManager(testScore, 4, testUserName);
+        detailScoreBoard.collectScoreLevel();
+
+        assertEquals(expectResult, detailScoreBoard.getMediumSortedList());
     }
 
     @Test
@@ -917,7 +966,32 @@ public class DetailScoreBoardTest {
     }
 
     @Test
-    public void getHardSortedList() {
+    public void testGetHardSortedList() {
+        String testUserName;
+        int testScore;
+        ArrayList<String> expectResult = new ArrayList<>();
+        expectResult.add("1000 Bella");
+        expectResult.add("100 Ace");
+
+        setUpSlidingTileScoreBoard();
+        testScore = 100;
+        testUserName = "Ace";
+        setUpSlidingTileManager(testScore, 5, testUserName);
+        detailScoreBoard.collectScoreLevel();
+
+        setUpSlidingTileScoreBoard();
+        testScore = 1000;
+        testUserName = "Bella";
+        setUpSlidingTileManager(testScore, 5, testUserName);
+        detailScoreBoard.collectScoreLevel();
+
+        setUpSlidingTileScoreBoard();
+        testScore = 10000;
+        testUserName = "Cara";
+        setUpSlidingTileManager(testScore, 5, testUserName);
+        detailScoreBoard.collectScoreLevel();
+
+        assertEquals(expectResult, detailScoreBoard.getHardSortedList());
     }
 
     @Test

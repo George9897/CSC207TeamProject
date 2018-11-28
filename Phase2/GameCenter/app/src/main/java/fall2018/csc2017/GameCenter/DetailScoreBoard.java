@@ -46,13 +46,13 @@ public class DetailScoreBoard implements Serializable {
     private List<Integer> hardScoreList = new ArrayList<>();
 
     private int easyTopOneScore;
-    private String easyTopOneName;
+    private String easyTopOneName = "";
 
     private int mediumTopOneScore;
-    private String mediumTopOneName;
+    private String mediumTopOneName = "";
 
     private int hardTopOneScore;
-    private String hardTopOneName;
+    private String hardTopOneName = "";
 
     private int score = 0;
 
