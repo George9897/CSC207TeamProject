@@ -25,11 +25,11 @@ public class SudokuTest {
 //    private Iterator<Tile> iterator = sudoku.SudokuIterator();
 
 
-
-    /**
-     * Context for test.
-     */
-    private Context context = new MockContext();;
+//
+//    /**
+//     * Context for test.
+//     */
+//    private Context context = new MockContext();;
 
     /**
      * Create a initial list of Tiles for game with matching sizes.
@@ -62,8 +62,18 @@ public class SudokuTest {
 
     @Test
     public void iterator() throws Exception {
+//        Sudoku sudoku = new Sudoku(createTiles());
+//        Iterator<Tile> iter = sudoku.iterator();
         assertTrue(sudoku.iterator().hasNext());
         assertEquals(1, sudoku.iterator().next().getId());
+//        int i = 0;
+//        while(i <= 81){
+//            sudoku.iterator().next();
+//            i ++;
+//        }
+//        try{Object a = sudoku.iterator().next();} catch (Exception ex) {
+//            assertTrue(ex instanceof NoSuchElementException);
+
     }
 
     @Test
