@@ -130,6 +130,7 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
                         makeToastLoadedText();
                         switchToGame();
                     }
+                    break;
                 case "Sudoku":
                     loadFromFile(sudokuFile);
                     if(sudokuBoardManager == null){
