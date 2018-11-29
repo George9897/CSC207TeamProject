@@ -636,7 +636,7 @@ public class DetailScoreBoard implements Serializable {
     ArrayList<String> getEasySortedList() {
         ArrayList<String> sortedList = new ArrayList<>();
         if (!level.equals("neverPlayed") && !getEasyLevel().equals("neverPlayed")
-                && !getEasyTopOneName().equals("No data") && getEasyMap().size() > 0) {
+                && !getEasyTopOneName().equals("No data") && getEasyScoreList().size() > 1) {
             getEasyMap().get(getEasyTopOneScore()).remove(getEasyTopOneName());
             if (getEasyMap().get(getEasyTopOneScore()).isEmpty() && getEasyScoreList().size() == 1) {
                 sortedList.add("No data");
