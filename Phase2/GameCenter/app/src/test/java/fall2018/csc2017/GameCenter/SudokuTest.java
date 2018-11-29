@@ -1,19 +1,15 @@
 package fall2018.csc2017.GameCenter;
 
-import android.content.Context;
-import android.test.mock.MockContext;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
-import java.util.NoSuchElementException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class SudokuTest {
 
@@ -22,23 +18,13 @@ public class SudokuTest {
      */
     private Sudoku sudoku;
 
-//    private Iterator<Tile> iterator = sudoku.SudokuIterator();
-
-
-//
-//    /**
-//     * Context for test.
-//     */
-//    private Context context = new MockContext();;
-
     /**
      * Create a initial list of Tiles for game with matching sizes.
      *
      * @return list of Tiles.
      */
-    private List createTiles() {
+    private List<Tile> createTiles() {
         List<Tile> tiles = new ArrayList<>();
-//        final int numTiles = sudoku.getSize() * sudoku.getSize();
         final int numTiles = 81;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
             if (tileNum == numTiles - 1) {
@@ -51,29 +37,19 @@ public class SudokuTest {
     }
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp(){
         sudoku = new Sudoku(createTiles());
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown(){
         sudoku = null;
     }
 
     @Test
-    public void iterator() throws Exception {
-//        Sudoku sudoku = new Sudoku(createTiles());
-//        Iterator<Tile> iter = sudoku.iterator();
+    public void iterator(){
         assertTrue(sudoku.iterator().hasNext());
         assertEquals(1, sudoku.iterator().next().getId());
-//        int i = 0;
-//        while(i <= 81){
-//            sudoku.iterator().next();
-//            i ++;
-//        }
-//        try{Object a = sudoku.iterator().next();} catch (Exception ex) {
-//            assertTrue(ex instanceof NoSuchElementException);
-
     }
 
     @Test
