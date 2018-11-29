@@ -40,12 +40,10 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
      */
     private MineManager mineManager;
 
-
     /**
      * The sudoku manager.
      */
     private SudokuBoardManager sudokuBoardManager;
-
 
     /**
      * The game type.

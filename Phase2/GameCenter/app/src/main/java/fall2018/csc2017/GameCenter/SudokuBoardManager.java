@@ -123,6 +123,9 @@ public class SudokuBoardManager extends Manager implements Serializable {
         return this.sudoku;
     }
 
+    /**
+     * The move.
+     */
     private int move;
 
     /**
@@ -488,7 +491,7 @@ public class SudokuBoardManager extends Manager implements Serializable {
     }
 
     /**
-     * Unod to the previous move.
+     * Undo to the previous move.
      */
     void undo() {
         if (!undoList.isEmpty()) {

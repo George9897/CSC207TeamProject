@@ -65,6 +65,14 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
         spinner.setAdapter(dataAdapter);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            /**
+             * Set difficulty when selected item.
+             *
+             * @param arg0 the first item.
+             * @param arg1 the second item.
+             * @param arg2 the third item.
+             * @param arg3 the forth item.
+             */
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int arg2, long arg3) {
@@ -88,6 +96,11 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
                 }
             }
 
+            /**
+             * When nothing is selected.
+             *
+             * @param arg0 First argument.
+             */
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
             }

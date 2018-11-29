@@ -103,6 +103,9 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         sudokuBoardManager.getSudoku().addObserver(this);
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
+                    /**
+                     * On global layout.
+                     */
                     @Override
                     public void onGlobalLayout() {
                         gridView.getViewTreeObserver().removeOnGlobalLayoutListener(

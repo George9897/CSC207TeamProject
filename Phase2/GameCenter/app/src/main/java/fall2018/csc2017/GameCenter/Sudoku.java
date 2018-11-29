@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
 import java.util.Observable;
 
 /**
- * The sudoku game.
+ * The sudoku game board.
  */
 public class Sudoku extends Observable implements Serializable, Iterable<Tile> {
 
