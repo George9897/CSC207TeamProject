@@ -12,7 +12,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="75dp"
         android:layout_marginEnd="83dp"
-        android:layout_marginBottom="260dp"
+        android:layout_marginBottom="270dp"
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
@@ -40,7 +40,7 @@
         android:layout_width="110dp"
         android:layout_height="45dp"
         android:layout_marginStart="80dp"
-        android:layout_marginBottom="160dp"
+        android:layout_marginBottom="170dp"
         android:text="@string/login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -66,6 +66,7 @@
         android:layout_marginEnd="218dp"
         android:text="Home"
         android:textSize="50sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -75,7 +76,7 @@
         android:layout_width="110dp"
         android:layout_height="45dp"
         android:layout_marginEnd="80dp"
-        android:layout_marginBottom="160dp"
+        android:layout_marginBottom="170dp"
         android:text="SIGN UP"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

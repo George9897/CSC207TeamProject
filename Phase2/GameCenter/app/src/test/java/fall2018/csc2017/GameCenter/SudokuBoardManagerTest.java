@@ -22,21 +22,14 @@ public class SudokuBoardManagerTest {
     private SudokuBoardManager sudokuBoardManager3;
 
     /**
-     * The AccountManager.
+     * Timer for test.
      */
-    private AccountManager accountManager;
-
-    /**
-     * The user's name.
-     */
-    private String userName;
-
-    Timer timer;
+    private Timer timer;
 
     /**
      * Context for test.
      */
-    Context context;
+    private Context context;
 
     @Before
     public void setUp() throws Exception {
@@ -91,7 +84,7 @@ public class SudokuBoardManagerTest {
 
     @Test
     public void getUserName() {
-        assertEquals(null, sudokuBoardManager1.getUserName());
+        assertNull(sudokuBoardManager1.getUserName());
     }
 
     @Test
@@ -105,21 +98,19 @@ public class SudokuBoardManagerTest {
         assertEquals(2, sudokuBoardManager1.getDifficulty());
         assertEquals(2, sudokuBoardManager2.getDifficulty());
         assertEquals(50, sudokuBoardManager3.getDifficulty());
-
     }
 
-
-//    @Test
-//    public void getTimer(){assertEquals(timer, sudokuBoardManager1.getTimer());}
+    @Test
+    public void getTimer(){
+        sudokuBoardManager1.setTimer(null);
+        assertEquals(timer, sudokuBoardManager1.getTimer());
+    }
 
     @Test
     public void addTime(){
         sudokuBoardManager1.addTime(100);
         assertEquals(100, sudokuBoardManager1.getTime());
     }
-
-//    @Test
-//    public void getScorer(){assertEquals(null, sudokuBoardManager1.getScorer());}
 
     @Test
     public void setTimer(){
@@ -130,8 +121,6 @@ public class SudokuBoardManagerTest {
     @Test
     public void puzzleSolved() {
         assertFalse(sudokuBoardManager1.puzzleSolved());
-
-//        assertFalse(sudokuBoardManager.puzzleSolved());
     }
 
     @Test
@@ -189,10 +178,6 @@ public class SudokuBoardManagerTest {
     public void clear() {
         sudokuBoardManager1.clear();
         assertFalse(sudokuBoardManager1.puzzleSolved());
-    }
-
-    @Test
-    public void setMove() {
     }
 
     @Test
