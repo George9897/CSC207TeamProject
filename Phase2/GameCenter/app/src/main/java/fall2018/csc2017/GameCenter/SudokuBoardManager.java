@@ -279,7 +279,7 @@ public class SudokuBoardManager extends Manager implements Serializable {
         undoList.add(position);
     }
 
-    private boolean checkCol(int[] sudokuNum) {
+    protected boolean checkCol(int[] sudokuNum) {
         for (int i = 0; i < Sudoku.size; i++) {
             List<Integer> col = new ArrayList<>();
             for (int j = 0; j < Sudoku.size; j++) {
@@ -298,7 +298,7 @@ public class SudokuBoardManager extends Manager implements Serializable {
         return true;
     }
 
-    private boolean checkRow(int[] sudokuNum) {
+    protected boolean checkRow(int[] sudokuNum) {
         for (int i = 0; i < Sudoku.size; i++) {
             List<Integer> row = new ArrayList<>();
             for (int j = 0; j < Sudoku.size; j++) {
@@ -317,7 +317,7 @@ public class SudokuBoardManager extends Manager implements Serializable {
         return true;
     }
 
-    private boolean checkSquare(int[] sudokuNum) {
+    protected boolean checkSquare(int[] sudokuNum) {
         for (int position = 0; position < Sudoku.size * Sudoku.size; position++) {
             List<Integer> square = new ArrayList<>();
             int row = position / Sudoku.size;
@@ -374,6 +374,10 @@ public class SudokuBoardManager extends Manager implements Serializable {
             x[randomNum] = temp;
             sudokuNum[x[i]] = 0;
         }
+    }
+
+    protected void setDifficulty(int difficulty){
+        this.difficulty = difficulty;
     }
 
 
