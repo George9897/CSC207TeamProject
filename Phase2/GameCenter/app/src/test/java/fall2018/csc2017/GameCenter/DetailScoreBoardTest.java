@@ -1,10 +1,12 @@
 package fall2018.csc2017.GameCenter;
 
 import android.content.Context;
-import android.test.mock.MockContext;
 
 import org.junit.Test;
+import org.mockito.Mockito;
 
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +27,7 @@ public class DetailScoreBoardTest {
     /**
      * The Mock Context context for test.
      */
-    private Context context = new MockContext();
+    private Context context = Mockito.mock(Context.class);
 
     /**
      * The String gameType for test.
@@ -160,7 +162,7 @@ public class DetailScoreBoardTest {
     public void testSlidingTileModifyEasyTopOneLevelNoData() {
         setUpSlidingTileScoreBoard();
         detailScoreBoard.setLevel("neverPlayed");
-        assertEquals("", detailScoreBoard.getEasyTopOneName());
+        assertNull(detailScoreBoard.getEasyTopOneName());
     }
 
     /**
@@ -170,7 +172,7 @@ public class DetailScoreBoardTest {
     public void testSlidingTileModifyEasyTopOneEasyLevelNoData() {
         setUpSlidingTileScoreBoard();
         detailScoreBoard.setEasyLevel("neverPlayed");
-        assertEquals("", detailScoreBoard.getEasyTopOneName());
+        assertNull(detailScoreBoard.getEasyTopOneName());
     }
 
     /**
@@ -277,7 +279,7 @@ public class DetailScoreBoardTest {
     public void testSlidingTileModifyMediumTopOneLevelNoData() {
         setUpSlidingTileScoreBoard();
         detailScoreBoard.setLevel("neverPlayed");
-        assertEquals("", detailScoreBoard.getMediumTopOneName());
+        assertNull(detailScoreBoard.getMediumTopOneName());
     }
 
     /**
@@ -287,7 +289,7 @@ public class DetailScoreBoardTest {
     public void testSlidingTileModifyMediumTopOneEasyLevelNoData() {
         setUpSlidingTileScoreBoard();
         detailScoreBoard.setMediumLevel("neverPlayed");
-        assertEquals("", detailScoreBoard.getMediumTopOneName());
+        assertNull(detailScoreBoard.getMediumTopOneName());
     }
 
     /**
@@ -394,7 +396,7 @@ public class DetailScoreBoardTest {
     public void testSlidingTileModifyHardTopOneLevelNoData() {
         setUpSlidingTileScoreBoard();
         detailScoreBoard.setLevel("neverPlayed");
-        assertEquals("", detailScoreBoard.getHardTopOneName());
+        assertNull(detailScoreBoard.getHardTopOneName());
     }
 
     /**
@@ -404,7 +406,7 @@ public class DetailScoreBoardTest {
     public void testSlidingTileModifyHardTopOneEasyLevelNoData() {
         setUpSlidingTileScoreBoard();
         detailScoreBoard.setHardLevel("neverPlayed");
-        assertEquals("", detailScoreBoard.getHardTopOneName());
+        assertNull(detailScoreBoard.getHardTopOneName());
     }
 
     /**

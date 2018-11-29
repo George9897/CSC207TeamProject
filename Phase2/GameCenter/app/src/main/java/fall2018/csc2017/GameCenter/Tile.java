@@ -148,11 +148,12 @@ public class Tile implements Comparable<Tile>, Serializable {
             case 109:
                 background = R.drawable.tile_109;
                 break;
-            }
         }
+    }
 
     /**
      * Default compareTo method.
+     *
      * @param o the object need to be compared to.
      * @return the id difference between two objects.
      */

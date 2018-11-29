@@ -46,10 +46,6 @@ public class SlidingTileGestureDetectGridView extends GridView implements Serial
      * TouchY
      */
     private float mTouchY;
-    /**
-     * The board manager
-     */
-    private BoardManager boardManager;
 
     /**
      * The first constructor of SlidingTile Gesture Detect Grid View.
@@ -91,6 +87,12 @@ public class SlidingTileGestureDetectGridView extends GridView implements Serial
         mController = new SlidingTileMovementController();
         gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
 
+            /**
+             * Process tap when single tap.
+             *
+             * @param event the tap event tap.
+             * @return whether tapped.
+             */
             @Override
             public boolean onSingleTapConfirmed(MotionEvent event) {
                 int position = SlidingTileGestureDetectGridView.this.pointToPosition
@@ -100,6 +102,12 @@ public class SlidingTileGestureDetectGridView extends GridView implements Serial
                 return true;
             }
 
+            /**
+             * On down.
+             *
+             * @param event the tap event.
+             * @return whether tapped.
+             */
             @Override
             public boolean onDown(MotionEvent event) {
                 return true;
@@ -151,8 +159,12 @@ public class SlidingTileGestureDetectGridView extends GridView implements Serial
         return gDetector.onTouchEvent(ev);
     }
 
+    /**
+     * Set the board manager.
+     *
+     * @param boardManager the board manager.
+     */
     public void setBoardManager(BoardManager boardManager) {
-        this.boardManager = boardManager;
         mController.setBoardManager(boardManager);
     }
 }

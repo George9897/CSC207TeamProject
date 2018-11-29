@@ -107,19 +107,28 @@ public class AccountManager implements Serializable {
             InputStream inputStream = this.context.openFileInput(AccountManager.SAVE_FILENAME);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
-                map = (Map<String, String>) input.readObject();
+                map = cast(input.readObject());
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
+            Log.e("Account manager", "File not found: " + e.toString());
         } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
+            Log.e("Account manager", "Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+            Log.e("Account manager", "File contained unexpected data type: " + e.toString());
         }
-
     }
 
+    @SuppressWarnings("unchecked")
+    public static  <T> T cast(Object obj){
+        return (T)obj;
+    }
+
+    /**
+     * Return the account username and password
+     *
+     * @return the account username and password
+     */
     Map<String, String> getMap(){
         return map;
     }

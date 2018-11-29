@@ -36,7 +36,7 @@
         android:id="@+id/GameView"
         android:layout_width="158dp"
         android:layout_height="54dp"
-        android:layout_marginStart="38dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="29dp"
         android:layout_marginBottom="479dp"
@@ -51,10 +51,11 @@
         android:id="@+id/EasyDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="65dp"
+        android:layout_marginStart="45dp"
         android:layout_marginTop="100dp"
         android:layout_marginBottom="446dp"
         android:text="Easy"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -63,11 +64,12 @@
         android:id="@+id/MediumDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="61dp"
+        android:layout_marginStart="65dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="57dp"
         android:layout_marginBottom="446dp"
         android:text="Medium"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/HardDisplay"
         app:layout_constraintStart_toEndOf="@+id/EasyDisplay"
@@ -78,9 +80,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:layout_marginEnd="70dp"
+        android:layout_marginEnd="48dp"
         android:layout_marginBottom="446dp"
         android:text="Hard"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -117,10 +120,11 @@
         android:id="@+id/easyTopOne"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="51dp"
+        android:layout_marginStart="45dp"
         android:layout_marginTop="179dp"
         android:layout_marginBottom="349dp"
         android:text="no name \nno score"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -129,15 +133,13 @@
         android:id="@+id/mediumTopOne"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="54dp"
+        android:layout_marginStart="160dp"
         android:layout_marginTop="179dp"
-        android:layout_marginEnd="54dp"
         android:layout_marginBottom="349dp"
         android:text="no name \nno score"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/hardTopOne"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/easyTopOne"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -145,9 +147,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="179dp"
-        android:layout_marginEnd="52dp"
+        android:layout_marginEnd="60dp"
         android:layout_marginBottom="349dp"
         android:text="no name \nno score"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -156,16 +159,11 @@
         android:id="@+id/hardScrollView"
         android:layout_width="94dp"
         android:layout_height="321dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="320dp"
         android:layout_marginEnd="15dp"
-        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.531"
-        app:layout_constraintStart_toEndOf="@+id/mediumScrollView"
-        app:layout_constraintTop_toBottomOf="@+id/hardTopOne"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -176,7 +174,8 @@
                 android:id="@+id/hardTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=" TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView" />
+                android:text=" TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView"
+                android:textAlignment="center" />
         </LinearLayout>
     </ScrollView>
 
@@ -184,7 +183,7 @@
         android:id="@+id/mediumScrollView"
         android:layout_width="94dp"
         android:layout_height="321dp"
-        android:layout_marginStart="22dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -201,7 +200,8 @@
                 android:id="@+id/mediumTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=" TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView" />
+                android:text=" TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView"
+                android:textAlignment="center" />
         </LinearLayout>
     </ScrollView>
 
@@ -209,7 +209,7 @@
         android:id="@+id/easyScrollView"
         android:layout_width="94dp"
         android:layout_height="321dp"
-        android:layout_marginStart="36dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="235dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -226,16 +226,20 @@
                 android:id="@+id/easyTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=" TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView" />
+                android:text=" TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView"
+                android:textAlignment="center" />
         </LinearLayout>
     </ScrollView>
 
     <Button
         android:id="@+id/scoreBoardQuitbutton"
-        android:layout_width="70dp"
-        android:layout_height="35dp"
+        android:layout_width="80dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="290dp"
         android:text="quit"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

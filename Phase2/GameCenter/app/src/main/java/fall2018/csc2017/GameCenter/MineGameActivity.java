@@ -55,7 +55,7 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
     @SuppressLint("SetTextI18n")
     public void display() {
         updateTileButtons();
-        gridView.setAdapter(new MineCustomAdapter(tileButtons, columnWidth, columnHeight));
+        gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
     }
 
     /**
@@ -204,11 +204,11 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
+            Log.e("Mine game activity", "File not found: " + e.toString());
         } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
+            Log.e("Mine game activity", "Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+            Log.e("Mine game activity", "File contained unexpected data type: " + e.toString());
         }
     }
 }

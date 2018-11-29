@@ -55,7 +55,7 @@ public class SignUpActivity extends AppCompatActivity implements Serializable {
             String nameWantToHave_string = nameWantToHave.getText().toString();
             String password_string = password.getText().toString();
             String reEnterPassword_string = reEnterPassword.getText().toString();
-            if (!checkType(nameWantToHave_string)) {
+            if (checkType(nameWantToHave_string)) {
                 meg_box.setText("This name is invalid! The first character shouldn't " +
                         "be number and this name shouldn't contain other things except " +
                         "numbers and characters Please type again!");
@@ -93,7 +93,7 @@ public class SignUpActivity extends AppCompatActivity implements Serializable {
                 includeOther = true;
             }
         }
-        return !firstCharNum && !includeOther && includeNumOrLetter;
+        return firstCharNum || includeOther || !includeNumOrLetter;
     }
 
     /**
@@ -109,7 +109,7 @@ public class SignUpActivity extends AppCompatActivity implements Serializable {
         if (!password.equals(password2)) {
             meg_box.setText("Different password!");
         } else {
-            if (!checkType(password)) {
+            if (checkType(password)) {
                 meg_box.setText("This password is invalid! The first character shouldn't " +
                         "be number and this name shouldn't contain other things except " +
                         "numbers and characters Please type again!");

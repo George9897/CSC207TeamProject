@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
 import java.util.Observable;
 
 /**
- * The sudoku game.
+ * The sudoku game board.
  */
 public class Sudoku extends Observable implements Serializable, Iterable<Tile> {
 
@@ -68,7 +68,7 @@ public class Sudoku extends Observable implements Serializable, Iterable<Tile> {
     static final int size = 9;
 
     /**
-     * The tiles on the sudoku board in row-major order.
+     * The tiles on the sudoku board.
      */
     protected Tile[][] tiles = new Tile[size][size];
 
@@ -82,7 +82,7 @@ public class Sudoku extends Observable implements Serializable, Iterable<Tile> {
     }
 
     /**
-     * A new sudoku of tiles in row-major order.
+     * A new sudoku of tiles.
      * Precondition: len(tiles) == level * level
      *
      * @param tiles the tiles for the sudoku

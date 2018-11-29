@@ -31,9 +31,4 @@ abstract class Manager implements Serializable {
      * @return whether the tap is valid or not.
      */
     abstract boolean isValidTap(int position);
-
-//    /**
-//     * The move maker for games.
-//     */
-//    abstract void makeMove(int position);
 }

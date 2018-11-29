@@ -1,22 +1,15 @@
 package fall2018.csc2017.GameCenter;
 
 import android.content.Context;
-import android.test.mock.MockContext;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
 
 public class BoardManagerTest {
     /**
@@ -30,24 +23,6 @@ public class BoardManagerTest {
      * Context for test.
      */
     private Context context;
-
-    /**
-     * Create a initial list of Tiles for game with matching sizes.
-     *
-     * @return list of Tiles.
-     */
-    private List createTiles(int level) {
-        List<Tile> tiles = new ArrayList<>();
-        final int numTiles = level * level;
-        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            if (tileNum == numTiles - 1) {
-                tiles.add(new Tile(0));
-            } else {
-                tiles.add(new Tile(tileNum + 1));
-            }
-        }
-        return tiles;
-    }
 
     /**
      * Set up three BoardManager for tests
@@ -71,15 +46,6 @@ public class BoardManagerTest {
         boardManager2 = null;
         boardManager3 = null;
         boardManager4 = null;
-    }
-
-    /**
-     * Test getSlidingTile method
-     */
-    @Test
-    public void getSlidingTile() {
-//        SlidingTile sl = new SlidingTile(createTiles(5), 5);
-//        assertEquals(sl, boardManager3.getSlidingTile());
     }
 
     /**
@@ -244,5 +210,17 @@ public class BoardManagerTest {
         assertEquals(3, boardManager1.getLevel());
         assertEquals(4, boardManager2.getLevel());
         assertEquals(5, boardManager3.getLevel());
+    }
+
+    /**
+     * Test Get SlidingTile.
+     */
+    @Test
+    public void testGetSlidingTile(){
+        setUp();
+        int expectLevel = 3;
+        SlidingTile testSlidingTile = boardManager1.getSlidingTile();
+
+        assertEquals(expectLevel, testSlidingTile.getLevel());
     }
 }
