@@ -49,6 +49,11 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
     private transient Timer timer = new Timer();
 
     /**
+     * The username.
+     */
+    private String username;
+
+    /**
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
      */
@@ -68,14 +73,15 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
+        username = intent.getStringExtra("UserName");
         if (Objects.requireNonNull(intent.getExtras()).getBoolean("load")){
-            loadFromFile();
+            username = intent.getStringExtra("minename");
+            loadFromFile(username + "mine_tmp.ser");
             mineManager.setTimer(timer);
         }
-        String userName = intent.getStringExtra("UserName");
         String level = intent.getStringExtra("level");
         if (mineManager == null) {
-            mineManager = new MineManager(this, userName, level);
+            mineManager = new MineManager(this, username, level);
         }
         createTileButtons(this);
         setContentView(R.layout.activity_mine_game);
@@ -160,7 +166,7 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
         super.onPause();
         mineManager.addTime(mineManager.getScorer().getTimeScore());
         mineManager.getTimer().cancel();
-        saveToFile(StartingActivity.mineFile);
+        saveToFile(username + "mine_tmp.ser");
     }
 
     /**
@@ -194,10 +200,10 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
      * Load the slidingTile manager from fileName.
      *
      */
-    private void loadFromFile() {
+    private void loadFromFile(String filename) {
 
         try {
-            InputStream inputStream = this.openFileInput(StartingActivity.mineFile);
+            InputStream inputStream = this.openFileInput(filename);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 mineManager = (MineManager) input.readObject();

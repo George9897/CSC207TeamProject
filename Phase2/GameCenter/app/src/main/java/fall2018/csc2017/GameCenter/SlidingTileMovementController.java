@@ -50,7 +50,7 @@ public class SlidingTileMovementController implements Serializable {
                 Intent tmp = new Intent(context, YouWinActivity.class);
                 tmp.putExtra("gameType", "SlidingTile");
                 tmp.putExtra("slidingTileBoardManager", boardManager);
-                saveToFile(StartingActivity.slidingFile, context);
+                saveToFile(boardManager.getUserName() + "sliding_tmp.ser", context);
                 context.startActivity(tmp);
             }
         } else {

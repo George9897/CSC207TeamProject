@@ -77,7 +77,8 @@ public class GameActivity extends AppCompatActivity implements Observer, Seriali
                 (BoardManager)
                         Objects.requireNonNull(intent.getExtras()).get("slidingTileBoardManager");
         if (intent.getExtras().getBoolean("load")){
-            loadFromFile();
+            String username = intent.getStringExtra("slidingname");
+            loadFromFile(username + "sliding_tmp.ser");
         }
         createTileButtons(this);
         setContentView(R.layout.activity_main);
@@ -152,17 +153,17 @@ public class GameActivity extends AppCompatActivity implements Observer, Seriali
     @Override
     protected void onPause() {
         super.onPause();
-        saveToFile(StartingActivity.slidingFile);
+        saveToFile(boardManager.getUserName() + "sliding_tmp.ser");
     }
 
     /**
      * Load the slidingTile manager from fileName.
      *
      */
-    private void loadFromFile() {
+    private void loadFromFile(String filename) {
 
         try {
-            InputStream inputStream = this.openFileInput(StartingActivity.slidingFile);
+            InputStream inputStream = this.openFileInput(filename);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 boardManager = (BoardManager) input.readObject();

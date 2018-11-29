@@ -48,7 +48,7 @@ class SudokuMovementController implements Serializable {
                 tmp.putExtra("gameType", "Sudoku");
                 tmp.putExtra("sudokuGameBoard", sudokuBoardManager);
                 sudokuBoardManager.wining();
-                saveToFile(StartingActivity.sudokuFile, context);
+                saveToFile(sudokuBoardManager.getUserName() + "sudoku_tmp.ser", context);
                 context.startActivity(tmp);
             }
         } else {

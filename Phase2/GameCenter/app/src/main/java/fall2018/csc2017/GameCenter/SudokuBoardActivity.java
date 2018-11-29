@@ -77,7 +77,8 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
             sudokuBoardManager = new SudokuBoardManager(this, sudokuDifficulty);
         }
         if (tmp.getExtras().getBoolean("load")) {
-            loadFromFile();
+            String username = tmp.getStringExtra("sudokuusername");
+            loadFromFile(username + "sudoku_tmp.ser");
             sudokuBoardManager.setTimer(timer);
         }
 
@@ -160,16 +161,16 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         super.onPause();
         sudokuBoardManager.addTime(sudokuBoardManager.getScorer().getTimeScore());
         sudokuBoardManager.getTimer().cancel();
-        saveToFile(StartingActivity.sudokuFile);
+        saveToFile(sudokuBoardManager.getUserName() + "sudoku_tmp.ser");
     }
 
     /**
      * Load the sudoku board manager from fileName.
      */
-    private void loadFromFile() {
+    private void loadFromFile(String filename) {
 
         try {
-            InputStream inputStream = this.openFileInput(StartingActivity.sudokuFile);
+            InputStream inputStream = this.openFileInput(filename);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 sudokuBoardManager = (SudokuBoardManager) input.readObject();

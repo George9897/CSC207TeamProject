@@ -18,19 +18,6 @@ import java.io.Serializable;
  */
 public class StartingActivity extends AppCompatActivity implements Serializable {
     /**
-     * A temporary save file for sliding tile.
-     */
-    public static final String slidingFile = "sliding_tmp.ser";
-    /**
-     * A temporary save file for mine.
-     */
-    public static final String mineFile = "mine_tmp.ser";
-    /**
-     * A temporary save file for sudoku.
-     */
-    public static final String sudokuFile = "sudoku_tmp.ser";
-
-    /**
      * The sliding tile board manager.
      */
     private BoardManager boardManager;
@@ -56,6 +43,20 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
     private String userName;
 
     /**
+     * A temporary save file for sliding tile.
+     */
+    String slidingFile;
+    /**
+     * A temporary save file for mine.
+     */
+    String mineFile;
+    /**
+     * A temporary save file for sudoku.
+     */
+    String sudokuFile;
+
+
+    /**
      * Creator of of starting activity.
      * @param savedInstanceState the saved instance state.
      */
@@ -66,6 +67,10 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
         Intent intent = getIntent();
         gameType = intent.getStringExtra("gameType");
         userName = intent.getStringExtra("userName");
+        slidingFile = userName + "sliding_tmp.ser";
+        mineFile = userName + "mine_tmp.ser";
+        sudokuFile = userName + "sudoku_tmp.ser";
+
 
         setContentView(R.layout.activity_starting_);
         addStartButtonListener();
@@ -219,11 +224,13 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
             case "SlidingTile":
                 Intent slidingTile = new Intent(this, GameActivity.class);
                 slidingTile.putExtra("load", true);
+                slidingTile.putExtra("slidingname", userName);
                 startActivity(slidingTile);
                 break;
             case "Mine":
                 Intent mine = new Intent(this, MineGameActivity.class);
                 mine.putExtra("load", true);
+                mine.putExtra("minename", userName);
                 startActivity(mine);
                 break;
             case "Sudoku":
