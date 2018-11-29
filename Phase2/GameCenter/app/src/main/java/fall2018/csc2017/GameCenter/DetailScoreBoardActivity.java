@@ -15,6 +15,9 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * The detail score board activity.
+ */
 public class DetailScoreBoardActivity extends AppCompatActivity implements Serializable {
 
     /**
@@ -22,14 +25,17 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
      */
     private DetailScoreBoard detailScoreBoard;
 
-    private String gameType;
-
+    /**
+     * The creator for detail score board activity.
+     *
+     * @param savedInstanceState the saved instance State.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_score_board);
         Intent intent = getIntent();
-        gameType = intent.getStringExtra("gameTypeWantedToSee");
+        String gameType = intent.getStringExtra("gameTypeWantedToSee");
 
         boolean played = true;
         String filename = gameType + "DetailScoreBoard.ser";
@@ -99,6 +105,11 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
         }
     }
 
+    /**
+     * Set the top ranks.
+     *
+     * @param scoreBoard the scoreboard needs to be set.
+     */
     private void setTopOnes(DetailScoreBoard scoreBoard){
         TextView easyTopOne = findViewById(R.id.easyTopOne);
         TextView mediumTopOne = findViewById(R.id.mediumTopOne);
@@ -109,6 +120,11 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
         hardTopOne.setText(scoreBoard.getHardTopOne());
     }
 
+    /**
+     * Set the mode data.
+     *
+     * @param scoreBoard the scoreboard needs to be set.
+     */
     private void setModeData(DetailScoreBoard scoreBoard){
         TextView easyData = findViewById(R.id.easyTextView);
         TextView mediumData = findViewById(R.id.mediumTextView);
@@ -119,6 +135,12 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
         hardData.setText(othersToString(scoreBoard.getHardSortedList()));
     }
 
+    /**
+     * Convert those that are not the first to string.
+     *
+     * @param sortedOthers the sorted other places.
+     * @return the string representation of other places.
+     */
     private String othersToString(List<String> sortedOthers){
         StringBuilder result = new StringBuilder();
         if (sortedOthers.size() > 0) {

@@ -20,21 +20,23 @@ public class SudokuBoardManager extends Manager implements Serializable {
     private Sudoku sudoku;
 
     /**
-     * The SudokuBoardManager.
-     */
-    private static SudokuBoardManager sudokuBoardManager;
-
-    /**
      * The list of storing Boards.
      */
     private List<Integer> listOfPosition;
 
+    /**
+     * The number of sudoku tiles.
+     */
     private int[] sudokuNum = new int[81];
+    /**
+     * The randomization of tiles.
+     */
     private Random random = new Random();
 
     /**
      * The AccountManager.
      */
+    //TODO
     private AccountManager accountManager;
 
     /**
@@ -45,6 +47,7 @@ public class SudokuBoardManager extends Manager implements Serializable {
     /**
      * The context used to connect to activity.
      */
+    //TODO
     private transient Context context;
 
     /**
@@ -113,33 +116,17 @@ public class SudokuBoardManager extends Manager implements Serializable {
         return sudokuDifficulty;
     }
 
-    //
-//    /**
-//     * Setter for numBoom.
-//     *
-//     * @param level the level of difficulty of the game.
-//     */
-//    public static void setNumBoom(int level) { SudokuBoardManager.difficulty = level; }
-
     /**
      * The setter for time.
      * @param time the time passed.
      */
     public void setTime(int time) { this.time = time; }
 
-
-//    /**
-//     * The setter for time.
-//     * @param time the time passed.
-//     */
-//    public void setTime(int time) { this.timeScore = time; }
-
     /**
      * Getter for slidingTile.
      *
      * @return the last slidingTile get stored.
      */
-    // change from getSlidingTile
     Sudoku getSudoku() {
         return this.sudoku;
     }
@@ -164,6 +151,11 @@ public class SudokuBoardManager extends Manager implements Serializable {
         this.userName = userName;
     }
 
+    /**
+     * Getter for difficulty of sudoku game.
+     *
+     * @return the difficulty of sudoku game.
+     */
     public int getDifficulty(){
         return difficulty;
     }
@@ -183,16 +175,36 @@ public class SudokuBoardManager extends Manager implements Serializable {
         return tiles;
     }
 
+    /**
+     * Getter of timer.
+     *
+     * @return the timer.
+     */
     Timer getTimer(){return timer;}
 
+    /**
+     * Add time.
+     *
+     * @param time the time needs to be added.
+     */
     void addTime(int time){
         this.time += time;
     }
 
+    /**
+     * Getter for scorer.
+     *
+     * @return the scorer.
+     */
     Scorer getScorer(){
         return scorer;
     }
 
+    /**
+     * Setter for timer.
+     *
+     * @param timer the timer.
+     */
     void setTimer(Timer timer){
         this.timer = timer;
     }
@@ -208,6 +220,7 @@ public class SudokuBoardManager extends Manager implements Serializable {
         if (this.listOfPosition == null) {
             this.listOfPosition = new ArrayList<>();
             List tiles = createTiles();
+            //TODO
             this.sudoku = new Sudoku(tiles);
             timer.schedule(scorer, 0, 1000);
         }
@@ -227,9 +240,6 @@ public class SudokuBoardManager extends Manager implements Serializable {
             sudokuNum[acc] = next.getId();
             acc++;
         }
-//        System.out.println("row: " + checkRow(sudokuNum));
-//        System.out.println("col: " + checkCol(sudokuNum));
-//        System.out.println("square: " + checkSquare(sudokuNum));
         return checkCol(sudokuNum) && checkRow(sudokuNum) && checkSquare(sudokuNum);
     }
 
@@ -259,7 +269,6 @@ public class SudokuBoardManager extends Manager implements Serializable {
      *
      * @param position the position
      */
-    // change from touchMove
     void makeMove(int position) {
 
         int row = position / Sudoku.size;
