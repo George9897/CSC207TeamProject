@@ -55,7 +55,7 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
     @SuppressLint("SetTextI18n")
     public void display() {
         updateTileButtons();
-        gridView.setAdapter(new MineCustomAdapter(tileButtons, columnWidth, columnHeight));
+        gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
     }
 
     /**

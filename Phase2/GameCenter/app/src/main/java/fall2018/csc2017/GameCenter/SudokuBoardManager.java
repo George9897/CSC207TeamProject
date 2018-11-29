@@ -28,27 +28,16 @@ public class SudokuBoardManager extends Manager implements Serializable {
      * The number of sudoku tiles.
      */
     private int[] sudokuNum = new int[81];
+
     /**
      * The randomization of tiles.
      */
     private Random random = new Random();
 
     /**
-     * The AccountManager.
-     */
-    //TODO
-    private AccountManager accountManager;
-
-    /**
      * The user's name.
      */
     private String userName;
-
-    /**
-     * The context used to connect to activity.
-     */
-    //TODO
-    private transient Context context;
 
     /**
      * The list of undo.
@@ -118,9 +107,12 @@ public class SudokuBoardManager extends Manager implements Serializable {
 
     /**
      * The setter for time.
+     *
      * @param time the time passed.
      */
-    public void setTime(int time) { this.time = time; }
+    public void setTime(int time) {
+        this.time = time;
+    }
 
     /**
      * Getter for slidingTile.
@@ -156,7 +148,7 @@ public class SudokuBoardManager extends Manager implements Serializable {
      *
      * @return the difficulty of sudoku game.
      */
-    public int getDifficulty(){
+    public int getDifficulty() {
         return difficulty;
     }
 
@@ -165,7 +157,7 @@ public class SudokuBoardManager extends Manager implements Serializable {
      *
      * @return list of Tiles.
      */
-    List createTiles() {
+    List<Tile> createTiles() {
         createRandomSudoku();
         List<Tile> tiles = new ArrayList<>();
         final int numTiles = Sudoku.size * Sudoku.size;
@@ -180,14 +172,16 @@ public class SudokuBoardManager extends Manager implements Serializable {
      *
      * @return the timer.
      */
-    Timer getTimer(){return timer;}
+    Timer getTimer() {
+        return timer;
+    }
 
     /**
      * Add time.
      *
      * @param time the time needs to be added.
      */
-    void addTime(int time){
+    void addTime(int time) {
         this.time += time;
     }
 
@@ -196,7 +190,7 @@ public class SudokuBoardManager extends Manager implements Serializable {
      *
      * @return the scorer.
      */
-    Scorer getScorer(){
+    Scorer getScorer() {
         return scorer;
     }
 
@@ -205,7 +199,7 @@ public class SudokuBoardManager extends Manager implements Serializable {
      *
      * @param timer the timer.
      */
-    void setTimer(Timer timer){
+    void setTimer(Timer timer) {
         this.timer = timer;
     }
 
@@ -213,23 +207,23 @@ public class SudokuBoardManager extends Manager implements Serializable {
      * Constructor for BoardManager.
      */
     SudokuBoardManager(Context context, String sudokuDifficulty) {
-        this.context = context;
         this.sudokuDifficulty = sudokuDifficulty;
-        this.accountManager = new AccountManager(context);
+        AccountManager accountManager = new AccountManager(context);
         this.userName = accountManager.getUserName();
         if (this.listOfPosition == null) {
             this.listOfPosition = new ArrayList<>();
-            List tiles = createTiles();
-            //TODO
+            List<Tile> tiles = createTiles();
             this.sudoku = new Sudoku(tiles);
             timer.schedule(scorer, 0, 1000);
         }
     }
 
     /**
-     * Return whether the tiles are in row-major order.
+     * Return whether every column has 1 to 9, every row has 1 to 9,
+     * and every 3x3 square has 1 to 9
      *
-     * @return whether the tiles are in row-major order
+     * @return whether every column has 1 to 9, every row has 1 to 9,
+     * and every 3x3 square has 1 to 9
      */
     boolean puzzleSolved() {
         int[] sudokuNum = new int[Sudoku.size * Sudoku.size];
@@ -243,6 +237,10 @@ public class SudokuBoardManager extends Manager implements Serializable {
         return checkCol(sudokuNum) && checkRow(sudokuNum) && checkSquare(sudokuNum);
     }
 
+
+    /**
+     * When the player win, calculate score and cancel timer.
+     */
     void wining() {
         if (puzzleSolved()) {
             this.time += scorer.getTimeScore();
@@ -251,12 +249,11 @@ public class SudokuBoardManager extends Manager implements Serializable {
         }
     }
 
-
     /**
-     * Return whether any of the four surrounding tiles is the blank tile.
+     * Return whether the tile tap is the blank tile.
      *
      * @param position the tile to check
-     * @return whether the tile at position is surrounded by a blank tile
+     * @return whether the tile tap is the blank tile
      */
     boolean isValidTap(int position) {
         int row = position / Sudoku.size;
@@ -265,7 +262,7 @@ public class SudokuBoardManager extends Manager implements Serializable {
     }
 
     /**
-     * Process a touch at position in the slidingTile, swapping tiles as appropriate.
+     * Process a touch at position in the sudoku, change to the number the player want to add
      *
      * @param position the position
      */
@@ -279,12 +276,18 @@ public class SudokuBoardManager extends Manager implements Serializable {
         undoList.add(position);
     }
 
+    /**
+     * check sudoku board's every column has 1 to 9
+     *
+     * @param sudokuNum the sudoku board in 2d array
+     * @return whether every column have 1 to 9
+     */
     private boolean checkCol(int[] sudokuNum) {
         for (int i = 0; i < Sudoku.size; i++) {
             List<Integer> col = new ArrayList<>();
             for (int j = 0; j < Sudoku.size; j++) {
-                if (sudokuNum[i * Sudoku.size + j] > 100){
-                    col.add(sudokuNum[i * Sudoku.size + j]-100);
+                if (sudokuNum[i * Sudoku.size + j] > 100) {
+                    col.add(sudokuNum[i * Sudoku.size + j] - 100);
                 } else {
                     col.add(sudokuNum[i * Sudoku.size + j]);
                 }
@@ -298,12 +301,18 @@ public class SudokuBoardManager extends Manager implements Serializable {
         return true;
     }
 
+    /**
+     * check sudoku board's every row has 1 to 9
+     *
+     * @param sudokuNum the sudoku board in 2d array
+     * @return when every row have 1 to 9
+     */
     private boolean checkRow(int[] sudokuNum) {
         for (int i = 0; i < Sudoku.size; i++) {
             List<Integer> row = new ArrayList<>();
             for (int j = 0; j < Sudoku.size; j++) {
-                if (sudokuNum[j * Sudoku.size + i] > 100){
-                    row.add(sudokuNum[j * Sudoku.size + i]-100);
+                if (sudokuNum[j * Sudoku.size + i] > 100) {
+                    row.add(sudokuNum[j * Sudoku.size + i] - 100);
                 } else {
                     row.add(sudokuNum[j * Sudoku.size + i]);
                 }
@@ -317,6 +326,12 @@ public class SudokuBoardManager extends Manager implements Serializable {
         return true;
     }
 
+    /**
+     * check sudoku board's every 3x3 square has 1 to 9
+     *
+     * @param sudokuNum the sudoku board in 2d array
+     * @return when every 3x3 square have 1 to 9
+     */
     private boolean checkSquare(int[] sudokuNum) {
         for (int position = 0; position < Sudoku.size * Sudoku.size; position++) {
             List<Integer> square = new ArrayList<>();
@@ -327,8 +342,8 @@ public class SudokuBoardManager extends Manager implements Serializable {
 
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
-                    if (sudokuNum[(xOff + i) * 9 + yOff + j] > 100){
-                        square.add(sudokuNum[(xOff + i) * 9 + yOff + j]-100);
+                    if (sudokuNum[(xOff + i) * 9 + yOff + j] > 100) {
+                        square.add(sudokuNum[(xOff + i) * 9 + yOff + j] - 100);
                     } else {
                         square.add(sudokuNum[(xOff + i) * 9 + yOff + j]);
                     }
@@ -345,6 +360,9 @@ public class SudokuBoardManager extends Manager implements Serializable {
         return true;
     }
 
+    /**
+     * Generate a random sudoku board.
+     */
     private void createRandomSudoku() {
         randomChoose(0);
         if (sudokuDifficulty != null) {
@@ -376,7 +394,12 @@ public class SudokuBoardManager extends Manager implements Serializable {
         }
     }
 
-
+    /**
+     * Return whether random choose all 81 positions
+     *
+     * @param position random choose possible number for this position
+     * @return whether random choose all 81 positions
+     */
     private boolean randomChoose(int position) {
         if (position == Sudoku.size * Sudoku.size) {
             return true;
@@ -407,6 +430,13 @@ public class SudokuBoardManager extends Manager implements Serializable {
         return false;
     }
 
+    /**
+     * Return whether the value of position is legal.
+     *
+     * @param position the position want to check
+     * @param value check the value whether legal or not
+     * @return whether the value of position is legal
+     */
     private boolean isLegal(int position, int value) {
         int row = position / Sudoku.size;
         int col = position % Sudoku.size;
@@ -434,21 +464,33 @@ public class SudokuBoardManager extends Manager implements Serializable {
         return true;
     }
 
+
+    /**
+     * Clear all the number the player write
+     */
     void clear() {
         for (int i = 0; i < Sudoku.size; i++) {
             for (int j = 0; j < Sudoku.size; j++) {
-                if (sudoku.getTile(i,j).getId() > 100) {
+                if (sudoku.getTile(i, j).getId() > 100) {
                     sudoku.writeNum(i, j, 0);
                 }
             }
         }
     }
 
-    void setMove(int move){
+    /**
+     * Set move to be the number the player want.
+     *
+     * @param move the next move
+     */
+    void setMove(int move) {
         this.move = move;
     }
 
-    void undo(){
+    /**
+     * Unod to the previous move.
+     */
+    void undo() {
         if (!undoList.isEmpty()) {
             int undoPosition = undoList.remove(undoList.size() - 1);
             sudoku.writeNum(undoPosition / Sudoku.size, undoPosition % Sudoku.size, 0);

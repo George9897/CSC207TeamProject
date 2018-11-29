@@ -7,12 +7,12 @@ import static java.lang.Math.pow;
 /**
  * The Sudoku scorer for sudoku game.
  */
-public class SudokuScorer extends Scorer implements Serializable{
+public class SudokuScorer extends Scorer implements Serializable {
 
     /**
      * calculate score with given level and moves.
      *
-     * @param level level of difficulty
+     * @param level     level of difficulty
      * @param timeScore number of move.
      * @return return the calculate result
      */

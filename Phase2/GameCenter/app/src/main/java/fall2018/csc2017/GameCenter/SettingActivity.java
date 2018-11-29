@@ -19,10 +19,6 @@ import java.util.ArrayList;
  */
 public class SettingActivity extends AppCompatActivity implements Serializable {
     /**
-     * A temporary save file.
-     */
-    public static final String TEMP_SAVE_FILENAME = "save_setting_file_tmp.ser";
-    /**
      * The slidingTile.
      */
     protected SlidingTile slidingTile;
@@ -53,7 +49,6 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        saveToFile(TEMP_SAVE_FILENAME);
         setContentView(R.layout.activity_slidingtile_setting);
 
         Spinner spinner = findViewById(R.id.spinner);
@@ -122,7 +117,6 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
     @Override
     protected void onResume() {
         super.onResume();
-//        loadFromFile(slidingFile);
     }
 
     /**
@@ -131,7 +125,6 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
     @Override
     protected void onPause() {
         super.onPause();
-        saveToFile(StartingActivity.slidingFile);
     }
 
     /**
@@ -148,20 +141,11 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
     private void switchToGame() {
         Intent tmp = new Intent(this, GameActivity.class);
         boardManager = new BoardManager(this, level, false);
-        saveToFile(boardManager.getUserName() + ".ser");
         tmp.putExtra("slidingTileBoardManager", boardManager);
         tmp.putExtra("slidingTile", slidingTile);
         tmp.putExtra("undo", undoLimited);
         startActivity(tmp);
         finish();
-    }
-
-    /**
-     * Save the slidingTile manager to fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void saveToFile(String fileName) {
     }
 
     /**

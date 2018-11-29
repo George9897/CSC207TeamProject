@@ -30,14 +30,31 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
      */
     public static final String sudokuFile = "sudoku_tmp.ser";
 
+    /**
+     * The sliding tile board manager.
+     */
     private BoardManager boardManager;
 
+    /**
+     * The mine manager.
+     */
     private MineManager mineManager;
 
+
+    /**
+     * The sudoku manager.
+     */
     private SudokuBoardManager sudokuBoardManager;
 
+
+    /**
+     * The game type.
+     */
     private String gameType;
 
+    /**
+     * The player username.
+     */
     private String userName;
 
     /**
@@ -51,18 +68,6 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
         Intent intent = getIntent();
         gameType = intent.getStringExtra("gameType");
         userName = intent.getStringExtra("userName");
-
-        switch (gameType){
-            case "SlidingTile":
-//                loadFromFile(slidingFile);
-                break;
-            case "Mine":
-                loadFromFile(mineFile);
-                break;
-            case "Sudoku":
-                loadFromFile(sudokuFile);
-                break;
-        }
 
         setContentView(R.layout.activity_starting_);
         addStartButtonListener();
@@ -186,6 +191,8 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
         Button logoutButton = findViewById(R.id.LogoutButton);
         logoutButton.setOnClickListener(view -> {
             boardManager = null;
+            sudokuBoardManager = null;
+            mineManager = null;
             Intent temp = new Intent(this, LoginActivity.class);
             startActivity(temp);
         });
@@ -214,27 +221,24 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
             case "SlidingTile":
                 Intent slidingTile = new Intent(this, GameActivity.class);
                 slidingTile.putExtra("load", true);
-                //loadFromFile(slidingFile);
                 startActivity(slidingTile);
                 break;
             case "Mine":
                 Intent mine = new Intent(this, MineGameActivity.class);
                 mine.putExtra("load", true);
-                //saveToFile(mineFile);
                 startActivity(mine);
                 break;
             case "Sudoku":
                 Intent sudoku = new Intent(this, SudokuBoardActivity.class);
                 sudoku.putExtra("sudokuusername", userName);
                 sudoku.putExtra("load", true);
-                //saveToFile(sudokuFile);
                 startActivity(sudoku);
                 break;
         }
     }
 
     /**
-     * Load the slidingTile manager from fileName.
+     * Load manager from fileName.
      *
      * @param fileName the name of the file
      */
@@ -258,16 +262,16 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
+            Log.e("Starting activity", "File not found: " + e.toString());
         } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
+            Log.e("Starting activity", "Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+            Log.e("Starting activity", "File contained unexpected data type: " + e.toString());
         }
     }
 
     /**
-     * Save the slidingTile manager to fileName.
+     * Save manager to fileName.
      *
      * @param fileName the name of the file
      */

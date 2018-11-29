@@ -15,6 +15,9 @@ import java.util.ArrayList;
 
 public class SudokuSettingActivity extends AppCompatActivity implements Serializable {
 
+    /**
+     * The difficulty of sudoku game.
+     */
     private String sudokuDifficulty;
 
     @Override
@@ -49,12 +52,13 @@ public class SudokuSettingActivity extends AppCompatActivity implements Serializ
                         break;
                 }
             }
+
             @Override
-            public void onNothingSelected(AdapterView<?> arg0) {}
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
         });
         addSudokuConfirmButtonListener();
     }
-
 
     /**
      * Dispatch onResume() to fragments.
@@ -81,14 +85,11 @@ public class SudokuSettingActivity extends AppCompatActivity implements Serializ
     }
 
     /**
-     * Switch to the MineGameActivity view to play the game.
+     * Switch to the SudokuBoardActivity view to play the game.
      */
     private void switchToGame() {
-        Intent intent = getIntent();
-//        String username = intent.getExtras().getString("userName");
         Intent tmp = new Intent(this, SudokuBoardActivity.class);
         tmp.putExtra("sudokuDifficulty", sudokuDifficulty);
-        //tmp.putExtra("sudokuusername", username);
         startActivity(tmp);
         finish();
     }
