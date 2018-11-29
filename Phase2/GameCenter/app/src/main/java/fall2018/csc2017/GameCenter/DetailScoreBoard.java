@@ -216,8 +216,6 @@ public class DetailScoreBoard implements Serializable {
         }
         if (mineManager != null) {
             if (mineManager.getLose() || mineManager.getWin()) {
-                System.out.println("lose: " + mineManager.getLose());
-                System.out.println("win: " + mineManager.getWin());
                 updateScore();
             }
         } else {
@@ -634,8 +632,10 @@ public class DetailScoreBoard implements Serializable {
      */
     ArrayList<String> getEasySortedList() {
         ArrayList<String> sortedList = new ArrayList<>();
+        if (!gameType.equals("Mine")&&easyScoreList.size()>0&&easyScoreList.get(0)==0)
+            easyScoreList.remove(0);
         if (!level.equals("neverPlayed") && !easyLevel.equals("neverPlayed")
-                && !easyTopOneName.equals("No data") && mediumScoreList.size() > 1) {
+                && !easyTopOneName.equals("No data") && easyScoreList.size() > 1) {
             easyMap.get(easyTopOneScore).remove(easyTopOneName);
             if (easyMap.get(easyTopOneScore).isEmpty() && easyScoreList.size() == 1) {
                 sortedList.add("No data");
@@ -678,6 +678,7 @@ public class DetailScoreBoard implements Serializable {
      */
     ArrayList<String> getMediumSortedList() {
         ArrayList<String> sortedList = new ArrayList<>();
+        if (!gameType.equals("Mine")&&mediumScoreList.size()>0&&mediumScoreList.get(0)==0) mediumScoreList.remove(0);
         if (!level.equals("neverPlayed") && !mediumLevel.equals("neverPlayed") &&
                 !mediumTopOneName.equals("No data") && mediumScoreList.size() > 1) {
             mediumMap.get(mediumTopOneScore).remove(mediumTopOneName);
@@ -719,6 +720,8 @@ public class DetailScoreBoard implements Serializable {
 
     ArrayList<String> getHardSortedList() {
         ArrayList<String> sortedList = new ArrayList<>();
+        if (!gameType.equals("Mine")&&hardScoreList.size()>0&&hardScoreList.get(0)==0)
+            hardScoreList.remove(0);
         if (!level.equals("neverPlayed") && !hardLevel.equals("neverPlayed") &&
                 !hardTopOneName.equals("No data") && hardScoreList.size() > 1) {
             hardMap.get(hardTopOneScore).remove(hardTopOneName);
