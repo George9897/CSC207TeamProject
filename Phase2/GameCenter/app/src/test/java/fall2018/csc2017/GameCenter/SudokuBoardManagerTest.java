@@ -52,6 +52,10 @@ public class SudokuBoardManagerTest {
     }
 
     @Test
+    public void setScore() {
+    }
+
+    @Test
     public void getSudokuDifficulty() {
         assertEquals("Easy", sudokuBoardManager.getSudokuDifficulty());
     }

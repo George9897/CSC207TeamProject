@@ -6,111 +6,175 @@ import android.test.mock.MockContext;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
 public class BoardManagerTest {
     /**
      * The Boardmanager for test.
      */
-    private BoardManager boardManager;
+    private BoardManager boardManager1;
+    private BoardManager boardManager2;
+    private BoardManager boardManager3;
     /**
      * Context for test.
      */
-    Context context = new MockContext();
+    private Context context;
 
-//    /**
-//     * Create a initial list of Tiles for game with matching sizes.
-//     *
-//     * @return list of Tiles.
-//     */
-//    private List createTiles() {
-//        List<Tile> tiles = new ArrayList<>();
-//        final int numTiles = this.boardManager.getLevel() * this.boardManager.getLevel();
-//        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-//            if (tileNum == numTiles - 1) {
-//                tiles.add(new Tile(0));
-//            } else {
-//                tiles.add(new Tile(tileNum + 1));
-//            }
-//        }
-//        return tiles;
-//    }
-
+    /**
+     * Set up three BoardManager for tests
+     */
     @Before
-    public void setUp() throws Exception {
-        boardManager = new BoardManager(context, 3);
+    public void setUp() {
+        context = Mockito.mock(Context.class);
+        boardManager1 = new BoardManager(context, 3, true);
+        boardManager2 = new BoardManager(context, 4, true);
+        boardManager3 = new BoardManager(context, 5, true);
     }
 
+    /**
+     * Tear down after test
+     */
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         context = null;
-        boardManager = null;
+        boardManager1 = null;
+        boardManager2 = null;
+        boardManager3 = null;
     }
 
+    /**
+     * Test getSlidingTile method
+     */
     @Test
     public void getSlidingTile() {
-//        assertEquals(, this.getSlidingTile());
     }
 
+    /**
+     * Test getUndoLimit method
+     */
     @Test
     public void getUndoLimit() {
-        assertEquals(0, boardManager.getUndoLimit());
+        assertEquals(0, boardManager1.getUndoLimit());
+        assertEquals(0, boardManager2.getUndoLimit());
+        assertEquals(0, boardManager3.getUndoLimit());
     }
 
+    /**
+     * Test getUndoLimit3 method
+     */
     @Test
     public void getUndoLimit3() {
-        assertEquals(3, boardManager.getUndoLimit3());
+        assertEquals(3, boardManager1.getUndoLimit3());
+        assertEquals(3, boardManager2.getUndoLimit3());
+        assertEquals(3, boardManager3.getUndoLimit3());
     }
 
+    /**
+     * Test createTiles method
+     */
     @Test
     public void testCreateTiles() {
     }
 
+    /**
+     * Test getNumMoves method
+     */
     @Test
     public void getNumMoves() {
-        assertEquals(0, boardManager.getNumMoves());
+        assertEquals(0, boardManager1.getNumMoves());
+        boardManager1.touchMove(7);
+        assertEquals(1, boardManager1.getNumMoves());
     }
 
+    /**
+     * Test setScore method
+     */
+    @Test
+    public void setScore(){
+        int testScore = 0;
+        boardManager1.setScore(testScore);
+        assertEquals(testScore, boardManager1.getScore());
+    }
+
+    /**
+     * Test getScore method
+     */
     @Test
     public void getScore() {
-        assertEquals(0, boardManager.getScore());
+        int testScore = 0;
+        boardManager1.setScore(testScore);
+        assertEquals(testScore, boardManager1.getScore());
     }
 
+    /**
+     * Test getSlidingTileDifficulty method
+     */
     @Test
     public void getSlidingTileDifficulty() {
-        assertEquals("Easy", boardManager.getSlidingTileDifficulty());
-        boardManager = new BoardManager(context, 4);
-        assertEquals("Medium", boardManager.getSlidingTileDifficulty());
-        boardManager = new BoardManager(context, 5);
-        assertEquals("Hard", boardManager.getSlidingTileDifficulty());
+        assertEquals("Easy", boardManager1.getSlidingTileDifficulty());
+        assertEquals("Medium", boardManager2.getSlidingTileDifficulty());
+        assertEquals("Hard", boardManager3.getSlidingTileDifficulty());
     }
 
-//    @Test
-//    public void setSlidingTileDifficulty() {
-//    }
-
+    /**
+     * Test puzzleSolved method
+     */
     @Test
     public void puzzleSolved() {
     }
 
+    /**
+     * Test isValidTap method
+     */
     @Test
     public void isValidTap() {
 //        assertEquals(True, boardManager.isValidTap());
     }
 
+    /**
+     * Test touchMove method
+     */
     @Test
     public void touchMove() {
     }
 
+    /**
+     * Test undo method
+     */
     @Test
     public void undo() {
     }
 
+    /**
+     * Test undo3 method
+     */
     @Test
     public void undo3() {
+    }
+
+    /**
+     * Test getUserName method
+     */
+    @Test
+    public void getUserName() {
+    }
+
+    /**
+     * Test setUserName method
+     */
+    @Test
+    public void setUserName() {
+    }
+
+    /**
+     * Test getLevel method
+     */
+    @Test
+    public void getLevel() {
+        assertEquals(3, boardManager1.getLevel());
     }
 }

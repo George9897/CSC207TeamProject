@@ -23,11 +23,6 @@ class BoardManager extends Manager implements Serializable, Undoable {
     private SlidingTile slidingTile;
 
     /**
-     * The boardManager.
-     */
-    private static BoardManager boardManager;
-
-    /**
      * The number of moves taken by the users.
      */
     private int numMoves;
@@ -45,7 +40,7 @@ class BoardManager extends Manager implements Serializable, Undoable {
     /**
      * The user's name.
      */
-    String userName;
+    private String userName;
 
     /**
      * The context used to connect to activity.
@@ -136,7 +131,7 @@ class BoardManager extends Manager implements Serializable, Undoable {
     /**
      * Constructor for BoardManager.
      */
-    BoardManager(Context context, int level) {
+    BoardManager(Context context, int level, boolean test) {
         this.level = level;
         if (level == 3){
             slidingTileDifficulty = "Easy";
@@ -155,7 +150,10 @@ class BoardManager extends Manager implements Serializable, Undoable {
             this.listOfPosition = new ArrayList<>();
             List tiles = createTiles();
             this.slidingTile = new SlidingTile(tiles, level);
-            //solvableShuffle();
+            if (test == false) {
+                solvableShuffle();
+            }
+//            solvableShuffle();
         }
     }
 
@@ -175,6 +173,29 @@ class BoardManager extends Manager implements Serializable, Undoable {
      */
     public int getScore() {
         return score;
+    }
+
+    /**
+     * Setter for the score.
+     */
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    /**
+     * Getter for userName.
+     *
+     * @return userName.
+     */
+    public String getUserName() {
+        return userName;
+    }
+
+    /**
+     * Setter for the userName.
+     */
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getSlidingTileDifficulty() {

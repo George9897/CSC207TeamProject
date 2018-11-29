@@ -38,7 +38,8 @@ public class SlidingTileMovementController implements Serializable {
 
     /**
      * Process a tapping movement.
-     *  @param context  The context.
+     *
+     * @param context  The context.
      * @param position The position that is tapped.
      */
     void processTapMovement(Context context, int position) {
@@ -47,9 +48,9 @@ public class SlidingTileMovementController implements Serializable {
             if (boardManager.puzzleSolved()) {
                 Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
                 Intent tmp = new Intent(context, YouWinActivity.class);
-                tmp.putExtra("gameType","SlidingTile" );
+                tmp.putExtra("gameType", "SlidingTile");
                 tmp.putExtra("slidingTileBoardManager", boardManager);
-                saveToFile(StartingActivity.slidingFile,context);
+                saveToFile(StartingActivity.slidingFile, context);
                 context.startActivity(tmp);
             }
         } else {

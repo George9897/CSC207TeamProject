@@ -100,6 +100,13 @@ public class SudokuBoardManager extends Manager implements Serializable {
     }
 
     /**
+     * Setter for the score.
+     */
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    /**
      * @return the Sudoku Difficulty.
      */
     String getSudokuDifficulty() {
@@ -140,12 +147,21 @@ public class SudokuBoardManager extends Manager implements Serializable {
     private int move;
 
     /**
-     * Getter for time.
+     * Getter for userName.
      *
-     * @return time.
+     * @return userName.
      */
     String getUserName() {
         return userName;
+    }
+
+    /**
+     * Setter for userName.
+     *
+     * @param userName given userName.
+     */
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public int getDifficulty(){
