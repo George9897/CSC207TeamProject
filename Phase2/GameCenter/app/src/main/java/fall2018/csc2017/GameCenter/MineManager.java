@@ -288,7 +288,7 @@ public class MineManager extends Manager implements Serializable {
      */
     void failing() {
         time = scorer.getTimeScore();
-        score = 0;
+        score = -1;
         timer.cancel();
     }
 

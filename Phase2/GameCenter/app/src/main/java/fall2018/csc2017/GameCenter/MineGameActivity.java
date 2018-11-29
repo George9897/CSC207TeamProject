@@ -93,6 +93,9 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
         mineManager.getMineBoard().addObserver(MineGameActivity.this);
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
+                    /**
+                     * On global layout.
+                     */
                     @Override
                     public void onGlobalLayout() {
                         gridView.getViewTreeObserver().removeOnGlobalLayoutListener(
