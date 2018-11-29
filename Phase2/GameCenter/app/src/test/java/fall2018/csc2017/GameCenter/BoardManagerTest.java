@@ -245,4 +245,13 @@ public class BoardManagerTest {
         assertEquals(4, boardManager2.getLevel());
         assertEquals(5, boardManager3.getLevel());
     }
+
+    @Test
+    public void testGetSlidingTile(){
+        setUp();
+        int expectLevel = 3;
+        SlidingTile testSlidingTile = boardManager1.getSlidingTile();
+
+        assertEquals(expectLevel, testSlidingTile.getLevel());
+    }
 }
