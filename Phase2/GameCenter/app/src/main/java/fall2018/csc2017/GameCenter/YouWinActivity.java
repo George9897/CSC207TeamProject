@@ -82,7 +82,6 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
         String filename = gameType + "DetailScoreBoard.ser";
         loadFromFile(filename);
         if (detailScoreBoard == null){
-            System.out.println(filename);
             detailScoreBoard = new DetailScoreBoard(gameType, this);
         }
         detailScoreBoard.setContext(this);
