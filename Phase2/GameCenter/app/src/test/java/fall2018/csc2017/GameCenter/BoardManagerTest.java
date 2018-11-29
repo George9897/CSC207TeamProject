@@ -1,22 +1,15 @@
 package fall2018.csc2017.GameCenter;
 
 import android.content.Context;
-import android.test.mock.MockContext;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
 
 public class BoardManagerTest {
     /**
