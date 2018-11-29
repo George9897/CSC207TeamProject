@@ -51,9 +51,6 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
      */
     private int move;
 
-    //TODO
-    private String sudokuDifficulty;
-
     /**
      * The timer.
      */
@@ -66,7 +63,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
     @SuppressLint("SetTextI18n")
     public void display() {
         updateTileButtons();
-        gridView.setAdapter(new SudokuCustomAdapter(tileButtons, columnWidth, columnHeight));
+        gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
     }
 
     @SuppressLint("WrongViewCast")
@@ -74,13 +71,13 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent tmp = getIntent();
-        sudokuDifficulty =
+        String sudokuDifficulty =
                 Objects.requireNonNull(tmp.getExtras()).getString("sudokuDifficulty");
         if (sudokuBoardManager == null) {
             sudokuBoardManager = new SudokuBoardManager(this, sudokuDifficulty);
         }
-        if (tmp.getExtras().getBoolean("load")){
-            loadFromFile(StartingActivity.sudokuFile);
+        if (tmp.getExtras().getBoolean("load")) {
+            loadFromFile();
             sudokuBoardManager.setTimer(timer);
         }
 
@@ -127,7 +124,6 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
      * @param context the context
      */
     private void createTileButtons(Context context) {
-        //sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
         Sudoku sudoku = sudokuBoardManager.getSudoku();
         tileButtons = new ArrayList<>();
         for (int row = 0; row != Sudoku.size; row++) {
@@ -143,7 +139,6 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateTileButtons() {
-        //sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
         Sudoku sudoku = sudokuBoardManager.getSudoku();
         int nextPos = 0;
         for (Button b : tileButtons) {
@@ -167,25 +162,22 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
 
     /**
      * Load the sudoku board manager from fileName.
-     *
-     * @param fileName the name of the file
      */
-    //TODO
-    private void loadFromFile(String fileName) {
+    private void loadFromFile() {
 
         try {
-            InputStream inputStream = this.openFileInput(fileName);
+            InputStream inputStream = this.openFileInput(StartingActivity.sudokuFile);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 sudokuBoardManager = (SudokuBoardManager) input.readObject();
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
+            Log.e("Sudoku Board activity", "File not found: " + e.toString());
         } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
+            Log.e("Sudoku Board activity", "Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+            Log.e("Sudoku Board activity", "File contained unexpected data type: " + e.toString());
         }
     }
 
@@ -345,7 +337,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
     /**
      * Update the sudoku game.
      *
-     * @param o the observable object.
+     * @param o   the observable object.
      * @param arg the argument.
      */
     @Override

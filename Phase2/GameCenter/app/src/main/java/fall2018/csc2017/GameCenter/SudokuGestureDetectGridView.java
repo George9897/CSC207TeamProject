@@ -16,41 +16,79 @@ import android.widget.GridView;
 import java.io.Serializable;
 
 public class SudokuGestureDetectGridView extends GridView implements Serializable {
+    /**
+     * The minimum swipe distance.
+     */
     public static final int SWIPE_MIN_DISTANCE = 100;
+    /**
+     * The gesture detector.
+     */
     private GestureDetector gDetector;
+    /**
+     * The movement controller of mine game.
+     */
     private SudokuMovementController sudokuMovementController;
+    /**
+     * The mark of whether the matrix's fling is confirmed.
+     */
     private boolean mFlingConfirmed = false;
+    /**
+     * The touched x coordinate.
+     */
     private float mTouchX;
+    /**
+     * The touched y coordinate.
+     */
     private float mTouchY;
-    //TODO FIX?
-    private SudokuBoardManager sudokuBoardManager;
 
+    /**
+     * The first constructor of Sudoku Gesture Detect Grid View.
+     *
+     * @param context the context.
+     */
     public SudokuGestureDetectGridView(Context context) {
         super(context);
         init(context);
     }
 
+    /**
+     * The second constructor of Sudoku Gesture Detect Grid View.
+     *
+     * @param context the context.
+     * @param attrs   the attributes set.
+     */
     public SudokuGestureDetectGridView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
+    /**
+     * The third constructor of Sudoku Gesture Detect Grid View.
+     *
+     * @param context      the context.
+     * @param attrs        the attributes set.
+     * @param defStyleAttr the style attribute set.
+     */
     public SudokuGestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
-//
-//    @TargetApi(Build.VERSION_CODES.LOLLIPOP) // API 21
-//    public SudokuGestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr,
-//                                 int defStyleRes) {
-//        super(context, attrs, defStyleAttr, defStyleRes);
-//        init(context);
-//    }
 
+    /**
+     * The initialization of sudoku movement controller.
+     *
+     * @param context the context.
+     */
     private void init(final Context context) {
         sudokuMovementController = new SudokuMovementController();
         gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
 
+            /**
+             * The confirm of whether tapped or not.
+             *
+             * @param event the tap event.
+             * @return whether the user tapped or not.(execute other motions or not)
+             */
             @Override
             public boolean onSingleTapConfirmed(MotionEvent event) {
                 int position = SudokuGestureDetectGridView.this.pointToPosition
@@ -60,6 +98,12 @@ public class SudokuGestureDetectGridView extends GridView implements Serializabl
                 return true;
             }
 
+            /**
+             * Whether there is a down event.
+             *
+             * @param event the event.
+             * @return whether the event is a down event.(execute other motions or not)
+             */
             @Override
             public boolean onDown(MotionEvent event) {
                 return true;
@@ -68,6 +112,12 @@ public class SudokuGestureDetectGridView extends GridView implements Serializabl
         });
     }
 
+    /**
+     * Whether the event is a intercept touch event.
+     *
+     * @param ev the event.
+     * @return whether the event is a intercept touch event.
+     */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         int action = ev.getActionMasked();
@@ -95,14 +145,25 @@ public class SudokuGestureDetectGridView extends GridView implements Serializabl
         return super.onInterceptTouchEvent(ev);
     }
 
+    /**
+     * Whether the user touched or not.
+     *
+     * @param ev the event.
+     * @return whether the event is a touch event.
+     */
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         return gDetector.onTouchEvent(ev);
     }
 
+
+    /**
+     * Set the sudoku manager for the controller.
+     *
+     * @param sudokuBoardManager the mine manager.
+     */
     public void setSudokuBoardManager(SudokuBoardManager sudokuBoardManager) {
-        this.sudokuBoardManager = sudokuBoardManager;
         sudokuMovementController.setSudokuBoardManager(sudokuBoardManager);
     }
 }

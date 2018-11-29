@@ -12,7 +12,7 @@ import java.io.Serializable;
 import static android.content.Context.MODE_PRIVATE;
 
 /**
- * The movement controller of game.
+ * The movement controller of sudoku.
  */
 class SudokuMovementController implements Serializable {
 
@@ -48,7 +48,7 @@ class SudokuMovementController implements Serializable {
                 tmp.putExtra("gameType", "Sudoku");
                 tmp.putExtra("sudokuGameBoard", sudokuBoardManager);
                 sudokuBoardManager.wining();
-                saveToFile(StartingActivity.sudokuFile,context);
+                saveToFile(StartingActivity.sudokuFile, context);
                 context.startActivity(tmp);
             }
         } else {
@@ -57,7 +57,7 @@ class SudokuMovementController implements Serializable {
     }
 
     /**
-     * Save the slidingTile manager to fileName.
+     * Save the sudoku manager to fileName.
      *
      * @param fileName the name of the file
      */

@@ -61,7 +61,7 @@ public class GameActivity extends AppCompatActivity implements Observer, Seriali
         updateTileButtons();
         TextView steps = findViewById(R.id.step);
         steps.setText("Step:" + Integer.toString(boardManager.getNumMoves()));
-        gridView.setAdapter(new SlidingTileCustomAdapter(tileButtons, columnWidth, columnHeight));
+        gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
     }
 
     /**

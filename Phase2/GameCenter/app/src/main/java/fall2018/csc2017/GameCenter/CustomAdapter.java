@@ -19,7 +19,7 @@ import java.util.ArrayList;
 /**
  * The custom adapter.
  */
-public class MineCustomAdapter extends BaseAdapter implements Serializable {
+public class CustomAdapter extends BaseAdapter implements Serializable {
     /**
      * The list of buttons.
      */
@@ -36,7 +36,7 @@ public class MineCustomAdapter extends BaseAdapter implements Serializable {
      * @param columnWidth  the width of column.
      * @param columnHeight the height of column.
      */
-    MineCustomAdapter(ArrayList<Button> buttons, int columnWidth, int columnHeight) {
+    CustomAdapter(ArrayList<Button> buttons, int columnWidth, int columnHeight) {
         mButtons = buttons;
         mColumnWidth = columnWidth;
         mColumnHeight = columnHeight;

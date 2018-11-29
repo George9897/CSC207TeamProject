@@ -46,10 +46,6 @@ public class SlidingTileGestureDetectGridView extends GridView implements Serial
      * TouchY
      */
     private float mTouchY;
-    /**
-     * The board manager
-     */
-    private BoardManager boardManager;
 
     /**
      * The first constructor of SlidingTile Gesture Detect Grid View.
@@ -152,7 +148,6 @@ public class SlidingTileGestureDetectGridView extends GridView implements Serial
     }
 
     public void setBoardManager(BoardManager boardManager) {
-        this.boardManager = boardManager;
         mController.setBoardManager(boardManager);
     }
 }
