@@ -758,18 +758,24 @@ public class DetailScoreBoard implements Serializable {
         int highestScore = 0;
         List<Integer> scores = new ArrayList<>();
         for (int index = 0; index < getEasyScoreList().size(); index++) {
-            if (getEasyMap().get(getEasyScoreList().get(index)).contains(username)) {
-                scores.add(getEasyScoreList().get(index));
+            if (getEasyMap().get(getEasyScoreList().get(index)) != null){
+                if (getEasyMap().get(getEasyScoreList().get(index)).contains(username)) {
+                    scores.add(getEasyScoreList().get(index));
+                }
             }
         }
         for (int index = 0; index < getMediumScoreList().size(); index++) {
-            if (getMediumMap().get(getMediumScoreList().get(index)).contains(username)) {
-                scores.add(getMediumScoreList().get(index));
+            if (getMediumMap().get(getMediumScoreList().get(index)) != null) {
+                if (getMediumMap().get(getMediumScoreList().get(index)).contains(username)) {
+                    scores.add(getMediumScoreList().get(index));
+                }
             }
         }
         for (int index = 0; index < getHardScoreList().size(); index++) {
-            if (getHardMap().get(getHardScoreList().get(index)).contains(username)) {
-                scores.add(getHardScoreList().get(index));
+            if (getHardMap().get(getHardScoreList().get(index)) != null) {
+                if (getHardMap().get(getHardScoreList().get(index)).contains(username)) {
+                    scores.add(getHardScoreList().get(index));
+                }
             }
         }
         if (scores.size() > 0) {
