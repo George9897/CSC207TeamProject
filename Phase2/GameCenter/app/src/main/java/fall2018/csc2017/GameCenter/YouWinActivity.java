@@ -21,8 +21,14 @@ import java.util.Objects;
  */
 public class YouWinActivity extends AppCompatActivity implements Serializable {
 
+    /**
+     * The detail score board.
+     */
     private DetailScoreBoard detailScoreBoard;
 
+    /**
+     * The game type.
+     */
     private String gameType;
 
     /**
