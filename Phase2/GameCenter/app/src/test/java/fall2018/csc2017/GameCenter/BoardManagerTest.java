@@ -49,15 +49,6 @@ public class BoardManagerTest {
     }
 
     /**
-     * Test getSlidingTile method
-     */
-    @Test
-    public void getSlidingTile() {
-//        SlidingTile sl = new SlidingTile(createTiles(5), 5);
-//        assertEquals(sl, boardManager3.getSlidingTile());
-    }
-
-    /**
      * Test getUndoLimit method
      */
     @Test

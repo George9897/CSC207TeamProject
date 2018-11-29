@@ -28,26 +28,6 @@ public class DetailScoreBoardTest {
      * The Mock Context context for test.
      */
     private Context context = Mockito.mock(Context.class);
-    private InputStream is = Mockito.mock(InputStream.class);
-    private OutputStream os = Mockito.mock(OutputStream.class);
-
-    private void setUpSlidingTileManager(int score, int level, String userName){
-        BoardManager slidingTileManager = new BoardManager(context, level, false);
-        slidingTileManager.setScore(score);
-        slidingTileManager.setUserName(userName);
-        SlidingTileMovementController mController = new SlidingTileMovementController();
-        mController.setBoardManager(slidingTileManager);
-        mController.saveToFile(StartingActivity.slidingFile, context);
-    }
-
-    @Test
-    public void testSlidingTileModifyMediumTopOnePlayed() {
-        setUpSlidingTileScoreBoard();
-        int testScore = 10000;
-        String testUserName = "user";
-        setUpSlidingTileManager(testScore, 4, testUserName);
-        assertEquals("played", detailScoreBoard.getMediumLevel());
-    }
 
     /**
      * The String gameType for test.
