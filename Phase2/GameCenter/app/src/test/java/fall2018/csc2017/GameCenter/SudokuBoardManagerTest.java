@@ -24,12 +24,12 @@ public class SudokuBoardManagerTest {
     /**
      * Timer for test.
      */
-    Timer timer;
+    private Timer timer;
 
     /**
      * Context for test.
      */
-    Context context;
+    private Context context;
 
     @Before
     public void setUp() throws Exception {
@@ -84,7 +84,7 @@ public class SudokuBoardManagerTest {
 
     @Test
     public void getUserName() {
-        assertEquals(null, sudokuBoardManager1.getUserName());
+        assertNull(sudokuBoardManager1.getUserName());
     }
 
     @Test
@@ -121,8 +121,6 @@ public class SudokuBoardManagerTest {
     @Test
     public void puzzleSolved() {
         assertFalse(sudokuBoardManager1.puzzleSolved());
-
-//        assertFalse(sudokuBoardManager.puzzleSolved());
     }
 
     @Test
