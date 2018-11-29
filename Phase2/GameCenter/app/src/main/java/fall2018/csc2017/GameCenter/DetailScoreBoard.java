@@ -22,49 +22,122 @@ public class DetailScoreBoard implements Serializable {
      */
     public static final long serialVersionUID = -2227760083029889845L;
 
+    /**
+     * The String gameType.
+     */
     private String gameType;
 
+    /**
+     * The BoardManager boardManager.
+     */
     private BoardManager boardManager;
 
+    /**
+     * The SudokuBoardManager sudokuBoardManager.
+     */
     private SudokuBoardManager sudokuBoardManager;
 
+    /**
+     * The MineManager mineManager.
+     */
     private MineManager mineManager;
 
+    /**
+     * The Map<Integer, List<String>> easyMap.
+     */
     @SuppressLint("UseSparseArrays")
     private Map<Integer, List<String>> easyMap = new HashMap<>();
 
+    /**
+     * The Map<Integer, List<String>> mediumMap.
+     */
     @SuppressLint("UseSparseArrays")
     private Map<Integer, List<String>> mediumMap = new HashMap<>();
 
+    /**
+     * The Map<Integer, List<String>> hardMap.
+     */
     @SuppressLint("UseSparseArrays")
     private Map<Integer, List<String>> hardMap = new HashMap<>();
 
+    /**
+     * The List<Integer> easyScoreList.
+     */
     private List<Integer> easyScoreList = new ArrayList<>();
 
+    /**
+     * The List<Integer> mediumScoreList.
+     */
     private List<Integer> mediumScoreList = new ArrayList<>();
 
+    /**
+     * The List<Integer> hardScoreList.
+     */
     private List<Integer> hardScoreList = new ArrayList<>();
 
+    /**
+     * The int easyTopOneScore.
+     */
     private int easyTopOneScore;
+
+    /**
+     * The String easyTopOneName.
+     */
     private String easyTopOneName = "";
 
+    /**
+     * The int mediumTopOneScore.
+     */
     private int mediumTopOneScore;
+
+    /**
+     * The String mediumTopOneName.
+     */
     private String mediumTopOneName = "";
 
+    /**
+     * The int hardTopOneScore.
+     */
     private int hardTopOneScore;
+
+    /**
+     * The String hardTopOneName.
+     */
     private String hardTopOneName = "";
 
+    /**
+     * The int score.
+     */
     private int score = 0;
 
+    /**
+     * The String username.
+     */
     private String username;
 
+    /**
+     * The String easyLevel.
+     */
     private String easyLevel;
 
+    /**
+     * The String mediumLevel.
+     */
     private String mediumLevel;
 
+    /**
+     * The String hardLevel.
+     */
     private String hardLevel;
+
+    /**
+     * The String level.
+     */
     private String level = "neverPlayed";
 
+    /**
+     * The transient Context context.
+     */
     private transient Context context;
 
     /**
@@ -75,42 +148,41 @@ public class DetailScoreBoard implements Serializable {
         this.context = context;
     }
 
-    public BoardManager getBoardManager() {
-        return boardManager;
+    /**
+     * Set all manager in this DetailScoreBoard to null.
+     */
+    void destroyAllManager() {
+        sudokuBoardManager = null;
+        boardManager = null;
+        mineManager = null;
     }
 
-    public void setBoardManager(BoardManager boardManager) {
-        this.boardManager = boardManager;
-    }
-
-    public void setSudokuBoardManager(SudokuBoardManager sudokuBoardManager) {
-        this.sudokuBoardManager = sudokuBoardManager;
-    }
-
-    public void setMineManager(MineManager mineManager) {
-        this.mineManager = mineManager;
-    }
-
-    public void destroyAllManager() {
-        setSudokuBoardManager(null);
-        setBoardManager(null);
-        setMineManager(null);
-    }
-
+    /**
+     * Set Context on this DetailScoreBoard.
+     *
+     * @param context allow to save and load from file.
+     */
     public void setContext(Context context) {
         this.context = context;
     }
 
+    /**
+     * Set level on this DetailScoreBoard.
+     * @param level level of difficulty
+     */
     public void setLevel(String level) {
         this.level = level;
     }
 
-    public void collectScoreLevel() {
+    /**
+     * Update this score, userName, and manager of this DetailScoreBoard by gameType.
+     */
+    void collectScoreLevel() {
         switch (gameType) {
             case "SlidingTile":
                 loadFromFile(StartingActivity.slidingFile);
-                if (getBoardManager() == null) {
-                    setBoardManager(new BoardManager(this.context, 3, false));
+                if (boardManager == null) {
+                    boardManager = new BoardManager(this.context, 3, false);
                 }
                 score = boardManager.getScore();
                 if (boardManager.getSlidingTileDifficulty() != null) {
@@ -121,7 +193,7 @@ public class DetailScoreBoard implements Serializable {
             case "Mine":
                 loadFromFile(StartingActivity.mineFile);
                 if (mineManager == null) {
-                    setMineManager(new MineManager(this.context, username, "Easy"));
+                    mineManager = new MineManager(this.context, username, "Easy");
                 }
                 score = mineManager.getScore();
                 if (mineManager.getMineDifficulty() != null) {
@@ -132,8 +204,7 @@ public class DetailScoreBoard implements Serializable {
             case "Sudoku":
                 loadFromFile(StartingActivity.sudokuFile);
                 if (sudokuBoardManager == null) {
-                    setSudokuBoardManager(new SudokuBoardManager
-                            (this.context, "Easy"));
+                    sudokuBoardManager = new SudokuBoardManager(this.context, "Easy");
                 }
                 score = sudokuBoardManager.getScore();
                 if (sudokuBoardManager.getSudokuDifficulty() != null) {
@@ -153,6 +224,9 @@ public class DetailScoreBoard implements Serializable {
         }
     }
 
+    /**
+     * Update Score.
+     */
     private void updateScore() {
         switch (level) {
             case "Easy":
@@ -185,7 +259,10 @@ public class DetailScoreBoard implements Serializable {
         }
     }
 
-    public void createSortedList() {
+    /**
+     * create SortedList by level.
+     */
+    void createSortedList() {
         switch (level) {
             case "Easy":
                 if (!getEasyScoreList().contains(score)) {
@@ -210,6 +287,15 @@ public class DetailScoreBoard implements Serializable {
         }
     }
 
+    /**
+     * The find the user name of top one player.
+     *
+     * @param oldTopOneScore the score of previous top one player.
+     * @param oldTopOneName the name of previous top one player.
+     * @param newScore the score of current player.
+     * @param newName the name of current player.
+     * @return The top one player.
+     */
     private String findTopOne(int oldTopOneScore, String oldTopOneName,
                               int newScore, String newName) {
         if (newScore > oldTopOneScore) {
@@ -222,39 +308,82 @@ public class DetailScoreBoard implements Serializable {
         return oldTopOneName;
     }
 
-    public String getEasyLevel() {
+    /**
+     * Get easy level.
+     *
+     * @return easyLevel.
+     */
+    String getEasyLevel() {
         return easyLevel;
     }
 
-    public void setEasyLevel(String easyLevel) {
+    /**
+     * Set easy level.
+     *
+     * @param easyLevel easy level.
+     */
+    void setEasyLevel(String easyLevel) {
         this.easyLevel = easyLevel;
     }
 
-    public String getEasyTopOneName() {
+    /**
+     * Get Easy TopOne Name.
+     *
+     * @return Easy TopOne Name.
+     */
+    String getEasyTopOneName() {
         return easyTopOneName;
     }
 
-    public void setEasyTopOneName(String easyTopOneName) {
+    /**
+     * Set Easy TopOne Name.
+     *
+     * @param easyTopOneName Easy TopOne Name.
+     */
+    void setEasyTopOneName(String easyTopOneName) {
         this.easyTopOneName = easyTopOneName;
     }
 
-    public int getEasyTopOneScore() {
+    /**
+     * Get Easy TopOne score.
+     *
+     * @return Easy TopOne score.
+     */
+    int getEasyTopOneScore() {
         return easyTopOneScore;
     }
 
-    public void setEasyTopOneScore(int easyTopOneScore) {
+    /**
+     * Set Easy TopOne score.
+     *
+     * @param easyTopOneScore Easy TopOne score.
+     */
+    void setEasyTopOneScore(int easyTopOneScore) {
         this.easyTopOneScore = easyTopOneScore;
     }
 
-    public List<Integer> getEasyScoreList() {
+    /**
+     * Get Easy ScoreList.
+     *
+     * @return Easy ScoreList.
+     */
+    List<Integer> getEasyScoreList() {
         return easyScoreList;
     }
 
-    public void setEasyScoreList(List<Integer> easyScoreList) {
+    /**
+     * Set Easy ScoreList.
+     *
+     * @param easyScoreList Easy ScoreList.
+     */
+    void setEasyScoreList(List<Integer> easyScoreList) {
         this.easyScoreList = easyScoreList;
     }
 
-    public void modifyEasyTopOne() {
+    /**
+     * modify Easy TopOne.
+     */
+    void modifyEasyTopOne() {
         if (getEasyScoreList().isEmpty()) {
             setEasyLevel("neverPlayed");
         } else {
@@ -264,47 +393,88 @@ public class DetailScoreBoard implements Serializable {
                 findTopOne(getEasyTopOneScore(), getEasyTopOneName(),
                         score, username) == null) {
             setEasyTopOneName("No data");
-        } else if (score != 0) {
-        } else {
+        } else if (score == 0) {
             setEasyTopOneName(findTopOne(getEasyTopOneScore(), getEasyTopOneName(),
                     score, username));
             setEasyTopOneScore(easyScoreList.get(easyScoreList.size() - 1));
         }
     }
 
-    public String getMediumLevel() {
+    /**
+     * get Medium Level.
+     *
+     * @return Medium Level.
+     */
+    String getMediumLevel() {
         return mediumLevel;
     }
 
-    public void setMediumLevel(String mediumLevel) {
+    /**
+     * set Medium Level.
+     *
+     * @param mediumLevel Medium Level.
+     */
+    void setMediumLevel(String mediumLevel) {
         this.mediumLevel = mediumLevel;
     }
 
-    public String getMediumTopOneName() {
+    /**
+     * get Medium TopOne Name.
+     *
+     * @return Medium TopOne Name.
+     */
+    String getMediumTopOneName() {
         return mediumTopOneName;
     }
 
-    public void setMediumTopOneName(String mediumTopOneName) {
+    /**
+     * set Medium TopOne Name.
+     *
+     * @param mediumTopOneName Medium TopOne Name.
+     */
+    void setMediumTopOneName(String mediumTopOneName) {
         this.mediumTopOneName = mediumTopOneName;
     }
 
-    public int getMediumTopOneScore() {
+    /**
+     * get Medium TopOne Score.
+     * @return Medium TopOne Score.
+     */
+    int getMediumTopOneScore() {
         return mediumTopOneScore;
     }
 
-    public void setMediumTopOneScore(int mediumTopOneScore) {
+    /**
+     * set Medium TopOne Score.
+     *
+     * @param mediumTopOneScore Medium TopOne Score.
+     */
+    void setMediumTopOneScore(int mediumTopOneScore) {
         this.mediumTopOneScore = mediumTopOneScore;
     }
 
-    public List<Integer> getMediumScoreList() {
+    /**
+     * get Medium ScoreList.
+     *
+     * @return Medium ScoreList.
+     */
+    List<Integer> getMediumScoreList() {
         return mediumScoreList;
     }
 
-    public void setMediumScoreList(List<Integer> mediumScoreList) {
+    /**
+     * set MediumScore List.
+     *
+     * @param mediumScoreList MediumScore List.
+     */
+    void setMediumScoreList(List<Integer> mediumScoreList) {
         this.mediumScoreList = mediumScoreList;
     }
 
-    public void modifyMediumTopOne() {
+    /**
+     * modify Medium TopOne.
+     */
+    void modifyMediumTopOne() {
         if (getMediumScoreList().isEmpty()) {
             setMediumLevel("neverPlayed");
         } else {
@@ -321,39 +491,82 @@ public class DetailScoreBoard implements Serializable {
         }
     }
 
-    public String getHardLevel() {
+    /**
+     * get Hard Level.
+     *
+     * @return Hard Level.
+     */
+    String getHardLevel() {
         return hardLevel;
     }
 
-    public void setHardLevel(String hardLevel) {
+    /**
+     * set Hard Level.
+     *
+     * @param hardLevel Hard Level.
+     */
+    void setHardLevel(String hardLevel) {
         this.hardLevel = hardLevel;
     }
 
-    public int getHardTopOneScore() {
+    /**
+     * get Hard TopOne Score.
+     *
+     * @return Hard TopOne Score.
+     */
+    int getHardTopOneScore() {
         return hardTopOneScore;
     }
 
-    public void setHardTopOneScore(int hardTopOneScore) {
+    /**
+     * set Hard TopOne Score.
+     *
+     * @param hardTopOneScore Hard TopOne Score.
+     */
+    void setHardTopOneScore(int hardTopOneScore) {
         this.hardTopOneScore = hardTopOneScore;
     }
 
-    public String getHardTopOneName() {
+    /**
+     * get Hard TopOne Name.
+     *
+     * @return Hard TopOne Name.
+     */
+    String getHardTopOneName() {
         return hardTopOneName;
     }
 
-    public void setHardTopOneName(String hardTopOneName) {
+    /**
+     * set Hard TopOne Name.
+     *
+     * @param hardTopOneName Hard TopOne Name.
+     */
+    void setHardTopOneName(String hardTopOneName) {
         this.hardTopOneName = hardTopOneName;
     }
 
-    public List<Integer> getHardScoreList() {
+    /**
+     * get Hard ScoreList.
+     *
+     * @return Hard ScoreList.
+     */
+    List<Integer> getHardScoreList() {
         return hardScoreList;
     }
 
-    public void setHardScoreList(List<Integer> hardScoreList) {
+    /**
+     * set Hard ScoreList.
+     *
+     * @param hardScoreList Hard ScoreList.
+     */
+    void setHardScoreList(List<Integer> hardScoreList) {
         this.hardScoreList = hardScoreList;
     }
 
-    public void modifyHardTopOne() {
+    /**
+     * modify Hard TopOne.
+     */
+    void modifyHardTopOne() {
         if (getHardScoreList().isEmpty()) {
             setHardLevel("neverPlayed");
         } else {
@@ -370,7 +583,11 @@ public class DetailScoreBoard implements Serializable {
         }
     }
 
-
+    /**
+     * get Easy TopOne.
+     *
+     * @return Easy TopOne.
+     */
     public String getEasyTopOne() {
         if (getEasyTopOneName().equals("No data")) {
             return getEasyTopOneName();
@@ -378,6 +595,11 @@ public class DetailScoreBoard implements Serializable {
         return getEasyTopOneScore() + "  " + getEasyTopOneName();
     }
 
+    /**
+     * get Medium TopOne.
+     *
+     * @return Medium TopOne.
+     */
     public String getMediumTopOne() {
         if (getMediumTopOneName().equals("No data")) {
             return getMediumTopOneName();
@@ -385,6 +607,11 @@ public class DetailScoreBoard implements Serializable {
         return getMediumTopOneScore() + "  " + getMediumTopOneName();
     }
 
+    /**
+     * get Hard TopOne.
+     *
+     * @return Hard TopOne.
+     */
     public String getHardTopOne() {
         if (getHardTopOneName().equals("No data")) {
             return getHardTopOneName();
@@ -392,10 +619,20 @@ public class DetailScoreBoard implements Serializable {
         return getHardTopOneScore() + "  " + getHardTopOneName();
     }
 
-    public Map<Integer, List<String>> getEasyMap() {
+    /**
+     * get Easy Map.
+     *
+     * @return Easy Map.
+     */
+    Map<Integer, List<String>> getEasyMap() {
         return easyMap;
     }
 
+    /**
+     * get Easy SortedList.
+     *
+     * @return SortedList.
+     */
     ArrayList<String> getEasySortedList() {
         ArrayList<String> sortedList = new ArrayList<>();
         if (!level.equals("neverPlayed") && !getEasyLevel().equals("neverPlayed")
@@ -427,10 +664,20 @@ public class DetailScoreBoard implements Serializable {
         return sortedList;
     }
 
+    /**
+     * get Medium Map.
+     *
+     * @return Medium Map.
+     */
     public Map<Integer, List<String>> getMediumMap() {
         return mediumMap;
     }
 
+    /**
+     * get Medium SortedList.
+     *
+     * @return Medium SortedList.
+     */
     ArrayList<String> getMediumSortedList() {
         ArrayList<String> sortedList = new ArrayList<>();
         if (!level.equals("neverPlayed") && !getMediumLevel().equals("neverPlayed") &&
@@ -462,6 +709,11 @@ public class DetailScoreBoard implements Serializable {
         return sortedList;
     }
 
+    /**
+     * get HardMap.
+     *
+     * @return HardMap.
+     */
     public Map<Integer, List<String>> getHardMap() {
         return hardMap;
     }
@@ -540,13 +792,13 @@ public class DetailScoreBoard implements Serializable {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 switch (gameType) {
                     case "SlidingTile":
-                        setBoardManager((BoardManager) input.readObject());
+                        boardManager = (BoardManager) input.readObject();
                         break;
                     case "Mine":
-                        setMineManager((MineManager) input.readObject());
+                        mineManager = (MineManager) input.readObject();
                         break;
                     case "Sudoku":
-                        setSudokuBoardManager((SudokuBoardManager) input.readObject());
+                        sudokuBoardManager = (SudokuBoardManager) input.readObject();
                         break;
                 }
                 inputStream.close();

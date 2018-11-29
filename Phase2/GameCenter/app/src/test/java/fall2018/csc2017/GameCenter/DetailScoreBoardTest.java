@@ -128,7 +128,8 @@ public class DetailScoreBoardTest {
     @Test
     public void testGetEasyScoreList() {
         setUpSlidingTileScoreBoard();
-        detailScoreBoard.setEasyScoreList(null);
+        List<Integer> testList = new ArrayList<>();
+        detailScoreBoard.setEasyScoreList(testList);
         assertNull(detailScoreBoard.getEasyScoreList());
     }
 
@@ -244,7 +245,8 @@ public class DetailScoreBoardTest {
     @Test
     public void testGetMediumScoreList() {
         setUpSlidingTileScoreBoard();
-        detailScoreBoard.setMediumScoreList(null);
+        List<Integer> testList = new ArrayList<>();
+        detailScoreBoard.setMediumScoreList(testList);
         assertNull(detailScoreBoard.getMediumScoreList());
     }
 
@@ -360,7 +362,8 @@ public class DetailScoreBoardTest {
     @Test
     public void testGetHardScoreList() {
         setUpSlidingTileScoreBoard();
-        detailScoreBoard.setHardScoreList(null);
+        List<Integer> testList = new ArrayList<>();
+        detailScoreBoard.setHardScoreList(testList);
         assertNull(detailScoreBoard.getHardScoreList());
     }
 
