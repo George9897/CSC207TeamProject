@@ -97,7 +97,7 @@ class BoardManager extends Manager implements Serializable, Undoable {
      *
      * @return list of Tiles.
      */
-    List createTiles() {
+    List<Tile> createTiles() {
         List<Tile> tiles = new ArrayList<>();
         final int numTiles = this.level * this.level;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
@@ -137,7 +137,7 @@ class BoardManager extends Manager implements Serializable, Undoable {
             this.undoLimit3 = 3;
             this.numMoves = 0;
             this.listOfPosition = new ArrayList<>();
-            List tiles = createTiles();
+            List<Tile> tiles = createTiles();
             this.slidingTile = new SlidingTile(tiles, level);
             if (!test) {
                 solvableShuffle();
