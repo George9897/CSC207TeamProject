@@ -669,7 +669,7 @@ public class DetailScoreBoard implements Serializable {
      *
      * @return Medium Map.
      */
-    public Map<Integer, List<String>> getMediumMap() {
+    Map<Integer, List<String>> getMediumMap() {
         return mediumMap;
     }
 
@@ -714,7 +714,7 @@ public class DetailScoreBoard implements Serializable {
      *
      * @return HardMap.
      */
-    public Map<Integer, List<String>> getHardMap() {
+    Map<Integer, List<String>> getHardMap() {
         return hardMap;
     }
 
@@ -804,11 +804,11 @@ public class DetailScoreBoard implements Serializable {
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
+            Log.e("Detail score board", "File not found: " + e.toString());
         } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
+            Log.e("Detail score board", "Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+            Log.e("Detail score board", "File contained unexpected data type: " + e.toString());
         }
     }
 }

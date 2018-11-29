@@ -169,11 +169,11 @@ public class GameActivity extends AppCompatActivity implements Observer, Seriali
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
+            Log.e("Game activity", "File not found: " + e.toString());
         } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
+            Log.e("Game activity", "Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+            Log.e("Game activity", "File contained unexpected data type: " + e.toString());
         }
     }
 
