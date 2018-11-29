@@ -82,21 +82,6 @@ public class SlidingTileGestureDetectGridView extends GridView implements Serial
         super(context, attrs, defStyleAttr);
         init(context);
     }
-//
-//    /**
-//     * The fourth constructor of SlidingTile Gesture Detect Grid View.
-//     *
-//     * @param context Context
-//     * @param attrs AttributeSet
-//     * @param defStyleAttr DefStyleAttr
-//     * @param defStyleRes DefStyleRes
-//     */
-//    @TargetApi(Build.VERSION_CODES.LOLLIPOP) // API 21
-//    public GestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr,
-//                                 int defStyleRes) {
-//        super(context, attrs, defStyleAttr, defStyleRes);
-//        init(context);
-//    }
 
     /**
      * Initialize a new grid view
