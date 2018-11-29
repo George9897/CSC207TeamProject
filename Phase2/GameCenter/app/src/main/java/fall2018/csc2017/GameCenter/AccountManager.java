@@ -35,7 +35,7 @@ public class AccountManager implements Serializable {
     /**
      * The context used to connect to activity.
      */
-    private transient Context context;
+    transient Context context;
 
     /**
      * The save file which contains the dictionary of username and password.
@@ -183,5 +183,14 @@ public class AccountManager implements Serializable {
      */
     String getUserName() {
         return userName;
+    }
+
+    /**
+     * @param userName the name of user.
+     *
+     * Setter for user name.
+     */
+    void setUserName(String userName){
+        this.userName = userName;
     }
 }
