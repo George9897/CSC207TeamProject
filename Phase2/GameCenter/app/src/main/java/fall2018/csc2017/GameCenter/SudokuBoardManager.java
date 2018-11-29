@@ -285,7 +285,7 @@ public class SudokuBoardManager extends Manager implements Serializable {
      * @param sudokuNum the sudoku board in 2d array
      * @return whether every column have 1 to 9
      */
-    private boolean checkCol(int[] sudokuNum) {
+    protected boolean checkCol(int[] sudokuNum) {
         for (int i = 0; i < Sudoku.size; i++) {
             List<Integer> col = new ArrayList<>();
             for (int j = 0; j < Sudoku.size; j++) {
@@ -310,7 +310,7 @@ public class SudokuBoardManager extends Manager implements Serializable {
      * @param sudokuNum the sudoku board in 2d array
      * @return when every row have 1 to 9
      */
-    private boolean checkRow(int[] sudokuNum) {
+    protected boolean checkRow(int[] sudokuNum) {
         for (int i = 0; i < Sudoku.size; i++) {
             List<Integer> row = new ArrayList<>();
             for (int j = 0; j < Sudoku.size; j++) {
@@ -335,7 +335,7 @@ public class SudokuBoardManager extends Manager implements Serializable {
      * @param sudokuNum the sudoku board in 2d array
      * @return when every 3x3 square have 1 to 9
      */
-    private boolean checkSquare(int[] sudokuNum) {
+    protected boolean checkSquare(int[] sudokuNum) {
         for (int position = 0; position < Sudoku.size * Sudoku.size; position++) {
             List<Integer> square = new ArrayList<>();
             int row = position / Sudoku.size;
@@ -395,6 +395,15 @@ public class SudokuBoardManager extends Manager implements Serializable {
             x[randomNum] = temp;
             sudokuNum[x[i]] = 0;
         }
+    }
+
+    /**
+     * @param difficulty the difficulty of sudoku.
+     *
+     * Setter for difficulty
+     */
+    protected void setDifficulty(int difficulty){
+        this.difficulty = difficulty;
     }
 
     /**
