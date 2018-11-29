@@ -3,16 +3,14 @@ package fall2018.csc2017.GameCenter;
 import android.content.Context;
 import android.test.mock.MockContext;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for DetailScoreBoard class.
@@ -130,8 +128,9 @@ public class DetailScoreBoardTest {
     @Test
     public void testGetEasyScoreList() {
         setUpSlidingTileScoreBoard();
-        detailScoreBoard.setEasyScoreList(null);
-        assertNull(detailScoreBoard.getEasyScoreList());
+        List<Integer> testList = new ArrayList<>();
+        detailScoreBoard.setEasyScoreList(testList);
+        assertEquals(testList, detailScoreBoard.getEasyScoreList());
     }
 
     /**
@@ -246,8 +245,9 @@ public class DetailScoreBoardTest {
     @Test
     public void testGetMediumScoreList() {
         setUpSlidingTileScoreBoard();
-        detailScoreBoard.setMediumScoreList(null);
-        assertNull(detailScoreBoard.getMediumScoreList());
+        List<Integer> testList = new ArrayList<>();
+        detailScoreBoard.setMediumScoreList(testList);
+        assertEquals(testList, detailScoreBoard.getEasyScoreList());
     }
 
     /**
@@ -362,8 +362,9 @@ public class DetailScoreBoardTest {
     @Test
     public void testGetHardScoreList() {
         setUpSlidingTileScoreBoard();
-        detailScoreBoard.setHardScoreList(null);
-        assertNull(detailScoreBoard.getHardScoreList());
+        List<Integer> testList = new ArrayList<>();
+        detailScoreBoard.setHardScoreList(testList);
+        assertEquals(testList, detailScoreBoard.getHardScoreList());
     }
 
     /**

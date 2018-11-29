@@ -1,8 +1,8 @@
 package fall2018.csc2017.GameCenter;
 
 import android.annotation.SuppressLint;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 
+/**
+ * The personal score board activity.
+ */
 public class PersonalScoreboardActivity extends AppCompatActivity {
 
     /**

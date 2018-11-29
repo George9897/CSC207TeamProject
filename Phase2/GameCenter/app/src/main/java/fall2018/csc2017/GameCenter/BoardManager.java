@@ -33,19 +33,9 @@ class BoardManager extends Manager implements Serializable, Undoable {
     private List<Integer> listOfPosition;
 
     /**
-     * The AccountManager.
-     */
-    private AccountManager accountManager;
-
-    /**
      * The user's name.
      */
     private String userName;
-
-    /**
-     * The context used to connect to activity.
-     */
-    private transient Context context;
 
     /**
      * After score for one game round.
@@ -140,8 +130,7 @@ class BoardManager extends Manager implements Serializable, Undoable {
         } else if(level == 5){
             slidingTileDifficulty = "Hard";
         }
-        this.context = context;
-        this.accountManager = new AccountManager(context);
+        AccountManager accountManager = new AccountManager(context);
         this.userName = accountManager.getUserName();
         if (this.listOfPosition == null) {
             this.undoLimit = 0;
@@ -150,10 +139,9 @@ class BoardManager extends Manager implements Serializable, Undoable {
             this.listOfPosition = new ArrayList<>();
             List tiles = createTiles();
             this.slidingTile = new SlidingTile(tiles, level);
-            if (test == false) {
+            if (!test) {
                 solvableShuffle();
             }
-//            solvableShuffle();
         }
     }
 
@@ -198,7 +186,7 @@ class BoardManager extends Manager implements Serializable, Undoable {
         this.userName = userName;
     }
 
-    public String getSlidingTileDifficulty() {
+    String getSlidingTileDifficulty() {
         return slidingTileDifficulty;
     }
 
@@ -222,7 +210,7 @@ class BoardManager extends Manager implements Serializable, Undoable {
         Random r1 = new Random();
         int i = 50 + r1.nextInt(50);
         while (k <= i) {
-            ArrayList swapChoices = new ArrayList();
+            ArrayList<Integer> swapChoices = new ArrayList<>();
             int row = bPosition / this.level;
             int col = bPosition % this.level;
             Tile above = row == 0 ? null : slidingTile.getTile(row - 1, col);
@@ -239,7 +227,7 @@ class BoardManager extends Manager implements Serializable, Undoable {
                 swapChoices.add(right); }
             // Random choose an element from swapChoices, then swap them.
             Random r2 = new Random();
-            int c = (int) (swapChoices.get(r2.nextInt(swapChoices.size())));
+            int c = (swapChoices.get(r2.nextInt(swapChoices.size())));
             int d = bPosition + c;
             this.slidingTile.swapTiles(row, col, d / this.level, d % this.level);
             bPosition = d;

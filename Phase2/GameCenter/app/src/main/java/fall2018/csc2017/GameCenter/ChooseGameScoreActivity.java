@@ -5,8 +5,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
+/**
+ * Activity of choosing the game score.
+ */
 public class ChooseGameScoreActivity extends AppCompatActivity {
 
+    /**
+     * The creator for choose game score activity.
+     *
+     * @param savedInstanceState the saved instance state.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,7 +24,8 @@ public class ChooseGameScoreActivity extends AppCompatActivity {
         addSDButtonListener();
         addMGButtonListener();
     }
-    /*
+
+    /**
      * Add MG button for mine game scoreboard
      */
     private void addMGButtonListener() {
