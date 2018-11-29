@@ -51,7 +51,7 @@
         android:layout_marginEnd="104dp"
         android:text="Choose game to view Scoreboard"
         android:textAppearance="@android:style/TextAppearance.Medium"
-        android:textSize="20sp"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.195"
         app:layout_constraintStart_toStartOf="parent"

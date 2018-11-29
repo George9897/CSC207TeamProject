@@ -120,10 +120,11 @@
         android:id="@+id/easyTopOne"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="65dp"
+        android:layout_marginStart="45dp"
         android:layout_marginTop="179dp"
         android:layout_marginBottom="349dp"
         android:text="no name \nno score"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -132,10 +133,11 @@
         android:id="@+id/mediumTopOne"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="175dp"
+        android:layout_marginStart="160dp"
         android:layout_marginTop="179dp"
         android:layout_marginBottom="349dp"
         android:text="no name \nno score"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -148,6 +150,7 @@
         android:layout_marginEnd="60dp"
         android:layout_marginBottom="349dp"
         android:text="no name \nno score"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -171,7 +174,8 @@
                 android:id="@+id/hardTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=" TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView" />
+                android:text=" TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView"
+                android:textAlignment="center" />
         </LinearLayout>
     </ScrollView>
 
@@ -196,7 +200,8 @@
                 android:id="@+id/mediumTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=" TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView" />
+                android:text=" TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView"
+                android:textAlignment="center" />
         </LinearLayout>
     </ScrollView>
 
@@ -204,7 +209,7 @@
         android:id="@+id/easyScrollView"
         android:layout_width="94dp"
         android:layout_height="321dp"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="235dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -221,7 +226,8 @@
                 android:id="@+id/easyTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=" TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView" />
+                android:text=" TextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextViewTextView"
+                android:textAlignment="center" />
         </LinearLayout>
     </ScrollView>
 
