@@ -6,6 +6,9 @@ import android.test.mock.MockContext;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
+
+import java.util.Timer;
 
 import static org.junit.Assert.*;
 
@@ -26,18 +29,22 @@ public class SudokuBoardManagerTest {
      */
     private String userName;
 
+    Timer timer;
+
     /**
      * Context for test.
      */
-    Context context = new MockContext();
+    Context context;
 
     @Before
     public void setUp() throws Exception {
+        context = Mockito.mock(Context.class);
         sudokuBoardManager = new SudokuBoardManager(context,"Easy");
     }
 
     @After
     public void tearDown() throws Exception {
+        context = null;
         sudokuBoardManager = null;
     }
 
@@ -53,6 +60,8 @@ public class SudokuBoardManagerTest {
 
     @Test
     public void setScore() {
+        sudokuBoardManager.setScore(100);
+        assertEquals(100, sudokuBoardManager.getScore());
     }
 
     @Test
@@ -69,17 +78,23 @@ public class SudokuBoardManagerTest {
 
     @Test
     public void getSudoku() {
-//        assertEquals(sudokuBoardManager.udoku, sudokuBoardManager.getSudoku());
+//        assertEquals(sudokuBoardManager.sudoku, sudokuBoardManager.getSudoku());
     }
 
     @Test
     public void getUserName() {
-        assertEquals("Easy", sudokuBoardManager.getUserName());
+        assertEquals(null, sudokuBoardManager.getUserName());
     }
 
     @Test
-    public void getDifficulty() {
-        assertEquals("Easy", sudokuBoardManager.getSudokuDifficulty());
+    public void setUserName() {
+        sudokuBoardManager.setUserName("Tom");
+        assertEquals("Tom", sudokuBoardManager.getUserName());
+    }
+
+    @Test
+    public void getDifficulty(){
+        assertEquals(2, sudokuBoardManager.getDifficulty());
     }
 
     @Test
@@ -93,7 +108,21 @@ public class SudokuBoardManagerTest {
     }
 
     @Test
-    public void destroySudokuBoardManager() {
+    public void getTimer(){assertEquals(timer, sudokuBoardManager.getTimer());}
+
+    @Test
+    public void addTime(){
+        sudokuBoardManager.addTime(100);
+        assertEquals(100, sudokuBoardManager.getTime());
+    }
+
+    @Test
+    public void getScorer(){assertEquals(null, sudokuBoardManager.getScorer());}
+
+    @Test
+    public void setTimer(){
+        sudokuBoardManager.setTimer(timer);
+        assertEquals(0, sudokuBoardManager.getTime());
     }
 
     @Test
