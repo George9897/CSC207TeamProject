@@ -6,8 +6,10 @@ import android.test.mock.MockContext;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 
 public class AccountManagerTest {
     /**
@@ -20,7 +22,8 @@ public class AccountManagerTest {
 
     @Before
     public void setUpCorrect() throws Exception {
-//        context = new mockContext();
+//        Context context = mock(Context.class);
+        Context context = mock(Context.class);
         accountManager = new AccountManager(context);
         accountManager.setUp(userName,"tom123");
     }
