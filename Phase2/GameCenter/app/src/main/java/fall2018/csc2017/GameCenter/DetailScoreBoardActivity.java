@@ -79,11 +79,11 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
+            Log.e("detail score board activity", "File not found: " + e.toString());
         } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
+            Log.e("detail score board activity", "Can not read file: " + e.toString());
         } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: "
+            Log.e("detail score board activity", "File contained unexpected data type: "
                     + e.toString());
         }
     }
@@ -170,5 +170,4 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
     protected void onDestroy() {
         super.onDestroy();
     }
-
 }
