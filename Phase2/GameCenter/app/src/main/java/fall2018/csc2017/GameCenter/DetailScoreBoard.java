@@ -181,7 +181,7 @@ public class DetailScoreBoard implements Serializable {
     void collectScoreLevel() {
         switch (gameType) {
             case "SlidingTile":
-                loadFromFile(StartingActivity.slidingFile);
+                loadFromFile(username + "sliding_tmp.ser");
                 if (boardManager == null) {
                     boardManager = new BoardManager(this.context, 3, false);
                 }
@@ -192,7 +192,7 @@ public class DetailScoreBoard implements Serializable {
                 username = boardManager.getUserName();
                 break;
             case "Mine":
-                loadFromFile(StartingActivity.mineFile);
+                loadFromFile(username + "mine_tmp.ser");
                 if (mineManager == null) {
                     mineManager = new MineManager(this.context, username, "EASY");
                 }
@@ -203,7 +203,7 @@ public class DetailScoreBoard implements Serializable {
                 username = mineManager.getUserName();
                 break;
             case "Sudoku":
-                loadFromFile(StartingActivity.sudokuFile);
+                loadFromFile(username + "sudoku_tmp.ser");
                 if (sudokuBoardManager == null) {
                     sudokuBoardManager = new SudokuBoardManager(this.context, "Easy");
                 }
@@ -216,6 +216,8 @@ public class DetailScoreBoard implements Serializable {
         }
         if (mineManager != null) {
             if (mineManager.getLose() || mineManager.getWin()) {
+                System.out.println("lose: " + mineManager.getLose());
+                System.out.println("win: " + mineManager.getWin());
                 updateScore();
             }
         } else {
@@ -302,7 +304,7 @@ public class DetailScoreBoard implements Serializable {
                               int newScore, String newName) {
         if (newScore > oldTopOneScore) {
             return newName;
-        } else if (newScore == 0 && oldTopOneName != null) {
+        } else if (!gameType.equals("Mine")&&newScore == 0 && oldTopOneName != null) {
             if (oldTopOneName.equals("No data")) {
                 return newName;
             }
@@ -589,7 +591,7 @@ public class DetailScoreBoard implements Serializable {
         if (easyTopOneName.equals("No data")) {
             return easyTopOneName;
         }
-        return easyTopOneScore + "  " + easyTopOneName;
+        return easyTopOneScore + "\n" + easyTopOneName;
     }
 
     /**
@@ -601,7 +603,7 @@ public class DetailScoreBoard implements Serializable {
         if (mediumTopOneName.equals("No data")) {
             return mediumTopOneName;
         }
-        return mediumTopOneScore + "  " + mediumTopOneName;
+        return mediumTopOneScore + "\n" + mediumTopOneName;
     }
 
     /**
@@ -613,7 +615,7 @@ public class DetailScoreBoard implements Serializable {
         if (hardTopOneName.equals("No data")) {
             return hardTopOneName;
         }
-        return hardTopOneScore + "  " + hardTopOneName;
+        return hardTopOneScore + "\n" + hardTopOneName;
     }
 
     /**
