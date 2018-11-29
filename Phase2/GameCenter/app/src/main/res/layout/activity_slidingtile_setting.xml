@@ -14,6 +14,7 @@
         android:layout_marginTop="132dp"
         android:text="Size"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ModeText" />
 
@@ -26,6 +27,7 @@
         android:layout_marginBottom="378dp"
         android:text="Mode"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -40,6 +42,7 @@
         android:text="Slidingtile Game Setting"
         android:textColorLink="@color/colorPrimaryDark"
         android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
