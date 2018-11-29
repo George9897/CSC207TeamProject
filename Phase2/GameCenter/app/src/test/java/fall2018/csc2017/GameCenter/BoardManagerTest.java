@@ -8,21 +8,46 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 public class BoardManagerTest {
     /**
-     * The Boardmanager for test.
+     * The Boardmanagers for test. No4 is being solvable shuffle
      */
     private BoardManager boardManager1;
     private BoardManager boardManager2;
     private BoardManager boardManager3;
+    private BoardManager boardManager4;
     /**
      * Context for test.
      */
     private Context context;
+
+    /**
+     * Create a initial list of Tiles for game with matching sizes.
+     *
+     * @return list of Tiles.
+     */
+    private List createTiles(int level) {
+        List<Tile> tiles = new ArrayList<>();
+        final int numTiles = level * level;
+        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
+            if (tileNum == numTiles - 1) {
+                tiles.add(new Tile(0));
+            } else {
+                tiles.add(new Tile(tileNum + 1));
+            }
+        }
+        return tiles;
+    }
 
     /**
      * Set up three BoardManager for tests
@@ -33,6 +58,7 @@ public class BoardManagerTest {
         boardManager1 = new BoardManager(context, 3, true);
         boardManager2 = new BoardManager(context, 4, true);
         boardManager3 = new BoardManager(context, 5, true);
+        boardManager4 = new BoardManager(context, 4, false);
     }
 
     /**
@@ -44,6 +70,7 @@ public class BoardManagerTest {
         boardManager1 = null;
         boardManager2 = null;
         boardManager3 = null;
+        boardManager4 = null;
     }
 
     /**
@@ -51,6 +78,8 @@ public class BoardManagerTest {
      */
     @Test
     public void getSlidingTile() {
+//        SlidingTile sl = new SlidingTile(createTiles(5), 5);
+//        assertEquals(sl, boardManager3.getSlidingTile());
     }
 
     /**
@@ -125,6 +154,8 @@ public class BoardManagerTest {
      */
     @Test
     public void puzzleSolved() {
+        assertTrue(boardManager2.puzzleSolved());
+        assertFalse(boardManager4.puzzleSolved());
     }
 
     /**
@@ -140,6 +171,15 @@ public class BoardManagerTest {
      */
     @Test
     public void touchMove() {
+        boardManager1.touchMove(7);
+        assertEquals(1, boardManager1.getNumMoves());
+        boardManager1.touchMove(4);
+        assertEquals(2, boardManager1.getNumMoves());
+        boardManager1.touchMove(7);
+        assertEquals(3, boardManager1.getNumMoves());
+        boardManager1.touchMove(8);
+        assertEquals(4, boardManager1.getNumMoves());
+        assertTrue(boardManager1.puzzleSolved());
     }
 
     /**
@@ -147,6 +187,16 @@ public class BoardManagerTest {
      */
     @Test
     public void undo() {
+        boardManager2.touchMove(14);
+        boardManager2.touchMove(10);
+        boardManager2.touchMove(11);
+        boardManager2.touchMove(15);
+        boardManager2.undo();
+        boardManager2.undo();
+        boardManager2.undo();
+        boardManager2.undo();
+        assertTrue(boardManager2.puzzleSolved());
+        assertEquals(0,boardManager2.getUndoLimit());
     }
 
     /**
@@ -154,6 +204,18 @@ public class BoardManagerTest {
      */
     @Test
     public void undo3() {
+        boardManager2.touchMove(14);
+        boardManager2.touchMove(10);
+        boardManager2.touchMove(11);
+        boardManager2.touchMove(15);
+        boardManager2.undo3();
+        boardManager2.undo3();
+        assertEquals(1, boardManager2.getUndoLimit3());
+        boardManager2.undo3();
+        boardManager2.undo3();
+        assertFalse(boardManager2.puzzleSolved());
+        boardManager2.touchMove(15);
+        assertTrue(boardManager2.puzzleSolved());
     }
 
     /**
@@ -161,6 +223,8 @@ public class BoardManagerTest {
      */
     @Test
     public void getUserName() {
+        boardManager4.setUserName("A");
+        assertEquals("A", boardManager4.getUserName());
     }
 
     /**
@@ -168,6 +232,8 @@ public class BoardManagerTest {
      */
     @Test
     public void setUserName() {
+        boardManager1.setUserName("George");
+        assertEquals("George", boardManager1.getUserName());
     }
 
     /**
@@ -176,5 +242,7 @@ public class BoardManagerTest {
     @Test
     public void getLevel() {
         assertEquals(3, boardManager1.getLevel());
+        assertEquals(4, boardManager2.getLevel());
+        assertEquals(5, boardManager3.getLevel());
     }
 }
