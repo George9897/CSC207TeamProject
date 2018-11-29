@@ -249,16 +249,36 @@ public class MineManager extends Manager implements Serializable {
         return !mineBoard.getMineTile(row, col).getIsOpened();
     }
 
+    /**
+     * Getter for timer.
+     *
+     * @return the timer.
+     */
     Timer getTimer(){return timer;}
 
+    /**
+     * Add time.
+     *
+     * @param time the time passed.
+     */
     void addTime(int time){
         this.time += time;
     }
 
+    /**
+     * Getter for scorer.
+     *
+     * @return the scorer.
+     */
     Scorer getScorer(){
         return scorer;
     }
 
+    /**
+     * Setter for timer.
+     *
+     * @param timer the timer.
+     */
     void setTimer(Timer timer){
         this.timer = timer;
     }
@@ -277,7 +297,7 @@ public class MineManager extends Manager implements Serializable {
      */
     void winning() {
         time = scorer.getTimeScore();
-        score = scorer.calculateScore(mineBoard.getNumBoom(), time);
+        score = scorer.calculateScore(mineBoard.getNumBoom(), scorer.getTimeScore());
         timer.cancel();
     }
 

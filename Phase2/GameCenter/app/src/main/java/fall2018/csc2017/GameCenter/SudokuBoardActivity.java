@@ -16,10 +16,14 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Timer;
 
+/**
+ * The sudoku board game activity.
+ */
 public class SudokuBoardActivity extends AppCompatActivity implements Observer, Serializable {
 
     /**
@@ -42,8 +46,12 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
      */
     private int columnWidth, columnHeight;
 
+    /**
+     * The move of sudoku game.
+     */
     private int move;
 
+    //TODO
     private String sudokuDifficulty;
 
     /**
@@ -66,9 +74,8 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent tmp = getIntent();
-//        username = tmp.getExtras().getString("sudokuusername");
-////        loadFromFile(username + "Sudoku.ser");
-        sudokuDifficulty = tmp.getExtras().getString("sudokuDifficulty");
+        sudokuDifficulty =
+                Objects.requireNonNull(tmp.getExtras()).getString("sudokuDifficulty");
         if (sudokuBoardManager == null) {
             sudokuBoardManager = new SudokuBoardManager(this, sudokuDifficulty);
         }
@@ -163,6 +170,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
      *
      * @param fileName the name of the file
      */
+    //TODO
     private void loadFromFile(String fileName) {
 
         try {
@@ -204,7 +212,6 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         Button nine = findViewById(R.id.nine);
         nine.setOnClickListener(v -> {
             this.move = 109;
-            //sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
             sudokuBoardManager.setMove(move);
         });
     }
@@ -216,7 +223,6 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         Button eight = findViewById(R.id.eight);
         eight.setOnClickListener(v -> {
             this.move = 108;
-            //sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
             sudokuBoardManager.setMove(move);
         });
     }
@@ -228,7 +234,6 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         Button seven = findViewById(R.id.seven);
         seven.setOnClickListener(v -> {
             this.move = 107;
-            //sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
             sudokuBoardManager.setMove(move);
         });
     }
@@ -240,7 +245,6 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         Button six = findViewById(R.id.six);
         six.setOnClickListener(v -> {
             this.move = 106;
-            //sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
             sudokuBoardManager.setMove(move);
         });
     }
@@ -252,7 +256,6 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         Button five = findViewById(R.id.five);
         five.setOnClickListener(v -> {
             this.move = 105;
-            //sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
             sudokuBoardManager.setMove(move);
         });
     }
@@ -264,7 +267,6 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         Button four = findViewById(R.id.four);
         four.setOnClickListener(v -> {
             this.move = 104;
-            //sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
             sudokuBoardManager.setMove(move);
         });
     }
@@ -276,7 +278,6 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         Button three = findViewById(R.id.three);
         three.setOnClickListener(v -> {
             this.move = 103;
-            //sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
             sudokuBoardManager.setMove(move);
         });
     }
@@ -288,7 +289,6 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         Button two = findViewById(R.id.two);
         two.setOnClickListener(v -> {
             this.move = 102;
-            //sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
             sudokuBoardManager.setMove(move);
         });
     }
@@ -300,7 +300,6 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         Button one = findViewById(R.id.one);
         one.setOnClickListener(v -> {
             this.move = 101;
-            //sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
             sudokuBoardManager.setMove(move);
         });
     }
@@ -312,7 +311,6 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         Button eraser = findViewById(R.id.eraserButton);
         eraser.setOnClickListener(v -> {
             this.move = 0;
-            //sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
             sudokuBoardManager.setMove(move);
         });
     }
@@ -322,10 +320,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
      */
     private void addClearButtonListener() {
         Button clear = findViewById(R.id.clearButton);
-        clear.setOnClickListener(v -> {
-            //sudokuBoardManager = SudokuBoardManager.getSudokuBoardManager(this);
-            sudokuBoardManager.clear();
-        });
+        clear.setOnClickListener(v -> sudokuBoardManager.clear());
     }
 
     /**
@@ -347,6 +342,12 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         undoButton.setOnClickListener((v) -> sudokuBoardManager.undo());
     }
 
+    /**
+     * Update the sudoku game.
+     *
+     * @param o the observable object.
+     * @param arg the argument.
+     */
     @Override
     public void update(Observable o, Object arg) {
         display();

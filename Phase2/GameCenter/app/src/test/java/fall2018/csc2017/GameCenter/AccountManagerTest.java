@@ -44,9 +44,4 @@ public class AccountManagerTest {
     @Test
     public void checkPassword() {
     }
-
-    @Test
-    public void getUserName() {
-        assertEquals("Tom", accountManager.getUserName());
-    }
 }
