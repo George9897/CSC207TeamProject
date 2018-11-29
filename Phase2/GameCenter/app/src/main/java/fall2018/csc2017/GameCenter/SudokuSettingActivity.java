@@ -13,6 +13,9 @@ import android.widget.Toast;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * The sudoku setting activity.
+ */
 public class SudokuSettingActivity extends AppCompatActivity implements Serializable {
 
     /**
@@ -20,6 +23,11 @@ public class SudokuSettingActivity extends AppCompatActivity implements Serializ
      */
     private String sudokuDifficulty;
 
+    /**
+     * The creator for sudoku setting activity.
+     *
+     * @param savedInstanceState the saved state.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +42,14 @@ public class SudokuSettingActivity extends AppCompatActivity implements Serializ
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         boomDifficulty.setAdapter(dataAdapter);
         boomDifficulty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            /**
+             * Set difficulty when item is selected.
+             *
+             * @param arg0 the first argument.
+             * @param arg1 the second argument.
+             * @param arg2 the third argument.
+             * @param arg3 the forth argument.
+             */
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int arg2, long arg3) {
@@ -53,6 +69,11 @@ public class SudokuSettingActivity extends AppCompatActivity implements Serializ
                 }
             }
 
+            /**
+             * On nothing selected.
+             *
+             * @param arg0 the first argument.
+             */
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
             }
