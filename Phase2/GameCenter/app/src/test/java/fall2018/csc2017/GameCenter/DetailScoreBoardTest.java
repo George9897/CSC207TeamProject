@@ -14,22 +14,53 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
+/**
+ * Tests for DetailScoreBoard class.
+ */
 public class DetailScoreBoardTest {
 
+    /**
+     * The DetailScoreBoard detailScoreBoard for test.
+     */
     private DetailScoreBoard detailScoreBoard;
+
+    /**
+     * The Mock Context context for test.
+     */
     private Context context = new MockContext();
+
+    /**
+     * The String gameType for test.
+     */
     private String gameType;
 
-    private void setUpSlidingTileScoreBoard(){
+    /**
+     * The setUp of SlidingTile ScoreBoard.
+     */
+    private void setUpSlidingTileScoreBoard() {
         gameType = "SlidingTile";
         detailScoreBoard = new DetailScoreBoard(gameType, context);
     }
 
-    private void setUpSudokuScoreBoard(){
+    /**
+     * The setUp for Sudoku ScoreBoard.
+     */
+    private void setUpSudokuScoreBoard() {
         gameType = "Sudoku";
         detailScoreBoard = new DetailScoreBoard(gameType, context);
     }
 
+    /**
+     * The setUp for Sudoku ScoreBoard.
+     */
+    private void setUpMineScoreBoard() {
+        gameType = "Mine";
+        detailScoreBoard = new DetailScoreBoard(gameType, context);
+    }
+
+    /**
+     * The test for GetEasyLevel.
+     */
     @Test
     public void testGetEasyLevel() {
         setUpSudokuScoreBoard();
@@ -38,6 +69,9 @@ public class DetailScoreBoardTest {
         assertEquals(testLevel, detailScoreBoard.getEasyLevel());
     }
 
+    /**
+     * The test for SetEasyLevel.
+     */
     @Test
     public void testSetEasyLevel() {
         setUpSudokuScoreBoard();
@@ -46,6 +80,9 @@ public class DetailScoreBoardTest {
         assertEquals(testLevel, detailScoreBoard.getEasyLevel());
     }
 
+    /**
+     * The test for GetEasyTopOneName.
+     */
     @Test
     public void testGetEasyTopOneName() {
         setUpSlidingTileScoreBoard();
@@ -54,6 +91,9 @@ public class DetailScoreBoardTest {
         assertEquals(testUserName, detailScoreBoard.getEasyTopOneName());
     }
 
+    /**
+     * test for SetEasyTopOneName.
+     */
     @Test
     public void testSetEasyTopOneName() {
         setUpSlidingTileScoreBoard();
@@ -62,6 +102,9 @@ public class DetailScoreBoardTest {
         assertEquals(testUserName, detailScoreBoard.getEasyTopOneName());
     }
 
+    /**
+     * The test for GetEasyTopOneScore.
+     */
     @Test
     public void testGetEasyTopOneScore() {
         setUpSlidingTileScoreBoard();
@@ -70,6 +113,9 @@ public class DetailScoreBoardTest {
         assertEquals(testScore, detailScoreBoard.getEasyTopOneScore());
     }
 
+    /**
+     * The test for SetEasyTopOneScore.
+     */
     @Test
     public void testSetEasyTopOneScore() {
         setUpSlidingTileScoreBoard();
@@ -78,6 +124,9 @@ public class DetailScoreBoardTest {
         assertEquals(testScore, detailScoreBoard.getEasyTopOneScore());
     }
 
+    /**
+     * The test for GetEasyScoreList.
+     */
     @Test
     public void testGetEasyScoreList() {
         setUpSlidingTileScoreBoard();
@@ -85,6 +134,9 @@ public class DetailScoreBoardTest {
         assertNull(detailScoreBoard.getEasyScoreList());
     }
 
+    /**
+     * The test for SetEasyScoreList.
+     */
     @Test
     public void testSetEasyScoreList() {
         setUpSlidingTileScoreBoard();
@@ -92,6 +144,9 @@ public class DetailScoreBoardTest {
         assertNull(detailScoreBoard.getEasyScoreList());
     }
 
+    /**
+     * The test for SlidingTile ModifyEasyTopOne Never Played.
+     */
     @Test
     public void testSlidingTileModifyEasyTopOneNeverPlayed() {
         setUpSlidingTileScoreBoard();
@@ -99,6 +154,9 @@ public class DetailScoreBoardTest {
         assertNull(detailScoreBoard.getEasyLevel());
     }
 
+    /**
+     * The test for SlidingTile ModifyEasyTopOneLevel No Data.
+     */
     @Test
     public void testSlidingTileModifyEasyTopOneLevelNoData() {
         setUpSlidingTileScoreBoard();
@@ -106,6 +164,9 @@ public class DetailScoreBoardTest {
         assertEquals("", detailScoreBoard.getEasyTopOneName());
     }
 
+    /**
+     * The test for SlidingTile ModifyEasyTopOneEasyLevel No Data.
+     */
     @Test
     public void testSlidingTileModifyEasyTopOneEasyLevelNoData() {
         setUpSlidingTileScoreBoard();
@@ -113,6 +174,9 @@ public class DetailScoreBoardTest {
         assertEquals("", detailScoreBoard.getEasyTopOneName());
     }
 
+    /**
+     * The test for GetMediumLevel.
+     */
     @Test
     public void testGetMediumLevel() {
         setUpSudokuScoreBoard();
@@ -121,6 +185,9 @@ public class DetailScoreBoardTest {
         assertEquals(testLevel, detailScoreBoard.getMediumLevel());
     }
 
+    /**
+     * The test for SetMediumLevel.
+     */
     @Test
     public void testSetMediumLevel() {
         setUpSudokuScoreBoard();
@@ -129,6 +196,9 @@ public class DetailScoreBoardTest {
         assertEquals(testLevel, detailScoreBoard.getMediumLevel());
     }
 
+    /**
+     * The test for GetMediumTopOneName.
+     */
     @Test
     public void testGetMediumTopOneName() {
         setUpSlidingTileScoreBoard();
@@ -137,14 +207,20 @@ public class DetailScoreBoardTest {
         assertEquals(testUserName, detailScoreBoard.getMediumTopOneName());
     }
 
+    /**
+     * The test for SetMediumTopOneName.
+     */
     @Test
     public void testSetMediumTopOneName() {
-        setUpSlidingTileScoreBoard();
+        setUpMineScoreBoard();
         String testUserName = "user";
         detailScoreBoard.setMediumTopOneName(testUserName);
         assertEquals(testUserName, detailScoreBoard.getMediumTopOneName());
     }
 
+    /**
+     * The test for GetMediumTopOneScore.
+     */
     @Test
     public void testGetMediumTopOneScore() {
         setUpSlidingTileScoreBoard();
@@ -153,6 +229,9 @@ public class DetailScoreBoardTest {
         assertEquals(testScore, detailScoreBoard.getMediumTopOneScore());
     }
 
+    /**
+     * The test for SetMediumTopOneScore.
+     */
     @Test
     public void testSetMediumTopOneScore() {
         setUpSlidingTileScoreBoard();
@@ -161,6 +240,9 @@ public class DetailScoreBoardTest {
         assertEquals(testScore, detailScoreBoard.getMediumTopOneScore());
     }
 
+    /**
+     * The test for GetMediumScoreList.
+     */
     @Test
     public void testGetMediumScoreList() {
         setUpSlidingTileScoreBoard();
@@ -168,6 +250,9 @@ public class DetailScoreBoardTest {
         assertNull(detailScoreBoard.getMediumScoreList());
     }
 
+    /**
+     * The test for SetMediumScoreList.
+     */
     @Test
     public void testSetMediumScoreList() {
         setUpSlidingTileScoreBoard();
@@ -175,6 +260,9 @@ public class DetailScoreBoardTest {
         assertNull(detailScoreBoard.getMediumScoreList());
     }
 
+    /**
+     * The test for SlidingTile ModifyMediumTopOne Never Played.
+     */
     @Test
     public void testSlidingTileModifyMediumTopOneNeverPlayed() {
         setUpSlidingTileScoreBoard();
@@ -182,6 +270,9 @@ public class DetailScoreBoardTest {
         assertNull(detailScoreBoard.getMediumLevel());
     }
 
+    /**
+     * The test for SlidingTile ModifyMediumTopOneLevel No Data.
+     */
     @Test
     public void testSlidingTileModifyMediumTopOneLevelNoData() {
         setUpSlidingTileScoreBoard();
@@ -189,6 +280,9 @@ public class DetailScoreBoardTest {
         assertEquals("", detailScoreBoard.getMediumTopOneName());
     }
 
+    /**
+     * The test for SlidingTile ModifyMediumTopOneEasyLevel No Data.
+     */
     @Test
     public void testSlidingTileModifyMediumTopOneEasyLevelNoData() {
         setUpSlidingTileScoreBoard();
@@ -196,6 +290,9 @@ public class DetailScoreBoardTest {
         assertEquals("", detailScoreBoard.getMediumTopOneName());
     }
 
+    /**
+     * The test for GetHardLevel.
+     */
     @Test
     public void testGetHardLevel() {
         setUpSudokuScoreBoard();
@@ -204,6 +301,9 @@ public class DetailScoreBoardTest {
         assertEquals(testLevel, detailScoreBoard.getHardLevel());
     }
 
+    /**
+     * The test for SetHardLevel.
+     */
     @Test
     public void testSetHardLevel() {
         setUpSudokuScoreBoard();
@@ -212,6 +312,9 @@ public class DetailScoreBoardTest {
         assertEquals(testLevel, detailScoreBoard.getHardLevel());
     }
 
+    /**
+     * The test for GetHardTopOneName.
+     */
     @Test
     public void testGetHardTopOneName() {
         setUpSlidingTileScoreBoard();
@@ -220,6 +323,9 @@ public class DetailScoreBoardTest {
         assertEquals(testUserName, detailScoreBoard.getHardTopOneName());
     }
 
+    /**
+     * The test for SetHardTopOneName.
+     */
     @Test
     public void testSetHardTopOneName() {
         setUpSlidingTileScoreBoard();
@@ -228,6 +334,9 @@ public class DetailScoreBoardTest {
         assertEquals(testUserName, detailScoreBoard.getHardTopOneName());
     }
 
+    /**
+     * The test for GetHardTopOneScore.
+     */
     @Test
     public void testGetHardTopOneScore() {
         setUpSlidingTileScoreBoard();
@@ -236,6 +345,9 @@ public class DetailScoreBoardTest {
         assertEquals(testScore, detailScoreBoard.getHardTopOneScore());
     }
 
+    /**
+     * The test for SetHardTopOneScore.
+     */
     @Test
     public void testSetHardTopOneScore() {
         setUpSlidingTileScoreBoard();
@@ -244,6 +356,9 @@ public class DetailScoreBoardTest {
         assertEquals(testScore, detailScoreBoard.getHardTopOneScore());
     }
 
+    /**
+     * The test for GetHardScoreList.
+     */
     @Test
     public void testGetHardScoreList() {
         setUpSlidingTileScoreBoard();
@@ -251,6 +366,9 @@ public class DetailScoreBoardTest {
         assertNull(detailScoreBoard.getHardScoreList());
     }
 
+    /**
+     * The test for SetHardScoreList.
+     */
     @Test
     public void testSetHardScoreList() {
         setUpSlidingTileScoreBoard();
@@ -258,6 +376,9 @@ public class DetailScoreBoardTest {
         assertNull(detailScoreBoard.getHardScoreList());
     }
 
+    /**
+     * The test for SlidingTile HardMediumTopOne NeverPlayed.
+     */
     @Test
     public void testSlidingTileHardMediumTopOneNeverPlayed() {
         setUpSlidingTileScoreBoard();
@@ -265,6 +386,9 @@ public class DetailScoreBoardTest {
         assertNull(detailScoreBoard.getHardLevel());
     }
 
+    /**
+     * The test for SlidingTile ModifyHardTopOneLevel NoData.
+     */
     @Test
     public void testSlidingTileModifyHardTopOneLevelNoData() {
         setUpSlidingTileScoreBoard();
@@ -272,6 +396,9 @@ public class DetailScoreBoardTest {
         assertEquals("", detailScoreBoard.getHardTopOneName());
     }
 
+    /**
+     * The test SlidingTile ModifyHardTopOneEasyLevel NoData.
+     */
     @Test
     public void testSlidingTileModifyHardTopOneEasyLevelNoData() {
         setUpSlidingTileScoreBoard();
@@ -279,6 +406,9 @@ public class DetailScoreBoardTest {
         assertEquals("", detailScoreBoard.getHardTopOneName());
     }
 
+    /**
+     * The test GetEasyTopOne.
+     */
     @Test
     public void testGetEasyTopOne() {
         setUpSlidingTileScoreBoard();
@@ -290,6 +420,9 @@ public class DetailScoreBoardTest {
         assertEquals(expectMassage, detailScoreBoard.getEasyTopOne());
     }
 
+    /**
+     * The test for GetMediumTopOne.
+     */
     @Test
     public void testGetMediumTopOne() {
         setUpSlidingTileScoreBoard();
@@ -301,6 +434,9 @@ public class DetailScoreBoardTest {
         assertEquals(expectMassage, detailScoreBoard.getMediumTopOne());
     }
 
+    /**
+     * The test for GetHardTopOne.
+     */
     @Test
     public void testGetHardTopOne() {
         setUpSlidingTileScoreBoard();
@@ -312,6 +448,9 @@ public class DetailScoreBoardTest {
         assertEquals(expectMassage, detailScoreBoard.getMediumTopOne());
     }
 
+    /**
+     * The test for GetEasyMap.
+     */
     @Test
     public void testGetEasyMap() {
         setUpSlidingTileScoreBoard();
@@ -324,6 +463,9 @@ public class DetailScoreBoardTest {
         assertEquals(testList, detailScoreBoard.getEasyMap().get(testScore));
     }
 
+    /**
+     * The test GetMediumMap.
+     */
     @Test
     public void testGetMediumMap() {
         setUpSlidingTileScoreBoard();
@@ -336,6 +478,9 @@ public class DetailScoreBoardTest {
         assertEquals(testList, detailScoreBoard.getMediumMap().get(testScore));
     }
 
+    /**
+     * The test GetHardMap.
+     */
     @Test
     public void testGetHardMap() {
         setUpSlidingTileScoreBoard();
