@@ -81,17 +81,14 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
                     case "3x3":
                         difficulty = 3;
                         level = 3;
-//                        boardManager.setSlidingTileDifficulty( "Easy");
                         break;
                     case "4x4":
                         difficulty = 4;
                         level = 4;
-//                        boardManager.setSlidingTileDifficulty( "Medium");
                         break;
                     default:
                         difficulty = 5;
                         level = 5;
-//                        boardManager.setSlidingTileDifficulty( "Hard");
                         break;
                 }
             }
@@ -150,7 +147,7 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
      */
     private void switchToGame() {
         Intent tmp = new Intent(this, GameActivity.class);
-        boardManager = new BoardManager(this,level);
+        boardManager = new BoardManager(this, level, false);
         saveToFile(boardManager.getUserName() + ".ser");
         tmp.putExtra("slidingTileBoardManager", boardManager);
         tmp.putExtra("slidingTile", slidingTile);
@@ -174,7 +171,6 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
         Button confirmButton = findViewById(R.id.ConfirmButton);
         confirmButton.setOnClickListener(view -> {
             boardManager = null;
-            //boardManager = BoardManager.getBoardManager(this);
             switchToGame();
             System.out.println(boardManager.getSlidingTile().getTileList().length);
             System.out.println("still numbers mode");

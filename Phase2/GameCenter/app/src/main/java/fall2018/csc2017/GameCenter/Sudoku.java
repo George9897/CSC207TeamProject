@@ -9,8 +9,16 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Observable;
 
+/**
+ * The sudoku game.
+ */
 public class Sudoku extends Observable implements Serializable, Iterable<Tile> {
 
+    /**
+     * Iterator of sudoku game.
+     *
+     * @return the iterator of sudoku game.
+     */
     @NonNull
     @Override
     public Iterator<Tile> iterator() {
@@ -103,7 +111,7 @@ public class Sudoku extends Observable implements Serializable, Iterable<Tile> {
      *
      * @return the number of tiles on the sudoku
      */
-    protected int numTiles() {
+    int numTiles() {
         return size * size;
     }
 

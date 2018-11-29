@@ -100,7 +100,7 @@ public class MineManager extends Manager implements Serializable {
      * Setter for the time passed.
      */
     public void setTime(int time) {
-        this.time += time;
+        this.time = time;
     }
 
     /**
@@ -249,16 +249,36 @@ public class MineManager extends Manager implements Serializable {
         return !mineBoard.getMineTile(row, col).getIsOpened();
     }
 
+    /**
+     * Getter for timer.
+     *
+     * @return the timer.
+     */
     Timer getTimer(){return timer;}
 
+    /**
+     * Add time.
+     *
+     * @param time the time passed.
+     */
     void addTime(int time){
         this.time += time;
     }
 
+    /**
+     * Getter for scorer.
+     *
+     * @return the scorer.
+     */
     Scorer getScorer(){
         return scorer;
     }
 
+    /**
+     * Setter for timer.
+     *
+     * @param timer the timer.
+     */
     void setTimer(Timer timer){
         this.timer = timer;
     }
@@ -267,8 +287,8 @@ public class MineManager extends Manager implements Serializable {
      * Game failing logic.
      */
     void failing() {
-        setTime(scorer.getTimeScore());
-        setScore(0);
+        time = scorer.getTimeScore();
+        score = 0;
         timer.cancel();
     }
 
@@ -276,11 +296,16 @@ public class MineManager extends Manager implements Serializable {
      * Game winning logic.
      */
     void winning() {
-        setTime(scorer.getTimeScore());
-        setScore(scorer.calculateScore(mineBoard.getNumBoom(), time));
+        time = scorer.getTimeScore();
+        score = scorer.calculateScore(mineBoard.getNumBoom(), scorer.getTimeScore());
         timer.cancel();
     }
 
+    /**
+     * Setter for user name.
+     *
+     * @param userName the user's name.
+     */
     public void setUserName(String userName) {
         this.userName = userName;
     }

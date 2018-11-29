@@ -131,7 +131,7 @@ class BoardManager extends Manager implements Serializable, Undoable {
     /**
      * Constructor for BoardManager.
      */
-    BoardManager(Context context, int level) {
+    BoardManager(Context context, int level, boolean test) {
         this.level = level;
         if (level == 3){
             slidingTileDifficulty = "Easy";
@@ -150,7 +150,10 @@ class BoardManager extends Manager implements Serializable, Undoable {
             this.listOfPosition = new ArrayList<>();
             List tiles = createTiles();
             this.slidingTile = new SlidingTile(tiles, level);
-            solvableShuffle();
+            if (test == false) {
+                solvableShuffle();
+            }
+//            solvableShuffle();
         }
     }
 

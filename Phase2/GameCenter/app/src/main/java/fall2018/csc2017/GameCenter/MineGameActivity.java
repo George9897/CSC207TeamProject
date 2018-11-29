@@ -17,6 +17,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Timer;
@@ -67,8 +68,8 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        if (intent.getExtras().getBoolean("load")){
-            loadFromFile(StartingActivity.mineFile);
+        if (Objects.requireNonNull(intent.getExtras()).getBoolean("load")){
+            loadFromFile();
             mineManager.setTimer(timer);
         }
         String userName = intent.getStringExtra("UserName");
@@ -192,12 +193,11 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
     /**
      * Load the slidingTile manager from fileName.
      *
-     * @param fileName the name of the file
      */
-    private void loadFromFile(String fileName) {
+    private void loadFromFile() {
 
         try {
-            InputStream inputStream = this.openFileInput(fileName);
+            InputStream inputStream = this.openFileInput(StartingActivity.mineFile);
             if (inputStream != null) {
                 ObjectInputStream input = new ObjectInputStream(inputStream);
                 mineManager = (MineManager) input.readObject();

@@ -32,7 +32,7 @@ public class SlidingTileMovementController implements Serializable {
      *
      * @param boardManager The board manager that is being set.
      */
-    public void setBoardManager(BoardManager boardManager) {
+    void setBoardManager(BoardManager boardManager) {
         this.boardManager = boardManager;
     }
 
