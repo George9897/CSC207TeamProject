@@ -15,6 +15,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The detail score board.
+ */
 public class DetailScoreBoard implements Serializable {
 
     /**
@@ -181,7 +184,7 @@ public class DetailScoreBoard implements Serializable {
     void collectScoreLevel() {
         switch (gameType) {
             case "SlidingTile":
-                loadFromFile(StartingActivity.slidingFile);
+                loadFromFile(username + "sliding_tmp.ser");
                 if (boardManager == null) {
                     boardManager = new BoardManager(this.context, 3, false);
                 }
@@ -192,7 +195,7 @@ public class DetailScoreBoard implements Serializable {
                 username = boardManager.getUserName();
                 break;
             case "Mine":
-                loadFromFile(StartingActivity.mineFile);
+                loadFromFile(username + "mine_tmp.ser");
                 if (mineManager == null) {
                     mineManager = new MineManager(this.context, username, "EASY");
                 }
@@ -203,7 +206,7 @@ public class DetailScoreBoard implements Serializable {
                 username = mineManager.getUserName();
                 break;
             case "Sudoku":
-                loadFromFile(StartingActivity.sudokuFile);
+                loadFromFile(username + "sudoku_tmp.ser");
                 if (sudokuBoardManager == null) {
                     sudokuBoardManager = new SudokuBoardManager(this.context, "Easy");
                 }
@@ -302,7 +305,7 @@ public class DetailScoreBoard implements Serializable {
                               int newScore, String newName) {
         if (newScore > oldTopOneScore) {
             return newName;
-        } else if (newScore == 0 && oldTopOneName != null) {
+        } else if (!gameType.equals("Mine")&&newScore == 0 && oldTopOneName != null) {
             if (oldTopOneName.equals("No data")) {
                 return newName;
             }
@@ -589,7 +592,7 @@ public class DetailScoreBoard implements Serializable {
         if (easyTopOneName.equals("No data")) {
             return easyTopOneName;
         }
-        return easyTopOneScore + "  " + easyTopOneName;
+        return easyTopOneScore + "\n" + easyTopOneName;
     }
 
     /**
@@ -601,7 +604,7 @@ public class DetailScoreBoard implements Serializable {
         if (mediumTopOneName.equals("No data")) {
             return mediumTopOneName;
         }
-        return mediumTopOneScore + "  " + mediumTopOneName;
+        return mediumTopOneScore + "\n" + mediumTopOneName;
     }
 
     /**
@@ -613,7 +616,7 @@ public class DetailScoreBoard implements Serializable {
         if (hardTopOneName.equals("No data")) {
             return hardTopOneName;
         }
-        return hardTopOneScore + "  " + hardTopOneName;
+        return hardTopOneScore + "\n" + hardTopOneName;
     }
 
     /**
@@ -632,8 +635,10 @@ public class DetailScoreBoard implements Serializable {
      */
     ArrayList<String> getEasySortedList() {
         ArrayList<String> sortedList = new ArrayList<>();
+        if (!gameType.equals("Mine")&&easyScoreList.size()>0&&easyScoreList.get(0)==0)
+            easyScoreList.remove(0);
         if (!level.equals("neverPlayed") && !easyLevel.equals("neverPlayed")
-                && !easyTopOneName.equals("No data") && mediumScoreList.size() > 1) {
+                && !easyTopOneName.equals("No data") && easyScoreList.size() > 1) {
             easyMap.get(easyTopOneScore).remove(easyTopOneName);
             if (easyMap.get(easyTopOneScore).isEmpty() && easyScoreList.size() == 1) {
                 sortedList.add("No data");
@@ -676,6 +681,7 @@ public class DetailScoreBoard implements Serializable {
      */
     ArrayList<String> getMediumSortedList() {
         ArrayList<String> sortedList = new ArrayList<>();
+        if (!gameType.equals("Mine")&&mediumScoreList.size()>0&&mediumScoreList.get(0)==0) mediumScoreList.remove(0);
         if (!level.equals("neverPlayed") && !mediumLevel.equals("neverPlayed") &&
                 !mediumTopOneName.equals("No data") && mediumScoreList.size() > 1) {
             mediumMap.get(mediumTopOneScore).remove(mediumTopOneName);
@@ -717,6 +723,8 @@ public class DetailScoreBoard implements Serializable {
 
     ArrayList<String> getHardSortedList() {
         ArrayList<String> sortedList = new ArrayList<>();
+        if (!gameType.equals("Mine")&&hardScoreList.size()>0&&hardScoreList.get(0)==0)
+            hardScoreList.remove(0);
         if (!level.equals("neverPlayed") && !hardLevel.equals("neverPlayed") &&
                 !hardTopOneName.equals("No data") && hardScoreList.size() > 1) {
             hardMap.get(hardTopOneScore).remove(hardTopOneName);
