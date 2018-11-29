@@ -190,10 +190,6 @@ class BoardManager extends Manager implements Serializable, Undoable {
         return slidingTileDifficulty;
     }
 
-//    public void setSlidingTileDifficulty(String slidingTileDifficulty) {
-//        this.slidingTileDifficulty = slidingTileDifficulty;
-//    }
-
     /**
      * Shuffle tiles while gurantees a solution.
      */

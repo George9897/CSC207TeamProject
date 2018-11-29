@@ -15,6 +15,9 @@ import android.widget.GridView;
 
 import java.io.Serializable;
 
+/**
+ * The sudoku gesture detect grid view.
+ */
 public class SudokuGestureDetectGridView extends GridView implements Serializable {
     /**
      * The minimum swipe distance.
