@@ -32,24 +32,6 @@ public class BoardManagerTest {
     private Context context;
 
     /**
-     * Create a initial list of Tiles for game with matching sizes.
-     *
-     * @return list of Tiles.
-     */
-    private List createTiles(int level) {
-        List<Tile> tiles = new ArrayList<>();
-        final int numTiles = level * level;
-        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            if (tileNum == numTiles - 1) {
-                tiles.add(new Tile(0));
-            } else {
-                tiles.add(new Tile(tileNum + 1));
-            }
-        }
-        return tiles;
-    }
-
-    /**
      * Set up three BoardManager for tests
      */
     @Before
@@ -246,6 +228,9 @@ public class BoardManagerTest {
         assertEquals(5, boardManager3.getLevel());
     }
 
+    /**
+     * Test Get SlidingTile.
+     */
     @Test
     public void testGetSlidingTile(){
         setUp();
