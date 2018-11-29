@@ -209,7 +209,7 @@ public class MineManagerTest {
         mineManager.setScore(50000);
         assertEquals(50000, mineManager.getScore());
         mineManager.failing();
-        assertEquals(0, mineManager.getScore());
+        assertEquals(-1, mineManager.getScore());
 
     }
 
