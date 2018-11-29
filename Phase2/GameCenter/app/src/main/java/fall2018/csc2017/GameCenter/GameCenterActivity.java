@@ -21,6 +21,9 @@ public class GameCenterActivity extends AppCompatActivity implements Serializabl
      */
     public static final String TEMP_SAVE_FILENAME = "save_center_file_tmp.ser";
 
+    /**
+     * The user's name.
+     */
     private String userName;
 
     /**
