@@ -631,7 +631,7 @@ public class DetailScoreBoard implements Serializable {
     ArrayList<String> getEasySortedList(){
         ArrayList<String> sortedList = new ArrayList<>();
         if (!level.equals("neverPlayed") && !easyLevel.equals("neverPlayed")
-                && !easyTopOneName.equals("No data")) {
+                && !easyTopOneName.equals("No data") && mediumScoreList.size()>1) {
             easyMap.get(easyTopOneScore).remove(easyTopOneName);
             if (easyMap.get(easyTopOneScore).isEmpty()&& easyScoreList.size() == 1){
                 sortedList.add("No data");
@@ -643,7 +643,7 @@ public class DetailScoreBoard implements Serializable {
                 }
             }
             if (easyMap.get(easyScoreList.get(0)) != null) {
-                if((!gameType.equals("Mine")&&easyScoreList.get(0)!=0) || (gameType.equals("Mine"))) {
+                if(easyScoreList.get(0)!=0 || (gameType.equals("Mine"))) {
                     for (int j = 0; j < easyMap.get(easyScoreList.get(0)).size(); j++) {
                         sortedList.add(easyScoreList.get(0) + "  " +
                                 easyMap.get(easyScoreList.get(0)).get(j));
@@ -651,7 +651,9 @@ public class DetailScoreBoard implements Serializable {
                 }
             }
             easyMap.get(easyTopOneScore).add(0,easyTopOneName);
-        }else{ sortedList.add("No data"); }
+        }else{
+            sortedList.add("No data");
+        }
         if (sortedList.size()> 1) sortedList.remove("No data");
         return sortedList;
     }
@@ -685,9 +687,11 @@ public class DetailScoreBoard implements Serializable {
                 }
             }
             if (mediumMap.get(mediumScoreList.get(0)) != null) {
-                for (int j = 0; j < mediumMap.get(mediumScoreList.get(0)).size(); j++) {
-                    sortedList.add(mediumScoreList.get(0) + "  " +
-                            mediumMap.get(mediumScoreList.get(0)).get(j));
+                if(mediumScoreList.get(0)!=0 || (gameType.equals("Mine"))) {
+                    for (int j = 0; j < mediumMap.get(mediumScoreList.get(0)).size(); j++) {
+                        sortedList.add(mediumScoreList.get(0) + "  " +
+                                mediumMap.get(mediumScoreList.get(0)).get(j));
+                    }
                 }
             }
             mediumMap.get(mediumTopOneScore).add(0,mediumTopOneName);
@@ -722,9 +726,11 @@ public class DetailScoreBoard implements Serializable {
                 }
             }
             if (hardMap.get(hardScoreList.get(0)) != null) {
-                for (int j = 0; j < hardMap.get(hardScoreList.get(0)).size(); j++) {
-                    sortedList.add(hardScoreList.get(0) + "  " +
-                            hardMap.get(hardScoreList.get(0)).get(j));
+                if(hardScoreList.get(0)!=0 || (gameType.equals("Mine"))) {
+                    for (int j = 0; j < hardMap.get(hardScoreList.get(0)).size(); j++) {
+                        sortedList.add(hardScoreList.get(0) + "  " +
+                                hardMap.get(hardScoreList.get(0)).get(j));
+                    }
                 }
             }
             hardMap.get(hardTopOneScore).add(0, hardTopOneName);
