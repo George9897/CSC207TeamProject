@@ -162,7 +162,7 @@ public class DetailScoreBoardTest {
     public void testSlidingTileModifyEasyTopOneLevelNoData() {
         setUpSlidingTileScoreBoard();
         detailScoreBoard.setLevel("neverPlayed");
-        assertEquals("", detailScoreBoard.getEasyTopOneName());
+        assertNull(detailScoreBoard.getEasyTopOneName());
     }
 
     /**
@@ -172,7 +172,7 @@ public class DetailScoreBoardTest {
     public void testSlidingTileModifyEasyTopOneEasyLevelNoData() {
         setUpSlidingTileScoreBoard();
         detailScoreBoard.setEasyLevel("neverPlayed");
-        assertEquals("", detailScoreBoard.getEasyTopOneName());
+        assertNull(detailScoreBoard.getEasyTopOneName());
     }
 
     /**
@@ -279,7 +279,7 @@ public class DetailScoreBoardTest {
     public void testSlidingTileModifyMediumTopOneLevelNoData() {
         setUpSlidingTileScoreBoard();
         detailScoreBoard.setLevel("neverPlayed");
-        assertEquals("", detailScoreBoard.getMediumTopOneName());
+        assertNull(detailScoreBoard.getMediumTopOneName());
     }
 
     /**
@@ -289,7 +289,7 @@ public class DetailScoreBoardTest {
     public void testSlidingTileModifyMediumTopOneEasyLevelNoData() {
         setUpSlidingTileScoreBoard();
         detailScoreBoard.setMediumLevel("neverPlayed");
-        assertEquals("", detailScoreBoard.getMediumTopOneName());
+        assertNull(detailScoreBoard.getMediumTopOneName());
     }
 
     /**
@@ -396,7 +396,7 @@ public class DetailScoreBoardTest {
     public void testSlidingTileModifyHardTopOneLevelNoData() {
         setUpSlidingTileScoreBoard();
         detailScoreBoard.setLevel("neverPlayed");
-        assertEquals("", detailScoreBoard.getHardTopOneName());
+        assertNull(detailScoreBoard.getHardTopOneName());
     }
 
     /**
@@ -406,7 +406,7 @@ public class DetailScoreBoardTest {
     public void testSlidingTileModifyHardTopOneEasyLevelNoData() {
         setUpSlidingTileScoreBoard();
         detailScoreBoard.setHardLevel("neverPlayed");
-        assertEquals("", detailScoreBoard.getHardTopOneName());
+        assertNull(detailScoreBoard.getHardTopOneName());
     }
 
     /**
