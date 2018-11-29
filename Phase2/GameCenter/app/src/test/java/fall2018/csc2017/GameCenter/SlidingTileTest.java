@@ -1,12 +1,8 @@
 package fall2018.csc2017.GameCenter;
 
-import android.content.Context;
-
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,16 +10,24 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-//import fall2018.csc2017.GameCenter.BoardManager;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import static org.junit.Assert.*;
-
+/**
+ * The sliding tile test.
+ */
 public class SlidingTileTest {
     /**
-     * Sliding tile for test.
+     * First Sliding tile for test.
      */
     private SlidingTile slidingTile1;
+    /**
+     * Second Sliding tile for test.
+     */
     private SlidingTile slidingTile2;
+    /**
+     * Third Sliding tile for test.
+     */
     private SlidingTile slidingTile3;
 
 
@@ -46,21 +50,30 @@ public class SlidingTileTest {
     }
 
 
+    /**
+     * Set up a sliding tile board for test.
+     */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         slidingTile1 = new SlidingTile(createTiles(3), 3);
         slidingTile2 = new SlidingTile(createTiles(4), 4);
         slidingTile3 = new SlidingTile(createTiles(5), 5);
 
     }
 
+    /**
+     * Tear down.
+     */
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         slidingTile1 = null;
         slidingTile2 = null;
         slidingTile3 = null;
     }
 
+    /**
+     * Test whether getLevel works.
+     */
     @Test
     public void getLevel() {
         assertEquals(3, slidingTile1.getLevel());
@@ -68,6 +81,9 @@ public class SlidingTileTest {
         assertEquals(5, slidingTile3.getLevel());
     }
 
+    /**
+     * Test whether numTiles works.
+     */
     @Test
     public void numTiles() {
         assertEquals(9, slidingTile1.numTiles());
@@ -75,6 +91,9 @@ public class SlidingTileTest {
         assertEquals(25, slidingTile3.numTiles());
     }
 
+    /**
+     * Test whether getTileList works.
+     */
     @Test
     public void getTileList() {
         assertEquals(3, slidingTile1.getTileList().length);
@@ -82,6 +101,9 @@ public class SlidingTileTest {
         assertEquals(5, slidingTile3.getTileList().length);
     }
 
+    /**
+     * Test whether getTile works.
+     */
     @Test
     public void getTile() {
         // size three
@@ -118,10 +140,6 @@ public class SlidingTileTest {
         assertEquals(0,slidingTile3.getTile(4,4).getId());
     }
 
-//    @Test
-//    public void swapTiles() {
-//    }
-
     /**
      * Test whether swapping the first two tiles works.
      */
@@ -135,6 +153,9 @@ public class SlidingTileTest {
         slidingTile1.swapTiles(0, 0, 0, 1);
     }
 
+    /**
+     * Test whether testSwapMiddleTwo works.
+     */
     @Test
     public void testSwapMiddleTwo(){
         assertEquals(9, slidingTile2.getTile(2, 0).getId());
@@ -145,6 +166,9 @@ public class SlidingTileTest {
         slidingTile2.swapTiles(2, 0, 0, 1);
     }
 
+    /**
+     * Test whether testSwapLastTwo works.
+     */
     @Test
     public void testSwapLastTwo(){
         assertEquals(9, slidingTile3.getTile(1, 3).getId());
@@ -155,6 +179,9 @@ public class SlidingTileTest {
         slidingTile3.swapTiles(1, 3, 3, 4);
     }
 
+    /**
+     * Test whether testtoString works.
+     */
     @Test
     public void testtoString(){
         String result = "SlidingTile{" +
@@ -162,8 +189,11 @@ public class SlidingTileTest {
         assertEquals(result,slidingTile1.toString());
     }
 
+    /**
+     * Test whether iterator works.
+     */
     @Test
-    public void iterator() throws Exception {
+    public void iterator() {
         // Test iterator hasNext method and next non exception case.
         assertTrue(slidingTile1.iterator().hasNext());
         assertEquals(1, slidingTile1.iterator().next().getId());
