@@ -1,7 +1,6 @@
 package fall2018.csc2017.GameCenter;
 
 import android.content.Context;
-import android.test.mock.MockContext;
 
 import org.junit.After;
 import org.junit.Before;
@@ -10,7 +9,10 @@ import org.mockito.Mockito;
 
 import java.util.Timer;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 public class SudokuBoardManagerTest {
 
@@ -24,7 +26,7 @@ public class SudokuBoardManagerTest {
     /**
      * Timer for test.
      */
-    private Timer timer;
+    private Timer timer = null;
 
     /**
      * Context for test.
@@ -32,7 +34,7 @@ public class SudokuBoardManagerTest {
     private Context context;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         context = Mockito.mock(Context.class);
         sudokuBoardManager1 = new SudokuBoardManager(context,"Easy");
         sudokuBoardManager2 = new SudokuBoardManager(context,"Medium");
@@ -40,7 +42,7 @@ public class SudokuBoardManagerTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         context = null;
         sudokuBoardManager1 = null;
         sudokuBoardManager2 = null;
