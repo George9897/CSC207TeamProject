@@ -5,8 +5,6 @@ import android.content.Context;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
