@@ -121,8 +121,8 @@ public class SudokuBoardManagerTest {
      */
     @Test
     public void getDifficulty(){
-        assertEquals(10, sudokuBoardManager1.getDifficulty());
-        assertEquals(20, sudokuBoardManager2.getDifficulty());
+        assertEquals(30, sudokuBoardManager1.getDifficulty());
+        assertEquals(40, sudokuBoardManager2.getDifficulty());
         assertEquals(50, sudokuBoardManager3.getDifficulty());
     }
 
