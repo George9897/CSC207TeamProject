@@ -36,6 +36,7 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
         setContentView(R.layout.activity_detail_score_board);
         Intent intent = getIntent();
         String gameType = intent.getStringExtra("gameTypeWantedToSee");
+        String username = intent.getStringExtra("userName");
 
         boolean played = true;
         String filename = gameType + "DetailScoreBoard.ser";
@@ -45,6 +46,7 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
             played =false;
         }
         detailScoreBoard.setContext(this);
+        detailScoreBoard.setUsername(username);
 
         if (!played) {
             detailScoreBoard.collectScoreLevel();
@@ -53,6 +55,7 @@ public class DetailScoreBoardActivity extends AppCompatActivity implements Seria
             detailScoreBoard.modifyMediumTopOne();
             detailScoreBoard.modifyHardTopOne();
         }
+        System.out.println(detailScoreBoard.getEasyScoreList());
 
         TextView gameView = findViewById(R.id.GameView);
         gameView.setText(gameType);

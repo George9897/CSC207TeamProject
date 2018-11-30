@@ -179,6 +179,15 @@ public class DetailScoreBoard implements Serializable {
     }
 
     /**
+     * Set username on this DetailScoreBoard.
+     *
+     * @param username username of game
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
      * Update this score, userName, and manager of this DetailScoreBoard by gameType.
      */
     void collectScoreLevel() {
@@ -206,6 +215,7 @@ public class DetailScoreBoard implements Serializable {
                 username = mineManager.getUserName();
                 break;
             case "Sudoku":
+                System.out.println(username);
                 loadFromFile(username + "sudoku_tmp.ser");
                 if (sudokuBoardManager == null) {
                     sudokuBoardManager = new SudokuBoardManager(this.context, "Easy");

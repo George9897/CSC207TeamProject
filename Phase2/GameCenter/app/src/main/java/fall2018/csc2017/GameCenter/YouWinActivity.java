@@ -32,6 +32,11 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
     private String gameType;
 
     /**
+     * The username.
+     */
+    private String username;
+
+    /**
      * The Creator for you win activity.
      *
      * @param savedInstanceState the saved instance state.
@@ -54,6 +59,7 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
                         Objects.requireNonNull(intent.getExtras()).get("slidingTileBoardManager");
                 scoreBox.setText("Your Score: " +
                         (Integer.toString(Objects.requireNonNull(boardManager).getScore())));
+                username = boardManager.getUserName();
                 break;
             case "Mine":
                 mineManager = (MineManager)
@@ -68,6 +74,7 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
                 scoreBox.setText("Your Score: " + (Integer.toString(mineManager.getScore())) +
                         "\n\r" + "Time: "
                         + (Integer.toString(mineManager.getTime())) + " Seconds");
+                username = mineManager.getUserName();
                 break;
             case "Sudoku":
                 sudokuBoardManager =
@@ -77,6 +84,7 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
                         (Integer.toString(Objects.requireNonNull(sudokuBoardManager).getScore())) +
                         "\n\r" + "Time: "
                         + (Integer.toString(sudokuBoardManager.getTime())) + " Seconds");
+                username = sudokuBoardManager.getUserName();
                 break;
         }
         String filename = gameType + "DetailScoreBoard.ser";
@@ -85,12 +93,15 @@ public class YouWinActivity extends AppCompatActivity implements Serializable {
             detailScoreBoard = new DetailScoreBoard(gameType, this);
         }
         detailScoreBoard.setContext(this);
+        detailScoreBoard.setUsername(username);
 
         detailScoreBoard.collectScoreLevel();
         detailScoreBoard.createSortedList();
         detailScoreBoard.modifyEasyTopOne();
         detailScoreBoard.modifyMediumTopOne();
         detailScoreBoard.modifyHardTopOne();
+
+        System.out.println(detailScoreBoard.getEasyScoreList());
 
         saveToFile(filename);
         setUpSeeScoreButtonListener();
