@@ -5,8 +5,6 @@ import android.content.Context;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -417,7 +415,7 @@ public class DetailScoreBoardTest {
         setUpSlidingTileScoreBoard();
         int testScore = 10000;
         String testUserName = "user";
-        String expectMassage = testScore + "  " + testUserName;
+        String expectMassage = testScore + "\n" + testUserName;
         detailScoreBoard.setEasyTopOneName(testUserName);
         detailScoreBoard.setEasyTopOneScore(testScore);
         assertEquals(expectMassage, detailScoreBoard.getEasyTopOne());
@@ -431,7 +429,7 @@ public class DetailScoreBoardTest {
         setUpSlidingTileScoreBoard();
         int testScore = 10000;
         String testUserName = "user";
-        String expectMassage = testScore + "  " + testUserName;
+        String expectMassage = testScore + "\n" + testUserName;
         detailScoreBoard.setMediumTopOneName(testUserName);
         detailScoreBoard.setMediumTopOneScore(testScore);
         assertEquals(expectMassage, detailScoreBoard.getMediumTopOne());
@@ -445,7 +443,7 @@ public class DetailScoreBoardTest {
         setUpSlidingTileScoreBoard();
         int testScore = 10000;
         String testUserName = "user";
-        String expectMassage = testScore + "  " + testUserName;
+        String expectMassage = testScore + "\n" + testUserName;
         detailScoreBoard.setMediumTopOneName(testUserName);
         detailScoreBoard.setMediumTopOneScore(testScore);
         assertEquals(expectMassage, detailScoreBoard.getMediumTopOne());

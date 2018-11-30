@@ -10,9 +10,9 @@ import static java.lang.Math.pow;
 public class SudokuScorer extends Scorer implements Serializable {
 
     /**
-     * calculate score with given level and moves.
+     * calculate score with given level and time.
      *
-     * @param level     level of difficulty
+     * @param level level of difficulty
      * @param timeScore number of move.
      * @return return the calculate result
      */

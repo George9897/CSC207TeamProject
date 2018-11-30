@@ -1,60 +1,46 @@
 package fall2018.csc2017.GameCenter;
 
 import android.content.Context;
-import android.test.mock.MockContext;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
 
 public class AccountManagerTest {
     /**
-     * The mine manager for test.
+     * The account manager for test.
      */
     private AccountManager accountManager;
     private Context context;
 
+    /**
+     * Set up the AccountManager for tests
+     */
     @Before
     public void setUpCorrect(){
         context = Mockito.mock(Context.class);
         accountManager = new AccountManager(context);
-
+        accountManager.setUserName("tom");
     }
 
+    /**
+     * Tear down after test
+     */
     @After
-    public void tearDown() throws Exception {
+    public void tearDown(){
         context = null;
         accountManager = null;
     }
 
+    /**
+     * Set up the AccountManager for tests
+     */
     @Test
     public void setUp() {
-//        setUpCorrect();
-//        accountManager.setUp("Tom","tom123");
-
-    }
-
-    @Test
-    public void login() {
-//        accountManager.login("Tom");
-    }
-
-    @Test
-    public void checkUsername() {
-//        accountManager.setUp("Tom","tom123");
-//        accountManager.setUserName("Tom");
-//        assertTrue(accountManager.checkUsername("Tom"));
-//        assertFalse(accountManager.checkUsername("Jerry"));
-    }
-
-    @Test
-    public void checkPassword() {
-//        accountManager.setUp("Tom","tom123");
-//        assertTrue(accountManager.checkPassword("Tom","tom123"));
-//        assertFalse(accountManager.checkPassword("Tom","jerry123"));
+        context = Mockito.mock(Context.class);
+        accountManager = new AccountManager(context);
+        accountManager.setUserName("tom");
     }
 }
