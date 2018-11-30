@@ -10,11 +10,14 @@ import org.mockito.Mockito;
 
 public class AccountManagerTest {
     /**
-     * The mine manager for test.
+     * The account manager for test.
      */
     private AccountManager accountManager;
     private Context context;
 
+    /**
+     * Set up the AccountManager for tests
+     */
     @Before
     public void setUpCorrect(){
         context = Mockito.mock(Context.class);
@@ -22,12 +25,18 @@ public class AccountManagerTest {
         accountManager.setUserName("tom");
     }
 
+    /**
+     * Tear down after test
+     */
     @After
     public void tearDown(){
         context = null;
         accountManager = null;
     }
 
+    /**
+     * Set up the AccountManager for tests
+     */
     @Test
     public void setUp() {
         context = Mockito.mock(Context.class);
