@@ -36,7 +36,7 @@ public class SlidingTileTest {
      *
      * @return list of Tiles.
      */
-    private List createTiles(int level) {
+    private List<Tile> createTiles(int level) {
         List<Tile> tiles = new ArrayList<>();
         final int numTiles = level * level;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
@@ -201,7 +201,7 @@ public class SlidingTileTest {
         SlidingTile slidingTile = new SlidingTile(createTiles(0), 0);
         Iterator<Tile> iter = slidingTile.iterator();
         try{
-            Object a = iter.next();
+            iter.next();
         } catch (Exception ex) {
             assertTrue(ex instanceof NoSuchElementException);
         }
