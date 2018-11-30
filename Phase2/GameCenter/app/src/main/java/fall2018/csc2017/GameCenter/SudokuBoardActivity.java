@@ -66,6 +66,11 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
     }
 
+    /**
+     * The creator of sudoku board activity.
+     *
+     * @param savedInstanceState the savedInstanceState.
+     */
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,6 +171,8 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
 
     /**
      * Load the sudoku board manager from fileName.
+     *
+     * @param filename the file's name.
      */
     private void loadFromFile(String filename) {
 
@@ -325,7 +332,7 @@ public class SudokuBoardActivity extends AppCompatActivity implements Observer, 
     private void addSudokuQuitButtonsListener() {
         Button quitButton = findViewById(R.id.sudokuQuitButton);
         quitButton.setOnClickListener((v) -> {
-            Intent tmp = new Intent(this, SudokuSettingActivity.class);
+            Intent tmp = new Intent(this, GameCenterActivity.class);
             startActivity(tmp);
         });
     }

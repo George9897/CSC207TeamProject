@@ -22,6 +22,8 @@ public class LoginActivity extends AppCompatActivity implements Serializable {
 
     /**
      * generate buttons when createBooms this activity.
+     *
+     * @param savedInstanceState the savedInstanceState.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -145,6 +145,9 @@ public class DetailScoreBoard implements Serializable {
 
     /**
      * Init AccountManager.
+     *
+     * @param gameType the game's type.
+     * @param context the context.
      */
     DetailScoreBoard(String gameType, Context context) {
         this.gameType = gameType;
@@ -731,6 +734,11 @@ public class DetailScoreBoard implements Serializable {
         return hardMap;
     }
 
+    /**
+     * Get hard sorted list.
+     *
+     * @return the sorted list.
+     */
     ArrayList<String> getHardSortedList() {
         ArrayList<String> sortedList = new ArrayList<>();
         if (!gameType.equals("Mine")&&hardScoreList.size()>0&&hardScoreList.get(0)==0)

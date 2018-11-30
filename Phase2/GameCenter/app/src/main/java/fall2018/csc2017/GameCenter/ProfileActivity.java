@@ -39,6 +39,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     /**
      * generate information when createBooms this activity.
+     *
+     * @param savedInstanceState the savedInstanceState.
      */
     @SuppressLint("SetTextI18n")
     @Override

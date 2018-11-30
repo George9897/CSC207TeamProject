@@ -63,6 +63,7 @@ class MineMovementController implements Serializable {
      * Process a tapping movement.
      *
      * @param context  The context.
+     * @param position the position.
      */
     void processTapMovement(Context context, int position) {
         if(mineManager.isValidTap(position)) {
@@ -121,6 +122,7 @@ class MineMovementController implements Serializable {
      * Save the slidingTile manager to fileName.
      *
      * @param fileName the name of the file
+     * @param context the context.
      */
     public void saveToFile(String fileName, Context context) {
         try {

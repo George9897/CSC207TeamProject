@@ -13,7 +13,7 @@ public class MineScorer extends Scorer implements Serializable {
      *
      * @param numBooms level of difficulty
      * @param time     number of move.
-     * @return return the calculate result
+     * @return the calculated result
      */
     @Override
     public int calculateScore(int numBooms, int time) {

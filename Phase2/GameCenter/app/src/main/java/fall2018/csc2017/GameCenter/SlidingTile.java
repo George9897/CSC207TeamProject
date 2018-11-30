@@ -79,7 +79,8 @@ public class SlidingTile extends Observable implements Serializable, Iterable<Ti
      * A new slidingTile of tiles in row-major order.
      * Precondition: len(tiles) == level * level
      *
-     * @param tiles the tiles for the slidingTile
+     * @param tiles the tiles for the slidingTile.
+     * @param level the level.
      */
     SlidingTile(List<Tile> tiles, int level) {
         this.level = level;
@@ -96,7 +97,7 @@ public class SlidingTile extends Observable implements Serializable, Iterable<Ti
     /**
      * Return the level.
      *
-     * @return the size of slidingTile
+     * @return the size of slidingTile.
      */
     int getLevel() {
         return level;

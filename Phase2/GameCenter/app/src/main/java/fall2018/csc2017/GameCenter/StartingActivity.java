@@ -79,6 +79,15 @@ public class StartingActivity extends AppCompatActivity implements Serializable 
         addMyScoreButtonListener();
         addLogoutButtonListener();
         addProfileButtonListener();
+        addCenterButtonListener();
+    }
+
+    private void addCenterButtonListener() {
+        Button gcButton = findViewById(R.id.gamecenterbutton);
+        gcButton.setOnClickListener(view -> {
+            Intent tmp = new Intent(this, GameCenterActivity.class);
+            startActivity(tmp);
+        });
     }
 
     /**
