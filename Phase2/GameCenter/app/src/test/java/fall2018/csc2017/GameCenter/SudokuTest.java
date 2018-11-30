@@ -19,7 +19,7 @@ public class SudokuTest {
     private Sudoku sudoku;
 
     /**
-     * Create a initial list of Tiles for game with matching sizes.
+     * Create a initial list of Tiles for test.
      *
      * @return list of Tiles.
      */
@@ -36,37 +36,58 @@ public class SudokuTest {
         return tiles;
     }
 
+    /**
+     * Set up a sudoku for tests
+     */
     @Before
     public void setUp(){
         sudoku = new Sudoku(createTiles());
     }
 
+    /**
+     * Tear down after test
+     */
     @After
     public void tearDown(){
         sudoku = null;
     }
 
+    /**
+     * Test iterator method
+     */
     @Test
     public void iterator(){
         assertTrue(sudoku.iterator().hasNext());
         assertEquals(1, sudoku.iterator().next().getId());
     }
 
+    /**
+     * Test numTiles method
+     */
     @Test
     public void numTiles() {
         assertEquals(81, sudoku.numTiles());
     }
 
+    /**
+     * Test getSize method
+     */
     @Test
     public void getSize() {
         assertEquals(9, sudoku.getSize());
     }
 
+    /**
+     * Test getTile method
+     */
     @Test
     public void getTile() {
         assertEquals(11, sudoku.getTile(1,1).getId());
     }
 
+    /**
+     * Test writeNum method
+     */
     @Test
     public void writeNum() {
         sudoku.writeNum(1, 1, 1);
@@ -76,6 +97,9 @@ public class SudokuTest {
 
     }
 
+    /**
+     * Test toString method
+     */
     @Test
     public void testtoString() {
         assertEquals("Sudoku{" +
