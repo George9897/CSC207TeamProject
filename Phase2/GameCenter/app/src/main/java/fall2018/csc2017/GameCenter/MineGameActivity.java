@@ -156,7 +156,7 @@ public class MineGameActivity extends AppCompatActivity implements Observer, Ser
     private void addQuitButtonListener() {
         Button mineQuitButton = findViewById(R.id.quit);
         mineQuitButton.setOnClickListener((v) -> {
-            Intent tmp = new Intent(this, MineSettingActivity.class);
+            Intent tmp = new Intent(this, GameCenterActivity.class);
             startActivity(tmp);
         });
     }

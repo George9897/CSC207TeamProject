@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import java.io.FileNotFoundException;
@@ -42,6 +43,18 @@ public class GameCenterActivity extends AppCompatActivity implements Serializabl
         addTileGameButton();
         addMineGameButton();
         addSudokuGameButton();
+        addlobutton();
+    }
+
+    private void addlobutton() {
+        Button lobutton = findViewById(R.id.lobutton);
+        lobutton.setOnClickListener(view -> {
+//            boardManager = null;
+//            sudokuBoardManager = null;
+//            mineManager = null;
+            Intent temp = new Intent(this, LoginActivity.class);
+            startActivity(temp);
+        });
     }
 
     /**
