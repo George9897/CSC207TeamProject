@@ -69,6 +69,18 @@ class BoardManager extends Manager implements Serializable, Undoable {
     private int level;
 
     /**
+     * The row of position.
+     */
+    private int row;
+    /**
+     * The col of position.
+     */
+    private int col;
+    /**
+     * The blank id.
+     */
+    private int blankId;
+    /**
      * Getter for slidingTile.
      *
      * @return the last slidingTile get stored.
@@ -112,6 +124,7 @@ class BoardManager extends Manager implements Serializable, Undoable {
 
     /**
      * Getter for Level.
+     *
      * @return the size of the board
      */
     public int getLevel() {
@@ -120,6 +133,10 @@ class BoardManager extends Manager implements Serializable, Undoable {
 
     /**
      * Constructor for BoardManager.
+     *
+     * @param context the context.
+     * @param level the level.
+     * @param test the test.
      */
     BoardManager(Context context, int level, boolean test) {
         this.level = level;
@@ -186,12 +203,17 @@ class BoardManager extends Manager implements Serializable, Undoable {
         this.userName = userName;
     }
 
+    /**
+     * Getter for sliding tile's difficulty.
+     *
+     * @return the sliding tile's difficulty.
+     */
     String getSlidingTileDifficulty() {
         return slidingTileDifficulty;
     }
 
     /**
-     * Shuffle tiles while gurantees a solution.
+     * Shuffle tiles while guarantees a solution.
      */
     private void solvableShuffle() {
         // Constant for swapping directions.
@@ -290,9 +312,6 @@ class BoardManager extends Manager implements Serializable, Undoable {
                 || (right != null && right.getId() == blankId);
     }
 
-    private int row;
-    private int col;
-    private int blankId;
 
     /**
      * Process a touch at position in the slidingTile, swapping tiles as appropriate.

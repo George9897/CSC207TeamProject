@@ -54,6 +54,7 @@ public class CustomAdapter extends BaseAdapter implements Serializable {
 
     /**
      * Getter for position of button.
+     *
      * @param position the position of the item.
      * @return the position of the button on the screen.
      */
@@ -64,6 +65,7 @@ public class CustomAdapter extends BaseAdapter implements Serializable {
 
     /**
      * Getter for position of item.
+     *
      * @param position the position of the item.
      * @return the position of the item.
      */
@@ -74,6 +76,7 @@ public class CustomAdapter extends BaseAdapter implements Serializable {
 
     /**
      * Get the view of the button.
+     *
      * @param position the position of the button.
      * @param convertView the converted view of the item on that position.
      * @param parent the parent group of the view.

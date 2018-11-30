@@ -208,6 +208,9 @@ public class SudokuBoardManager extends Manager implements Serializable {
 
     /**
      * Constructor for BoardManager.
+     *
+     * @param context the context.
+     * @param sudokuDifficulty the sudoku difficulty.
      */
     SudokuBoardManager(Context context, String sudokuDifficulty) {
         this.sudokuDifficulty = sudokuDifficulty;

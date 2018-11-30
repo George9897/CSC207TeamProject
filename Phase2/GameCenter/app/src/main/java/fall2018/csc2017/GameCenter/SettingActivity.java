@@ -39,6 +39,9 @@ public class SettingActivity extends AppCompatActivity implements Serializable {
      */
     boolean undoLimited;
 
+    /**
+     * The level.
+     */
     private int level;
 
     /**

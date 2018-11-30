@@ -107,6 +107,9 @@ class MineTile implements Serializable {
 
     /**
      * The constructor for tiles.
+     *
+     * @param value the value of tile.
+     * @param isOpened whether the tile is opened.
      */
     MineTile(int value, boolean isOpened) {
         this.value = value;

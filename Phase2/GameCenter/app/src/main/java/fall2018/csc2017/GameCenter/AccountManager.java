@@ -44,6 +44,8 @@ public class AccountManager implements Serializable {
 
     /**
      * Init AccountManager.
+     *
+     * @param context the context.
      */
     AccountManager(Context context) {
         this.context = context;
@@ -100,7 +102,6 @@ public class AccountManager implements Serializable {
 
     /**
      * Load the user account from fileName.
-     *
      */
     private void loadFromFile() {
         try {
@@ -119,6 +120,13 @@ public class AccountManager implements Serializable {
         }
     }
 
+    /**
+     * Casting.
+     *
+     * @param obj the object needs casting.
+     * @param <T> the type to cast to.
+     * @return the casted object.
+     */
     @SuppressWarnings("unchecked")
     private static  <T> T cast(Object obj){
         return (T)obj;
@@ -135,7 +143,6 @@ public class AccountManager implements Serializable {
 
     /**
      * Save the user account to fileName.
-     *
      */
     private void saveToFile() {
         try {
@@ -150,7 +157,6 @@ public class AccountManager implements Serializable {
 
     /**
      * Load the user account from fileName.
-     *
      */
     private void loadName() {
         try {
@@ -172,7 +178,6 @@ public class AccountManager implements Serializable {
 
     /**
      * Save the user account to fileName.
-     *
      */
     private void saveName() {
         try {

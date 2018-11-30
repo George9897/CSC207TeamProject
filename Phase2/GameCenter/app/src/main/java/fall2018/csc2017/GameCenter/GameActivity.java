@@ -101,6 +101,9 @@ public class GameActivity extends AppCompatActivity implements Observer, Seriali
         boardManager.getSlidingTile().addObserver(GameActivity.this);
         gridView.getViewTreeObserver().addOnGlobalLayoutListener(
                 new ViewTreeObserver.OnGlobalLayoutListener() {
+                    /**
+                     * On global layout.
+                     */
                     @Override
                     public void onGlobalLayout() {
                         gridView.getViewTreeObserver().removeOnGlobalLayoutListener(
@@ -159,6 +162,7 @@ public class GameActivity extends AppCompatActivity implements Observer, Seriali
     /**
      * Load the slidingTile manager from fileName.
      *
+     * @param filename the file's name.
      */
     private void loadFromFile(String filename) {
 
