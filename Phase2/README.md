@@ -1,0 +1,169 @@
+# Markdown
+
+## setUp: please tap Run 'app' to run this project.
+
+## Game page for SlidingTile
+    This page is the main game page for SlidingTile game. We will have the Tiles' map in the middle
+    of the page, the number of tiles is your choice completely.
+
+    There are four functions in this page:
+
+    Playing the game
+        After tapping a tile on the map, the tile will swap with the blank tile around it, but if
+        there is no blank tile around the tile you tap, that means you just tapped an invalid tile.
+        After the map is in row-major order, you won the game!
+
+    Steps
+        On the left-bottom corner of this page, the number of steps taken by you will be recorded
+        there. Note that carefully manage your steps, since your score depends on it!
+
+    Undo functionality
+        After you tap "UNDO" button in the main game page, this functionality allows you to retrieve
+         the last game stage. If you miss tapped a unwanted tile, there is always a chance for you
+         to regret, we will deduct the step(s) for you.
+
+    Quit
+        Sometimes the game can be challenging, and you might want to quit the game before or after
+        you win. So, if you tap the "Quit" button, we will save the game for you and quit to the
+        main page.
+
+### Game launch center:
+    This page allows user to sign up or log in into the there account.
+
+    If you didn't sign up before, you need to sign up before you play our game.
+    Otherwise, you will get a error message in the message bax.
+
+    Sign up:
+        1. Clicking the sign up button.
+        2. Enter username and password starting with a letter.
+           Otherwise, you will get a error message in the message bax.
+        3. Click sign up button, it will direct to the Game center (only sliding tile game so far)
+
+    If you sign up before, you can log in from Game launch center.
+
+    Log in:
+        1. Clicking the log in button.
+        2. Enter username and current password that you signed up.
+           Otherwise, you will get a error message in the message bax.
+        3. Click log in button, it will direct to the Game center (only sliding tile game so far)
+
+### Game Center(Bonus):
+    After you sign up/ log in,
+    or after you choice Log Out Button in Starting page,
+
+    you can choice a game to play in this Game Center.
+    it will direct to the corresponding game starting page.
+
+    Current Game available: SlidingTile.
+
+### Starting page:
+    After you choice SlidingTile game in Game Center,
+    or after you choice Back to home Button in YouWin page,
+
+    you enter Starting page.
+
+    In Starting page, it has following feature:
+
+        + A Massage Box with our welcome message to you.
+        + A New Game Button
+            - Start a new game (enter Game Setting page).
+        + A Continue Button
+            - Continue a previous game (load and enter a autosaved SlidingTile game)
+        + A Log Out Button
+            - Return to Game Launch Center.
+        + A ScoreBoard Button
+            - Enter Scoreboard page.
+        + A Profile Button
+            - Enter Profile page.
+
+### Game Setting:
+    After you choice New Game Button in Starting page,
+    or After you choice Play Again Button in YouWin page,
+    you enter Game Setting page.
+
+    In Game Setting, it has following features:
+
+        + picture background switch Button (choice game mode)
+            - if switch Button is on:
+                choice a picture and play SlidingTile game with given picture as background.
+            - if switch Button is off:
+                play a default SlidingTile game with number as background.
+        + a size spinner (with size option: 3x3, 4x4(default), 5x5)
+        + a confirm and play Button
+            - enter SlidingTile game with mode and size you choose.
+
+# SlidingTile game
+    After you choice confirm and play Button in Game Setting page, you enter SlidingTile game page.
+
+    In SlidingTile game, it has following features:
+
+        + Play a SlidingTile game with setting you choice with unlimited chance to undo.
+        + Something happen when you solve the puzzle.
+            - See a "You Win" message.
+            - the Scoring system will calculate your score this game
+            - go to You Win page
+
+#### Scoring system:
+    After you solve the puzzle, you enter Scoring system page.
+
+    In Scoring system, it has following features:
+
+        + calculate the score
+            - score = a base score (1000) multiple by 10 to the power of (Level-3),
+                      and divided by the number of moves used.
+
+# YouWin page:
+    After you solve puzzle in SlidingTile game, you enter YouWin page.
+
+    In YouWin page, it has following features:
+
+        + See your score this game.
+        + A Play Again button
+            - Go to setting page.
+        + A See Scoreboard Button
+            - Enter Scoreboard page.
+        + A Back to home Button
+            - Back to Home page.
+
+### Scoreboard:
+    After you choose ScoreBoard Button in Starting page,
+    or after you choose See Scoreboard in YouWin page,
+
+    you enter ScoreBoard page.
+
+    In ScoreBoard, it has following features:
+
+        + Highest score
+            - Display highest score for all players that have signed up and played this game.
+        + 3x3 Button
+            - Display sorted rank for all players' score in 3x3.
+        + 4x4 Button
+            - Display sorted rank for all players' score in 3x3.
+        + 5x5 Button
+            - Display sorted rank for all players' score in 3x3.
+
+#### Per game scoreboard: Scoreboard
+    After you choose ScoreBoard Button in Starting page,
+    or after you choose See Scoreboard in YouWin page,
+
+    you enter ScoreBoard page.
+
+    In ScoreBoard, it has following features:
+
+        + Game Button
+            - Display scoreboard per game.
+        + User Button
+            - Display scoreboard per user.
+        + Highest score
+            - Display highest score for all players that have signed up and played this game.
+        + 3x3 Button
+            - Display sorted rank for all players' score in 3x3.
+        + 4x4 Button
+            - Display sorted rank for all players' score in 3x3.
+        + 5x5 Button
+            - Display sorted rank for all players' score in 3x3.
+
+#### Profile for each player:
+    At the starting page, you can see a profile button at the upper-left corner; click it you will
+    be able to see your profile with information of your account like username, password and records
+    We also added an avatar to represent you, BUT THAT FUNCTION IS NOT READY YET!!!
