@@ -59,7 +59,7 @@
     you can choice a game to play in this Game Center.
     it will direct to the corresponding game starting page.
 
-    Current Game available: SlidingTile.
+    Current Game available: SlidingTile, Mine, Sudoku.
 
 ### Starting page:
     After you choice SlidingTile game in Game Center,
@@ -98,8 +98,6 @@
             - enter SlidingTile game with mode and size you choose.
 
 # SlidingTile game
-    After you choice confirm and play Button in Game Setting page, you enter SlidingTile game page.
-
     In SlidingTile game, it has following features:
 
         + Play a SlidingTile game with setting you choice with unlimited chance to undo.
@@ -107,6 +105,44 @@
             - See a "You Win" message.
             - the Scoring system will calculate your score this game
             - go to You Win page
+
+# Mine game
+    In Mine game(or Minesweeper), the player must follow the rules that pops up after entering.
+    Detailed rules for Mine:
+                            1. Its a 16 * 16 board that has hidden booms under tiles, and each time
+                            the player single tap will open a tile to reveal its true identity.
+
+                            2. There are five states for one tile: Gray, Gray with flag, Number,
+                            White, and pink lighting
+                                Gray: This tile is yet to be opened.
+                                Gray with flag: This tile is flagged to mark as a possible boom.
+                                Number: This tile is safe and is opened, but there are boom(s)
+                                hidden in the surrounding 3 - 8 tiles. The number of hidden booms is
+                                represented by this number.
+                                White: This tile is opened and safe and no boom around.
+                                Pink lighting: This tile is opened and it is a boom.
+
+                            3. The player's double tap will flag any closed(Gray) tiles or dismiss
+                            an existing flag tile.
+
+                            4. Every single safe tile must be opened and every single boom must be
+                            flagged to win the game.
+## Mine Setting
+    There are three difficulties for Mine: Easy, Medium and Hard. The player will need to select one
+    and press CONFIRM AND PLAY to enter the game.
+
+## Mine Score
+    The difficulty of this game and the efficiency of the player largely determined the score after
+    he/she finish the game(if opened a boom tile, then the score is automatically -1). The player's
+    initial score will be 1000 time of the number of booms(difficulty), but each second after
+    confirming to play will cause a -0.5% deduction of the score, so be quick and careful!
+
+## Mine game page
+    Quit
+        Sometimes the game can be challenging, and you might want to quit the game before or after
+        you win. So, if you tap the "Quit" button, we will save the game for you and quit to the
+        main page.
+
 
 #### Scoring system:
     After you solve the puzzle, you enter Scoring system page.
@@ -118,7 +154,7 @@
                       and divided by the number of moves used.
 
 # YouWin page:
-    After you solve puzzle in SlidingTile game, you enter YouWin page.
+    After solving the game, you enter YouWin page.
 
     In YouWin page, it has following features:
 
