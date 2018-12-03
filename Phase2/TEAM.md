@@ -35,6 +35,9 @@
 
 ##### Team members contribution:
     | Yuan Gao:
+                1. Scorer model and related implementation.
+                2. DetailScoreBoard Starting up
+                3. Sudoku game and AccountManager related tests
 
     | Zheyu Yang:
                 1. Mine game implementation.
