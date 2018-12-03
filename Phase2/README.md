@@ -129,39 +129,26 @@
     After you choose ScoreBoard Button in Starting page,
     or after you choose See Scoreboard in YouWin page,
 
-    you enter ScoreBoard page.
+    you enter a page to choose the game type of the score board you want to see.
 
     In ScoreBoard, it has following features:
 
-        + Highest score
-            - Display highest score for all players that have signed up and played this game.
-        + 3x3 Button
-            - Display sorted rank for all players' score in 3x3.
-        + 4x4 Button
-            - Display sorted rank for all players' score in 3x3.
-        + 5x5 Button
-            - Display sorted rank for all players' score in 3x3.
+        + Top1 score and username for Easy, Medium and Hard level
+            - Display highest score and username for all players that have signed up and played this game.
+        + Other scores and usernames for Easy, Medium and Hard level except the Top1's
+            - Display all scores for all players that have signed up and played this game.
+        + Game type
+            - SlidingTile or Sudoku or Mine
 
 #### Per game scoreboard: Scoreboard
-    After you choose ScoreBoard Button in Starting page,
-    or after you choose See Scoreboard in YouWin page,
+    After you choose MyScore Button in Starting page,
 
     you enter ScoreBoard page.
 
     In ScoreBoard, it has following features:
 
-        + Game Button
-            - Display scoreboard per game.
-        + User Button
-            - Display scoreboard per user.
-        + Highest score
-            - Display highest score for all players that have signed up and played this game.
-        + 3x3 Button
-            - Display sorted rank for all players' score in 3x3.
-        + 4x4 Button
-            - Display sorted rank for all players' score in 3x3.
-        + 5x5 Button
-            - Display sorted rank for all players' score in 3x3.
+        + Highest Score
+            - Display current player's highest score of 3 games.
 
 #### Profile for each player:
     At the starting page, you can see a profile button at the upper-left corner; click it you will
