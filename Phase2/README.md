@@ -1,6 +1,11 @@
 # Markdown
 
-## setUp: please tap Run 'app' to run this project.
+## setUp: 1. We found that NEXUS 5X is the best performance virtual devise for our project.
+          2. In build.gradle file, we put Mockito in for testing purposes.
+                The following code is what we put in the build.gradle file.
+                repositories { jcenter() }
+                dependencies { testCompile "org.mockito:mockito-core:2.+" }
+          3. Please tap Run 'app' to run this project.
 
 ## Game page for SlidingTile
     This page is the main game page for SlidingTile game. We will have the Tiles' map in the middle
